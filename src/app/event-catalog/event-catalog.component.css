@@ -1,0 +1,11 @@
+mat-toolbar{
+  background-color: white;
+  height: 30px;
+}
+.basic-container {
+  padding: 10px;
+  background: #555555;
+}
+.clickable{
+  cursor: pointer;
+}

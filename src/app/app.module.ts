@@ -8,15 +8,21 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
-
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
-import { EventCatalogComponent } from './event-catalog/event-catalog.component';
+import {EventCatalogComponent, FilterPipe} from './event-catalog/event-catalog.component';
 import { MyEventsComponent } from './my-events/my-events.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ManagementComponent } from './management/management.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {FormsModule} from "@angular/forms";
+import {MatButtonModule} from "@angular/material/button";
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+
 
 const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
@@ -33,7 +39,8 @@ const routes: Routes = [
     MyEventsComponent,
     HomepageComponent,
     ManagementComponent,
-    ProfileComponent
+    ProfileComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -45,7 +52,14 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatToolbarModule,
+    FormsModule,
+    MatButtonModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatInputModule,
+
 
   ],
   exports: [
