@@ -15,5 +15,5 @@ export class HomepageComponent {
     console.log(evt);
   }
 
-  eventlist = listData.reverse();
+  eventlist = listData;
 }
