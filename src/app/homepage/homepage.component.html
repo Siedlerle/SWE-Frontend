@@ -3,31 +3,36 @@
   <body>
     <mat-grid-list cols="2" rowHeight="2:1" [gutterSize]="'15px'">
       <mat-grid-tile rowspan="1" colspan="1">
-        <h1>Meine Events</h1>
+        <mat-grid-tile-header>
+          <h1>Meine Events</h1>
+        </mat-grid-tile-header>
         <mat-list>
-          <mat-list-item>
-            <mat-card>
-              <mat-card-content>Hello World</mat-card-content>
-            </mat-card>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-card>
-              <mat-card-header> Tobias ist wirklich Dumm</mat-card-header>
-              <mat-card-content>Tobias ist cool</mat-card-content>
-            </mat-card>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-card>
-              <mat-card-content>Timo ist dumm</mat-card-content>
+          <mat-list-item *ngFor="let item of eventlist" (click)="onCardClick($event)" class ="clickable">
+            <mat-card [style.width]="'100%'" >
+              <mat-card-header>{{item.title}}</mat-card-header>
+              <mat-card-content>{{item.description}}</mat-card-content>
             </mat-card>
           </mat-list-item>
         </mat-list>
       </mat-grid-tile>
       <mat-grid-tile rowspan="2" colspan="1">
+        <mat-grid-tile-header>
+          <h1>Kalender</h1>
+        </mat-grid-tile-header>
         <mat-calendar></mat-calendar>
       </mat-grid-tile>
       <mat-grid-tile rowspan="1" colspan="1">
-        <h1>Neuigkeiten</h1>
+        <mat-grid-tile-header>
+          <h1>Neuigkeiten</h1>
+        </mat-grid-tile-header>
+        <mat-list>
+          <mat-list-item *ngFor="let item of eventlist" (click)="onCardClick($event)" class ="clickable">
+            <mat-card [style.width]="'100%'" >
+              <mat-card-header>{{item.title}}</mat-card-header>
+              <mat-card-content>{{item.description}}</mat-card-content>
+            </mat-card>
+          </mat-list-item>
+        </mat-list>
       </mat-grid-tile>
     </mat-grid-list>
   </body>

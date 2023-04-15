@@ -1,8 +1,60 @@
 mat-grid-tile {
-  background-color: aquamarine;
+  background-color: lightgray;
   border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 
 }
 mat-grid-list {
   margin: 15px;
 }
+
+mat-card-content {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+mat-list {
+  margin-top: 50px;
+  overflow-y: auto;
+  max-height: 90%;
+  width: 100%;
+}
+
+mat-card {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  width: 100%;
+}
+
+mat-list-item {
+  margin-bottom: 10px;
+}
+
+mat-card:hover {
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  background-color: gray;
+}
+
+mat-card:active {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+
+}
+
+mat-calendar {
+  height: 100%;
+  width: 100%;
+}
+
+.clickable{
+  cursor: pointer;
+}
+
+.tileHeadline {
+
+}
+

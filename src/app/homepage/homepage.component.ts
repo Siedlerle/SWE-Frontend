@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { listData } from './event-list';
 
 @Component({
   selector: 'app-homepage',
@@ -10,5 +11,9 @@ import { Component } from '@angular/core';
 
 
 export class HomepageComponent {
+  public onCardClick(evt: MouseEvent){
+    console.log(evt);
+  }
 
+  eventlist = listData.reverse();
 }
