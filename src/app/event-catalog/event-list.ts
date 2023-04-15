@@ -1,22 +1,4 @@
+
 export let listData = [
-  { "number": 1, "title": "First Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 2, "title": "Second Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 3, "title": "Third Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 4, "title": "Fourth Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 5, "title": "First Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 6, "title": "Second Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 7, "title": "Third Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 8, "title": "Fourth Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 9, "title": "Fourth Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 10, "title": "First Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 11, "title": "Second Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 12, "title": "Third Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 13, "title": "Fourth Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 14, "title": "First Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 15, "title": "Second Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 16, "title": "Third Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 17, "title": "Fourth Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 18, "title": "First Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 19, "title": "Second Event", "description": "TestEvent with some long description to see the maximum of the Tile"},
-  { "number": 20, "title": "Third Event", "description": "TestEvent with some long description to see the maximum of the Tile"}
+  { eventTitle: "your First event", eventDescription: "Its not my first Event", eventDate: "15.04.2023", eventOrganizer: "Ich bims" }
 ];

@@ -1,1 +1,32 @@
-<p>management works!</p>
+<!doctype html>
+<html>
+<mat-toolbar>
+  <input class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText" #searchbar>
+  <button class="search-icon" mat-icon-button disabled>
+    <mat-icon>search</mat-icon>
+  </button>
+  <button class ="filter-icon"mat-icon-button>
+    <mat-icon>filter_list</mat-icon>
+  </button>
+</mat-toolbar>
+<div class="basic-container">
+  <mat-grid-list cols="2" rowHeight="fit" gutterSize="15px" [style.height]="'2000px'" >
+    <mat-grid-tile *ngFor="let item of eventList | filter: searchText" (click)="onCardClick($event)" class ="clickable" >
+      <mat-card [style.width]="'100%'" >
+        <mat-card-header>{{item.eventTitle}}</mat-card-header >
+        <mat-card-content>{{item.eventDescription}}</mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <button (click)="openPopup()" class = "add-button">
+    <mat-icon class = "add-Icon">add</mat-icon>
+  </button>
+
+  <app-add-event *ngIf="showPopup" (onClose)="closePopup()"></app-add-event>
+  <mat-paginator [pageSizeOptions]="[10, 20, 30]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>
+</html>

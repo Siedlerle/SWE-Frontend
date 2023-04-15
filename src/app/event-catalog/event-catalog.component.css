@@ -2,10 +2,30 @@ mat-toolbar{
   background-color: white;
   height: 30px;
 }
+.search-icon{
+  color: #333333;
+}
+.filter-icon{
+  color: #555555;
+}
 .basic-container {
   padding: 10px;
-  background: #555555;
 }
 .clickable{
   cursor: pointer;
+}
+mat-card{
+  background: #555555;
+
+}
+mat-card-header{
+  font-size: larger;
+
+
+}
+mat-card-hover{
+  background-color: #333333;
+}
+mat-card-active{
+
 }

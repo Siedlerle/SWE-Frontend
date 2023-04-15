@@ -1,6 +1,7 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import { Pipe, PipeTransform } from '@angular/core';
 import { listData } from './event-list';
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-event-catalog',
@@ -8,14 +9,16 @@ import { listData } from './event-list';
   styleUrls: ['./event-catalog.component.css']
 })
 export class EventCatalogComponent {
-  public onCardClick(evt: MouseEvent){
+  public onCardClick(evt: MouseEvent) {
     console.log(evt);
   }
-  eventlist = listData.reverse();
+
+  eventList = listData.reverse();
   @ViewChild('searchbar') searchbar: ElementRef;
   searchText = '';
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   toggleSearch: boolean = false;
+
   constructor() {
 
   }
@@ -24,11 +27,13 @@ export class EventCatalogComponent {
     this.toggleSearch = true;
     this.searchbar.nativeElement.focus();
   }
+
   searchClose() {
     this.searchText = '';
     this.toggleSearch = false;
   }
 }
+
 
 @Pipe({
   name: 'filter'

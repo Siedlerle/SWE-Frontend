@@ -22,6 +22,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import { AddEventComponent } from './add-event/add-event.component';
 
 
 const routes: Routes = [
@@ -40,7 +42,8 @@ const routes: Routes = [
     HomepageComponent,
     ManagementComponent,
     ProfileComponent,
-    FilterPipe
+    FilterPipe,
+    AddEventComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +62,7 @@ const routes: Routes = [
     MatTabsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatPaginatorModule,
 
 
   ],
