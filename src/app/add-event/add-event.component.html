@@ -1,77 +1,74 @@
 <div class="popup">
   <div class="heading">
-    <h1>Create an event:</h1>
-    <button style="background-color: red; color: white; margin-left: auto" mat-raised-button (click)="closePopup()" class = "close-Button"><mat-icon>close</mat-icon></button>
+    <h1>Event erstellen</h1>
+    <button mat-fab (click)="closePopup()" class = "close-Button">
+      <mat-icon class ="close-Icon">close</mat-icon>
+    </button>
   </div>
 
-  <mat-grid-list cols="2" rowHeight="220px">
-  <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+  <mat-grid-list cols="1" rowHeight="165px"  class = "form-list">
+  <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows" class = >
     <mat-card class="dashboard-card">
-      <mat-card-header>
-        <mat-card-title style="font-weight: bold; font-size: 20px">
-          {{card.title}}
-        </mat-card-title>
-      </mat-card-header>
       <mat-card-content>
-        <ng-container *ngIf="card.title === 'Basic Configuration'">
+        <ng-container *ngIf="card.title === 'Basic Configuration'" class = "basic-container">
           <form #form="ngForm"(ngSubmit)="onSubmit(form)">
-            <div class="form">
+            <div class="form-div">
               <p>
                 <mat-form-field appearance="fill" style="position: relative; width: 80%">
-                  <mat-label>Name</mat-label>
-                  <input matInput placeholder="Tomorrowland" [(ngModel)]="eventTitle" name="eventName" required>
-                  <mat-error *ngIf="!eventTitle">Name is required</mat-error>
+                  <mat-label>Titel des Events</mat-label>
+                  <input matInput placeholder="Titel des Events" [(ngModel)]="eventTitle" name="eventName" required>
+                  <mat-error *ngIf="!eventTitle">Titel wird benötigt</mat-error>
                 </mat-form-field>
               </p>
               <p>
                 <mat-form-field appearance="fill" style="position: relative; width: 80%">
-                  <mat-label>Description</mat-label>
-                  <input matInput placeholder="The biggest festival on earth. Get here as soon as you can." [(ngModel)]="eventDescription" name="eventDescription" required>
-                  <mat-error *ngIf="!eventDescription">Description is required</mat-error>
+                  <mat-label>Beschreibung des Events</mat-label>
+                  <input matInput placeholder="Beschreibung des Events" [(ngModel)]="eventDescription" name="eventDescription" required>
+                  <mat-error *ngIf="!eventDescription">Beschreibung wird benötigt</mat-error>
                 </mat-form-field>
               </p>
               <div>
                 <p>
-                  <mat-form-field appearance="fill" style="position: relative; width: 35%; float: left; padding-left: 10%">
-                    <mat-label>Start</mat-label>
+                  <mat-form-field appearance="fill" style="position: relative; width: 20%; float: left">
+                    <mat-label>Startzeit</mat-label>
                     <input matInput placeholder="12:30" [(ngModel)]="eventStart" name="eventStart" inputmode="numeric" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"  required>
-                    <mat-error *ngIf="!eventStart">Name is required</mat-error>
+                    <mat-error *ngIf="!eventStart">Startzeit wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
                 <p>
-                  <mat-form-field appearance="fill" style="position: relative; width: 35%; float: right; padding-right: 10%">
-                    <mat-label>End</mat-label>
+                  <mat-form-field appearance="fill" style="position: relative; width: 20%; float: left; padding-left: 5%">
+                    <mat-label>Endzeit</mat-label>
                     <input matInput placeholder="13:30" [(ngModel)]="eventEnd" name="eventEnd" inputmode="numeric" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"  required>
-                    <mat-error *ngIf="!eventEnd">Name is required</mat-error>
+                    <mat-error *ngIf="!eventEnd">Endzeit wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
               </div>
               <p>
                 <mat-form-field appearance="fill" style="position: relative; width: 80%">
-                  <mat-label>Choose a date</mat-label>
+                  <mat-label>Datum des Events</mat-label>
                   <input matInput [matDatepicker]="picker" [(ngModel)]="eventDate" name="eventDate" required>
                   <mat-hint>MM/DD/YYYY</mat-hint>
                   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
-                  <mat-error *ngIf="!eventDate">Date is required</mat-error>
+                  <mat-error *ngIf="!eventDate">Datum wird benötigt</mat-error>
                 </mat-form-field>
               </p>
               <p>
                 <mat-form-field appearance="fill" style="position: relative; width: 80%">
-                  <mat-label>Location</mat-label>
-                  <input matInput placeholder="Besprechungsraum 6" [(ngModel)]="eventLocation" name="eventLocation" required>
-                  <mat-error *ngIf="!eventLocation">Name is required</mat-error>
+                  <mat-label>Ort</mat-label>
+                  <input matInput placeholder="Veranstaltungsort" [(ngModel)]="eventLocation" name="eventLocation" required>
+                  <mat-error *ngIf="!eventLocation">Veranstaltungsort wird benötigt</mat-error>
                 </mat-form-field>
               </p>
               <p>
                 <mat-form-field appearance="fill" style="position: relative; width: 80%">
-                  <mat-label>Organizer</mat-label>
-                  <input matInput placeholder="Mark Zuckerberg" [(ngModel)]="eventOrganizer" name="eventOrganizer" required>
-                  <mat-error *ngIf="!eventOrganizer">Organizer is required</mat-error>
+                  <mat-label>Organisator</mat-label>
+                  <input matInput placeholder="" [(ngModel)]="eventOrganizer" name="eventOrganizer" required>
+                  <mat-error *ngIf="!eventOrganizer">Organisator wird benötigt</mat-error>
                 </mat-form-field>
               </p>
               <p>
-                <button mat-raised-button type="submit" [disabled]="!eventTitle|| !eventDescription || !eventDate || !eventOrganizer">Submit</button>
+                <button mat-raised-button type="submit" [disabled]="!eventTitle|| !eventDescription || !eventDate || !eventOrganizer" class = "submit-button">Erstellen</button>
               </p>
             </div>
           </form>
