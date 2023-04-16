@@ -18,7 +18,6 @@ mat-list {
 }
 
 mat-list-item:nth-child(n) {
-
   height: 35%;
 }
 
