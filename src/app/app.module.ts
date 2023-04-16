@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
   { path: 'event-catalog', component: EventCatalogComponent },
   { path: 'my-events', component: MyEventsComponent },
-  { path: 'management', component: ManagementComponent}
+  { path: 'management', component: ManagementComponent},
 ];
 
 @NgModule({
@@ -43,7 +43,7 @@ const routes: Routes = [
     ManagementComponent,
     ProfileComponent,
     FilterPipe,
-    AddEventComponent
+    AddEventComponent,
   ],
   imports: [
     BrowserModule,

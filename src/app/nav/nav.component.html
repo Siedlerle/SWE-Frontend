@@ -4,7 +4,17 @@
 
   </header>
   <body>
-    <img src="../../assets/images/Banner.png" alt="Banner" class="banner-image">
+  <div class="banner-dropdown">
+    <img src="../../assets/images/Banner.png" alt="Banner" class="banner-image" (click)="toggleDropdownBanner($event)">
+    <div class="dropdown-content-Banner" [ngClass]="{'show': isDropdownOpenBanner}" [style.top.px]="dropDownTop" [style.left.px]="dropDownLeft">
+      <a routerLink="/logout">Organisations 1</a>
+      <a routerLink="/settings">Organisation 2</a>
+      <a routerLink="/organisation-catalog">Organisationen durchsuchen</a>
+    </div>
+  </div>
+
+
+
     <nav>
       <div class="nav-menu">
         <div class="left-items">
@@ -14,7 +24,17 @@
           <a routerLink="/management" class="nav-item">Verwaltung</a>
         </div>
         <div class="right-items">
-          <a routerLink="/profile" class="nav-item">Profil</a>
+
+
+          <div class="profile-dropdown" (click)="toggleDropdown()">
+            <a routerLink="/profile" class="nav-item">Profil</a>
+            <div class="dropdown-content" [ngClass]="{'show': isDropdownOpen}">
+              <a routerLink="/logout">Logout</a>
+              <a routerLink="/settings">Einstellungen</a>
+              <a routerLink="/help">Hilfe</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </nav>
