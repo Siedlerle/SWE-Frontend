@@ -8,12 +8,9 @@
   z-index: 9999;
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  padding: 30px;
-  width: 80%;
-  max-width: 100%;
+  padding: 20px ;
+  width: 40%;
   height: 80%;
-  max-height: 100%;
-
 }
 .close-Button{
   width: 30px;
@@ -22,7 +19,45 @@
   position: absolute;
   top: 20px;
   right: 20px;
+  background-color: firebrick;
+  color: white;
+}
+.close-Icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+.submit-button{
+  font-weight: bolder;
+  font-size: larger;
+  position: center;
+
+}
+mat-icon{
+  margin: auto;
 }
 mat-grid-list{
-  background-color: rgba(0, 0, 0, 0.5);
+
 }
+.form{
+
+}
+.basic-container{
+
+}
+mat-card{
+  width: 60%;
+}
+mat-grid-tile{
+  width: 100%;
+
+}
+mat-form-field{
+  align-content: center;
+}
+-form-div{
+
+}
+

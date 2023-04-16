@@ -1,5 +1,5 @@
 import {Component, ElementRef, Pipe, PipeTransform, ViewChild} from '@angular/core';
-import {listData} from "../event-catalog/event-list";
+import {listData, listEventData} from "../event-catalog/event-list";
 import {MatPaginator} from "@angular/material/paginator";
 import {AddEventComponent} from "../add-event/add-event.component";
 
@@ -13,7 +13,7 @@ export class ManagementComponent {
     console.log(evt);
   }
 
-  eventList = listData
+  eventList = listEventData
   @ViewChild('searchbar') searchbar: ElementRef;
   searchText = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
