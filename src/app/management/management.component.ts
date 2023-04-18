@@ -2,6 +2,8 @@ import {Component, ElementRef, Pipe, PipeTransform, ViewChild} from '@angular/co
 import {listData, listEventData} from "../event-catalog/event-list";
 import {MatPaginator} from "@angular/material/paginator";
 import {AddEventComponent} from "../add-event/add-event.component";
+import {EventCardComponent} from "../event-card/event-card.component";
+import {MatCardContent} from "@angular/material/card";
 
 @Component({
   selector: 'app-management',
@@ -9,9 +11,6 @@ import {AddEventComponent} from "../add-event/add-event.component";
   styleUrls: ['./management.component.css']
 })
 export class ManagementComponent {
-  public onCardClick(evt: MouseEvent) {
-    console.log(evt);
-  }
 
   eventList = listEventData
   @ViewChild('searchbar') searchbar: ElementRef;
@@ -36,5 +35,19 @@ export class ManagementComponent {
   closePopup() {
     this.showPopup = false;
   }
+  showCard = false;
+  openCard(item: MatCardContent){
+
+    this.showCard = true;
+
+
+  }
+
+  closeCard(){
+    this.showCard = false;
+  }
+
+
 }
+
 

@@ -1,0 +1,20 @@
+<div class="popup">
+  <div class="heading">
+    <h1>Event bearbeiten</h1>
+    <button mat-fab (click)="closeCard()" class = "close-Button">
+      <mat-icon class ="close-Icon">close</mat-icon>
+    </button>
+  </div>
+
+  <mat-form-field>
+    <input matInput placeholder="Title" [(ngModel)]="cardTitle">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Subtitle" [(ngModel)]="cardSubtitle">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput placeholder="Content" [(ngModel)]="cardContent"></textarea>
+  </mat-form-field>
+  <button mat-button (click)="onSave()">Save</button>
+  <button mat-button (click)="onCancel()">Cancel</button>
+</div>

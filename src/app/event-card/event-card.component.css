@@ -1,0 +1,34 @@
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  down: 50%;
+  rigth: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  padding: 20px ;
+  width: 40%;
+  height: 80%;
+}
+.close-Button{
+  width: 30px;
+  height: 30px;
+  display: block;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: firebrick;
+  color: white;
+}
+.close-Icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+mat-icon{
+  margin: auto;
+}

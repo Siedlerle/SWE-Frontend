@@ -24,6 +24,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { AddEventComponent } from './add-event/add-event.component';
+import { EventCardComponent } from './event-card/event-card.component';
 
 
 const routes: Routes = [
@@ -44,6 +45,7 @@ const routes: Routes = [
     ProfileComponent,
     FilterPipe,
     AddEventComponent,
+    EventCardComponent,
   ],
   imports: [
     BrowserModule,
