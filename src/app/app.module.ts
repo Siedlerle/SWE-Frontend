@@ -17,7 +17,7 @@ import { ManagementComponent } from './management/management.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from "@angular/material/toolbar";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -27,7 +27,7 @@ import { AddEventComponent } from './add-event/add-event.component';
 import { OrganisationCatalogComponent } from './organisation-catalog/organisation-catalog.component';
 import { EventCardComponent } from './event-card/event-card.component';
 import { LoginComponent } from './login/login.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
@@ -53,27 +53,28 @@ const routes: Routes = [
     LoginComponent,
     OrganisationCatalogComponent,
   ],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(routes),
-    BrowserAnimationsModule,
-    MatGridListModule,
-    MatMomentDateModule,
-    MatIconModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatCardModule,
-    MatListModule,
-    MatToolbarModule,
-    FormsModule,
-    MatButtonModule,
-    MatTabsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatPaginatorModule,
+    imports: [
+        BrowserModule,
+        RouterModule.forRoot(routes),
+        BrowserAnimationsModule,
+        MatGridListModule,
+        MatMomentDateModule,
+        MatIconModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatCardModule,
+        MatListModule,
+        MatToolbarModule,
+        FormsModule,
+        MatButtonModule,
+        MatTabsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        HttpClientModule
 
-
-  ],
+    ],
   exports: [
     MatIconModule,
     MatDatepickerModule,

@@ -1,26 +1,26 @@
 <div class="login-page">
   <mat-card class="mat-elevation-z12">
     <mat-card-title style="text-align:center; font-weight: bold;"><h1>SignIn/SignUp</h1></mat-card-title>
-    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
+    <mat-tab-group #tabGroup mat-stretch-tabs class="example-stretched-tabs">
       <mat-tab label="Sign In">
         <mat-card-content>
-          <form #form="ngForm" (ngSubmit)="onSubmit(form)"action="">
+          <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)"action="">
             <mat-form-field>
               <input matInput placeholder="Email" required name="email" [(ngModel)]="email">
-              <mat-error *ngIf="!email">Email is required</mat-error>
+              <mat-error *ngIf="!email">Email ist erforderlich</mat-error>
               <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
             <mat-form-field>
               <input
                 matInput
-                placeholder="Password"
+                placeholder="Passwort"
                 type="password"
                 required
                 minlength="6"
                 name="password"
                 [(ngModel)]="password">
               <mat-error *ngIf="!password">
-                Password is required
+                Passwort ist erforderlich
               </mat-error>
               <mat-icon matSuffix>lock</mat-icon>
             </mat-form-field>
@@ -32,33 +32,62 @@
       </mat-tab>
       <mat-tab label="Sign Up">
         <mat-card-content>
-          <form #form="ngForm" (ngSubmit)="onSubmit(form)"action="">
+          <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" action="">
             <mat-form-field>
-              <input matInput placeholder="Benutzername" required name="userName" [(ngModel)]="userName">
-              <mat-error *ngIf="!userName">Email is required</mat-error>
-              <mat-icon matSuffix>person</mat-icon>
+              <input matInput placeholder="Vorname" required name="firstName" [(ngModel)]="registerFirstName">
+              <mat-error *ngIf="!registerFirstName">Vorname ist erforderlich</mat-error>
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Email" required name="email" [(ngModel)]="email">
-              <mat-error *ngIf="!email">Email is required</mat-error>
+              <input matInput placeholder="Nachname" required name="lastName" [(ngModel)]="registerLastName">
+              <mat-error *ngIf="!registerLastName">Nachname ist erforderlich</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Email" required name="email" pattern=".*@.*" [(ngModel)]="registerEmail"
+                     required>
+              <mat-error *ngIf="!registerEmail">Email ist erforderlich</mat-error>
+              <mat-error *ngIf="!checkIfAtSymbolExists(registerEmail)">
+                Please enter a valid email address!
+              </mat-error>
               <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="Password"
-                type="password"
-                required
-                minlength="6"
-                name="password"
-                [(ngModel)]="password">
-              <mat-error *ngIf="!password">
-                Password is required
-              </mat-error>
-              <mat-icon matSuffix>lock</mat-icon>
-            </mat-form-field>
-            <button mat-raised-button color="primary" class="login-button" type="submit" [disabled]="!email|| !password">
-              Sign In
+            <form [formGroup]="myForm">
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Passwort"
+                  type="password"
+                  required
+                  minlength="6"
+                  name="registerPassword"
+                  [(ngModel)]="registerPassword"
+                  formControlName="field1">
+                <mat-error *ngIf="!registerPassword">
+                  Passwort ist erforderlich
+                </mat-error>
+                <mat-icon matSuffix>lock</mat-icon>
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Passwort wiederholen"
+                  type="password"
+                  required
+                  minlength="6"
+                  name="confirmRegisterPassword"
+                  [(ngModel)]="confirmRegisterPassword"
+                  formControlName="field2">
+                <mat-error *ngIf="!confirmRegisterPassword">
+                  Passwort wiederholen!
+                </mat-error>
+                <mat-error *ngIf="myForm.controls['field2'].hasError('notMatching')">
+                  Passwörter stimmen nicht überein!
+                </mat-error>
+                <mat-icon matSuffix>lock</mat-icon>
+              </mat-form-field>
+            </form>
+            <button mat-raised-button color="primary" class="login-button" type="submit"
+                    [disabled]="!registerFirstName || !registerLastName || !registerEmail || !registerPassword || !confirmRegisterPassword">
+              Sign Up
             </button>
           </form>
         </mat-card-content>
