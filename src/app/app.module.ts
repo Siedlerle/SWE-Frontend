@@ -28,6 +28,7 @@ import { OrganisationCatalogComponent } from './organisation-catalog/organisatio
 import { EventCardComponent } from './event-card/event-card.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 
 const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
@@ -73,8 +74,8 @@ const routes: Routes = [
         MatInputModule,
         MatPaginatorModule,
         ReactiveFormsModule,
-        HttpClientModule
-
+        HttpClientModule,
+        MatSnackBarModule
     ],
   exports: [
     MatIconModule,

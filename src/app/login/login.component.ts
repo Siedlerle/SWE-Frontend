@@ -1,15 +1,17 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, NgForm, Validators} from "@angular/forms";
 import {UiUserService} from "../../services/ui-user.service";
 import {User} from "../../DataTransferObjects/User";
 import {MatTabGroup} from "@angular/material/tabs";
+import {ActivatedRoute, ParamMap} from "@angular/router";
+import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
   @ViewChild("loginForm") loginForm: NgForm;
   @ViewChild("registerForm") registerForm: NgForm;
@@ -25,13 +27,36 @@ export class LoginComponent {
   registerEmail: string = "";
   registerPassword: string = "";
   confirmRegisterPassword: string = "";
-  constructor(private uiUserService: UiUserService, private fb: FormBuilder) {
+
+  loading = false;
+
+  authToken:string | null = "";
+
+  constructor(private uiUserService: UiUserService, private fb: FormBuilder, private route: ActivatedRoute,  private snackBar: MatSnackBar) {
     this.myForm = this.fb.group({
       field1: ['', [Validators.required]],
       field2: ['', [Validators.required]]
     }, {validator: this.checkIfMatchingFields('field1', 'field2')});
 
   }
+
+  ngOnInit(): void {
+    this.route.queryParamMap.subscribe((params: ParamMap) => {
+      this.authToken = params.get('authToken');
+      if (this.authToken !== null) {
+        this.uiUserService.verify(this.authToken).subscribe(
+          (response) => {
+            const text = response.message;
+            this.snackBar.open(text, 'Close', { duration: 10000 });
+          },
+          (error) => {
+            this.snackBar.open(error.message, 'Close', { duration: 10000 });
+          }
+        );
+      }
+    });
+  }
+
   checkIfAtSymbolExists(inputValue: string): boolean {
     return inputValue.includes('@');
   }
@@ -70,7 +95,6 @@ export class LoginComponent {
 
         this.uiUserService.login(newUser).subscribe(response => {
           if (typeof response === 'object' && response !== null) {
-            console.log('Response is a JSON object:', response);
             const accessToken = response.access_token;
             const refreshToken = response.refresh_token;
             sessionStorage.setItem('accessToken', accessToken);
@@ -78,7 +102,6 @@ export class LoginComponent {
             sessionStorage.setItem('authenticated', JSON.stringify(true));
             location.reload()
           } else {
-            console.log('Response is not a JSON object:', response);
             sessionStorage.setItem('authenticated', JSON.stringify(false));
             location.reload()
           }
@@ -92,8 +115,9 @@ export class LoginComponent {
         emailAdress: this.registerEmail,
         password: this.registerPassword
       }
-
+      this.loading = true;
       this.uiUserService.register(newUser).subscribe(response => {
+        this.loading = false;
         this.tabGroup.selectedIndex = 0;
         form.resetForm();
         this.myForm.reset();

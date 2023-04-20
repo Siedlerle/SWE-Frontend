@@ -1,4 +1,7 @@
 <div class="login-page">
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
   <mat-card class="mat-elevation-z12">
     <mat-card-title style="text-align:center; font-weight: bold;"><h1>SignIn/SignUp</h1></mat-card-title>
     <mat-tab-group #tabGroup mat-stretch-tabs class="example-stretched-tabs">

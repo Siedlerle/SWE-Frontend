@@ -21,6 +21,7 @@ export class NavComponent implements OnInit{
   constructor(private router: Router) { }
   organisationList = listData;
   ngOnInit() {
+    this.router.navigate(['/homepage']);
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.activeLink = event.url;
