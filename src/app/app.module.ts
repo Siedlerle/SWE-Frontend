@@ -35,7 +35,8 @@ const routes: Routes = [
   { path: 'my-events', component: MyEventsComponent },
   { path: 'management', component: ManagementComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'organisation-catalog', component: OrganisationCatalogComponent}
+  { path: 'organisation-catalog', component: OrganisationCatalogComponent},
+  { path: 'profile', component: ProfileComponent}
 ];
 
 @NgModule({

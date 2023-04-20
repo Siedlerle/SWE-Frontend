@@ -116,6 +116,7 @@ ul {
 li {
   padding: 0.5rem;
   cursor: pointer;
+  color: black;
 }
 
 li:hover {

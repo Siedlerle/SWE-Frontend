@@ -11,10 +11,7 @@
         <li *ngFor="let item of organisationList">{{ item.title }}</li>
         <li routerLink="/organisation-catalog">Organisationen durchsuchen</li>
       </ul>
-
     </div>
-
-
   </div>
 
 
@@ -28,20 +25,22 @@
           <a routerLink="/management" class="nav-item" [class.active]="activeLink =='/management'">Verwaltung</a>
         </div>
         <div class="right-items">
-
-
           <div class="profile-dropdown" (click)="toggleDropdown()">
-            <a routerLink="/profile" class="nav-item">Profil</a>
+            <a class="nav-item">Profil</a>
             <div class="dropdown-content" [ngClass]="{'show': isDropdownOpen}">
-              <a routerLink="/logout">Logout</a>
-              <a routerLink="/settings">Einstellungen</a>
-              <a routerLink="/help">Hilfe</a>
+              <ul (click)="isDropdownOpen = false">
+                <li (click)="openCard()">Profil ansehen</li>
+                <li>Einstellungen</li>
+                <li>Abmelden</li>
+              </ul>
             </div>
           </div>
 
         </div>
       </div>
     </nav>
+
+    <app-profile *ngIf = "showCard" (onClose) ="closeCard()"></app-profile>
   </body>
 </html>
 

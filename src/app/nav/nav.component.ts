@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import {listData} from "../organisation-catalog/organisation-list";
+import {MatCardContent} from "@angular/material/card";
 
 @Component({
   selector: 'app-nav',
@@ -40,5 +41,13 @@ export class NavComponent implements OnInit{
     this.isDropdownOpenBanner = !this.isDropdownOpenBanner;
     this.dropDownTop = event.clientY + 10;
     this.dropDownLeft = event.clientX -150;
+  }
+
+  showCard = false;
+  openCard(){
+    this.showCard = true;
+  }
+  closeCard(){
+    this.showCard = false;
   }
 }
