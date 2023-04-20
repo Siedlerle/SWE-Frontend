@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import {DataService} from "../management/CardService";
 
 @Component({
   selector: 'app-event-card',
@@ -8,23 +9,32 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class EventCardComponent {
   @Output() onClose = new EventEmitter<void>();
   closeCard() {
+    this.isEditing = false;
     this.onClose.emit();
   }
-  isEditing = true;
+  cardData: any;
+
+  constructor(private dataService: DataService) {
+    this.cardData = this.dataService.getCardData();
+  }
+
+  isEditing = false;
   cardTitle: string;
-  cardSubtitle: string;
+  cardDescription: string;
   cardContent: string;
 
-   onCardClick() {
-    this.isEditing = true;
+   editCard() {
+     console.log("Ich funktioniere");
+   this.isEditing = true;
     // populate form with existing data
-    this.cardTitle = 'Card Title';
-    this.cardSubtitle = 'Card Subtitle';
-    this.cardContent = 'Card content';
+    this.cardTitle = this.cardData.eventTitle;
+    this.cardDescription = this.cardData.eventDescription;
   }
 
   onSave() {
     // save edited data and exit editing mode
+    this.cardData.eventTitle = this.cardTitle;
+    this.cardData.eventDescription = this.cardDescription;
     this.isEditing = false;
   }
 

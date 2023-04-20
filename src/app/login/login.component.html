@@ -1,1 +1,68 @@
-<p>login works!</p>
+<div class="login-page">
+  <mat-card class="mat-elevation-z12">
+    <mat-card-title style="text-align:center; font-weight: bold;"><h1>SignIn/SignUp</h1></mat-card-title>
+    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
+      <mat-tab label="Sign In">
+        <mat-card-content>
+          <form #form="ngForm" (ngSubmit)="onSubmit(form)"action="">
+            <mat-form-field>
+              <input matInput placeholder="Email" required name="email" [(ngModel)]="email">
+              <mat-error *ngIf="!email">Email is required</mat-error>
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Password"
+                type="password"
+                required
+                minlength="6"
+                name="password"
+                [(ngModel)]="password">
+              <mat-error *ngIf="!password">
+                Password is required
+              </mat-error>
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="login-button" type="submit" [disabled]="!email|| !password">
+              Sign In
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-tab>
+      <mat-tab label="Sign Up">
+        <mat-card-content>
+          <form #form="ngForm" (ngSubmit)="onSubmit(form)"action="">
+            <mat-form-field>
+              <input matInput placeholder="Benutzername" required name="userName" [(ngModel)]="userName">
+              <mat-error *ngIf="!userName">Email is required</mat-error>
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Email" required name="email" [(ngModel)]="email">
+              <mat-error *ngIf="!email">Email is required</mat-error>
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Password"
+                type="password"
+                required
+                minlength="6"
+                name="password"
+                [(ngModel)]="password">
+              <mat-error *ngIf="!password">
+                Password is required
+              </mat-error>
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="login-button" type="submit" [disabled]="!email|| !password">
+              Sign In
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>

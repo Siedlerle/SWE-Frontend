@@ -33,6 +33,7 @@ const routes: Routes = [
   { path: 'event-catalog', component: EventCatalogComponent },
   { path: 'my-events', component: MyEventsComponent },
   { path: 'management', component: ManagementComponent},
+  { path: 'login', component: LoginComponent}
 ];
 
 @NgModule({

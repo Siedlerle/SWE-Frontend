@@ -1,20 +1,52 @@
-<div class="popup">
-  <div class="heading">
-    <h1>Event bearbeiten</h1>
-    <button mat-fab (click)="closeCard()" class = "close-Button">
-      <mat-icon class ="close-Icon">close</mat-icon>
-    </button>
-  </div>
+<!doctype html>
+<html>
+  <div class="popup">
+        <button mat-fab (click)="closeCard()" class = "close-Button">
+          <mat-icon class ="close-Icon">close</mat-icon>
+        </button>
 
-  <mat-form-field>
-    <input matInput placeholder="Title" [(ngModel)]="cardTitle">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Subtitle" [(ngModel)]="cardSubtitle">
-  </mat-form-field>
-  <mat-form-field>
-    <textarea matInput placeholder="Content" [(ngModel)]="cardContent"></textarea>
-  </mat-form-field>
-  <button mat-button (click)="onSave()">Save</button>
-  <button mat-button (click)="onCancel()">Cancel</button>
-</div>
+      <img mat-card-image src="{{cardData.eventImage}}">
+
+      <mat-tab-group class="tab-group">
+        <mat-tab label="Eventkarte">
+          <h1>{{cardData.eventTitle}}</h1>
+          <p>{{cardData.eventDescription}}</p>
+          <p>Eventinformationen:</p>
+          <p>
+            Teilnehmer:
+            {{cardData.eventAttendee}}
+          </p>
+          <p>
+            Referent:
+            {{cardData.eventOrganizer}}
+          </p>
+          <p>Datum</p>
+          <p>Ort</p>
+        </mat-tab>
+        <mat-tab label="Eventguide">
+          Content 2
+        </mat-tab>
+        <mat-tab >
+          <ng-template mat-tab-label>
+            <span (click)="editCard()">Event verwalten</span>
+          </ng-template>
+          <div *ngIf="isEditing" class = "editForm">
+            <p>Titel des Events</p>
+            <mat-form-field >
+              <input matInput placeholder="Titel" [(ngModel)]="cardTitle">
+            </mat-form-field >
+            <p>Beschreibung des Events</p>
+            <mat-form-field class = "descriptionField">
+              <textarea matInput placeholder="Beschreibung" [(ngModel)]="cardDescription">
+              </textarea>
+            </mat-form-field>
+            <button mat-button (click)="onSave()">Speichern</button>
+            <button mat-button (click)="onCancel()">Abbrechen</button>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
+  </div>
+</html>
+
+

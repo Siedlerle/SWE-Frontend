@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'SWE-Frontend';
+  isAuthenticated: boolean = false;
+  ngOnInit(){
+    this.isAuthenticated =  JSON.parse(sessionStorage.getItem('authenticated') || 'false');
+  }
 }
