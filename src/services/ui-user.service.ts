@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {User} from "../DataTransferObjects/User";
 import {URLs} from "../assets/SystemVariables/URLs";
 import {Observable} from "rxjs";
@@ -19,5 +19,11 @@ export class UiUserService {
 
     login(newUser : User):Observable<any>{
       return this.http.post<any>(URLs.backend+URLs.login, newUser, { responseType: 'json'});
+    }
+
+    verify(authToken: string):Observable<any>{
+      const headers = new HttpHeaders().set('Content-Type', 'application/json');
+      const params = new HttpParams().set('authToken', authToken);
+      return this.http.post<any>(URLs.backend+URLs.verify,null,{ headers:headers, params: params});
     }
 }
