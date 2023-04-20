@@ -21,6 +21,11 @@
   align-items: center;
 }
 
+.nav-menu .left-items .nav-item.active,
+.nav-menu .left-items .nav-item:focus {
+  background-color: dimgray;
+}
+
 right-items {
   display: flex;
   justify-content: flex-end;
@@ -100,5 +105,20 @@ right-items {
 
 .show {
   display: block;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+li:hover {
+  background-color: #eee;
 }
 

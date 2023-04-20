@@ -24,6 +24,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { AddEventComponent } from './add-event/add-event.component';
+import { OrganisationCatalogComponent } from './organisation-catalog/organisation-catalog.component';
 import { EventCardComponent } from './event-card/event-card.component';
 import { LoginComponent } from './login/login.component';
 
@@ -33,7 +34,8 @@ const routes: Routes = [
   { path: 'event-catalog', component: EventCatalogComponent },
   { path: 'my-events', component: MyEventsComponent },
   { path: 'management', component: ManagementComponent},
-  { path: 'login', component: LoginComponent}
+  { path: 'login', component: LoginComponent},
+  { path: 'organisation-catalog', component: OrganisationCatalogComponent}
 ];
 
 @NgModule({
@@ -49,6 +51,7 @@ const routes: Routes = [
     AddEventComponent,
     EventCardComponent,
     LoginComponent,
+    OrganisationCatalogComponent,
   ],
   imports: [
     BrowserModule,
