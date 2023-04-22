@@ -14,7 +14,7 @@
           <p>Eventinformationen:</p>
           <p>
             Teilnehmer:
-            {{cardData.eventAttendee}}
+            {{cardData.eventAttendee.length}}
           </p>
           <p>
             Referent:
@@ -40,7 +40,7 @@
               <textarea matInput placeholder="Beschreibung" [(ngModel)]="cardDescription">
               </textarea>
             </mat-form-field>
-            <p>Liste der Teilnehmer</p>
+            <p>Anzahl Teilnehmer</p>
             <mat-grid-list cols = "3" rowHeight="50px">
               <mat-grid-tile *ngFor="let item of cardAttendee" class = "listAttendee">
                 <div class = "listAttendeeItems">

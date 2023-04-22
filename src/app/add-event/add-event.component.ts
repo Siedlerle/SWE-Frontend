@@ -30,7 +30,7 @@ export class AddEventComponent {
 
     onSubmit(form: NgForm)
     {
-      const newEvent = {
+    const newEvent = {
         eventTitle: this.eventTitle,
         eventDescription: this.eventDescription,
         eventDate: this.eventDate.toDateString(),
@@ -38,8 +38,8 @@ export class AddEventComponent {
       };
       listData.fill(newEvent);
       form.reset();
-      this.closePopup()
-      location.reload()
+      this.closePopup();
+      location.reload();
   }
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
