@@ -13,6 +13,8 @@ export class AppComponent implements OnInit{
   constructor(private router: Router) { }
   ngOnInit(){
     this.isAuthenticated =  JSON.parse(sessionStorage.getItem('authenticated') || 'false');
-    //this.router.navigate(['/homepage']);
+    if(!this.isAuthenticated){
+      this.router.navigate(['']);
+    }
   }
 }

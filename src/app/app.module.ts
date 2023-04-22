@@ -38,7 +38,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'organisation-catalog', component: OrganisationCatalogComponent},
   { path: 'profile', component: ProfileComponent},
-  { path: '', redirectTo: '/homepage', pathMatch: 'full'}
+  //{ path: '', redirectTo: '/homepage', pathMatch: 'full'}
 ];
 
 @NgModule({

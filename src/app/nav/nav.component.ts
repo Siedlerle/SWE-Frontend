@@ -21,7 +21,7 @@ export class NavComponent implements OnInit{
   constructor(private router: Router) { }
   organisationList = listData;
   ngOnInit() {
-    //this.router.navigate(['/homepage']);
+    this.router.navigate(['/homepage']);
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.activeLink = event.url;
@@ -53,6 +53,10 @@ export class NavComponent implements OnInit{
   }
 
   logOut(){
-    this.router.navigate(['/login']);
+    sessionStorage.setItem('authenticated', JSON.stringify(false));
+    sessionStorage.setItem('accessToken', '');
+    sessionStorage.setItem('refreshToken', '');
+    sessionStorage.setItem('role', '');
+    location.reload()
   }
 }
