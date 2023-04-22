@@ -29,6 +29,7 @@ import { EventCardComponent } from './event-card/event-card.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {AuthInterceptor, AuthInterceptorProvider} from "../services/auth-interceptor";
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -83,7 +84,7 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
   ],
-  providers: [],
+  providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

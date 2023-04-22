@@ -53,12 +53,7 @@ export class NavComponent implements OnInit{
   }
 
   logOut(){
-
-    const authToken = sessionStorage.getItem('accessToken');
-    if(authToken !== null){
-      this.uiUserService.logout(authToken).subscribe();
-    }
-
+    this.uiUserService.logout().subscribe();
     sessionStorage.setItem('authenticated', JSON.stringify(false));
     sessionStorage.setItem('accessToken', '');
     sessionStorage.setItem('refreshToken', '');
