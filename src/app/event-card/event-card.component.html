@@ -40,6 +40,21 @@
               <textarea matInput placeholder="Beschreibung" [(ngModel)]="cardDescription">
               </textarea>
             </mat-form-field>
+            <p>Liste der Teilnehmer</p>
+            <mat-grid-list cols = "3" rowHeight="50px">
+              <mat-grid-tile *ngFor="let item of cardAttendee" class = "listAttendee">
+                <div class = "listAttendeeItems">
+                  {{item.valueOf()}}
+                </div>
+
+              </mat-grid-tile>
+            </mat-grid-list>
+            <div>
+              <button mat-mini-fab (click) = "addUser()" class = "addPerson">
+                <mat-icon >person_add</mat-icon>
+              </button>
+            </div>
+
             <button mat-button (click)="onSave()">Speichern</button>
             <button mat-button (click)="onCancel()">Abbrechen</button>
           </div>

@@ -65,14 +65,29 @@ img{
 }
 mat-form-field{
   width: 100%;
-  margin: 10px;
+
 }
 .editForm{
   min-height: 600px;
-  background-color: #555555;
-  margin: 5px;
 }
 .descriptionField{
-  heigth: 500px;
+  heigth: 1000px;
 
+}
+.listAttendee{
+  display: flex;
+  flex-direction: row;
+  border: 2px solid black;
+}
+.listAttendeeItems {
+  position: absolute;
+  left: 0;
+}
+
+.addPerson{
+  right: 20px;
+  background-color: white;
+  color: black;
+  display: block;
+  position: absolute;
 }

@@ -21,7 +21,8 @@ export class EventCardComponent {
   isEditing = false;
   cardTitle: string;
   cardDescription: string;
-  cardContent: string;
+  cardAttendee:any;
+
 
    editCard() {
      console.log("Ich funktioniere");
@@ -29,6 +30,14 @@ export class EventCardComponent {
     // populate form with existing data
     this.cardTitle = this.cardData.eventTitle;
     this.cardDescription = this.cardData.eventDescription;
+    this.cardAttendee = this.cardData.eventAttendee;
+
+  }
+  addUser(){
+
+  }
+  removeUser(){
+
   }
 
   onSave() {

@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit{
 
   authToken:string | null = "";
 
+
   constructor(private uiUserService: UiUserService, private fb: FormBuilder, private route: ActivatedRoute,  private snackBar: MatSnackBar) {
     this.myForm = this.fb.group({
       field1: ['', [Validators.required]],
@@ -41,6 +42,13 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    const config: MatSnackBarConfig = {
+      duration: 10000,
+      politeness: "off",
+      panelClass: ["snackbar"],
+      verticalPosition: "top"
+
+    };
     this.route.queryParamMap.subscribe((params: ParamMap) => {
       this.authToken = params.get('authToken');
       if (this.authToken !== null) {
@@ -50,7 +58,7 @@ export class LoginComponent implements OnInit{
             this.snackBar.open(text, 'Close', { duration: 10000 });
           },
           (error) => {
-            this.snackBar.open(error.message, 'Close', { duration: 10000 });
+            this.snackBar.open(error.message, 'Close', config);
           }
         );
       }

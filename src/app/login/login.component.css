@@ -12,9 +12,15 @@
 }
 
 mat-card {
-  width: 30%;
+  width: 40%;
+  min-width: 30%;
+  height: 60%;
   margin: 10% auto;
   border-radius: 8px;
+}
+mat-card-title{
+  text-align:center;
+  font-weight: bold;
 }
 mat-form-field, mat-checkbox {
   width: 80%;
@@ -65,4 +71,8 @@ mat-card-content {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.tabsgroup{
+  min-width: 50%;
 }
