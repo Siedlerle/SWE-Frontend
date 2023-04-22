@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import {listData} from "../organisation-catalog/organisation-list";
 import {MatCardContent} from "@angular/material/card";
 
@@ -18,10 +18,9 @@ export class NavComponent implements OnInit{
 
   activeLink: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private activeRoute: ActivatedRoute) { }
   organisationList = listData;
   ngOnInit() {
-    this.router.navigate(['/homepage']);
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.activeLink = event.url;
@@ -57,6 +56,6 @@ export class NavComponent implements OnInit{
     sessionStorage.setItem('accessToken', '');
     sessionStorage.setItem('refreshToken', '');
     sessionStorage.setItem('role', '');
-    location.reload()
+    location.reload();
   }
 }

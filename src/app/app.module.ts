@@ -31,7 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 
 const routes: Routes = [
-  { path: 'homepage', component: HomepageComponent },
+  { path: '', component: HomepageComponent },
   { path: 'event-catalog', component: EventCatalogComponent },
   { path: 'my-events', component: MyEventsComponent },
   { path: 'management', component: ManagementComponent},
