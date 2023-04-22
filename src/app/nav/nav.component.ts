@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import {listData} from "../organisation-catalog/organisation-list";
 import {MatCardContent} from "@angular/material/card";
+import {UiUserService} from "../../services/ui-user.service";
 
 @Component({
   selector: 'app-nav',
@@ -18,7 +19,7 @@ export class NavComponent implements OnInit{
 
   activeLink: string;
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute) { }
+  constructor(private router: Router, private activeRoute: ActivatedRoute, private uiUserService : UiUserService) { }
   organisationList = listData;
   ngOnInit() {
     this.router.events.subscribe(event => {
@@ -52,6 +53,12 @@ export class NavComponent implements OnInit{
   }
 
   logOut(){
+
+    const authToken = sessionStorage.getItem('accessToken');
+    if(authToken !== null){
+      this.uiUserService.logout(authToken).subscribe();
+    }
+
     sessionStorage.setItem('authenticated', JSON.stringify(false));
     sessionStorage.setItem('accessToken', '');
     sessionStorage.setItem('refreshToken', '');

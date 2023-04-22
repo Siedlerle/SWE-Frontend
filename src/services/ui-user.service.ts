@@ -21,6 +21,15 @@ export class UiUserService {
       return this.http.post<any>(URLs.backend+URLs.login, newUser, { responseType: 'json'});
     }
 
+  logout(authToken: string){
+
+       const httpHeader = new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
+
+       const requestOptions = {headers : httpHeader};
+
+      return this.http.post(URLs.backend+URLs.logout,null,requestOptions);
+    }
+
     verify(authToken: string):Observable<any>{
       const headers = new HttpHeaders().set('Content-Type', 'application/json');
       const params = new HttpParams().set('authToken', authToken);
