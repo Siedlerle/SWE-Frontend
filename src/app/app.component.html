@@ -1,10 +1,9 @@
 <!doctype html>
 <html>
-<ng-container *ngIf="isAuthenticated; else loginScreen">
-  <app-nav></app-nav>
-  <router-outlet></router-outlet>
-</ng-container>
-
+  <ng-container *ngIf="isAuthenticated; else loginScreen">
+    <app-nav></app-nav>
+    <router-outlet></router-outlet>
+  </ng-container>
 
   <ng-template #loginScreen>
     <app-login></app-login>
