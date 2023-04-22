@@ -51,4 +51,8 @@ export class NavComponent implements OnInit{
   closeCard(){
     this.showCard = false;
   }
+
+  logOut(){
+    this.router.navigate(['/login']);
+  }
 }
