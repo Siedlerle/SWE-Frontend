@@ -14,20 +14,20 @@ import {DataService} from "./CardService";
 export class ManagementComponent {
 
   constructor(private dataService: DataService) { }
-  eventList = listEventData;
+  eventList= listEventData;
   @ViewChild('searchbar') searchbar: ElementRef;
   searchText = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   toggleSearch: boolean = false;
+  filterEvents() {
+    if (!this.searchText) {
+      return this.eventList;
+    }
+    return this.eventList.filter(event => {
+      return event.eventTitle.toLowerCase().includes(this.searchText.toLowerCase());
+    });
+  }
 
-  openSearch() {
-    this.toggleSearch = true;
-    this.searchbar.nativeElement.focus();
-  }
-  searchClose() {
-    this.searchText = '';
-    this.toggleSearch = false;
-  }
   showPopup = false;
   openPopup() {
     this.showPopup = true;
@@ -37,7 +37,6 @@ export class ManagementComponent {
   }
   showCard = false;
   openCard(item: MatCardContent){
-
     this.showCard = true;
     this.dataService.setCardData(item);
   }
