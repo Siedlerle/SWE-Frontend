@@ -30,6 +30,8 @@ import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {AuthInterceptor, AuthInterceptorProvider} from "../services/auth-interceptor";
+import { ImprintComponent } from './imprint/imprint.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -39,6 +41,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'organisation-catalog', component: OrganisationCatalogComponent},
   { path: 'profile', component: ProfileComponent},
+  { path: 'imprint', component: ImprintComponent},
+  { path: 'privacy-policy', component: PrivacyPolicyComponent}
   //{ path: '', redirectTo: '/homepage', pathMatch: 'full'}
 ];
 
@@ -56,6 +60,8 @@ const routes: Routes = [
     EventCardComponent,
     LoginComponent,
     OrganisationCatalogComponent,
+    ImprintComponent,
+    PrivacyPolicyComponent,
   ],
     imports: [
         BrowserModule,
