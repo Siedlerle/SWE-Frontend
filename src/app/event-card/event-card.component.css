@@ -3,14 +3,25 @@
   top: 50%;
   left: 50%;
   down: 50%;
-  rigth: 50%;
+  right: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   padding: 10px ;
-  width: 40%;
+  width: 70%;
   height: 80%;
+  position: relative;
+  z-index: 1000;
+}
+.popup-background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Hier kannst du die Farbe anpassen */
+  z-index: 999;
 }
 .close-Button{
   width: 30px;
@@ -77,11 +88,11 @@ mat-form-field{
 .listAttendee{
   display: flex;
   flex-direction: row;
-  border: 2px solid black;
+  border-right: 2px solid lightgray;
 }
 .listAttendeeItems {
   position: absolute;
-  left: 0;
+  left: 1%;
 }
 
 .addPerson{

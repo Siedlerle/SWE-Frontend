@@ -24,13 +24,13 @@ export class EventCardComponent {
   cardAttendee:any;
 
 
+
    editCard() {
-     console.log("Ich funktioniere");
-   this.isEditing = true;
-    // populate form with existing data
+    this.isEditing = true;
     this.cardTitle = this.cardData.eventTitle;
     this.cardDescription = this.cardData.eventDescription;
     this.cardAttendee = this.cardData.eventAttendee;
+
 
   }
   addUser(){

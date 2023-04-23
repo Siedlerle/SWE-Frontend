@@ -1,5 +1,8 @@
 <!doctype html>
 <html>
+<div class ="popup-background">
+
+
   <div class="popup">
         <button mat-fab (click)="closeCard()" class = "close-Button">
           <mat-icon class ="close-Icon">close</mat-icon>
@@ -13,15 +16,19 @@
           <p>{{cardData.eventDescription}}</p>
           <p>Eventinformationen:</p>
           <p>
-            Teilnehmer:
-            {{cardData.eventAttendee.length}}
-          </p>
+            Teilnehmer: {{cardData.eventAttendee.length}}
           <p>
             Referent:
             {{cardData.eventOrganizer}}
           </p>
-          <p>Datum</p>
-          <p>Ort</p>
+          <p>
+            Datum:
+            {{cardData.eventDate}}
+          </p>
+          <p>
+            Ort
+            {{cardData.eventLocation}}
+          </p>
         </mat-tab>
         <mat-tab label="Eventguide">
           Content 2
@@ -40,13 +47,12 @@
               <textarea matInput placeholder="Beschreibung" [(ngModel)]="cardDescription">
               </textarea>
             </mat-form-field>
-            <p>Anzahl Teilnehmer</p>
-            <mat-grid-list cols = "3" rowHeight="50px">
-              <mat-grid-tile *ngFor="let item of cardAttendee" class = "listAttendee">
+            <p>Teilnehmer</p>
+            <mat-grid-list cols = "4" rowHeight="7:1">
+              <mat-grid-tile  *ngFor="let item of cardAttendee" class = "listAttendee">
                 <div class = "listAttendeeItems">
                   {{item.valueOf()}}
                 </div>
-
               </mat-grid-tile>
             </mat-grid-list>
             <div>
@@ -62,6 +68,8 @@
       </mat-tab-group>
 
   </div>
+</div>
+
 </html>
 
 
