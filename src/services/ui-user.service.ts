@@ -21,8 +21,8 @@ export class UiUserService {
       return this.http.post<any>(URLs.backend+URLs.login, newUser, { responseType: 'json'});
     }
 
-  logout(){
-    return this.http.post(URLs.backend+URLs.logout,null);
+    logout(){
+      return this.http.get(URLs.backend+URLs.logout);
     }
 
     verify(authToken: string):Observable<any>{

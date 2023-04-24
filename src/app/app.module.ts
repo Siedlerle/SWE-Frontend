@@ -27,9 +27,9 @@ import { AddEventComponent } from './add-event/add-event.component';
 import { OrganisationCatalogComponent } from './organisation-catalog/organisation-catalog.component';
 import { EventCardComponent } from './event-card/event-card.component';
 import { LoginComponent } from './login/login.component';
-import { HttpClientModule } from '@angular/common/http';
-import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
-import {AuthInterceptor, AuthInterceptorProvider} from "../services/auth-interceptor";
+import { HttpClientModule} from '@angular/common/http';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {AuthInterceptorProvider} from "../services/auth-interceptor";
 import { ImprintComponent } from './imprint/imprint.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
