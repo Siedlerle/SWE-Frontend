@@ -13,9 +13,11 @@ import {OrgaRole} from "../DataTransferObjects/OrgaRole";
 })
 export class UiUserService {
 
-    constructor(private http:HttpClient, private authService: AuthService) {
+    constructor(private http:HttpClient) {
     }
 
+
+    //Authentifizierung
     register(newUser : User){
       return this.http.post(URLs.backend+URLs.register,newUser,{responseType:'text'});
     }
@@ -34,6 +36,9 @@ export class UiUserService {
       return this.http.post<any>(URLs.backend+URLs.verify,null,{ headers:headers, params: params});
     }
 
+
+
+    //Organisation
     getAllOrganisations():Observable<Organization[]>{
       return this.http.post<Organization[]>(URLs.backend+URLs.getAllOrganisations,null);
     }
@@ -48,5 +53,15 @@ export class UiUserService {
 
     getRoleForUserInOrga(orgaId: number, emailAdress: string):Observable<OrgaRole>{
       return this.http.post<OrgaRole>(URLs.backend+'/user/orga/'+orgaId+'/get-role-for-user/'+emailAdress,null);
+    }
+
+
+    //Events
+    getAllEvents(emailAdress: string):Observable<Event[]>{
+      return this.http.post<Event[]>(URLs.backend+URLs.getAllEventsForUser+emailAdress, null);
+    }
+
+    getRegisteredEvents(emailAdress: string):Observable<Event[]>{
+      return this.http.post<Event[]>(URLs.backend+URLs.getRegisteredEventsForUser+emailAdress,null);
     }
 }
