@@ -3,7 +3,9 @@ import {listData} from "../event-catalog/event-list";
 import {NgForm} from "@angular/forms";
 import {BreakpointObserver,Breakpoints} from "@angular/cdk/layout";
 import {map} from "rxjs";
-import{Router} from "@angular/router";
+import {UiOrganizerService} from "../../services/ui-organizer.service";
+import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
+import {D} from "@angular/cdk/keycodes";
 
 @Component({
   selector: 'app-add-event',
@@ -13,7 +15,14 @@ import{Router} from "@angular/router";
 export class AddEventComponent {
   @Output() onClose = new EventEmitter<void>();
   eventList = listData
-  constructor( private breakpointObserver: BreakpointObserver) {}
+
+  customEvent:CustomEvent = {
+    name : "",
+    description: "",
+    location: "",
+  };
+
+  constructor( private breakpointObserver: BreakpointObserver, private uiOrganizerService: UiOrganizerService) {}
 
   closePopup() {
     this.onClose.emit();
@@ -22,14 +31,24 @@ export class AddEventComponent {
 
     eventTitle: string ="";
     eventDescription: string = "";
+    eventType: string = "";
     eventStart: string = "";
     eventEnd: string = "";
-    eventDate: Date = new Date();
+    eventStartDate: Date = new Date();
+    eventEndDate: Date = new Date();
     eventLocation: string = "";
-    eventOrganizer: string = "";
 
     onSubmit(form: NgForm)
     {
+      const emailAdress = sessionStorage.getItem('emailAdress');
+      if(emailAdress != null){
+        this.uiOrganizerService.addEvent(this.customEvent, emailAdress).subscribe(response =>{
+          console.log(response);
+          }
+        );
+      }
+
+    /*
     const newEvent = {
         eventTitle: this.eventTitle,
         eventDescription: this.eventDescription,
@@ -39,7 +58,7 @@ export class AddEventComponent {
       listData.fill(newEvent);
       form.reset();
       this.closePopup();
-      location.reload();
+      location.reload();*/
   }
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
