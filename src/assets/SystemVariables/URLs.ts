@@ -7,5 +7,6 @@ export const URLs = {
   pwdRst: '/user/auth/reset-pwd',
   refresh: 'user/auth/refresh',
   logout: '/logout',
-  delete: 'user/auth/delete'
+  delete: 'user/auth/delete',
+  getAllOrganisations: '/user/orga/get-all',
 };

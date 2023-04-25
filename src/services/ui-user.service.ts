@@ -3,6 +3,8 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {User} from "../DataTransferObjects/User";
 import {URLs} from "../assets/SystemVariables/URLs";
 import {Observable} from "rxjs";
+import {Organization} from "../DataTransferObjects/Organization";
+import {AuthService} from "./auth.service";
 
 
 @Injectable({
@@ -10,7 +12,7 @@ import {Observable} from "rxjs";
 })
 export class UiUserService {
 
-    constructor(private http:HttpClient) {
+    constructor(private http:HttpClient, private authService: AuthService) {
     }
 
     register(newUser : User){
@@ -29,5 +31,9 @@ export class UiUserService {
       const headers = new HttpHeaders().set('Content-Type', 'application/json');
       const params = new HttpParams().set('authToken', authToken);
       return this.http.post<any>(URLs.backend+URLs.verify,null,{ headers:headers, params: params});
+    }
+
+    getAllOrganisations():Observable<Organization[]>{
+      return this.http.post<Organization[]>(URLs.backend+URLs.getAllOrganisations,null);
     }
 }
