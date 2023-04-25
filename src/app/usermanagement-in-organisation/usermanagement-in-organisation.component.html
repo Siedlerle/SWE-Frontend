@@ -7,62 +7,33 @@
 
   <img mat-card-image src="../../assets/images/nature.jpg">
 
-  <h2>Benutzer in Organisation</h2>
+  <h2>Mitgliederverwaltung</h2>
+
+  <mat-toolbar>
+    <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="searchText" #searchbar>
+    <button class="search-icon" mat-icon-button disabled>
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-toolbar>
+
+
   <mat-grid-list cols="3" rowHeight="6:1" gutterSize="15px" class="layoutGrid">
-    <mat-grid-tile>
+    <mat-grid-tile *ngFor="let item of filterUsers() | filter: searchText">
       <mat-card>
-        <mat-card-content>Tobias Hahn</mat-card-content>
-        <mat-card-content>tobihahn@gmail.com</mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card>
-        <mat-card-content>Tobias Hahn</mat-card-content>
-        <mat-card-content>tobihahn@gmail.com</mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card>
-        <mat-card-content>Tobias Hahn</mat-card-content>
-        <mat-card-content>tobihahn@gmail.com</mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card>
-        <mat-card-content>Tobias Hahn</mat-card-content>
-        <mat-card-content>tobihahn@gmail.com</mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card>
-        <mat-card-content>Tobias Hahn</mat-card-content>
-        <mat-card-content>tobihahn@gmail.com</mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card>
-        <mat-card-content>Tobias Hahn</mat-card-content>
-        <mat-card-content>tobihahn@gmail.com</mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card>
-        <mat-card-content>Tobias Hahn</mat-card-content>
-        <mat-card-content>tobihahn@gmail.com</mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card>
-        <mat-card-content>Tobias Hahn</mat-card-content>
-        <mat-card-content>tobihahn@gmail.com</mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card>
-        <mat-card-content>Tobias Hahn</mat-card-content>
-        <mat-card-content>tobihahn@gmail.com</mat-card-content>
+        <mat-card-content>{{item.userName}} {{item.userLastname}}</mat-card-content>
+        <mat-card-content>{{item.userEmail}}</mat-card-content>
+        <button mat-fab class="hover-button">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
+
+  <mat-form-field appearance="fill" style="position: relative; width: 80%">
+    <mat-label>Einladen zu Organisation</mat-label>
+    <input matInput placeholder="max_mustermann@email.de">
+  </mat-form-field>
+  <button mat-raised-button>Einladen</button>
+
 </div>
 </html>

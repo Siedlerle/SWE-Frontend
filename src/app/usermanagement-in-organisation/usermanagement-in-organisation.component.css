@@ -80,9 +80,28 @@ mat-form-field{
 mat-grid-list {
   height: 50%;
   background-color: #333333;
+  overflow: auto;
 }
 
 mat-grid-tile {
   width: auto;
   background-color: #6c757d;
 }
+
+mat-card {
+  width: 100%;
+}
+
+.hover-button {
+  display: none;
+  position: absolute;
+  top: 25%;
+  right: 0;
+  width: 30px;
+  height: 30px;
+}
+
+mat-grid-tile:hover .hover-button {
+  display: block;
+}
+
