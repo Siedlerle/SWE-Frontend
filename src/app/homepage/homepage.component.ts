@@ -16,4 +16,12 @@ export class HomepageComponent {
   }
 
   eventlist = listData;
+
+  showCard = false;
+  openCard(){
+    this.showCard = true;
+  }
+  closeCard(){
+    this.showCard = false;
+  }
 }

@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<div class="popup">
+  <button mat-fab (click)="closeCard()" class = "close-Button">
+    <mat-icon class ="close-Icon">close</mat-icon>
+  </button>
+
+  <img mat-card-image src="../../assets/images/nature.jpg">
+
+  <div class = "tab-group">
+    <h1>ARBURG GmbH + Co KG</h1>
+    <p>Loßburg</p>
+    <p>Beschreibungstext</p>
+  </div>
+
+  <div class = "action-Buttons">
+    <button mat-fab (click)="acceptInvitation()"  class = "accept-Button">
+      <mat-icon>done</mat-icon>
+    </button>
+    <button mat-fab (click)="declineInvitation()" class = "decline-Button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+</html>

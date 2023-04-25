@@ -12,7 +12,7 @@
 <div class="basic-container">
   <mat-grid-list cols="2" rowHeight="100px" gutterSize="15px" class="layoutGrid" >
     <mat-grid-tile *ngFor="let item of organisations | filter: searchText"  class ="layoutGridTile" >
-      <mat-card [style.width]="'100%'" (click)="onCardClick($event)" class = "card">
+      <mat-card [style.width]="'100%'" (click)="onCardClick($event)" (click)="openCard()" class = "card" >
         <img mat-card-sm-image src="{{item.image}}" alt = "" class = "mat-card-image">
         <div class="card-content">
           <mat-card-header>{{item.name}}</mat-card-header >
@@ -30,5 +30,7 @@
                  aria-label="Select page of periodic elements">
   </mat-paginator>
 </div>
+
+<app-organisation-card *ngIf = "showCard" (onClose) ="closeCard()"></app-organisation-card>
 
 </html>

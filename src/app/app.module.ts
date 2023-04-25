@@ -32,6 +32,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {AuthInterceptorProvider} from "../services/auth-interceptor";
 import { ImprintComponent } from './imprint/imprint.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { OrganisationCardComponent } from './organisation-card/organisation-card.component';
+import { UsermanagementInOrganisationComponent } from './usermanagement-in-organisation/usermanagement-in-organisation.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -62,6 +64,8 @@ const routes: Routes = [
     OrganisationCatalogComponent,
     ImprintComponent,
     PrivacyPolicyComponent,
+    OrganisationCardComponent,
+    UsermanagementInOrganisationComponent,
   ],
     imports: [
         BrowserModule,

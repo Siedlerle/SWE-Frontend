@@ -31,9 +31,9 @@ export class NavComponent implements OnInit{
       }
     });
 
-    const emailAdres = sessionStorage.getItem('emailAdress');
-    if(emailAdres!=null){
-      this.uiUserService.getOrganisationForUser(emailAdres).subscribe(response =>{
+    const emailAdress = sessionStorage.getItem('emailAdress');
+    if(emailAdress!=null){
+      this.uiUserService.getOrganisationForUser(emailAdress).subscribe(response =>{
         this.organisationsForUser = response;
       });
     }

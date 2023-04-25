@@ -44,7 +44,14 @@ export class ManagementComponent {
     this.showCard = false;
   }
 
-
+  showUserManagement = false;
+  openUserManagement() {
+    this.showUserManagement = true;
+    //User informationen laden und setzten
+  }
+  closeUserManagement() {
+    this.showUserManagement = false;
+  }
 }
 
 

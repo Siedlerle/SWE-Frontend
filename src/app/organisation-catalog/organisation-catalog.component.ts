@@ -34,9 +34,13 @@ export class OrganisationCatalogComponent implements OnInit{
     console.log(evt);
   }
 
-
-
-
+  showCard = false;
+  openCard(){
+    this.showCard = true;
+  }
+  closeCard(){
+    this.showCard = false;
+  }
 
   openSearch() {
     this.toggleSearch = true;
