@@ -9,7 +9,7 @@
       </button>
     </div>
 
-    <mat-grid-list cols="1" rowHeight="165px"  class = "form-list">
+    <mat-grid-list cols="1" rowHeight="220px"  class = "form-list">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows" class = >
       <mat-card class="dashboard-card">
         <mat-card-content>
@@ -17,71 +17,93 @@
             <form #form="ngForm"(ngSubmit)="onSubmit(form)">
               <div class="form-div">
                 <p>
-                  <mat-form-field appearance="fill" style="position: relative; width: 80%">
+                  <mat-form-field appearance="fill" style="position: relative; width: 100%">
                     <mat-label>Titel des Events</mat-label>
-                    <input matInput placeholder="Titel des Events" [(ngModel)]="eventTitle" name="eventName" required>
-                    <mat-error *ngIf="!eventTitle">Titel wird benötigt</mat-error>
+                    <input matInput placeholder="Name des Events" [(ngModel)]="event.name" name="eventName" required>
+                    <mat-error *ngIf="!eventName">Titel wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
                 <p>
-                  <mat-form-field appearance="fill" style="position: relative; width: 80%">
+                  <mat-form-field appearance="fill" style="position: relative; width: 100%">
                     <mat-label>Beschreibung des Events</mat-label>
-                    <input matInput placeholder="Beschreibung des Events" [(ngModel)]="eventDescription" name="eventDescription" required>
+                    <input matInput placeholder="Beschreibung des Events" [(ngModel)]="event.description" name="eventDescription" required>
                     <mat-error *ngIf="!eventDescription">Beschreibung wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
                 <p>
-                  <mat-form-field appearance="fill" style="position: relative; width: 80%">
+                  <mat-form-field appearance="fill" style="position: relative; width: 100%">
                     <mat-label>Art des Events</mat-label>
-                    <input matInput placeholder="Art des Events" [(ngModel)]="eventType" name="eventDescription" required>
+                    <input matInput placeholder="Art des Events" [(ngModel)]="event.type" name="eventType" required>
                     <mat-error *ngIf="!eventType">Beschreibung wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
                 <div>
                   <p>
-                    <mat-form-field appearance="fill" style="position: relative; width: 20%; float: left">
+                    <mat-form-field appearance="fill" style="position: relative; width: 47.5%; float: left">
                       <mat-label>Startzeit</mat-label>
-                      <input matInput placeholder="12:30" [(ngModel)]="eventStart" name="eventStart" inputmode="numeric" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"  required>
-                      <mat-error *ngIf="!eventStart">Startzeit wird benötigt</mat-error>
+                      <input matInput placeholder="12:30" [(ngModel)]="event.startTime" name="eventStartTime" inputmode="numeric" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"  required>
+                      <mat-error *ngIf="!eventStartTime">Startzeit wird benötigt</mat-error>
                     </mat-form-field>
                   </p>
                   <p>
-                    <mat-form-field appearance="fill" style="position: relative; width: 20%; float: left; padding-left: 5%">
+                    <mat-form-field appearance="fill" style="position: relative; width: 47.5%; float: left; padding-left: 5%">
                       <mat-label>Endzeit</mat-label>
-                      <input matInput placeholder="13:30" [(ngModel)]="eventEnd" name="eventEnd" inputmode="numeric" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"  required>
-                      <mat-error *ngIf="!eventEnd">Endzeit wird benötigt</mat-error>
+                      <input matInput placeholder="13:30" [(ngModel)]="event.endTime" name="eventEndTime" inputmode="numeric" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"  required>
+                      <mat-error *ngIf="!eventEndTime">Endzeit wird benötigt</mat-error>
+                    </mat-form-field>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <mat-form-field appearance="fill" style="position: relative; width: 47.5%; float: left">
+                      <mat-label>Startdatum des Events (MM/DD/YY)</mat-label>
+                      <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="event.startDate" name="eventStartDate" required>
+                      <mat-datepicker-toggle matIconSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #startDatePicker></mat-datepicker>
+                      <mat-error *ngIf="!eventStartDate">Datum wird benötigt</mat-error>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="fill" style="position: relative; width: 47.5%; float: left; padding-left: 5%">
+                      <mat-label>Enddatum des Events (MM/DD/YY)</mat-label>
+                      <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="event.endDate" name="eventEndDate" required>
+                      <mat-datepicker-toggle matIconSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #endDatePicker></mat-datepicker>
+                      <mat-error *ngIf="!eventEndDate">Datum wird benötigt</mat-error>
                     </mat-form-field>
                   </p>
                 </div>
                 <p>
-                  <mat-form-field appearance="fill" style="position: relative; width: 80%">
-                    <mat-label>Startdatum des Events</mat-label>
-                    <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="eventStartDate" name="eventStartDate" required>
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #startDatePicker></mat-datepicker>
-                    <mat-error *ngIf="!eventStartDate">Datum wird benötigt</mat-error>
-                  </mat-form-field>
-                </p>
-                <p>
-                  <mat-form-field appearance="fill" style="position: relative; width: 80%">
-                    <mat-label>Enddatum des Events</mat-label>
-                    <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="eventEndDate" name="eventEndDate" required>
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #endDatePicker></mat-datepicker>
-                    <mat-error *ngIf="!eventEndDate">Datum wird benötigt</mat-error>
-                  </mat-form-field>
-                </p>
-                <p>
-                  <mat-form-field appearance="fill" style="position: relative; width: 80%">
+                  <mat-form-field appearance="fill" style="position: relative; width: 100%">
                     <mat-label>Ort</mat-label>
-                    <input matInput placeholder="Veranstaltungsort" [(ngModel)]="eventLocation" name="eventLocation" required>
+                    <input matInput placeholder="Veranstaltungsort" [(ngModel)]="event.location" name="eventLocation" required>
                     <mat-error *ngIf="!eventLocation">Veranstaltungsort wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
                 <p>
-                  <button mat-raised-button type="submit" [disabled]="!eventTitle|| !eventDescription || !eventStartDate || !eventEndDate" class = "submit-button">Erstellen</button>
+                  <mat-slide-toggle color="primary" style="position: relative" [(ngModel)]="wantEventSeries" name="wantEventSeries">Serie von diesem Event erstellen</mat-slide-toggle>
+                <p>
+                <div>
+                  <p>
+                    <mat-form-field appearance="fill" *ngIf="wantEventSeries"  style="position: relative; width: 47.5%; float: left">
+                      <mat-label>Anzahl der Events</mat-label>
+                      <input matInput placeholder="Anzahl" [(ngModel)]="eventSeries.amount" name="eventSeriesAmount" required>
+                      <mat-error *ngIf="!eventSeriesAmount">Anzahl wird benötigt</mat-error>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="fill" *ngIf="wantEventSeries" style="position: relative; width: 47.5%; float: left; padding-left: 5%">
+                      <mat-label>Abstand zwischen den Events in Tagen</mat-label>
+                      <input matInput placeholder="Tage zwischen Events" [(ngModel)]="eventSeries.daysBetweenEvents" name="eventSeriesInterval" required>
+                      <mat-error *ngIf="!eventSeriesInterval">Abstand wird benötigt</mat-error>
+                    </mat-form-field>
+                  </p>
+                </div>
+                <p>
+                  <mat-slide-toggle color="primary" style="position: relative" [(ngModel)]="event.isPublic" name="eventIsPublic">In der Organisation sichtbar</mat-slide-toggle>
+                <p>
+                <p>
+                  <button mat-raised-button type="submit" [disabled]="!event.name || !event.description || !event.startDate || !event.endDate" class = "submit-button">Erstellen</button>
                 </p>
               </div>
             </form>

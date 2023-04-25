@@ -33,6 +33,7 @@ export const URLs = {
   //Organisator
   createEvent:'/organizer/event/create/',
   changeEvent:'/organizer/event/change/',
-  deleteEvent: '/organizer/event/delete/'
+  deleteEvent: '/organizer/event/delete/',
+  createEventSeres:'/organizer/event-series/create/'
 
 };

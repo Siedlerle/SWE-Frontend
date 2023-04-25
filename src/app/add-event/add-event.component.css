@@ -41,7 +41,7 @@
 .submit-button{
   font-weight: bolder;
   font-size: larger;
-  position: center;
+  float: right;
 
 }
 mat-icon{
@@ -66,8 +66,11 @@ mat-grid-tile{
 mat-form-field{
   align-content: center;
 }
--form-div{
-
+.form-div{
+  display: flex;
+  flex-direction: column;
 }
 
-
+.form-div p {
+  margin-bottom: 5px;
+}

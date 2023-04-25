@@ -1,5 +1,5 @@
 export interface EventSeries {
   id?: number;
-  daysBetweenEvents: number;
-  lastEventDate: Date;
+  daysBetweenEvents?: number;
+  amount?: number;
 }

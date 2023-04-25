@@ -34,6 +34,7 @@ import { ImprintComponent } from './imprint/imprint.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { OrganisationCardComponent } from './organisation-card/organisation-card.component';
 import { UsermanagementInOrganisationComponent } from './usermanagement-in-organisation/usermanagement-in-organisation.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -67,28 +68,29 @@ const routes: Routes = [
     OrganisationCardComponent,
     UsermanagementInOrganisationComponent,
   ],
-    imports: [
-        BrowserModule,
-        RouterModule.forRoot(routes),
-        BrowserAnimationsModule,
-        MatGridListModule,
-        MatMomentDateModule,
-        MatIconModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatCardModule,
-        MatListModule,
-        MatToolbarModule,
-        FormsModule,
-        MatButtonModule,
-        MatTabsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatPaginatorModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        MatSnackBarModule
-    ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    MatGridListModule,
+    MatMomentDateModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule,
+    MatListModule,
+    MatToolbarModule,
+    FormsModule,
+    MatButtonModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatSnackBarModule,
+    MatSlideToggleModule
+  ],
   exports: [
     MatIconModule,
     MatDatepickerModule,

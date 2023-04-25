@@ -6,14 +6,14 @@ export interface CustomEvent
   id?: number;
   name: string;
   description: string;
-  startDate?: Date;
-  startTime?:string;
-  endDate?: Date;
-  endTime?:string;
+  startDate: Date;
+  startTime: string;
+  endDate: Date;
+  endTime: string;
   location:string;
-  isPublic?:boolean;
+  isPublic:boolean;
   status?:string;
-  type?:string;
+  type:string;
 
   image?:ImageBitmap;
 
