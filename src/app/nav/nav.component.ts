@@ -56,6 +56,14 @@ export class NavComponent implements OnInit{
 
   onOrganisationClick(organisation:Organization){
     sessionStorage.setItem('orgaId', JSON.stringify(organisation.id));
+
+    const emailAdress = sessionStorage.getItem('emailAdress');
+    if(emailAdress != null && organisation.id != null){
+      this.uiUserService.getRoleForUserInOrga(organisation.id, emailAdress).subscribe(response =>{
+        sessionStorage.setItem('orgaRole',response.role);
+      });
+    }
+
     this.router.navigate(['']);
   }
 

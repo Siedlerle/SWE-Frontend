@@ -1,4 +1,4 @@
 export interface OrgaRole {
   id?: number;
-  name: string;
+  role: string;
 }

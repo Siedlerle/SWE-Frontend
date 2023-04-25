@@ -5,6 +5,7 @@ import {URLs} from "../assets/SystemVariables/URLs";
 import {Observable} from "rxjs";
 import {Organization} from "../DataTransferObjects/Organization";
 import {AuthService} from "./auth.service";
+import {OrgaRole} from "../DataTransferObjects/OrgaRole";
 
 
 @Injectable({
@@ -43,5 +44,9 @@ export class UiUserService {
 
     getOrganisationForUser(emailAdress: string):Observable<Organization[]>{
       return this.http.post<Organization[]>(URLs.backend+URLs.getOrganisationForUser+emailAdress,null);
+    }
+
+    getRoleForUserInOrga(orgaId: number, emailAdress: string):Observable<OrgaRole>{
+      return this.http.post<OrgaRole>(URLs.backend+'/user/orga/'+orgaId+'/get-role-for-user/'+emailAdress,null);
     }
 }
