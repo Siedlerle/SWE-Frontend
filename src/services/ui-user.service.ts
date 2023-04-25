@@ -36,4 +36,12 @@ export class UiUserService {
     getAllOrganisations():Observable<Organization[]>{
       return this.http.post<Organization[]>(URLs.backend+URLs.getAllOrganisations,null);
     }
+
+    getOrganisation(orgaId: number):Observable<Organization>{
+      return this.http.post<Organization>(URLs.backend+URLs.getOrganisation+orgaId,null);
+    }
+
+    getOrganisationForUser(emailAdress: string):Observable<Organization[]>{
+      return this.http.post<Organization[]>(URLs.backend+URLs.getOrganisationForUser+emailAdress,null);
+    }
 }

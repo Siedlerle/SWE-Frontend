@@ -26,7 +26,6 @@ export class OrganisationCatalogComponent implements OnInit{
   ngOnInit(): void {
     this.uiUserService.getAllOrganisations().subscribe(response => {
       this.organisations = response;
-      console.log(this.organisations[0])
     });
   }
 

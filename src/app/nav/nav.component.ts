@@ -3,6 +3,7 @@ import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import {listData} from "../organisation-catalog/organisation-list";
 import {MatCardContent} from "@angular/material/card";
 import {UiUserService} from "../../services/ui-user.service";
+import {Organization} from "../../DataTransferObjects/Organization";
 
 @Component({
   selector: 'app-nav',
@@ -19,6 +20,8 @@ export class NavComponent implements OnInit{
 
   activeLink: string;
 
+  organisationsForUser!:Organization[];
+
   constructor(private router: Router, private activeRoute: ActivatedRoute, private uiUserService : UiUserService) { }
   organisationList = listData;
   ngOnInit() {
@@ -27,6 +30,13 @@ export class NavComponent implements OnInit{
         this.activeLink = event.url;
       }
     });
+
+    const emailAdres = sessionStorage.getItem('emailAdress');
+    if(emailAdres!=null){
+      this.uiUserService.getOrganisationForUser(emailAdres).subscribe(response =>{
+        this.organisationsForUser = response;
+      });
+    }
   }
 
   isDropdownOpen = false;
@@ -42,6 +52,18 @@ export class NavComponent implements OnInit{
     this.isDropdownOpenBanner = !this.isDropdownOpenBanner;
     this.dropDownTop = event.clientY + 10;
     this.dropDownLeft = event.clientX -150;
+  }
+
+  onOrganisationClick(organisation:Organization){
+    sessionStorage.setItem('orgaId', JSON.stringify(organisation.id));
+    this.router.navigate(['']);
+  }
+
+  goBackToStart(){
+    sessionStorage.setItem('orgaId', '');
+    sessionStorage.setItem('orgaRole', '');
+    sessionStorage.setItem('eventRole', '');
+    this.router.navigate(['']);
   }
 
   showCard = false;

@@ -8,5 +8,16 @@ export const URLs = {
   refresh: 'user/auth/refresh',
   logout: '/logout',
   delete: 'user/auth/delete',
+
+
   getAllOrganisations: '/user/orga/get-all',
+  getOrganisation: 'user/orga/get-orga/',
+  getOrganisationForUser: '/user/orga/get-for-user/',
+  getRoleInOrganisation: '',
+  requestJoinToOrga: '',
+  acceptOrgaInvite:'',
+  declineOrgaInvite: '',
+  leaveOrga: '',
+  getAllEventsForUserOfOrganisation: '',
+  getAllRegisteredEventsForUserInOrga: '',
 };

@@ -107,6 +107,7 @@ export class LoginComponent implements OnInit{
             const refreshToken = response.refresh_token;
             sessionStorage.setItem('accessToken', accessToken);
             sessionStorage.setItem('refreshToken', refreshToken);
+            sessionStorage.setItem('emailAdress', this.email);
             sessionStorage.setItem('authenticated', JSON.stringify(true));
             location.reload()
           } else {

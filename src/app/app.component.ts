@@ -21,9 +21,11 @@ export class AppComponent implements OnInit{
         this.router.navigate(['']);
       }
     }else{
-      setTimeout(()=>{
-        this.router.navigate([''])
-      },1000)
+      if(!this.isAuthenticated){
+        setTimeout(()=>{
+          this.router.navigate([''])
+        },1000)
+      }
     }
   }
 }
