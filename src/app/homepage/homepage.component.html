@@ -28,19 +28,35 @@
       </mat-grid-tile>
       <mat-grid-tile rowspan="1" colspan="1" class="layoutGridTile">
         <mat-grid-tile-header>
-          <h1>Einladungen</h1>
         </mat-grid-tile-header>
-        <mat-list>
-          <mat-list-item *ngFor="let event of invitedEvents" (click)="onCardClick($event)">
-            <mat-card class="card" (click)="openCard()">
-              <img mat-card-sm-image src="{{event.image}}" alt = "" class = "mat-card-image">
-              <div class="card-content">
-                <mat-card-header>{{event.name}}</mat-card-header>
-                <mat-card-content>{{event.description}}</mat-card-content>
-              </div>
-            </mat-card>
-          </mat-list-item>
-        </mat-list>
+        <mat-tab-group class="invitation-tabs" dynamicHeight>
+          <mat-tab label="Event-Einladungen">
+              <mat-list>
+                <mat-list-item *ngFor="let event of invitedEvents" (click)="onCardClick($event)">
+                  <mat-card class="card" (click)="openCard()">
+                    <img mat-card-sm-image src="{{event.image}}" alt = "" class = "mat-card-image">
+                    <div class="card-content">
+                      <mat-card-header>{{event.name}}</mat-card-header>
+                      <mat-card-content>{{event.description}}</mat-card-content>
+                    </div>
+                  </mat-card>
+                </mat-list-item>
+              </mat-list>
+          </mat-tab>
+          <mat-tab label="Organisations-Einladungen">
+              <mat-list>
+                <mat-list-item *ngFor="let organisation of invitedOrganisations">
+                  <mat-card class="card">
+                    <!--<img mat-card-sm-image src="{{organisation.logo}}" alt = "" class = "mat-card-image">-->
+                    <div class="card-content">
+                      <mat-card-header>{{organisation.name}}</mat-card-header>
+                      <mat-card-content>{{organisation.location}}</mat-card-content>
+                    </div>
+                  </mat-card>
+                </mat-list-item>
+              </mat-list>
+          </mat-tab>
+        </mat-tab-group>
       </mat-grid-tile>
     </mat-grid-list>
 

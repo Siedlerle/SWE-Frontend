@@ -37,7 +37,7 @@ export class UiOrganizerService {
     return this.http.post<String>(URLs.backend+URLs.createEventSeres+emailAddress+'/'+orgaId, jsonBody, httpOptions);
   }
 
-  getManagingEvents(emailAddress: string, orgaId: number):Observable<Event[]> {
-    return this.http.post<Event[]>(URLs.backend+URLs.getManagingEventsInOrga+emailAddress, orgaId);
+  getManagingEvents(emailAddress: string, orgaId: string):Observable<CustomEvent[]> {
+    return this.http.post<CustomEvent[]>(URLs.backend+'/organizer/orga/'+orgaId+'/event/managing/get/'+emailAddress, orgaId);
   }
 }

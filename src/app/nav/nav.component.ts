@@ -3,7 +3,7 @@ import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import {listData} from "../organisation-catalog/organisation-list";
 import {MatCardContent} from "@angular/material/card";
 import {UiUserService} from "../../services/ui-user.service";
-import {Organization} from "../../DataTransferObjects/Organization";
+import {Organisation} from "../../DataTransferObjects/Organisation";
 
 @Component({
   selector: 'app-nav',
@@ -20,7 +20,7 @@ export class NavComponent implements OnInit{
 
   activeLink: string;
 
-  organisationsForUser!:Organization[];
+  organisationsForUser!:Organisation[];
 
   constructor(private router: Router, private activeRoute: ActivatedRoute, private uiUserService : UiUserService) { }
   organisationList = listData;
@@ -54,7 +54,7 @@ export class NavComponent implements OnInit{
     this.dropDownLeft = event.clientX -150;
   }
 
-  onOrganisationClick(organisation:Organization){
+  onOrganisationClick(organisation:Organisation){
     sessionStorage.setItem('orgaId', JSON.stringify(organisation.id));
 
     const emailAdress = sessionStorage.getItem('emailAdress');
@@ -88,6 +88,7 @@ export class NavComponent implements OnInit{
     sessionStorage.setItem('accessToken', '');
     sessionStorage.setItem('refreshToken', '');
     sessionStorage.setItem('role', '');
+    sessionStorage.setItem('orgaId', '');
     location.reload();
   }
 }

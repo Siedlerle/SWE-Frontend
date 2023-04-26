@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UiOrganizerService} from "../../services/ui-organizer.service";
 import {UiUserService} from "../../services/ui-user.service";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
+import {Organisation} from "../../DataTransferObjects/Organisation";
 
 //import { listData } from './event-list';
 
@@ -24,6 +25,7 @@ export class HomepageComponent implements OnInit {
 
   registeredEvents: CustomEvent[] = [];
   invitedEvents: CustomEvent[] = [];
+  invitedOrganisations: Organisation[] = [];
 
   ngOnInit() {
     const emailAddress = sessionStorage.getItem('emailAdress');
@@ -35,6 +37,9 @@ export class HomepageComponent implements OnInit {
       this.uiUserService.getEventInvitations(emailAddress, orgaId).subscribe(response => {
         this.invitedEvents = response;
       });
+      this.uiUserService.getOrganisationInvitations(emailAddress).subscribe(response => {
+        this.invitedOrganisations = response;
+      })
     }
   }
 

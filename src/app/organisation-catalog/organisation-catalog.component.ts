@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {listData} from "./organisation-list";
 import {MatPaginator} from "@angular/material/paginator";
 import {UiUserService} from "../../services/ui-user.service";
-import {Organization} from "../../DataTransferObjects/Organization";
+import {Organisation} from "../../DataTransferObjects/Organisation";
 
 @Component({
   selector: 'app-organisation-catalog',
@@ -21,7 +21,7 @@ export class OrganisationCatalogComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   toggleSearch: boolean = false;
 
-  organisations!:Organization[]
+  organisations!:Organisation[]
 
   ngOnInit(): void {
     this.uiUserService.getAllOrganisations().subscribe(response => {

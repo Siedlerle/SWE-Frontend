@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {User} from "../DataTransferObjects/User";
 import {URLs} from "../assets/SystemVariables/URLs";
 import {Observable} from "rxjs";
-import {Organization} from "../DataTransferObjects/Organization";
+import {Organisation} from "../DataTransferObjects/Organisation";
 import {AuthService} from "./auth.service";
 import {OrgaRole} from "../DataTransferObjects/OrgaRole";
 import {CustomEvent} from "../DataTransferObjects/CustomEvent";
@@ -41,20 +41,24 @@ export class UiUserService {
 
 
     //Organisation
-    getAllOrganisations():Observable<Organization[]>{
-      return this.http.post<Organization[]>(URLs.backend+URLs.getAllOrganisations,null);
+    getAllOrganisations():Observable<Organisation[]>{
+      return this.http.post<Organisation[]>(URLs.backend+URLs.getAllOrganisations,null);
     }
 
-    getOrganisation(orgaId: number):Observable<Organization>{
-      return this.http.post<Organization>(URLs.backend+URLs.getOrganisation+orgaId,null);
+    getOrganisation(orgaId: number):Observable<Organisation>{
+      return this.http.post<Organisation>(URLs.backend+URLs.getOrganisation+orgaId,null);
     }
 
-    getOrganisationForUser(emailAdress: string):Observable<Organization[]>{
-      return this.http.post<Organization[]>(URLs.backend+URLs.getOrganisationForUser+emailAdress,null);
+    getOrganisationForUser(emailAdress: string):Observable<Organisation[]>{
+      return this.http.post<Organisation[]>(URLs.backend+URLs.getOrganisationForUser+emailAdress,null);
     }
 
     getRoleForUserInOrga(orgaId: number, emailAdress: string):Observable<OrgaRole>{
       return this.http.post<OrgaRole>(URLs.backend+'/user/orga/'+orgaId+'/get-role-for-user/'+emailAdress,null);
+    }
+
+    getOrganisationInvitations(emailAddess: string):Observable<Organisation[]>{
+      return this.http.post<Organisation[]>(URLs.backend+URLs.getOrgaInvitationsForUser+emailAddess, null);
     }
 
 

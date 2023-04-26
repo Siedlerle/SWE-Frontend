@@ -23,6 +23,7 @@ export const URLs = {
   leaveOrga: '',
   getAllEventsForUserOfOrganisation: '',
   getAllRegisteredEventsForUserInOrga: '',
+  getOrgaInvitationsForUser:'/user/orga/get-invitations/',
 
 
   //Events

@@ -109,8 +109,7 @@ export class LoginComponent implements OnInit{
             sessionStorage.setItem('refreshToken', refreshToken);
             sessionStorage.setItem('emailAdress', this.email);
             sessionStorage.setItem('authenticated', JSON.stringify(true));
-            //TODO orgaId ändern:
-            sessionStorage.setItem('orgaId', JSON.stringify(1));
+            sessionStorage.setItem('orgaId', JSON.stringify(null));
             location.reload()
           } else {
             sessionStorage.setItem('authenticated', JSON.stringify(false));

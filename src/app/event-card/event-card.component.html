@@ -8,26 +8,23 @@
           <mat-icon class ="close-Icon">close</mat-icon>
         </button>
 
-      <img mat-card-image src="{{cardData.eventImage}}">
+      <img mat-card-image src="{{eventData.image}}">
 
       <mat-tab-group class="tab-group">
         <mat-tab label="Eventkarte">
-          <h1>{{cardData.eventTitle}}</h1>
-          <p>{{cardData.eventDescription}}</p>
-          <p>Eventinformationen:</p>
+          <h1>{{eventData.name}}</h1>
+          <h2>Beschreibung</h2>
+          <p>{{eventData.description}}</p>
+          <h2>Zeit</h2>
           <p>
-            Teilnehmer: {{cardData.eventAttendee.length}}
-          <p>
-            Referent:
-            {{cardData.eventOrganizer}}
+            Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{eventData.startTime}}
           </p>
           <p>
-            Datum:
-            {{cardData.eventDate}}
+            Endet am {{eventData.endDate | date: 'dd.MM.yyyy'}} um {{eventData.endTime}}
           </p>
+          <h2>Ort</h2>
           <p>
-            Ort
-            {{cardData.eventLocation}}
+            {{eventData.location}}
           </p>
         </mat-tab>
         <mat-tab label="Eventguide">
@@ -40,18 +37,18 @@
           <div *ngIf="isEditing" class = "editForm">
             <p>Titel des Events</p>
             <mat-form-field >
-              <input matInput placeholder="Titel" [(ngModel)]="cardTitle">
+              <input matInput placeholder="Titel" [(ngModel)]="eventData.name">
             </mat-form-field >
             <p>Beschreibung des Events</p>
             <mat-form-field class = "descriptionField">
-              <textarea matInput placeholder="Beschreibung" [(ngModel)]="cardDescription">
+              <textarea matInput placeholder="Beschreibung" [(ngModel)]="eventData.description">
               </textarea>
             </mat-form-field>
             <p>Teilnehmer</p>
             <mat-grid-list cols = "4" rowHeight="7:1">
-              <mat-grid-tile  *ngFor="let item of cardAttendee" class = "listAttendee">
+              <mat-grid-tile  *ngFor="let attendee of attendees" class = "listAttendee">
                 <div class = "listAttendeeItems">
-                  {{item.valueOf()}}
+                  {{attendee.valueOf()}}
                 </div>
               </mat-grid-tile>
             </mat-grid-list>

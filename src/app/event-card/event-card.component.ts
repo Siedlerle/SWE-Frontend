@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import {DataService} from "../management/CardService";
+import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
+import {User} from "../../DataTransferObjects/User";
 
 @Component({
   selector: 'app-event-card',
@@ -12,24 +14,24 @@ export class EventCardComponent {
     this.isEditing = false;
     this.onClose.emit();
   }
-  cardData: any;
+  eventData: CustomEvent;
 
   constructor(private dataService: DataService) {
-    this.cardData = this.dataService.getCardData();
+    this.eventData = this.dataService.getCardData();
   }
 
   isEditing = false;
   cardTitle: string;
   cardDescription: string;
-  cardAttendee:any;
+  attendees: User[];
 
 
 
    editCard() {
     this.isEditing = true;
-    this.cardTitle = this.cardData.eventTitle;
-    this.cardDescription = this.cardData.eventDescription;
-    this.cardAttendee = this.cardData.eventAttendee;
+    this.cardTitle = this.eventData.name;
+    this.cardDescription = this.eventData.description;
+
 
 
   }
@@ -42,8 +44,8 @@ export class EventCardComponent {
 
   onSave() {
     // save edited data and exit editing mode
-    this.cardData.eventTitle = this.cardTitle;
-    this.cardData.eventDescription = this.cardDescription;
+    this.eventData.name = this.cardTitle;
+    this.eventData.description = this.cardDescription;
     this.isEditing = false;
   }
 

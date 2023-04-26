@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
+import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 
 @Injectable({
   providedIn: 'root'
 
 })
 export class DataService {
-  private cardData: any;
+  private cardData: CustomEvent;
 
   constructor() { }
 
-  setCardData(data: any) {
+  setCardData(data: CustomEvent) {
     this.cardData = data;
   }
 
