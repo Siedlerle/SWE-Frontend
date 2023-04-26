@@ -9,7 +9,7 @@
       </button>
     </div>
 
-    <mat-grid-list cols="1" rowHeight="220px"  class = "form-list">
+    <mat-grid-list cols="1" rowHeight="260px"  class = "form-list">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows" class = >
       <mat-card class="dashboard-card">
         <mat-card-content>
@@ -80,9 +80,20 @@
                     <mat-error *ngIf="!eventLocation">Veranstaltungsort wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
-                <p>
-                  <mat-slide-toggle color="primary" style="position: relative" [(ngModel)]="wantEventSeries" name="wantEventSeries">Serie von diesem Event erstellen</mat-slide-toggle>
-                <p>
+                <div style="display:flex; justify-content: center">
+                  <p>
+                    <mat-form-field>
+                      <ngx-mat-file-input [formControl]="fileControl" [multiple]="false" [accept]="accept" [color]="color" style="position: relative; width: 100%">
+                        <mat-icon ngxMatFileInputIcon>upload</mat-icon>
+                      </ngx-mat-file-input>
+                    </mat-form-field>
+                  </p>
+                </div>
+                <div style="display:flex; justify-content: center">
+                  <p>
+                    <mat-slide-toggle color="primary" style="position: relative" [(ngModel)]="wantEventSeries" name="wantEventSeries">Serie von diesem Event erstellen</mat-slide-toggle>
+                  </p>
+                </div>
                 <div>
                   <p>
                     <mat-form-field appearance="fill" *ngIf="wantEventSeries"  style="position: relative; width: 47.5%; float: left">
@@ -99,9 +110,11 @@
                     </mat-form-field>
                   </p>
                 </div>
-                <p>
-                  <mat-slide-toggle color="primary" style="position: relative" [(ngModel)]="event.isPublic" name="eventIsPublic">In der Organisation sichtbar</mat-slide-toggle>
-                <p>
+                <div style="display:flex; justify-content: center">
+                  <p>
+                    <mat-slide-toggle color="primary" style="position: relative" [(ngModel)]="event.isPublic" name="eventIsPublic">Event in der Organisation öffentlich</mat-slide-toggle>
+                  </p>
+                </div>
                 <p>
                   <button mat-raised-button type="submit" [disabled]="!event.name || !event.description || !event.startDate || !event.endDate" class = "submit-button">Erstellen</button>
                 </p>

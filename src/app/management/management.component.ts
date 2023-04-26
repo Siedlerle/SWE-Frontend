@@ -1,10 +1,10 @@
 import {Component, ElementRef, Inject, Pipe, PipeTransform, ViewChild} from '@angular/core';
-import {listData, listEventData} from "../event-catalog/event-list";
 import {MatPaginator} from "@angular/material/paginator";
 import {AddEventComponent} from "../add-event/add-event.component";
 import {EventCardComponent} from "../event-card/event-card.component";
 import {MatCardContent} from "@angular/material/card";
 import {DataService} from "./CardService";
+import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 
 @Component({
   selector: 'app-management',
@@ -14,17 +14,17 @@ import {DataService} from "./CardService";
 export class ManagementComponent {
 
   constructor(private dataService: DataService) { }
-  eventList= listEventData;
+  managingEvents: CustomEvent[];
   @ViewChild('searchbar') searchbar: ElementRef;
   searchText = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   toggleSearch: boolean = false;
   filterEvents() {
     if (!this.searchText) {
-      return this.eventList;
+      return this.managingEvents;
     }
-    return this.eventList.filter(event => {
-      return event.eventTitle.toLowerCase().includes(this.searchText.toLowerCase());
+    return this.managingEvents.filter(event => {
+      return event.name.toLowerCase().includes(this.searchText.toLowerCase());
     });
   }
 

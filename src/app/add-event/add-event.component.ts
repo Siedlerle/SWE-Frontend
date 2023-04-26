@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {listData} from "../event-catalog/event-list";
-import {NgForm} from "@angular/forms";
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormControl, NgForm} from "@angular/forms";
 import {BreakpointObserver,Breakpoints} from "@angular/cdk/layout";
 import {map} from "rxjs";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
@@ -8,15 +7,15 @@ import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {D} from "@angular/cdk/keycodes";
 import {TimeInterval} from "rxjs/internal/operators/timeInterval";
 import {EventSeries} from "../../DataTransferObjects/EventSeries";
+import {ThemePalette} from "@angular/material/core";
 
 @Component({
   selector: 'app-add-event',
   templateUrl: './add-event.component.html',
   styleUrls: ['./add-event.component.css']
 })
-export class AddEventComponent {
+export class AddEventComponent implements OnInit {
   @Output() onClose = new EventEmitter<void>();
-  eventList = listData
 
   event : CustomEvent = {
     name : "",
@@ -35,7 +34,27 @@ export class AddEventComponent {
     daysBetweenEvents : undefined
   };
 
-  constructor( private breakpointObserver: BreakpointObserver, private uiOrganizerService: UiOrganizerService) {}
+  fileControl: FormControl;
+  accept: string;
+  color: ThemePalette = 'primary';
+  public listAccepts = [
+    null,
+    ".png",
+    "image/*"
+  ];
+  file!: File;
+
+  constructor( private breakpointObserver: BreakpointObserver, private uiOrganizerService: UiOrganizerService) {
+    this.fileControl = new FormControl(this.file)
+  }
+
+
+  ngOnInit() {
+    this.fileControl.valueChanges.subscribe((file: File) => {
+      this.event.image = file.slice(0, file.size, file.type);
+    });
+  }
+
 
   closePopup() {
     this.onClose.emit();
@@ -54,18 +73,20 @@ export class AddEventComponent {
     eventStartDate: Date = new Date();
     eventEndDate: Date = new Date();
     eventLocation: string = "";
+    eventImage: File;
 
     onSubmit(form: NgForm)
     {
       const emailAddress = sessionStorage.getItem('emailAdress');
-      if(emailAddress != null){
+      const orgaId = sessionStorage.getItem('orgaId');
+      if(emailAddress != null && orgaId != null){
         if(!this.wantEventSeries) {
-          this.uiOrganizerService.addEvent(this.event, emailAddress).subscribe(response =>{
+          this.uiOrganizerService.addEvent(this.event, emailAddress, orgaId).subscribe(response =>{
               console.log(response);
             }
           );
         } else {
-          this.uiOrganizerService.addEventSeries(this.event, this.eventSeries, emailAddress).subscribe(response => {
+          this.uiOrganizerService.addEventSeries(this.event, this.eventSeries, emailAddress, orgaId).subscribe(response => {
             console.log(response);
           });
         }
@@ -84,6 +105,7 @@ export class AddEventComponent {
       this.closePopup();
       location.reload();*/
   }
+
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {

@@ -6,6 +6,8 @@ import {Observable} from "rxjs";
 import {Organization} from "../DataTransferObjects/Organization";
 import {AuthService} from "./auth.service";
 import {OrgaRole} from "../DataTransferObjects/OrgaRole";
+import {CustomEvent} from "../DataTransferObjects/CustomEvent";
+import {C} from "@angular/cdk/keycodes";
 
 
 @Injectable({
@@ -57,11 +59,19 @@ export class UiUserService {
 
 
     //Events
-    getAllEvents(emailAdress: string):Observable<Event[]>{
-      return this.http.post<Event[]>(URLs.backend+URLs.getAllEventsForUser+emailAdress, null);
+    getAllEvents(emailAdress: string):Observable<CustomEvent[]>{
+      return this.http.post<CustomEvent[]>(URLs.backend+URLs.getAllEventsForUser+emailAdress, null);
     }
 
-    getRegisteredEvents(emailAdress: string):Observable<Event[]>{
-      return this.http.post<Event[]>(URLs.backend+URLs.getRegisteredEventsForUser+emailAdress,null);
+    getRegisteredEventsInOrganisation(emailAdress: string, orgaId: string):Observable<CustomEvent[]>{
+      return this.http.post<CustomEvent[]>(URLs.backend+'/user/orga/'+orgaId+'/event/get-registered/'+emailAdress,null);
+    }
+
+    getEventInvitations(emailAddress: string, orgaId: string):Observable<CustomEvent[]>{
+      return this.http.post<CustomEvent[]>(URLs.backend+URLs.getEventInvitationsForUser+emailAddress,orgaId);
+    }
+
+    getAllVisibleNoRegisteredEventsInOrganisation(emailAddress: string, orgaId: string):Observable<CustomEvent[]>{
+      return this.http.post<CustomEvent[]>(URLs.backend+'/user/orga/'+orgaId+'/event/get-available-events/'+emailAddress, null);
     }
 }

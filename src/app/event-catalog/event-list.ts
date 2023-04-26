@@ -1,4 +1,4 @@
-
+/*
 export let listData = [
   { eventTitle: "your First event", eventDescription: "Its not my first Event", eventDate: "15.04.2023", eventOrganizer: "Ich bims" }
 ];
@@ -12,3 +12,4 @@ export let listEventData = [
   {  eventTitle: "Beispiel Event 5", eventDescription: "Beispieltext 5", eventDate: "15.04.2023", eventOrganizer: "Ein Organisator", eventImage: "../../assets/images/nature.jpg" , eventAttendee:[]},
   {  eventTitle: "Beispiel Event 6", eventDescription: "Beispieltext 6", eventDate: "15.04.2023", eventOrganizer: "Ein Organisator", eventImage: "../../assets/images/nature.jpg" , eventAttendee:[]}
 ];
+*/

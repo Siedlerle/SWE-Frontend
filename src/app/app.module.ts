@@ -35,6 +35,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { OrganisationCardComponent } from './organisation-card/organisation-card.component';
 import { UsermanagementInOrganisationComponent } from './usermanagement-in-organisation/usermanagement-in-organisation.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -89,7 +90,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    NgxMatFileInputModule
   ],
   exports: [
     MatIconModule,

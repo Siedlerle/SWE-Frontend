@@ -28,12 +28,13 @@ export const URLs = {
   //Events
   getRegisteredEventsForUser:'/user/event/get-registered/',
   getAllEventsForUser:'/user/event/get-all/',
+  getEventInvitationsForUser:'/user/event/get-invitations/',
 
 
   //Organisator
   createEvent:'/organizer/event/create/',
   changeEvent:'/organizer/event/change/',
   deleteEvent: '/organizer/event/delete/',
-  createEventSeres:'/organizer/event-series/create/'
-
+  createEventSeres:'/organizer/event-series/create/',
+  getManagingEventsInOrga: '/event/managing/get/'
 };

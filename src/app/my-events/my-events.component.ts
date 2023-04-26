@@ -1,26 +1,37 @@
-import {Component, ElementRef, Pipe, PipeTransform, ViewChild} from '@angular/core';
-import {listEventData} from "../event-catalog/event-list";
+import {Component, ElementRef, OnInit, Pipe, PipeTransform, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
+import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
+import {UiUserService} from "../../services/ui-user.service";
 
 @Component({
   selector: 'app-my-events',
   templateUrl: './my-events.component.html',
   styleUrls: ['./my-events.component.css']
 })
-export class MyEventsComponent {
+export class MyEventsComponent implements OnInit {
 
   public onCardClick(evt: MouseEvent) {
     console.log(evt);
   }
 
-  eventList = listEventData;
+  registeredEvents: CustomEvent[] = [];
   @ViewChild('searchbar') searchbar: ElementRef;
   searchText = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   toggleSearch: boolean = false;
 
-  constructor() {
+  constructor(private uiUserService : UiUserService) {
 
+  }
+
+  ngOnInit() {
+    const emailAddress = sessionStorage.getItem('emailAdress');
+    const orgaId = sessionStorage.getItem('orgaId');
+    if (emailAddress != null && orgaId != null) {
+      this.uiUserService.getRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
+        this.registeredEvents = response;
+      });
+    }
   }
 
   openSearch() {

@@ -12,8 +12,8 @@ export class UiOrganizerService {
 
   constructor(private http:HttpClient) { }
 
-  addEvent(event:CustomEvent, emailAddress: string):Observable<String>{
-    return this.http.post<String>(URLs.backend+URLs.createEvent+emailAddress,event);
+  addEvent(event:CustomEvent, emailAddress: string, orgaId: string):Observable<String>{
+    return this.http.post<String>(URLs.backend+URLs.createEvent+emailAddress+'/'+orgaId,event);
   }
 
   changeEvent(event:CustomEvent):Observable<String>{
@@ -24,7 +24,7 @@ export class UiOrganizerService {
     return this.http.post<String>(URLs.backend+URLs.deleteEvent+eventId,null);
   }
 
-  addEventSeries(startEvent: CustomEvent, eventSeries: EventSeries, emailAddress: string):Observable<String>{
+  addEventSeries(startEvent: CustomEvent, eventSeries: EventSeries, emailAddress: string, orgaId: string):Observable<String>{
     const body = {startEvent: startEvent, eventSeries: eventSeries};
     let jsonBody = JSON.stringify(body);
 
@@ -34,6 +34,10 @@ export class UiOrganizerService {
       })
     };
 
-    return this.http.post<String>(URLs.backend+URLs.createEventSeres+emailAddress, jsonBody, httpOptions);
+    return this.http.post<String>(URLs.backend+URLs.createEventSeres+emailAddress+'/'+orgaId, jsonBody, httpOptions);
+  }
+
+  getManagingEvents(emailAddress: string, orgaId: number):Observable<Event[]> {
+    return this.http.post<Event[]>(URLs.backend+URLs.getManagingEventsInOrga+emailAddress, orgaId);
   }
 }
