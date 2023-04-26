@@ -67,6 +67,10 @@ export class UiUserService {
       return this.http.post<CustomEvent[]>(URLs.backend+URLs.getAllEventsForUser+emailAdress, null);
     }
 
+    getAllRegisteredEvents(emailAdress: string):Observable<CustomEvent[]>{
+      return this.http.post<CustomEvent[]>(URLs.backend+URLs.getRegisteredEventsForUser+emailAdress,null);
+    }
+
     getRegisteredEventsInOrganisation(emailAdress: string, orgaId: string):Observable<CustomEvent[]>{
       return this.http.post<CustomEvent[]>(URLs.backend+'/user/orga/'+orgaId+'/event/get-registered/'+emailAdress,null);
     }

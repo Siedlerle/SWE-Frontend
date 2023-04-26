@@ -32,7 +32,7 @@ export class ManagementComponent implements OnInit {
   ngOnInit() {
     const emailAddress = sessionStorage.getItem('emailAdress');
     const orgaId = sessionStorage.getItem('orgaId');
-    if (emailAddress != null && orgaId != null) {
+    if (emailAddress != null && orgaId != null && orgaId !=='') {
       this.uiOrganizerService.getManagingEvents(emailAddress, orgaId).subscribe(response => {
         this.managingEvents = response;
       });
