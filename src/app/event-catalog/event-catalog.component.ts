@@ -27,8 +27,12 @@ export class EventCatalogComponent implements OnInit {
   ngOnInit() {
     const emailAddress = sessionStorage.getItem('emailAdress');
     const orgaId = sessionStorage.getItem('orgaId');
-    if (emailAddress != null && orgaId != null) {
+    if (emailAddress != null && orgaId != null && orgaId!=='') {
       this.uiUserService.getAllVisibleNoRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
+        this.availableEvents = response;
+      });
+    }else if(emailAddress != null){
+      this.uiUserService.getAllEvents(emailAddress).subscribe(response =>{
         this.availableEvents = response;
       });
     }

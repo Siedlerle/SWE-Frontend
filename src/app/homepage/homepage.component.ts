@@ -30,7 +30,7 @@ export class HomepageComponent implements OnInit {
   ngOnInit() {
     const emailAddress = sessionStorage.getItem('emailAdress');
     const orgaId = sessionStorage.getItem('orgaId');
-    if (emailAddress != null && orgaId != null) {
+    if (emailAddress != null && orgaId != null && orgaId !=='') {
       this.uiUserService.getRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
         this.registeredEvents = response;
       });
