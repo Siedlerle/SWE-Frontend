@@ -5,6 +5,7 @@ import {User} from "../../DataTransferObjects/User";
 import {MatTableDataSource} from "@angular/material/table";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
 import {NgForm} from "@angular/forms";
+import {DataSource} from "@angular/cdk/collections";
 
 @Component({
   selector: 'app-event-card',
@@ -17,6 +18,7 @@ export class EventCardComponent implements OnInit {
     this.isEditing = false;
     this.onClose.emit();
   }
+
   eventData: CustomEvent;
   dataSource = new MatTableDataSource<User>();
   displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
@@ -26,6 +28,7 @@ export class EventCardComponent implements OnInit {
   }
 
   ngOnInit() {
+
     let id = this.eventData.id;
     if (id != null) {
       this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
@@ -34,7 +37,6 @@ export class EventCardComponent implements OnInit {
       });
     }
   }
-
 
 
   isEditing = false;
@@ -47,17 +49,10 @@ export class EventCardComponent implements OnInit {
   eventEndDate: Date = new Date();
   eventLocation: string = "";
 
-
-
-
-
-
-
   addUser(){
 
   }
   removeUser(user: User){
-
   }
 
   onSave() {
@@ -66,20 +61,26 @@ export class EventCardComponent implements OnInit {
     this.eventData.description = this.eventDescription;
     this.isEditing = false;
   }
-
   onCancel() {
     // discard changes and exit editing mode
     this.isEditing = false;
   }
+
   showAddUsertoEvent = false;
   openAddUsertoEvent(){
      this.showAddUsertoEvent = true
   }
-
 
   onChangeEvent(form: NgForm) {
     this.uiOrganizerService.changeEvent(this.eventData).subscribe(response => {
       console.log(response);
     });
   }
+
+  fileDataSource = new MatTableDataSource();
+  uploadFile(){
+
+  }
+
+  protected readonly DataSource = DataSource;
 }

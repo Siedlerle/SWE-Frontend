@@ -26,8 +26,72 @@
           </p>
         </mat-tab>
         <mat-tab label="Eventguide">
-          Content 2
+          <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-card-title>Chat</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div  #chatContainer style="height: 150px; overflow-y: scroll;margin-bottom: 1%">
+                <div>
+                  <mat-icon>chevron_right</mat-icon>
+                </div>
+              </div>
+              <mat-form-field style="display: flex; width: 80%; justify-content: center; align-content: center">
+                <input matInput placeholder="Enter text" >
+                <button mat-icon-button matSuffix >
+                  <mat-icon>send</mat-icon>
+                </button>
+              </mat-form-field>
+            </mat-card-content>
+          </mat-card>
+
+          <!--mat-card zum Uploaden und Anzeigen von Dateien-->
+          <mat-card class="dashboard-card">
+            <mat-card-header style="position: relative; display: flex; width: 100%; margin: 10px">
+              <div class="tableControlls"
+                   style="position:relative; justify-self: stretch; width: 100%; text-align: right">
+                <mat-card-title style="float: left">Files</mat-card-title>
+                <ngx-mat-file-input  style="float: right; margin-right: 45px">
+                </ngx-mat-file-input>
+              </div>
+            </mat-card-header>
+            <mat-card-content>
+              <div class = "fileTable">
+                <mat-table [dataSource]="dataSource" matSort class = "">
+                  <ng-container matColumnDef="FirstName">
+                    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                    <mat-cell *matCellDef="let user">{{user.firstname}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="LastName">
+                    <mat-header-cell *matHeaderCellDef>Typ der Datei</mat-header-cell>
+                    <mat-cell *matCellDef="let user">{{user.lastname}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="eMail">
+                    <mat-header-cell *matHeaderCellDef>Größe der Datei</mat-header-cell>
+                    <mat-cell *matCellDef="let user">{{user.emailAdress}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+                    <mat-cell *matCellDef="let user">
+                      <button mat-icon-button >
+                        <mat-icon>download</mat-icon>
+                      </button>
+                      <button mat-icon-button>
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </mat-cell>
+                  </ng-container>
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+              </div>
+            </mat-card-content>
+          </mat-card>
         </mat-tab>
+
         <mat-tab label="Teilnehmerverwaltung" class = "tab-attendee">
           <div>
             <button mat-raised-button (click) = "openAddUsertoEvent()" class = "addPerson">
