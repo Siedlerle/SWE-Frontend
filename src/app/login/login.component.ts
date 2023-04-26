@@ -109,7 +109,7 @@ export class LoginComponent implements OnInit{
             sessionStorage.setItem('refreshToken', refreshToken);
             sessionStorage.setItem('emailAdress', this.email);
             sessionStorage.setItem('authenticated', JSON.stringify(true));
-            sessionStorage.setItem('orgaId', JSON.stringify(null));
+            sessionStorage.setItem('orgaId', '');
             location.reload()
           } else {
             sessionStorage.setItem('authenticated', JSON.stringify(false));
