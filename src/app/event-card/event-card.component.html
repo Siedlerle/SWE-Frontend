@@ -1,8 +1,6 @@
 <!doctype html>
 <html>
 <div class ="popup-background">
-
-
   <div class="popup">
         <button mat-fab (click)="closeCard()" class = "close-Button">
           <mat-icon class ="close-Icon">close</mat-icon>
@@ -53,7 +51,7 @@
               </mat-grid-tile>
             </mat-grid-list>
             <div>
-              <button mat-mini-fab (click) = "addUser()" class = "addPerson">
+              <button mat-mini-fab (click) = "openAddUsertoEvent()" class = "addPerson">
                 <mat-icon >person_add</mat-icon>
               </button>
             </div>
@@ -67,6 +65,7 @@
   </div>
 </div>
 
+<app-add-user-to-event *ngIf="showAddUsertoEvent" (onCloseAddUser)="closeCard()"></app-add-user-to-event>
 </html>
 
 

@@ -53,5 +53,9 @@ export class EventCardComponent {
     // discard changes and exit editing mode
     this.isEditing = false;
   }
+  showAddUsertoEvent = false;
+  openAddUsertoEvent(){
+     this.showAddUsertoEvent = true
+  }
 
 }
