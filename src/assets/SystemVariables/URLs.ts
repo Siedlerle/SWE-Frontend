@@ -17,7 +17,6 @@ export const URLs = {
   getOrganisation: 'user/orga/get-orga/',
   getOrganisationForUser: '/user/orga/get-for-user/',
   getRoleInOrganisation: '',
-  requestJoinToOrga: '',
   acceptOrgaInvite:'',
   declineOrgaInvite: '',
   leaveOrga: '',

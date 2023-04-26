@@ -61,6 +61,10 @@ export class UiUserService {
       return this.http.post<Organisation[]>(URLs.backend+URLs.getOrgaInvitationsForUser+emailAddess, null);
     }
 
+    requestJoin(orgaId: number, emailAdress:string){
+      return this.http.post(URLs.backend+'/user/orga/'+orgaId+'/request-join/'+emailAdress,null);
+    }
+
 
     //Events
     getAllEvents(emailAdress: string):Observable<CustomEvent[]>{

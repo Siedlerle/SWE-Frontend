@@ -3,6 +3,9 @@ import {listData} from "./organisation-list";
 import {MatPaginator} from "@angular/material/paginator";
 import {UiUserService} from "../../services/ui-user.service";
 import {Organisation} from "../../DataTransferObjects/Organisation";
+import {User} from "../../DataTransferObjects/User";
+import {OrganisationCardComponent} from "../organisation-card/organisation-card.component";
+import {OrganisationCardService} from "../organisation-card/OrganisationCardService";
 
 @Component({
   selector: 'app-organisation-catalog',
@@ -11,7 +14,7 @@ import {Organisation} from "../../DataTransferObjects/Organisation";
 })
 export class OrganisationCatalogComponent implements OnInit{
 
-  constructor(private uiUserService:UiUserService) {
+  constructor(private uiUserService:UiUserService, private organisationCardService:OrganisationCardService) {
 
   }
 
@@ -35,8 +38,9 @@ export class OrganisationCatalogComponent implements OnInit{
   }
 
   showCard = false;
-  openCard(){
+  openCard(item: Organisation){
     this.showCard = true;
+    this.organisationCardService.setCardData(item);
   }
   closeCard(){
     this.showCard = false;
