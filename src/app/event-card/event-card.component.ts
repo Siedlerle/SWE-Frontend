@@ -4,6 +4,7 @@ import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {User} from "../../DataTransferObjects/User";
 import {MatTableDataSource} from "@angular/material/table";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-event-card',
@@ -28,7 +29,6 @@ export class EventCardComponent implements OnInit {
     let id = this.eventData.id;
     if (id != null) {
       this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
-        console.log(response)
         this.attendees = response;
         this.dataSource.data = this.attendees;
       });
@@ -38,9 +38,14 @@ export class EventCardComponent implements OnInit {
 
 
   isEditing = false;
-  eventName: string;
-  eventDescription: string;
-  eventLocation: string;
+  eventName: string ="";
+  eventDescription: string = "";
+  eventType: string = "";
+  eventStartTime: string = "";
+  eventEndTime: string = "";
+  eventStartDate: Date = new Date();
+  eventEndDate: Date = new Date();
+  eventLocation: string = "";
 
 
 
@@ -71,4 +76,10 @@ export class EventCardComponent implements OnInit {
      this.showAddUsertoEvent = true
   }
 
+
+  onChangeEvent(form: NgForm) {
+    this.uiOrganizerService.changeEvent(this.eventData).subscribe(response => {
+      console.log(response);
+    });
+  }
 }

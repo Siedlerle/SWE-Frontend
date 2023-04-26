@@ -8,11 +8,9 @@
   z-index: 9999;
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  padding: 10px ;
-  width: 60%;
-  height: 80%;
-  position: relative;
-  z-index: 1000;
+  padding: 20px ;
+  width: 70%;
+  height: 90%;
 }
 .popup-background{
   position: fixed;
@@ -42,6 +40,13 @@
 }
 mat-icon{
   margin: auto;
+}
+
+.submit-button{
+  font-weight: bolder;
+  font-size: larger;
+  float: right;
+
 }
 
 img{
@@ -79,7 +84,7 @@ mat-form-field{
 
 }
 .editForm{
-  min-height: 600px;
+  min-height: 700px;
 }
 .descriptionField{
   height: 80%;
@@ -102,4 +107,17 @@ mat-form-field{
   color: black;
   display: block;
   position: absolute;
+}
+
+.mat-tab-body-content {
+  height: 100%;
+}
+
+.mat-tab-body {
+  height: calc(100% - 48px); /* substract tab header height */
+}
+
+.tab-group {
+  height: 100%;
+  width: 100%;
 }
