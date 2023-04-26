@@ -36,6 +36,8 @@ import { OrganisationCardComponent } from './organisation-card/organisation-card
 import { UsermanagementInOrganisationComponent } from './usermanagement-in-organisation/usermanagement-in-organisation.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { AddUserToEventComponent } from './add-user-to-event/add-user-to-event.component';
+
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -68,6 +70,7 @@ const routes: Routes = [
     PrivacyPolicyComponent,
     OrganisationCardComponent,
     UsermanagementInOrganisationComponent,
+    AddUserToEventComponent,
   ],
   imports: [
     BrowserModule,

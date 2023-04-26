@@ -9,7 +9,7 @@
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   padding: 10px ;
-  width: 70%;
+  width: 60%;
   height: 80%;
   position: relative;
   z-index: 1000;
@@ -83,6 +83,7 @@ mat-form-field{
 }
 .descriptionField{
   height: 80%;
+  max-height: 80%;
 
 }
 .listAttendee{

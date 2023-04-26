@@ -38,6 +38,7 @@
   <app-event-card *ngIf = "showCard" (onClose) ="closeCard()"></app-event-card>
   <app-add-event *ngIf="showPopup" (onClose)="closePopup()"></app-add-event>
   <app-usermanagement-in-organisation *ngIf="showUserManagement" (onClose)="closeUserManagement()"></app-usermanagement-in-organisation>
+
   <mat-paginator [pageSizeOptions]="[10, 20, 30]"
                  showFirstLastButtons
                  aria-label="Select page of periodic elements">

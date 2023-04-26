@@ -23,21 +23,13 @@ export class EventCardComponent {
   cardDescription: string;
   cardAttendee:any;
 
-
-
    editCard() {
     this.isEditing = true;
     this.cardTitle = this.cardData.eventTitle;
     this.cardDescription = this.cardData.eventDescription;
     this.cardAttendee = this.cardData.eventAttendee;
-
-
-  }
-  addUser(){
-
   }
   removeUser(){
-
   }
 
   onSave() {
@@ -51,5 +43,9 @@ export class EventCardComponent {
     // discard changes and exit editing mode
     this.isEditing = false;
   }
+  showAddUsertoEvent = false;
+  openAddUsertoEvent(){
+     this.showAddUsertoEvent = true
+}
 
 }
