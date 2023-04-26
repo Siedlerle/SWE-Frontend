@@ -8,7 +8,7 @@
 
       <img mat-card-image src="{{eventData.image}}">
 
-      <mat-tab-group class="tab-group">
+      <mat-tab-group class="tab-group" dynamicHeight = true>
         <mat-tab label="Eventkarte">
           <h1>{{eventData.name}}</h1>
           <h2>Beschreibung</h2>
@@ -28,9 +28,15 @@
         <mat-tab label="Eventguide">
           Content 2
         </mat-tab>
-        <mat-tab label="Teilnehmerverwaltung">
-          <div style="height: 80%">
-            <mat-table [dataSource]="dataSource" matSort>
+        <mat-tab label="Teilnehmerverwaltung" class = "tab-attendee">
+          <div>
+            <button mat-raised-button (click) = "openAddUsertoEvent()" class = "addPerson">
+              Teilnehmer hinzufügen
+              <mat-icon>person_add</mat-icon>
+            </button>
+          </div>
+          <div class = "attendeeTable">
+            <mat-table [dataSource]="dataSource" matSort class = "">
               <ng-container matColumnDef="FirstName">
                 <mat-header-cell *matHeaderCellDef>Vorname</mat-header-cell>
                 <mat-cell *matCellDef="let user">{{user.firstname}}</mat-cell>
@@ -61,11 +67,8 @@
             </mat-table>
           </div>
 
-          <div style="height: 20%">
-            <button mat-mini-fab (click) = "openAddUsertoEvent()" class = "addPerson">
-              <mat-icon>person_add</mat-icon>
-            </button>
-          </div>
+
+
         </mat-tab>
         <mat-tab label="Eventverwaltung">
           <div class = "editForm">

@@ -102,12 +102,20 @@ mat-form-field{
 }
 
 .addPerson{
-  right: 20px;
   background-color: white;
   color: black;
   display: block;
-  position: absolute;
+  margin: 16px 8px;
 }
+
+.attendeeTable{
+  overflow: auto;
+  background-color: #3498db;
+}
+.tab-attendee{
+  min-height: 100%;
+}
+
 
 .mat-tab-body-content {
   height: 100%;
