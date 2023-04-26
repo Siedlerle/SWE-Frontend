@@ -92,6 +92,8 @@ export class AddEventComponent implements OnInit {
         }
 
       }
+      this.closePopup();
+      location.reload();
 
     /*
     const newEvent = {

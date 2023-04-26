@@ -28,11 +28,47 @@
         <mat-tab label="Eventguide">
           Content 2
         </mat-tab>
-        <mat-tab >
-          <ng-template mat-tab-label>
-            <span (click)="editCard()">Event verwalten</span>
-          </ng-template>
-          <div *ngIf="isEditing" class = "editForm">
+        <mat-tab label="Teilnehmerverwaltung" style="height: 100%">
+          <div>
+            <mat-table [dataSource]="dataSource" matSort>
+              <ng-container matColumnDef="FirstName">
+                <mat-header-cell *matHeaderCellDef>Vorname</mat-header-cell>
+                <mat-cell *matCellDef="let user">{{user.firstname}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="LastName">
+                <mat-header-cell *matHeaderCellDef>Nachname</mat-header-cell>
+                <mat-cell *matCellDef="let user">{{user.lastname}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="eMail">
+                <mat-header-cell *matHeaderCellDef>E-Mail-Adresse</mat-header-cell>
+                <mat-cell *matCellDef="let user">{{user.emailAdress}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+                <mat-cell *matCellDef="let user">
+                  <button mat-icon-button (click)="removeUser(user)">
+                    <mat-icon>
+                      delete
+                    </mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+          </div>
+
+          <div>
+            <button mat-mini-fab (click) = "openAddUsertoEvent()" class = "addPerson">
+              <mat-icon>person_add</mat-icon>
+            </button>
+          </div>
+        </mat-tab>
+        <mat-tab label="Eventverwaltung">
+          <div class = "editForm">
             <p>Titel des Events</p>
             <mat-form-field >
               <input matInput placeholder="Titel" [(ngModel)]="eventData.name">
@@ -42,19 +78,6 @@
               <textarea matInput placeholder="Beschreibung" [(ngModel)]="eventData.description">
               </textarea>
             </mat-form-field>
-            <p>Teilnehmer</p>
-            <mat-grid-list cols = "4" rowHeight="7:1">
-              <mat-grid-tile  *ngFor="let attendee of attendees" class = "listAttendee">
-                <div class = "listAttendeeItems">
-                  {{attendee.valueOf()}}
-                </div>
-              </mat-grid-tile>
-            </mat-grid-list>
-            <div>
-              <button mat-mini-fab (click) = "openAddUsertoEvent()" class = "addPerson">
-                <mat-icon >person_add</mat-icon>
-              </button>
-            </div>
 
             <button mat-button (click)="onSave()">Speichern</button>
             <button mat-button (click)="onCancel()">Abbrechen</button>

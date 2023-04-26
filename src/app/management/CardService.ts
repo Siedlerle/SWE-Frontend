@@ -6,15 +6,15 @@ import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 
 })
 export class DataService {
-  private cardData: CustomEvent;
+  private eventData: CustomEvent;
 
   constructor() { }
 
   setCardData(data: CustomEvent) {
-    this.cardData = data;
+    this.eventData = data;
   }
 
-  getCardData() {
-    return this.cardData;
+  getCardData(): CustomEvent {
+    return this.eventData;
   }
 }

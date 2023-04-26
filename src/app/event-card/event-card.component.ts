@@ -1,51 +1,64 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DataService} from "../management/CardService";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {User} from "../../DataTransferObjects/User";
+import {MatTableDataSource} from "@angular/material/table";
+import {UiOrganizerService} from "../../services/ui-organizer.service";
 
 @Component({
   selector: 'app-event-card',
   templateUrl: './event-card.component.html',
   styleUrls: ['./event-card.component.css']
 })
-export class EventCardComponent {
+export class EventCardComponent implements OnInit {
   @Output() onClose = new EventEmitter<void>();
   closeCard() {
     this.isEditing = false;
     this.onClose.emit();
   }
   eventData: CustomEvent;
-
-  constructor(private dataService: DataService) {
+  dataSource = new MatTableDataSource<User>();
+  displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
+  attendees: User[];
+  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService) {
     this.eventData = this.dataService.getCardData();
   }
 
-  isEditing = false;
-  cardTitle: string;
-  cardDescription: string;
-  attendees: User[];
-
-
-
-   editCard() {
-    this.isEditing = true;
-    this.cardTitle = this.eventData.name;
-    this.cardDescription = this.eventData.description;
-
-
-
+  ngOnInit() {
+    let id = this.eventData.id;
+    if (id != null) {
+      this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
+        console.log(response)
+        this.attendees = response;
+        this.dataSource.data = this.attendees;
+      });
+    }
   }
+
+
+
+  isEditing = false;
+  eventName: string;
+  eventDescription: string;
+  eventLocation: string;
+
+
+
+
+
+
+
   addUser(){
 
   }
-  removeUser(){
+  removeUser(user: User){
 
   }
 
   onSave() {
     // save edited data and exit editing mode
-    this.eventData.name = this.cardTitle;
-    this.eventData.description = this.cardDescription;
+    this.eventData.name = this.eventName;
+    this.eventData.description = this.eventDescription;
     this.isEditing = false;
   }
 

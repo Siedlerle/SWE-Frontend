@@ -4,6 +4,8 @@ import {Observable} from "rxjs";
 import {URLs} from "../assets/SystemVariables/URLs";
 import {CustomEvent} from "../DataTransferObjects/CustomEvent";
 import {EventSeries} from "../DataTransferObjects/EventSeries";
+import {C} from "@angular/cdk/keycodes";
+import {User} from "../DataTransferObjects/User";
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +41,9 @@ export class UiOrganizerService {
 
   getManagingEvents(emailAddress: string, orgaId: string):Observable<CustomEvent[]> {
     return this.http.post<CustomEvent[]>(URLs.backend+'/organizer/orga/'+orgaId+'/event/managing/get/'+emailAddress, orgaId);
+  }
+
+  getAttendeesForEvent(eventId: number):Observable<User[]> {
+    return this.http.post<User[]>(URLs.backend+'/tutor/event/'+eventId+'/attendees/get-all',null);
   }
 }

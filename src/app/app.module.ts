@@ -37,6 +37,7 @@ import { UsermanagementInOrganisationComponent } from './usermanagement-in-organ
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { AddUserToEventComponent } from './add-user-to-event/add-user-to-event.component';
+import {MatTableModule} from "@angular/material/table";
 
 
 const routes: Routes = [
@@ -94,7 +95,8 @@ const routes: Routes = [
     HttpClientModule,
     MatSnackBarModule,
     MatSlideToggleModule,
-    NgxMatFileInputModule
+    NgxMatFileInputModule,
+    MatTableModule
   ],
   exports: [
     MatIconModule,
