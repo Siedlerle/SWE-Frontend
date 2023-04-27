@@ -51,7 +51,7 @@
     <div class="management-tile-content">
       <div class="organisation-management-toolbar">
         <div class="left-items">
-          <button mat-raised-button (click) = "inviteToOrganisation()" class="invite-to-organisation-button">
+          <button mat-raised-button (click) = "openAddUserToOrganisation()" class="invite-to-organisation-button">
             Person einladen
             <mat-icon>person_add</mat-icon>
           </button>
@@ -109,6 +109,7 @@
 <app-add-event *ngIf="showPopup" (onClose)="closePopup()"></app-add-event>
 <app-usermanagement-in-organisation *ngIf="showUserManagement" (onClose)="closeUserManagement()"></app-usermanagement-in-organisation>
 <app-group-management *ngIf="showGroupManagement" (onClose)="closeGroupManagement()"></app-group-management>
+<app-add-user-to-organisation *ngIf="showAddUserToOrganisation" (onClose)="closeAddUserToOrganisation()"></app-add-user-to-organisation>
 <!--
 <div class="basic-container">
   <mat-grid-list cols="2" rowHeight="6:1" gutterSize="15px" class="layoutGrid" >

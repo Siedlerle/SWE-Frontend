@@ -42,6 +42,7 @@ import {MatTableModule} from "@angular/material/table";
 import { GroupManagementComponent } from './group-management/group-management.component';
 import { AddGroupComponent } from './add-group/add-group.component';
 import {MatExpansionModule} from "@angular/material/expansion";
+import { AddUserToOrganisationComponent } from './add-user-to-organisation/add-user-to-organisation.component';
 import { EventDeleteDialogComponent } from './event-delete-dialog/event-delete-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 
@@ -81,6 +82,7 @@ const routes: Routes = [
     GroupManagementComponent,
     AddGroupComponent,
     EventDeleteDialogComponent,
+    AddUserToOrganisationComponent,
   ],
   imports: [
     BrowserModule,
