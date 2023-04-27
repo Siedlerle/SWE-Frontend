@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <div class ="popup-background">
+    <div class="popup">
+      <div class="heading">
+        <h1>Gruppen verwalten</h1>
+        <button mat-fab (click)="closePopup()" class = "close-Button">
+          <mat-icon class ="close-Icon">close</mat-icon>
+        </button>
+      </div>
+      <div class="organisation-management-toolbar">
+        <div class="left-items">
+          <button mat-raised-button (click)="openAddGroup()" class="invite-to-organisation-button">
+            Gruppe erstellen
+            <mat-icon>group_add</mat-icon>
+          </button>
+        </div>
+        <div class="right-items">
+          <div class="search-bar">
+            <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="searchText" #searchbar>
+            <button mat-icon-button class="search-icon">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+        </div>
+
+      </div>
+      <div class = "memberTable">
+        <mat-table [dataSource]="dataSource" matSort class = "">
+          <ng-container matColumnDef="FirstName">
+            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+            <mat-cell *matCellDef="let user">{{user.firstname}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="LastName">
+            <mat-header-cell *matHeaderCellDef>Beschreibung</mat-header-cell>
+            <mat-cell *matCellDef="let user">{{user.lastname}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="eMail">
+            <mat-header-cell *matHeaderCellDef>Mitglieder</mat-header-cell>
+            <mat-cell *matCellDef="let user">{{user.emailAdress}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+            <mat-cell *matCellDef="let user">
+              <button mat-icon-button>
+                <mat-icon>
+                  delete
+                </mat-icon>
+              </button>
+              <button mat-icon-button>
+                <mat-icon>
+                  edit
+                </mat-icon>
+              </button>
+              <button mat-icon-button>
+                <mat-icon>
+                  person_add
+                </mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+    </div>
+
+  </div>
+
+  <app-add-group *ngIF="showAddGroup" (onClose)="closeAddGroup()"></app-add-group>
+
+</html>
+

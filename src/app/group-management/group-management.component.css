@@ -1,0 +1,129 @@
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  down: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  padding: 20px ;
+  width: 70%;
+  height: 90%;
+}
+.popup-background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+}
+.close-Button{
+  width: 30px;
+  height: 30px;
+  display: block;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: firebrick;
+  color: white;
+}
+.close-Icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+.submit-button{
+  font-weight: bolder;
+  font-size: larger;
+  float: right;
+
+}
+mat-icon{
+  margin: auto;
+}
+mat-grid-list{
+
+}
+.form{
+
+}
+.basic-container{
+
+}
+mat-card{
+  width: 60%;
+}
+mat-grid-tile{
+  width: 100%;
+
+}
+mat-form-field{
+  align-content: center;
+}
+.form-div{
+  display: flex;
+  flex-direction: column;
+}
+
+.form-div p {
+  margin-bottom: 5px;
+}
+
+.organisation-management-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-items {
+  display: flex;
+  align-items: center;
+}
+
+
+.group-management-button {
+  background-color: white;
+  color: black;
+  display: block;
+  margin-left: 1%;
+  margin-right: auto;
+}
+
+.invite-to-organisation-button {
+  background-color: white;
+  color: black;
+  display: block;
+  margin-right: auto;
+}
+
+.memberTable {
+  overflow-y: auto;
+}
+
+
+.search-bar {
+  display: flex;
+  align-items: center;
+
+}
+
+.search-control {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+
+  font-size: 16px;
+  background-color: white;
+}
+
+.search-icon {
+  position: absolute;
+  right: .5%;
+  color: #999;
+}
