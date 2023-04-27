@@ -9,6 +9,8 @@ import {DataSource} from "@angular/cdk/collections";
 import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
 import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
 import {DatePipe} from "@angular/common";
+import {EventDeleteDialogComponent} from "../event-delete-dialog/event-delete-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-event-card',
@@ -27,7 +29,7 @@ export class EventCardComponent implements OnInit {
   dataSource = new MatTableDataSource<User>();
   displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
   attendees: User[];
-  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar) {
+  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar,private dialog: MatDialog) {
     this.eventData = this.dataService.getCardData();
     this.eventStartDate = new Date(this.eventData.startDate);
     this.eventEndDate = new Date(this.eventData.endDate);
@@ -117,6 +119,19 @@ export class EventCardComponent implements OnInit {
         this.getReadableStatus();
       });
     }
+  }
+
+  deleteEvent(event: CustomEvent) {
+    const dialogRef = this.dialog.open(EventDeleteDialogComponent, {
+      width: '250px',
+      data: {eventName: event.name, eventID: event.id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+      }
+    });
   }
 
   withDrawCancelEvent() {

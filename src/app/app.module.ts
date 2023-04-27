@@ -42,6 +42,8 @@ import {MatTableModule} from "@angular/material/table";
 import { GroupManagementComponent } from './group-management/group-management.component';
 import { AddGroupComponent } from './add-group/add-group.component';
 import {MatExpansionModule} from "@angular/material/expansion";
+import { EventDeleteDialogComponent } from './event-delete-dialog/event-delete-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 const routes: Routes = [
@@ -78,33 +80,35 @@ const routes: Routes = [
     AddUserToEventComponent,
     GroupManagementComponent,
     AddGroupComponent,
+    EventDeleteDialogComponent,
   ],
-    imports: [
-        BrowserModule,
-        RouterModule.forRoot(routes),
-        BrowserAnimationsModule,
-        MatGridListModule,
-        MatMomentDateModule,
-        MatIconModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatCardModule,
-        MatListModule,
-        MatToolbarModule,
-        FormsModule,
-        MatButtonModule,
-        MatTabsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatPaginatorModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        MatSnackBarModule,
-        MatSlideToggleModule,
-        NgxMatFileInputModule,
-        MatTableModule,
-        MatExpansionModule
-    ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    MatGridListModule,
+    MatMomentDateModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule,
+    MatListModule,
+    MatToolbarModule,
+    FormsModule,
+    MatButtonModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatSnackBarModule,
+    MatSlideToggleModule,
+    NgxMatFileInputModule,
+    MatTableModule,
+    MatExpansionModule,
+    MatDialogModule
+  ],
   exports: [
     MatIconModule,
     MatDatepickerModule,

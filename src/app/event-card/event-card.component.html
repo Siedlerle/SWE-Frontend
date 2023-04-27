@@ -224,7 +224,7 @@
                 <div class="manage-event-buttons-div">
                   <button mat-raised-button *ngIf="!eventIsCancelled" type="button" color="warn" class="cancel-event-button" (click)="cancelEvent()">Event absagen</button>
                   <div *ngIf="eventIsCancelled" >
-                    <button mat-raised-button type="button" color="warn" class="delete-event-button" (click)="cancelEvent()">Event löschen</button>
+                    <button mat-raised-button type="button" color="warn" class="delete-event-button" (click)="deleteEvent(eventData)">Event löschen</button>
                     <button mat-raised-button type="button" color="primary" class="plan-event-button" (click)="withDrawCancelEvent()">Absage zurücknehmen</button>
                   </div>
                   <div>

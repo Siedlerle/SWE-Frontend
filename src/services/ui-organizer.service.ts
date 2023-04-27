@@ -26,8 +26,8 @@ export class UiOrganizerService {
     return this.http.post<String>(URLs.backend+'/organizer/event/'+eventId+'/cancel', reason);
   }
 
-  deleteEvent(eventId: number):Observable<String>{
-    return this.http.post<String>(URLs.backend+URLs.deleteEvent+eventId,null);
+  deleteEvent(eventId: number):Observable<any>{
+    return this.http.post<any>(URLs.backend+URLs.deleteEvent+eventId,null);
   }
 
   changeStatusOfEvent(eventId: number, status: string) {
