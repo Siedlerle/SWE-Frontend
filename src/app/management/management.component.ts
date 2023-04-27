@@ -1,8 +1,5 @@
-import {Component, ElementRef, Inject, OnInit, Pipe, PipeTransform, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
-import {AddEventComponent} from "../add-event/add-event.component";
-import {EventCardComponent} from "../event-card/event-card.component";
-import {MatCardContent} from "@angular/material/card";
 import {DataService} from "./CardService";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
@@ -18,23 +15,28 @@ import {UiAdminService} from "../../services/ui-admin.service";
 export class ManagementComponent implements OnInit {
 
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiAdminService: UiAdminService) { }
-  managingEvents: CustomEvent[];
-  @ViewChild('searchbar') searchbar: ElementRef;
-  searchText = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  eventSearchText = '';
+  orgaSearchText = '';
   toggleSearch: boolean = false;
 
   dataSource = new MatTableDataSource<User>();
   displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
   attendees: User[];
+  managingEvents: CustomEvent[];
 
   filterEvents() {
-    if (!this.searchText) {
+    if (!this.eventSearchText) {
       return this.managingEvents;
     }
-    return this.managingEvents.filter(event => {
-      return event.name.toLowerCase().includes(this.searchText.toLowerCase());
-    });
+    console.log(this.eventSearchText)
+    return this.managingEvents.filter(event => event.name.toLowerCase().includes(this.eventSearchText.toLowerCase()));
+  }
+
+  filterUsers() {
+    const filterValue = this.orgaSearchText.toLowerCase();
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   ngOnInit() {

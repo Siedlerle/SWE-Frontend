@@ -15,7 +15,6 @@ export class MyEventsComponent implements OnInit {
   }
 
   registeredEvents: CustomEvent[] = [];
-  @ViewChild('searchbar') searchbar: ElementRef;
   searchText = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   toggleSearch: boolean = false;
@@ -39,14 +38,12 @@ export class MyEventsComponent implements OnInit {
     }
   }
 
-  openSearch() {
-    this.toggleSearch = true;
-    this.searchbar.nativeElement.focus();
-  }
-
-  searchClose() {
-    this.searchText = '';
-    this.toggleSearch = false;
+  filterEvents() {
+    if (!this.searchText) {
+      return this.registeredEvents;
+    }
+    console.log(this.searchText)
+    return this.registeredEvents.filter(event => event.name.toLowerCase().includes(this.searchText.toLowerCase()));
   }
 }
 

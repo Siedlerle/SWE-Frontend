@@ -11,6 +11,10 @@
 </mat-toolbar-->
 
 <mat-grid-list cols="2" [gutterSize]="'15px'" class="layoutGrid">
+
+
+
+
   <mat-grid-tile class="layoutGridTile">
     <mat-grid-tile-header>
       <h1>Verwaltbare Events</h1>
@@ -24,16 +28,16 @@
         </button>
 
         <div class="search-bar">
-          <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="searchText" #searchbar>
+          <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="eventSearchText">
           <button mat-icon-button class="search-icon">
             <mat-icon>search</mat-icon>
           </button>
         </div>
       </div>
       <mat-list>
-        <mat-list-item *ngFor="let event of filterEvents() | filter: searchText">
+        <mat-list-item *ngFor="let event of filterEvents()">
           <mat-card (click)="openCard(event)" class="card">
-            <img mat-card-sm-image src="{{event.image}}" alt = "" class = "mat-card-image">
+            <img mat-card-sm-image src="{{event.imageSource}}" alt = "" class = "mat-card-image">
             <div class="card-content">
               <mat-card-header>{{event.name}}</mat-card-header>
               <mat-card-content>{{event.description}}</mat-card-content>
@@ -46,8 +50,11 @@
     <app-event-card *ngIf = "showCard" (onClose) ="closeCard()"></app-event-card>
     <app-add-event *ngIf="showPopup" (onClose)="closePopup()"></app-add-event>
     <app-usermanagement-in-organisation *ngIf="showUserManagement" (onClose)="closeUserManagement()"></app-usermanagement-in-organisation>
-
   </mat-grid-tile>
+
+
+
+
   <mat-grid-tile class="layoutGridTile">
     <mat-grid-tile-header>
       <h1>Organisationsverwaltung</h1>
@@ -66,7 +73,7 @@
         </div>
         <div class="right-items">
           <div class="search-bar">
-            <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="searchText" #searchbar>
+            <input class="search-control" type="text" placeholder="Suche" (input)="filterUsers()" [(ngModel)]="orgaSearchText">
             <button mat-icon-button class="search-icon">
               <mat-icon>search</mat-icon>
             </button>
@@ -106,9 +113,17 @@
         </mat-table>
       </div>
     </div>
-
   </mat-grid-tile>
+
+
+
+
 </mat-grid-list>
+
+
+
+
+
 <!--
 <div class="basic-container">
   <mat-grid-list cols="2" rowHeight="6:1" gutterSize="15px" class="layoutGrid" >
