@@ -23,7 +23,7 @@
           <a routerLink="" class="nav-item" [class.active]="activeLink ==''"  >Start</a>
           <a routerLink="/event-catalog" class="nav-item" [class.active]="activeLink =='/event-catalog'">Eventkatalog</a>
           <a routerLink="/my-events" class="nav-item" [class.active]="activeLink =='/my-events'">Meine Events</a>
-          <a routerLink="/management" class="nav-item" [class.active]="activeLink =='/management'">Verwaltung</a>
+          <a *ngIf="activeManagement" routerLink="/management" class="nav-item" [class.active]="activeLink =='/management'">Verwaltung</a>
         </div>
         <div class="right-items">
           <div class="profile-dropdown" (click)="toggleDropdown()">

@@ -19,6 +19,7 @@ export class NavComponent implements OnInit{
   ];
 
   activeLink: string;
+  activeManagement: boolean;
   organisationsForUser!:Organisation[];
 
   constructor(private router: Router, private activeRoute: ActivatedRoute, private uiUserService : UiUserService) { }
@@ -36,6 +37,10 @@ export class NavComponent implements OnInit{
         this.organisationsForUser = response;
       });
     }
+
+    const orgaId = sessionStorage.getItem('orgaId');
+    const orgaRole = sessionStorage.getItem('orgaRole');
+    this.activeManagement = orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER';
 
   }
 
@@ -64,6 +69,10 @@ export class NavComponent implements OnInit{
       });
     }
 
+    const orgaId = sessionStorage.getItem('orgaId');
+    const orgaRole = sessionStorage.getItem('orgaRole');
+    this.activeManagement = orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER';
+
     this.router.navigate(['']);
 
   }
@@ -72,6 +81,10 @@ export class NavComponent implements OnInit{
     sessionStorage.setItem('orgaId', '');
     sessionStorage.setItem('orgaRole', '');
     sessionStorage.setItem('eventRole', '');
+
+    const orgaId = sessionStorage.getItem('orgaId');
+    const orgaRole = sessionStorage.getItem('orgaRole');
+    this.activeManagement = orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER';
 
     this.router.navigate(['']);
 
