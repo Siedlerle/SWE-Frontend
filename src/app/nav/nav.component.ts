@@ -19,7 +19,6 @@ export class NavComponent implements OnInit{
   ];
 
   activeLink: string;
-
   organisationsForUser!:Organisation[];
 
   constructor(private router: Router, private activeRoute: ActivatedRoute, private uiUserService : UiUserService) { }
@@ -37,6 +36,7 @@ export class NavComponent implements OnInit{
         this.organisationsForUser = response;
       });
     }
+
   }
 
   isDropdownOpen = false;
@@ -65,13 +65,16 @@ export class NavComponent implements OnInit{
     }
 
     this.router.navigate(['']);
+
   }
 
   goBackToStart(){
     sessionStorage.setItem('orgaId', '');
     sessionStorage.setItem('orgaRole', '');
     sessionStorage.setItem('eventRole', '');
+
     this.router.navigate(['']);
+
   }
 
   showCard = false;

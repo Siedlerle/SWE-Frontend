@@ -37,4 +37,7 @@ export const URLs = {
   deleteEvent: '/organizer/event/delete/',
   createEventSeres:'/organizer/event-series/create/',
   getManagingEventsInOrga: '/event/managing/get/'
+
+
+  //Administrator
 };

@@ -8,6 +8,7 @@ import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {User} from "../../DataTransferObjects/User";
+import {UiAdminService} from "../../services/ui-admin.service";
 
 @Component({
   selector: 'app-management',
@@ -16,7 +17,7 @@ import {User} from "../../DataTransferObjects/User";
 })
 export class ManagementComponent implements OnInit {
 
-  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService) { }
+  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiAdminService: UiAdminService) { }
   managingEvents: CustomEvent[];
   @ViewChild('searchbar') searchbar: ElementRef;
   searchText = '';
@@ -39,8 +40,13 @@ export class ManagementComponent implements OnInit {
   ngOnInit() {
     const emailAddress = sessionStorage.getItem('emailAdress');
     const orgaId = sessionStorage.getItem('orgaId');
-    if (emailAddress != null && orgaId != null && orgaId !=='') {
+    const orgaRole = sessionStorage.getItem('orgaRole')
+    if (emailAddress != null && orgaId != null && orgaId !=='' && orgaRole != null && orgaRole === 'ORGANIZER') {
       this.uiOrganizerService.getManagingEvents(emailAddress, orgaId).subscribe(response => {
+        this.managingEvents = response;
+      });
+    } else if(emailAddress != null && orgaId != null && orgaId !=='' && orgaRole != null && orgaRole === 'ADMIN') {
+      this.uiAdminService.getEventsofOrganisation(orgaId).subscribe(response =>{
         this.managingEvents = response;
       });
     }

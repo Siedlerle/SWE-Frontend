@@ -1,9 +1,17 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {URLs} from "../assets/SystemVariables/URLs";
+import {CustomEvent} from "../DataTransferObjects/CustomEvent";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UiAdminService {
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
+
+  getEventsofOrganisation(orgaId: string):Observable<CustomEvent[]>{
+    return this.http.post<CustomEvent[]>(URLs.backend+'/admin/orga/'+orgaId+'/events',null);
+  }
 }
