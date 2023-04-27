@@ -10,6 +10,15 @@
   margin: 15px;
 }
 
+.mat-grid-tile-header-left:nth-child(n) {
+  height: 8%;
+}
+
+.mat-grid-tile-header-right:nth-child(n) {
+  height: 4%;
+}
+
+
 mat-list {
   margin-top: 50px;
   overflow-y: auto;

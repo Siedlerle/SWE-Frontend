@@ -6,6 +6,8 @@ import {MatCardContent} from "@angular/material/card";
 import {DataService} from "./CardService";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
+import {MatTableDataSource} from "@angular/material/table";
+import {User} from "../../DataTransferObjects/User";
 
 @Component({
   selector: 'app-management',
@@ -20,6 +22,11 @@ export class ManagementComponent implements OnInit {
   searchText = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   toggleSearch: boolean = false;
+
+  dataSource = new MatTableDataSource<User>();
+  displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
+  attendees: User[];
+
   filterEvents() {
     if (!this.searchText) {
       return this.managingEvents;
@@ -63,6 +70,10 @@ export class ManagementComponent implements OnInit {
   closeUserManagement() {
     this.showUserManagement = false;
   }
+
+  inviteToOrganisation(){}
+
+  removeUser(user: User){}
 }
 
 

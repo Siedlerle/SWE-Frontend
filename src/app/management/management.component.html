@@ -1,19 +1,110 @@
 <!doctype html>
 <html>
-<mat-toolbar>
+<!--mat-toolbar>
   <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="searchText" #searchbar>
   <button class="search-icon" mat-icon-button disabled>
     <mat-icon>search</mat-icon>
   </button>
-  <!--button class ="filter-icon"mat-icon-button>
+  <button class ="filter-icon"mat-icon-button>
     <mat-icon>filter_list</mat-icon>
-  </button-->
-
-  <button (click)="openUserManagement()">
-    <mat-icon class="groups-icon">groups</mat-icon>
   </button>
+</mat-toolbar-->
 
-</mat-toolbar>
+<mat-grid-list cols="2" [gutterSize]="'15px'" class="layoutGrid">
+  <mat-grid-tile class="layoutGridTile">
+    <mat-grid-tile-header>
+      <h1>Verwaltbare Events</h1>
+    </mat-grid-tile-header>
+    <div class="management-tile-content">
+      <div class="event-management-toolbar">
+
+        <button mat-raised-button (click) = "inviteToOrganisation()">
+          Event erstellen
+          <mat-icon>add</mat-icon>
+        </button>
+
+        <div class="event-search-bar">
+          <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="searchText" #searchbar>
+        </div>
+
+
+
+      </div>
+      <mat-list>
+        <mat-list-item *ngFor="let event of filterEvents() | filter: searchText">
+          <mat-card (click)="openCard(event)" class="card">
+            <img mat-card-sm-image src="{{event.image}}" alt = "" class = "mat-card-image">
+            <div class="card-content">
+              <mat-card-header>{{event.name}}</mat-card-header>
+              <mat-card-content>{{event.description}}</mat-card-content>
+            </div>
+          </mat-card>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+    <div>
+      <button mat-fab (click)="openPopup()" class = "add-button">
+        <mat-icon class = "add-Icon">add</mat-icon>
+      </button>
+    </div>
+
+
+    <app-event-card *ngIf = "showCard" (onClose) ="closeCard()"></app-event-card>
+    <app-add-event *ngIf="showPopup" (onClose)="closePopup()"></app-add-event>
+    <app-usermanagement-in-organisation *ngIf="showUserManagement" (onClose)="closeUserManagement()"></app-usermanagement-in-organisation>
+
+  </mat-grid-tile>
+  <mat-grid-tile class="layoutGridTile">
+    <mat-grid-tile-header>
+      <h1>Organisationsverwaltung</h1>
+    </mat-grid-tile-header>
+    <div class="management-tile-content">
+      <div class="organisation-management-toolbar">
+        <button mat-raised-button (click) = "inviteToOrganisation()">
+          Person einladen
+          <mat-icon>person_add</mat-icon>
+        </button>
+        <div class="search-bar">
+          <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="searchText" #searchbar>
+        </div>
+      </div>
+      <div class = "memberTable">
+        <mat-table [dataSource]="dataSource" matSort class = "">
+          <ng-container matColumnDef="FirstName">
+            <mat-header-cell *matHeaderCellDef>Vorname</mat-header-cell>
+            <mat-cell *matCellDef="let user">{{user.firstname}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="LastName">
+            <mat-header-cell *matHeaderCellDef>Nachname</mat-header-cell>
+            <mat-cell *matCellDef="let user">{{user.lastname}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="eMail">
+            <mat-header-cell *matHeaderCellDef>E-Mail-Adresse</mat-header-cell>
+            <mat-cell *matCellDef="let user">{{user.emailAdress}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+            <mat-cell *matCellDef="let user">
+              <button mat-icon-button (click)="removeUser(user)">
+                <mat-icon>
+                  delete
+                </mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+    </div>
+
+  </mat-grid-tile>
+</mat-grid-list>
+<!--
 <div class="basic-container">
   <mat-grid-list cols="2" rowHeight="6:1" gutterSize="15px" class="layoutGrid" >
     <mat-grid-tile *ngFor="let event of filterEvents() | filter: searchText"  class ="layoutGridTile" >
@@ -44,4 +135,5 @@
                  aria-label="Select page of periodic elements">
   </mat-paginator>
 </div>
+-->
 </html>

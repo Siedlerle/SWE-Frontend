@@ -47,6 +47,15 @@ export class EventCatalogComponent implements OnInit {
     this.searchText = '';
     this.toggleSearch = false;
   }
+
+  showCard = false;
+  openCard(item: CustomEvent){
+    this.showCard = true;
+    //this.dataService.setCardData(item);
+  }
+  closeCard(){
+    this.showCard = false;
+  }
 }
 
 
