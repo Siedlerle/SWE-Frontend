@@ -28,7 +28,7 @@
             {{eventData.location}}
           </p>
           <h3>Teilnehmeranzahl</h3>
-          <p>
+          <p *ngIf="attendees">
             {{attendees.length}}
           </p>
         </mat-tab>
