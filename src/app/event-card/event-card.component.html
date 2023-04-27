@@ -12,7 +12,7 @@
     </div>
 
       <mat-tab-group class="tab-group" dynamicHeight = true>
-        <mat-tab label="Eventkarte">
+        <mat-tab label="Eventkarte" class="mat-tab-label">
           <h1>{{eventData.name}}</h1>
           <h2>Beschreibung</h2>
           <p>{{eventData.description}}</p>
@@ -32,7 +32,7 @@
             {{attendees.length}}
           </p>
         </mat-tab>
-        <mat-tab label="Eventguide">
+        <mat-tab label="Eventguide" class="mat-tab-label">
           <mat-card class="dashboard-card">
             <mat-card-header>
               <mat-card-title>Chat</mat-card-title>
@@ -148,7 +148,7 @@
 
 
         </mat-tab>
-        <mat-tab label="Eventverwaltung">
+        <mat-tab label="Eventverwaltung" class="mat-tab-label">
           <div class = "editForm">
             <form #form="ngForm"(ngSubmit)="onChangeEvent(form)">
               <div class="form-div">
@@ -221,9 +221,10 @@
                     <mat-slide-toggle color="primary" style="position: relative" [(ngModel)]="eventData.isPublic" name="eventIsPublic">Event in der Organisation öffentlich</mat-slide-toggle>
                   </p>
                 </div>
-                <div style="display:flex; justify-content: center">
+                <div style="display:flex; justify-content: space-between; width: 100%;">
                   <p>
-                    <button mat-raised-button type="submit" [disabled]="!eventData.name || !eventData.description || !eventStartDate || !eventEndDate || !eventData.location || !eventData.startTime || !eventData.endTime || !eventData.type" class = "submit-button">Änderungen übernehmen</button>
+                    <button mat-raised-button style="order: 1; float: left" type="button" color="warn" class = "submit-button" (click)="cancelEvent()">Event absagen</button>
+                    <button mat-raised-button style="order: 2; float: right" type="submit" [disabled]="!eventData.name || !eventData.description || !eventStartDate || !eventEndDate || !eventData.location || !eventData.startTime || !eventData.endTime || !eventData.type" class = "submit-button">Änderungen übernehmen</button>
                   </p>
                 </div>
               </div>

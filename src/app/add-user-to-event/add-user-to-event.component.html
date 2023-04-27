@@ -68,7 +68,7 @@
           </mat-expansion-panel-header>
           <mat-action-row>
           </mat-action-row>
-          <mat-table [dataSource]="dataSource" matSort class = "">
+          <mat-table [dataSource]="usersOfOrgaDataSource" matSort class = "">
             <ng-container matColumnDef="FirstName">
               <mat-header-cell *matHeaderCellDef>Vorname</mat-header-cell>
               <mat-cell *matCellDef="let user">{{user.firstname}}</mat-cell>
@@ -92,8 +92,8 @@
                 </button>
               </mat-cell>
             </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-header-row *matHeaderRowDef="usersOfOrgaDisplayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: usersOfOrgaDisplayedColumns;"></mat-row>
           </mat-table>
         </mat-expansion-panel>
 
@@ -113,32 +113,22 @@
 
           <mat-action-row>
           </mat-action-row>
-          <mat-table [dataSource]="dataSource" matSort class = "">
-            <ng-container matColumnDef="FirstName">
+          <mat-table [dataSource]="groupsOfOrgaDataSource" matSort class = "">
+            <ng-container matColumnDef="Name">
               <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-              <mat-cell *matCellDef="let user">{{user.firstname}}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="LastName">
-              <mat-header-cell *matHeaderCellDef>Anzahl Mitglieder</mat-header-cell>
-              <mat-cell *matCellDef="let user">{{user.lastname}}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="eMail">
-              <mat-header-cell *matHeaderCellDef>Beschreibung der Gruppe</mat-header-cell>
-              <mat-cell *matCellDef="let user">{{user.emailAdress}}</mat-cell>
+              <mat-cell *matCellDef="let group">{{group.name}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="actions">
               <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
-              <mat-cell *matCellDef="let user">
+              <mat-cell *matCellDef="let group">
                 <button mat-raised-button>
                   einladen
                 </button>
               </mat-cell>
             </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-header-row *matHeaderRowDef="groupsOfOrgaDisplayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: groupsOfOrgaDisplayedColumns;"></mat-row>
           </mat-table>
         </mat-expansion-panel>
 

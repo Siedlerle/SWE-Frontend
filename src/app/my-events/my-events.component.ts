@@ -30,10 +30,20 @@ export class MyEventsComponent implements OnInit {
     if (emailAddress != null && orgaId != null && orgaId !== '') {
       this.uiUserService.getRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
         this.registeredEvents = response;
+        this.registeredEvents.forEach(function (event) {
+          if (event.imageSource == null) {
+            event.imageSource = "../../assets/images/OrgaBanner.png";
+          }
+        });
       });
     } else if(emailAddress != null){
       this.uiUserService.getAllRegisteredEvents(emailAddress).subscribe(response =>{
         this.registeredEvents = response;
+        this.registeredEvents.forEach(function (event) {
+          if (event.imageSource == null) {
+            event.imageSource = "../../assets/images/OrgaBanner.png";
+          }
+        });
       });
     }
   }

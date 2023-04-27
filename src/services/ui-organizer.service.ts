@@ -18,8 +18,12 @@ export class UiOrganizerService {
     return this.http.post<String>(URLs.backend+URLs.createEvent+emailAddress+'/'+orgaId,event);
   }
 
-  changeEvent(event:CustomEvent):Observable<String>{
-    return this.http.post<String>(URLs.backend+URLs.changeEvent,event);
+  changeEvent(event:CustomEvent):Observable<any>{
+    return this.http.post<any>(URLs.backend+URLs.changeEvent,event);
+  }
+
+  cancelEvent(eventId: number):Observable<String>{
+    return this.http.post<String>(URLs.backend+'/organizer/event/'+eventId+'/cancel', null);
   }
 
   deleteEvent(eventId: number):Observable<String>{

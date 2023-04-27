@@ -4,6 +4,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {User} from "../../DataTransferObjects/User";
 import {DataService} from "../management/CardService";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
+import {Group} from "../../DataTransferObjects/Group";
 
 @Component({
   selector: 'app-add-user-to-event',
@@ -17,9 +18,12 @@ export class AddUserToEventComponent {
 
   }
   eventData: CustomEvent;
-  dataSource = new MatTableDataSource<User>();
-  displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
+  usersOfOrgaDataSource = new MatTableDataSource<User>();
+  groupsOfOrgaDataSource = new MatTableDataSource<Group>();
+  usersOfOrgaDisplayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
+  groupsOfOrgaDisplayedColumns: string[] = ['Name', 'actions']
   userOfOrga: User[];
+  groupsOfOrga: Group[];
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService) {
     this.eventData = this.dataService.getCardData();
   }
@@ -29,7 +33,7 @@ export class AddUserToEventComponent {
     if (id != null) {
       this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
         this.userOfOrga = response;
-        this.dataSource.data = this.userOfOrga;
+        this.usersOfOrgaDataSource.data = this.userOfOrga;
       });
     }
   }

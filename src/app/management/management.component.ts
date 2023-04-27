@@ -46,10 +46,20 @@ export class ManagementComponent implements OnInit {
     if (emailAddress != null && orgaId != null && orgaId !=='' && orgaRole != null && orgaRole === 'ORGANIZER') {
       this.uiOrganizerService.getManagingEvents(emailAddress, orgaId).subscribe(response => {
         this.managingEvents = response;
+        this.managingEvents.forEach(function (event) {
+          if (event.imageSource == null) {
+            event.imageSource = "../../assets/images/OrgaBanner.png";
+          }
+        });
       });
     } else if(emailAddress != null && orgaId != null && orgaId !=='' && orgaRole != null && orgaRole === 'ADMIN') {
       this.uiAdminService.getEventsofOrganisation(orgaId).subscribe(response =>{
         this.managingEvents = response;
+        this.managingEvents.forEach(function (event) {
+          if (event.imageSource == null) {
+            event.imageSource = "../../assets/images/OrgaBanner.png";
+          }
+        });
       });
     }
   }

@@ -7,6 +7,7 @@ import {UiOrganizerService} from "../../services/ui-organizer.service";
 import {NgForm} from "@angular/forms";
 import {DataSource} from "@angular/cdk/collections";
 import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
+import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-event-card',
@@ -24,7 +25,7 @@ export class EventCardComponent implements OnInit {
   dataSource = new MatTableDataSource<User>();
   displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
   attendees: User[];
-  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService) {
+  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar) {
     this.eventData = this.dataService.getCardData();
     this.eventStartDate = new Date(this.eventData.startDate);
     this.eventEndDate = new Date(this.eventData.endDate);
@@ -37,7 +38,6 @@ export class EventCardComponent implements OnInit {
   }
 
   ngOnInit() {
-
     let id = this.eventData.id;
     if (id != null) {
       this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
@@ -85,12 +85,27 @@ export class EventCardComponent implements OnInit {
   onChangeEvent(form: NgForm) {
     this.uiOrganizerService.changeEvent(this.eventData).subscribe(response => {
       console.log(response);
+      const text = response.message;
+      if (text === "Event changed successfully") {
+        this.snackBar.open("Event erfolgreich geändert", 'Close', { duration: 10000 });
+      } else {
+        this.snackBar.open("Änderung des Events fehlgeschlagen", 'Close', { duration: 10000 });
+      }
     });
+
   }
 
   fileDataSource = new MatTableDataSource();
   uploadFile(){
 
+  }
+
+  cancelEvent() {
+    if (this.eventData.id != null) {
+      this.uiOrganizerService.cancelEvent(this.eventData.id).subscribe(response => {
+        console.log(response);
+      });
+    }
   }
 
   getReadableStatus() {

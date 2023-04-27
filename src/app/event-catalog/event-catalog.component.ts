@@ -30,10 +30,20 @@ export class EventCatalogComponent implements OnInit {
     if (emailAddress != null && orgaId != null && orgaId!=='') {
       this.uiUserService.getAllVisibleNoRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
         this.availableEvents = response;
+        this.availableEvents.forEach(function (event) {
+          if (event.imageSource == null) {
+            event.imageSource = "../../assets/images/OrgaBanner.png";
+          }
+        });
       });
     }else if(emailAddress != null){
       this.uiUserService.getAllEvents(emailAddress).subscribe(response =>{
         this.availableEvents = response;
+      });
+      this.availableEvents.forEach(function (event) {
+        if (event.imageSource == null) {
+          event.imageSource = "../../assets/images/OrgaBanner.png";
+        }
       });
     }
   }
