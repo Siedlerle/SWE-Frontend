@@ -42,6 +42,7 @@ import {MatTableModule} from "@angular/material/table";
 import { GroupManagementComponent } from './group-management/group-management.component';
 import { AddGroupComponent } from './add-group/add-group.component';
 import {MatExpansionModule} from "@angular/material/expansion";
+import { AddUserToOrganisationComponent } from './add-user-to-organisation/add-user-to-organisation.component';
 
 
 const routes: Routes = [
@@ -78,6 +79,7 @@ const routes: Routes = [
     AddUserToEventComponent,
     GroupManagementComponent,
     AddGroupComponent,
+    AddUserToOrganisationComponent,
   ],
     imports: [
         BrowserModule,

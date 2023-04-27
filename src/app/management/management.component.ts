@@ -97,6 +97,14 @@ export class ManagementComponent implements OnInit {
     this.showUserManagement = false;
   }
 
+  showAddUserToOrganisation = false;
+  openAddUserToOrganisation(){
+    this.showAddUserToOrganisation = true;
+  }
+  closeAddUserToOrganisation(){
+    this.showAddUserToOrganisation = false;
+  }
+
   inviteToOrganisation(){}
 
   removeUser(user: User){}
