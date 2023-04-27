@@ -3,11 +3,174 @@
 
 <div class ="popup-background">
   <div class="popup">
+    <h1>Personen zum Event einladen</h1>
     <button mat-fab (click)="closeAddUserToEventCard()" class = "close-Button">
       <mat-icon class ="close-Icon">close</mat-icon>
     </button>
-    <p> Liste der Teilnehmer</p>
-  </div>
 
+    <div>
+      <!--mat-grid-list cols = "1" rowHeight="7:1" [gutterSize]="'15px'" class="layoutGrid">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+        <mat-grid-tile rowspan="1" colspan="1" class="layoutGridTile">
+          <mat-grid-tile-header>
+           <h1>Mitglieder der Organisation</h1>
+            <div class="attende-add-toolbar">
+              <div class="search-bar">
+                <input class="search-control" type="text" placeholder="Suche"#searchbar>
+                <button mat-icon-button class="search-icon">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-grid-tile-header>
+        </mat-grid-tile>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+        <mat-grid-tile rowspan="1" colspan="1" class="layoutGridTile">
+          <mat-grid-tile-header>
+            <h1>Gruppen der Organisation</h1>
+            <div class="attende-add-toolbar">
+              <div class="search-bar">
+                <input class="search-control" type="text" placeholder="Suche"#searchbar>
+                <button mat-icon-button class="search-icon">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-grid-tile-header>
+        </mat-grid-tile>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+        <mat-grid-tile rowspan="1" colspan="1" class="layoutGridTile">
+          <mat-grid-tile-header>
+            <h1>Personen einladen</h1>
+          </mat-grid-tile-header>
+        </mat-grid-tile>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+      </mat-grid-list-->
+      <mat-accordion class="headers-align" multi>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
+                Mitglieder der Organisation
+              </h3>
+            </mat-panel-title>
+            <mat-panel-description>
+              <mat-icon>person</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-action-row>
+          </mat-action-row>
+          <mat-table [dataSource]="dataSource" matSort class = "">
+            <ng-container matColumnDef="FirstName">
+              <mat-header-cell *matHeaderCellDef>Vorname</mat-header-cell>
+              <mat-cell *matCellDef="let user">{{user.firstname}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="LastName">
+              <mat-header-cell *matHeaderCellDef>Nachname</mat-header-cell>
+              <mat-cell *matCellDef="let user">{{user.lastname}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="eMail">
+              <mat-header-cell *matHeaderCellDef>E-Mail-Adresse</mat-header-cell>
+              <mat-cell *matCellDef="let user">{{user.emailAdress}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+              <mat-cell *matCellDef="let user">
+                <button mat-raised-button>
+                  einladen
+                </button>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </mat-expansion-panel>
+
+
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
+                Gruppen der Organisation
+              </h3>
+            </mat-panel-title>
+            <mat-panel-description>
+              <mat-icon>groups</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <mat-action-row>
+          </mat-action-row>
+          <mat-table [dataSource]="dataSource" matSort class = "">
+            <ng-container matColumnDef="FirstName">
+              <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+              <mat-cell *matCellDef="let user">{{user.firstname}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="LastName">
+              <mat-header-cell *matHeaderCellDef>Anzahl Mitglieder</mat-header-cell>
+              <mat-cell *matCellDef="let user">{{user.lastname}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="eMail">
+              <mat-header-cell *matHeaderCellDef>Beschreibung der Gruppe</mat-header-cell>
+              <mat-cell *matCellDef="let user">{{user.emailAdress}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+              <mat-cell *matCellDef="let user">
+                <button mat-raised-button>
+                  einladen
+                </button>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>
+                Externe Personen
+              </h3>
+            </mat-panel-title>
+            <mat-panel-description>
+              <mat-icon>person_add</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-action-row>
+          </mat-action-row>
+          <mat-form-field appearance="fill">
+            <mat-label>E-Mail Addresse</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <button mat-raised-button>
+            einladen
+          </button>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+
+    </div>
+    <!--button mat-raised-button class = "addPerson">
+      Teilnehmer hinzufügen
+      <mat-icon>person_add</mat-icon>
+    </button-->
+  </div>
 </div>
 </html>

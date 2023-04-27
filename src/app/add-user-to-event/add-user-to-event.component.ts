@@ -19,7 +19,7 @@ export class AddUserToEventComponent {
   eventData: CustomEvent;
   dataSource = new MatTableDataSource<User>();
   displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
-  attendees: User[];
+  userOfOrga: User[];
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService) {
     this.eventData = this.dataService.getCardData();
   }
@@ -28,8 +28,8 @@ export class AddUserToEventComponent {
     let id = this.eventData.id;
     if (id != null) {
       this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
-        this.attendees = response;
-        this.dataSource.data = this.attendees;
+        this.userOfOrga = response;
+        this.dataSource.data = this.userOfOrga;
       });
     }
   }

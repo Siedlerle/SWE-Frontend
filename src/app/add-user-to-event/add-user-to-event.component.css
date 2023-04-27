@@ -5,20 +5,23 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   padding: 20px ;
   width: 70%;
-  height: 60%;
-  z-index: 1000;
-  top: 50%;
+  height: 80%;
+  z-index: 1002;
+  top: 55%;
   left: 50%;
   down: 50%;
   right: 50%;
+
 }
 
 .popup-background{
   position: fixed;
   top: 0;
-  right: 10%;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: rgba(0, 0, 0, 0.5); /* Hier kannst du die Farbe anpassen */
-  z-index: 999;
+  z-index: 1001;
 }
 
 .close-Button{
@@ -36,6 +39,41 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
 }
+
+.attende-add-toolbar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
+
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  right: .5%;
+  position: absolute;
+}
+
+.search-control {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  right: .5%;
+  color: #999;
+}
+.addPerson{
+  font-weight: bolder;
+  font-size: larger;
+  float: right;
+}
+
+

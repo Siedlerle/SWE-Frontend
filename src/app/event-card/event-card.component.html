@@ -100,11 +100,18 @@
         </mat-tab>
 
         <mat-tab label="Teilnehmerverwaltung" class = "tab-attendee">
-          <div>
+          <div class="attende-management-toolbar">
             <button mat-raised-button (click) = "openAddUsertoEvent()" class = "addPerson">
               Teilnehmer hinzufügen
               <mat-icon>person_add</mat-icon>
             </button>
+
+            <div class="search-bar">
+              <input class="search-control" type="text" placeholder="Suche"#searchbar>
+              <button mat-icon-button class="search-icon">
+              <mat-icon>search</mat-icon>
+              </button>
+            </div>
           </div>
           <div class = "attendeeTable">
             <mat-table [dataSource]="dataSource" matSort class = "">
@@ -128,7 +135,7 @@
                 <mat-cell *matCellDef="let user">
                   <button mat-icon-button (click)="removeUser(user)">
                     <mat-icon>
-                      delete
+                      person_remove
                     </mat-icon>
                   </button>
                 </mat-cell>

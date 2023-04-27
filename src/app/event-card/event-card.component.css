@@ -5,7 +5,7 @@
   down: 50%;
   right: 50%;
   transform: translate(-50%, -50%);
-  z-index: 9999;
+  z-index: 1000;
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   padding: 20px ;
@@ -27,7 +27,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Hier kannst du die Farbe anpassen */
+  background-color: rgba(0, 0, 0, 0);
   z-index: 999;
 }
 .close-Button{
@@ -44,8 +44,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+
 }
 .status {
   position: absolute;
@@ -133,7 +132,6 @@ mat-form-field{
   min-height: 100%;
 }
 
-
 .mat-tab-body-content {
   height: 100%;
 }
@@ -145,4 +143,32 @@ mat-form-field{
 .tab-group {
   height: 100%;
   width: 100%;
+}
+.attende-management-toolbar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
+
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+
+}
+
+.search-control {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  right: .5%;
+  color: #999;
 }

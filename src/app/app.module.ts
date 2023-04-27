@@ -39,6 +39,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { AddUserToEventComponent } from './add-user-to-event/add-user-to-event.component';
 import {MatTableModule} from "@angular/material/table";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 
 const routes: Routes = [
@@ -74,31 +75,32 @@ const routes: Routes = [
     UsermanagementInOrganisationComponent,
     AddUserToEventComponent,
   ],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(routes),
-    BrowserAnimationsModule,
-    MatGridListModule,
-    MatMomentDateModule,
-    MatIconModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatCardModule,
-    MatListModule,
-    MatToolbarModule,
-    FormsModule,
-    MatButtonModule,
-    MatTabsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MatSnackBarModule,
-    MatSlideToggleModule,
-    NgxMatFileInputModule,
-    MatTableModule
-  ],
+    imports: [
+        BrowserModule,
+        RouterModule.forRoot(routes),
+        BrowserAnimationsModule,
+        MatGridListModule,
+        MatMomentDateModule,
+        MatIconModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatCardModule,
+        MatListModule,
+        MatToolbarModule,
+        FormsModule,
+        MatButtonModule,
+        MatTabsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MatSnackBarModule,
+        MatSlideToggleModule,
+        NgxMatFileInputModule,
+        MatTableModule,
+        MatExpansionModule
+    ],
   exports: [
     MatIconModule,
     MatDatepickerModule,
