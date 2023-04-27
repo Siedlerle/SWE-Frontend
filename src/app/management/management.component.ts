@@ -80,6 +80,14 @@ export class ManagementComponent implements OnInit {
     this.showCard = false;
   }
 
+  showGroupManagement = false;
+  openGroupManagement() {
+    this.showGroupManagement = true;
+  }
+  closeGroupManagement() {
+    this.showGroupManagement = false;
+  }
+
   showUserManagement = false;
   openUserManagement() {
     this.showUserManagement = true;

@@ -8,6 +8,7 @@ import {NgForm} from "@angular/forms";
 import {DataSource} from "@angular/cdk/collections";
 import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
 import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-event-card',
@@ -60,6 +61,12 @@ export class EventCardComponent implements OnInit {
   eventStatus: string = "";
   imageSource: string = "";
   removeUser(user: User){
+  }
+
+
+  getFormattedTime(timeString: string): string {
+    const [hours, minutes, seconds] = timeString.split(':');
+    return `${hours}:${minutes}`;
   }
 
   onSave() {

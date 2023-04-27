@@ -39,6 +39,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { AddUserToEventComponent } from './add-user-to-event/add-user-to-event.component';
 import {MatTableModule} from "@angular/material/table";
+import { GroupManagementComponent } from './group-management/group-management.component';
+import { AddGroupComponent } from './add-group/add-group.component';
 import {MatExpansionModule} from "@angular/material/expansion";
 
 
@@ -74,6 +76,8 @@ const routes: Routes = [
     OrganisationCardComponent,
     UsermanagementInOrganisationComponent,
     AddUserToEventComponent,
+    GroupManagementComponent,
+    AddGroupComponent,
   ],
     imports: [
         BrowserModule,

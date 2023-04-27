@@ -11,10 +11,6 @@
 </mat-toolbar-->
 
 <mat-grid-list cols="2" [gutterSize]="'15px'" class="layoutGrid">
-
-
-
-
   <mat-grid-tile class="layoutGridTile">
     <mat-grid-tile-header>
       <h1>Verwaltbare Events</h1>
@@ -47,14 +43,7 @@
       </mat-list>
     </div>
 
-    <app-event-card *ngIf = "showCard" (onClose) ="closeCard()"></app-event-card>
-    <app-add-event *ngIf="showPopup" (onClose)="closePopup()"></app-add-event>
-    <app-usermanagement-in-organisation *ngIf="showUserManagement" (onClose)="closeUserManagement()"></app-usermanagement-in-organisation>
   </mat-grid-tile>
-
-
-
-
   <mat-grid-tile class="layoutGridTile">
     <mat-grid-tile-header>
       <h1>Organisationsverwaltung</h1>
@@ -66,7 +55,7 @@
             Person einladen
             <mat-icon>person_add</mat-icon>
           </button>
-          <button mat-raised-button (click) = "inviteToOrganisation()" class="group-management-button">
+          <button mat-raised-button (click) = "openGroupManagement()" class="group-management-button">
             Gruppen verwalten
             <mat-icon>settings</mat-icon>
           </button>
@@ -113,17 +102,13 @@
         </mat-table>
       </div>
     </div>
+
   </mat-grid-tile>
-
-
-
-
 </mat-grid-list>
-
-
-
-
-
+<app-event-card *ngIf = "showCard" (onClose) ="closeCard()"></app-event-card>
+<app-add-event *ngIf="showPopup" (onClose)="closePopup()"></app-add-event>
+<app-usermanagement-in-organisation *ngIf="showUserManagement" (onClose)="closeUserManagement()"></app-usermanagement-in-organisation>
+<app-group-management *ngIf="showGroupManagement" (onClose)="closeGroupManagement()"></app-group-management>
 <!--
 <div class="basic-container">
   <mat-grid-list cols="2" rowHeight="6:1" gutterSize="15px" class="layoutGrid" >
