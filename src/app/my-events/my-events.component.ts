@@ -1,5 +1,5 @@
-import {Component, ElementRef, OnInit, Pipe, PipeTransform, ViewChild} from '@angular/core';
-import {MatPaginator} from "@angular/material/paginator";
+import {AfterViewInit, Component, ElementRef, OnInit, Pipe, PipeTransform, ViewChild} from '@angular/core';
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {UiUserService} from "../../services/ui-user.service";
 
@@ -9,18 +9,12 @@ import {UiUserService} from "../../services/ui-user.service";
   styleUrls: ['./my-events.component.css']
 })
 export class MyEventsComponent implements OnInit {
-
-  public onCardClick(evt: MouseEvent) {
-    console.log(evt);
-  }
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  //toggleSearch: boolean = false;
   registeredEvents: CustomEvent[] = [];
   searchText = '';
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  toggleSearch: boolean = false;
 
   constructor(private uiUserService : UiUserService) {
-
   }
 
   ngOnInit() {
@@ -46,6 +40,11 @@ export class MyEventsComponent implements OnInit {
         });
       });
     }
+  }
+
+
+  public onCardClick(evt: MouseEvent) {
+    console.log(evt);
   }
 
   filterEvents() {
