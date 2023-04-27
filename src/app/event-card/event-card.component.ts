@@ -49,9 +49,6 @@ export class EventCardComponent implements OnInit {
   eventEndDate: Date = new Date();
   eventLocation: string = "";
 
-  addUser(){
-
-  }
   removeUser(user: User){
   }
 
@@ -69,6 +66,10 @@ export class EventCardComponent implements OnInit {
   showAddUsertoEvent = false;
   openAddUsertoEvent(){
      this.showAddUsertoEvent = true
+  }
+
+  closeAddUsertoEvent(){
+    this.showAddUsertoEvent = false
   }
 
   onChangeEvent(form: NgForm) {

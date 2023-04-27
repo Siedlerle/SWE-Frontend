@@ -24,6 +24,10 @@
           <p>
             {{eventData.location}}
           </p>
+          <h3>Teilnehmeranzahl</h3>
+          <p>
+            {{attendees.length}}
+          </p>
         </mat-tab>
         <mat-tab label="Eventguide">
           <mat-card class="dashboard-card">
@@ -50,7 +54,7 @@
             <mat-card-header style="position: relative; display: flex; width: 100%; margin: 10px">
               <div class="tableControlls"
                    style="position:relative; justify-self: stretch; width: 100%; text-align: right">
-                <mat-card-title style="float: left">Files</mat-card-title>
+                <mat-card-title style="float: left">Dateien</mat-card-title>
                 <ngx-mat-file-input  style="float: right; margin-right: 45px">
                 </ngx-mat-file-input>
               </div>
@@ -218,8 +222,7 @@
 
   </div>
 </div>
-
-<app-add-user-to-event *ngIf="showAddUsertoEvent" (onCloseAddUser)="closeCard()"></app-add-user-to-event>
+<app-add-user-to-event *ngIf="showAddUsertoEvent" (onCloseAddUser)="closeAddUsertoEvent()"></app-add-user-to-event>
 </html>
 
 
