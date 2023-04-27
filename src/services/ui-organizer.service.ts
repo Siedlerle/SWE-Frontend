@@ -30,6 +30,10 @@ export class UiOrganizerService {
     return this.http.post<String>(URLs.backend+URLs.deleteEvent+eventId,null);
   }
 
+  changeStatusOfEvent(eventId: number, status: string) {
+    return this.http.post<String>("",null);
+  }
+
   addEventSeries(startEvent: CustomEvent, eventSeries: EventSeries, emailAddress: string, orgaId: string):Observable<String>{
     const body = {startEvent: startEvent, eventSeries: eventSeries};
     let jsonBody = JSON.stringify(body);

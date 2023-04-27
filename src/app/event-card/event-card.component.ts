@@ -22,6 +22,7 @@ export class EventCardComponent implements OnInit {
     this.onClose.emit();
   }
 
+  eventIsCancelled: boolean;
   eventData: CustomEvent;
   dataSource = new MatTableDataSource<User>();
   displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
@@ -118,22 +119,33 @@ export class EventCardComponent implements OnInit {
     }
   }
 
+  withDrawCancelEvent() {
+    if (this.eventData.id != null) {
+
+    }
+  }
+
   getReadableStatus() {
     switch (this.eventData.status) {
       case EnumEventStatus.INPREPARATION:
         this.eventStatus = 'In Vorbereitung';
+        this.eventIsCancelled = false;
         break;
       case EnumEventStatus.SCHEDULED:
         this.eventStatus = 'Geplant';
+        this.eventIsCancelled = false;
         break;
       case EnumEventStatus.RUNNING:
         this.eventStatus = 'In Durchführung';
+        this.eventIsCancelled = false;
         break;
       case EnumEventStatus.ACCOMPLISHED:
         this.eventStatus = 'Vergangen';
+        this.eventIsCancelled = false;
         break;
       case EnumEventStatus.CANCELLED:
         this.eventStatus = 'abgesagt';
+        this.eventIsCancelled = true;
         break;
     }
   }
