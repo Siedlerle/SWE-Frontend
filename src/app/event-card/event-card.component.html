@@ -214,9 +214,11 @@
                     <mat-slide-toggle color="primary" style="position: relative" [(ngModel)]="eventData.isPublic" name="eventIsPublic">Event in der Organisation öffentlich</mat-slide-toggle>
                   </p>
                 </div>
-                <p>
-                  <button mat-raised-button type="submit" [disabled]="!eventData.name || !eventData.description || !eventData.startDate || !eventData.endDate" class = "submit-button">Erstellen</button>
-                </p>
+                <div style="display:flex; justify-content: center">
+                  <p>
+                    <button mat-raised-button type="submit" [disabled]="!eventData.name || !eventData.description || !eventStartDate || !eventEndDate || !eventData.location || !eventData.startTime || !eventData.endTime || !eventData.type" class = "submit-button">Änderungen übernehmen</button>
+                  </p>
+                </div>
               </div>
             </form>
           </div>

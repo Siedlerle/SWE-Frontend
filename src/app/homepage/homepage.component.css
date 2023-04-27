@@ -18,6 +18,9 @@
   height: 4%;
 }
 
+.invitation-tabs-header {
+  height: 8%;
+}
 
 mat-list {
   margin-top: 50px;

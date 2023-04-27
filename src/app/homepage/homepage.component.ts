@@ -33,24 +33,26 @@ export class HomepageComponent implements OnInit {
     if (emailAddress !== null && orgaId !== null && orgaId !=='') {
       this.uiUserService.getRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
         this.registeredEvents = response;
+        this.registeredEvents.forEach(function (event) {
+          if (event.imageSource == null) {
+            event.imageSource = "../../assets/images/OrgaBanner.png";
+          }
+        });
       });
       this.uiUserService.getEventInvitations(emailAddress, orgaId).subscribe(response => {
         this.invitedEvents = response;
+        this.invitedEvents.forEach(function (event) {
+          if (event.imageSource == null) {
+            event.imageSource = "../../assets/images/OrgaBanner.png";
+          }
+        });
       });
       this.uiUserService.getOrganisationInvitations(emailAddress).subscribe(response => {
         this.invitedOrganisations = response;
       })
     }
-    this.registeredEvents.forEach(function (event) {
-      if (event.imageSource == null) {
-        event.imageSource = "../../assets/images/OrgaBanner.png";
-      }
-    });
-    this.invitedEvents.forEach(function (event) {
-      if (event.imageSource == null) {
-        event.imageSource = "../../assets/images/OrgaBanner.png";
-      }
-    });
+
+
   }
 
   showCard = false;
