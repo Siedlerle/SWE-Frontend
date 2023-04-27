@@ -150,7 +150,7 @@
         </mat-tab>
         <mat-tab label="Eventverwaltung" class="mat-tab-label">
           <div class = "editForm">
-            <form #form="ngForm"(ngSubmit)="onChangeEvent(form)">
+            <form class="change-event-form" #form="ngForm"(ngSubmit)="onChangeEvent(form)">
               <div class="form-div">
                 <p>
                   <mat-form-field appearance="fill" style="position: relative; width: 100%">
@@ -221,11 +221,12 @@
                     <mat-slide-toggle color="primary" style="position: relative" [(ngModel)]="eventData.isPublic" name="eventIsPublic">Event in der Organisation öffentlich</mat-slide-toggle>
                   </p>
                 </div>
-                <div style="display:flex; justify-content: space-between; width: 100%;">
-                  <p>
-                    <button mat-raised-button style="order: 1; float: left" type="button" color="warn" class = "submit-button" (click)="cancelEvent()">Event absagen</button>
-                    <button mat-raised-button style="order: 2; float: right" type="submit" [disabled]="!eventData.name || !eventData.description || !eventStartDate || !eventEndDate || !eventData.location || !eventData.startTime || !eventData.endTime || !eventData.type" class = "submit-button">Änderungen übernehmen</button>
-                  </p>
+                <div class="manage-event-buttons-div">
+                  <button mat-raised-button type="button" color="warn" class="cancel-event-button" (click)="cancelEvent()">Event absagen</button>
+                  <button mat-raised-button type="button" color="warn" class="delete-event-button" (click)="cancelEvent()">Event löschen</button>
+                  <div>
+                    <button mat-raised-button class="submit-button" type="submit" [disabled]="!eventData.name || !eventData.description || !eventStartDate || !eventEndDate || !eventData.location || !eventData.startTime || !eventData.endTime || !eventData.type" >Änderungen übernehmen</button>
+                  </div>
                 </div>
               </div>
             </form>

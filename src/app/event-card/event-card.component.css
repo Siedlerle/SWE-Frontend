@@ -66,6 +66,20 @@ mat-icon{
 .submit-button{
   font-weight: bolder;
   font-size: larger;
+  right: .5%
+}
+
+.manage-event-buttons-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
+  margin-bottom:5%;
+}
+
+.cancel-event-button {
+
 }
 
 img{
@@ -103,7 +117,7 @@ mat-form-field{
 
 }
 .editForm{
-  min-height: 700px;
+  min-height: 100%;
 }
 .descriptionField{
   height: 80%;

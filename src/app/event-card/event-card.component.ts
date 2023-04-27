@@ -102,8 +102,11 @@ export class EventCardComponent implements OnInit {
 
   cancelEvent() {
     if (this.eventData.id != null) {
-      this.uiOrganizerService.cancelEvent(this.eventData.id).subscribe(response => {
+      let reason = 'abgesagt';
+      this.uiOrganizerService.cancelEvent(this.eventData.id, reason).subscribe(response => {
         console.log(response);
+        this.eventData.status = EnumEventStatus.CANCELLED;
+        this.getReadableStatus();
       });
     }
   }
