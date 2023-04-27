@@ -36,7 +36,7 @@ export class EventCatalogComponent implements OnInit {
           }
         });
       });
-    }else if(emailAddress != null){
+    }else if(emailAddress != null && orgaId == null && orgaId===''){
       this.uiUserService.getAllEvents(emailAddress).subscribe(response =>{
         this.availableEvents = response;
       });
@@ -46,6 +46,15 @@ export class EventCatalogComponent implements OnInit {
         }
       });
     }
+  }
+
+
+  filterEvents() {
+    if (!this.searchText) {
+      return this.availableEvents;
+    }
+    console.log(this.searchText)
+    return this.availableEvents.filter(event => event.name.toLowerCase().includes(this.searchText.toLowerCase()));
   }
 
   openSearch() {
