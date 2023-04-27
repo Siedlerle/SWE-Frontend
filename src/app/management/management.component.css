@@ -56,6 +56,7 @@ mat-toolbar{
 
 
 mat-list {
+
   overflow-y: auto;
   height: 100%;
   width: 100%;
@@ -128,25 +129,51 @@ mat-card:active {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
 }
 
 .organisation-management-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
 }
 
-.event-search-bar {
-  margin-right: .5%;
+.left-items {
   display: flex;
   align-items: center;
 }
 
-button{
+
+.event-search-bar {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.add-event-button {
+  background-color: white;
+  color: black;
+  display: block;
+  margin-right: auto;
+  width: auto;
+}
+
+
+.group-management-button {
   background-color: white;
   color: black;
   display: block;
   margin-left: 1%;
+  margin-right: auto;
+}
+
+.invite-to-organisation-button {
+  background-color: white;
+  color: black;
+  display: block;
   margin-right: auto;
 }
 
@@ -162,9 +189,16 @@ button{
 }
 
 .search-control {
-  margin-right: 8px; /* Platz zwischen Suchfeld und Such-Button */
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+
+  font-size: 16px;
+  background-color: white;
 }
 
 .search-icon {
-  margin-left: 8px; /* Platz zwischen Such-Button und rechtem Rand */
+  position: absolute;
+  right: .5%;
+  color: #999;
 }

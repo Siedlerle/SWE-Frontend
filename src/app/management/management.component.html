@@ -18,17 +18,17 @@
     <div class="management-tile-content">
       <div class="event-management-toolbar">
 
-        <button mat-raised-button (click)="openPopup()">
+        <button mat-raised-button (click)="openPopup()" class="add-event-button">
           Event erstellen
           <mat-icon>add</mat-icon>
         </button>
 
-        <div class="event-search-bar">
+        <div class="search-bar">
           <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="searchText" #searchbar>
+          <button mat-icon-button class="search-icon">
+            <mat-icon>search</mat-icon>
+          </button>
         </div>
-
-
-
       </div>
       <mat-list>
         <mat-list-item *ngFor="let event of filterEvents() | filter: searchText">
@@ -54,13 +54,25 @@
     </mat-grid-tile-header>
     <div class="management-tile-content">
       <div class="organisation-management-toolbar">
-        <button mat-raised-button (click) = "inviteToOrganisation()">
-          Person einladen
-          <mat-icon>person_add</mat-icon>
-        </button>
-        <div class="search-bar">
-          <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="searchText" #searchbar>
+        <div class="left-items">
+          <button mat-raised-button (click) = "inviteToOrganisation()" class="invite-to-organisation-button">
+            Person einladen
+            <mat-icon>person_add</mat-icon>
+          </button>
+          <button mat-raised-button (click) = "inviteToOrganisation()" class="group-management-button">
+            Gruppen verwalten
+            <mat-icon>settings</mat-icon>
+          </button>
         </div>
+        <div class="right-items">
+          <div class="search-bar">
+            <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="searchText" #searchbar>
+            <button mat-icon-button class="search-icon">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+        </div>
+
       </div>
       <div class = "memberTable">
         <mat-table [dataSource]="dataSource" matSort class = "">
