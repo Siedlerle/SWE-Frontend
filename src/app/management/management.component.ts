@@ -47,8 +47,8 @@ export class ManagementComponent implements OnInit {
       this.uiOrganizerService.getManagingEvents(emailAddress, orgaId).subscribe(response => {
         this.managingEvents = response;
         this.managingEvents.forEach(function (event) {
-          if (event.imageSource == null) {
-            event.imageSource = "../../assets/images/OrgaBanner.png";
+          if (event.image == null) {
+            event.image = "../../assets/images/OrgaBanner.png";
           }
         });
       });
@@ -56,8 +56,8 @@ export class ManagementComponent implements OnInit {
       this.uiAdminService.getEventsofOrganisation(orgaId).subscribe(response =>{
         this.managingEvents = response;
         this.managingEvents.forEach(function (event) {
-          if (event.imageSource == null) {
-            event.imageSource = "../../assets/images/OrgaBanner.png";
+          if (event.image == null) {
+            event.image = "../../assets/images/OrgaBanner.png";
           }
         });
       });

@@ -33,10 +33,10 @@ export class EventCardComponent implements OnInit {
     this.eventData = this.dataService.getCardData();
     this.eventStartDate = new Date(this.eventData.startDate);
     this.eventEndDate = new Date(this.eventData.endDate);
-    if (this.eventData.imageSource == null) {
+    if (this.eventData.image == null) {
       this.imageSource = "../../assets/images/OrgaBanner.png";
     } else {
-      this.imageSource = this.eventData.imageSource;
+      this.imageSource = this.eventData.image;
     }
     this.getReadableStatus();
   }

@@ -31,8 +31,8 @@ export class MyEventsComponent implements OnInit {
       this.uiUserService.getRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
         this.registeredEvents = response;
         this.registeredEvents.forEach(function (event) {
-          if (event.imageSource == null) {
-            event.imageSource = "../../assets/images/OrgaBanner.png";
+          if (event.image == null) {
+            event.image = "../../assets/images/OrgaBanner.png";
           }
         });
       });
@@ -40,8 +40,8 @@ export class MyEventsComponent implements OnInit {
       this.uiUserService.getAllRegisteredEvents(emailAddress).subscribe(response =>{
         this.registeredEvents = response;
         this.registeredEvents.forEach(function (event) {
-          if (event.imageSource == null) {
-            event.imageSource = "../../assets/images/OrgaBanner.png";
+          if (event.image == null) {
+            event.image = "../../assets/images/OrgaBanner.png";
           }
         });
       });

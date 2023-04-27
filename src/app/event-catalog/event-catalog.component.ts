@@ -31,8 +31,8 @@ export class EventCatalogComponent implements OnInit {
       this.uiUserService.getAllVisibleNoRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
         this.availableEvents = response;
         this.availableEvents.forEach(function (event) {
-          if (event.imageSource == null) {
-            event.imageSource = "../../assets/images/OrgaBanner.png";
+          if (event.image == null) {
+            event.image = "../../assets/images/OrgaBanner.png";
           }
         });
       });
@@ -41,8 +41,8 @@ export class EventCatalogComponent implements OnInit {
         this.availableEvents = response;
       });
       this.availableEvents.forEach(function (event) {
-        if (event.imageSource == null) {
-          event.imageSource = "../../assets/images/OrgaBanner.png";
+        if (event.image == null) {
+          event.image = "../../assets/images/OrgaBanner.png";
         }
       });
     }

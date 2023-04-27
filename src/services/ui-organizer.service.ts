@@ -6,6 +6,7 @@ import {CustomEvent} from "../DataTransferObjects/CustomEvent";
 import {EventSeries} from "../DataTransferObjects/EventSeries";
 import {C} from "@angular/cdk/keycodes";
 import {User} from "../DataTransferObjects/User";
+import {Form} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,12 @@ export class UiOrganizerService {
 
   constructor(private http:HttpClient) { }
 
-  addEvent(event:CustomEvent, emailAddress: string, orgaId: string):Observable<String>{
-    return this.http.post<String>(URLs.backend+URLs.createEvent+emailAddress+'/'+orgaId,event);
+  addEvent(event:CustomEvent, emailAddress: string, orgaId: string, image: File):Observable<String>{
+    const formData = new FormData();
+    formData.append('event', JSON.stringify(event));
+    formData.append('image', image);
+
+    return this.http.post<String>(URLs.backend+URLs.createEvent+emailAddress+'/'+orgaId, formData);
   }
 
   changeEvent(event:CustomEvent):Observable<any>{
@@ -34,17 +39,13 @@ export class UiOrganizerService {
     return this.http.post<String>(URLs.backend+'/organizer/event/'+eventId+'/status/change',status);
   }
 
-  addEventSeries(startEvent: CustomEvent, eventSeries: EventSeries, emailAddress: string, orgaId: string):Observable<String>{
-    const body = {startEvent: startEvent, eventSeries: eventSeries};
-    let jsonBody = JSON.stringify(body);
+  addEventSeries(startEvent: CustomEvent, eventSeries: EventSeries, emailAddress: string, orgaId: string, image: File):Observable<String>{
+    const formData = new FormData();
+    formData.append('event', JSON.stringify(startEvent));
+    formData.append('eventseries', JSON.stringify(eventSeries));
+    formData.append('image', image);
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-
-    return this.http.post<String>(URLs.backend+URLs.createEventSeres+emailAddress+'/'+orgaId, jsonBody, httpOptions);
+    return this.http.post<String>(URLs.backend+URLs.createEventSeres+emailAddress+'/'+orgaId, formData);
   }
 
   getManagingEvents(emailAddress: string, orgaId: string):Observable<CustomEvent[]> {

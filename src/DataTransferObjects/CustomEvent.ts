@@ -15,7 +15,7 @@ export interface CustomEvent
   status?:string;
   type:string;
 
-  imageSource?:string;
+  image?:string;
 
   eventSeriesId?:number;
   organizationId?:number;

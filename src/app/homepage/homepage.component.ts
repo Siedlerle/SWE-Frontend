@@ -34,16 +34,16 @@ export class HomepageComponent implements OnInit {
       this.uiUserService.getRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
         this.registeredEvents = response;
         this.registeredEvents.forEach(function (event) {
-          if (event.imageSource == null) {
-            event.imageSource = "../../assets/images/OrgaBanner.png";
+          if (event.image == null) {
+            event.image = "../../assets/images/OrgaBanner.png";
           }
         });
       });
       this.uiUserService.getEventInvitations(emailAddress, orgaId).subscribe(response => {
         this.invitedEvents = response;
         this.invitedEvents.forEach(function (event) {
-          if (event.imageSource == null) {
-            event.imageSource = "../../assets/images/OrgaBanner.png";
+          if (event.image == null) {
+            event.image = "../../assets/images/OrgaBanner.png";
           }
         });
       });

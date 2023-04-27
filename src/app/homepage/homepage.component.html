@@ -10,7 +10,7 @@
         <mat-list>
           <mat-list-item *ngFor="let event of registeredEvents" (click)="onCardClick($event)">
             <mat-card class="card">
-              <img mat-card-sm-image src="{{event.imageSource}}" alt = "" class = "mat-card-image">
+              <img mat-card-sm-image src="{{event.image}}" alt = "" class = "mat-card-image">
               <div class="card-content">
                 <mat-card-header>{{event.name}}</mat-card-header>
                 <mat-card-content>{{event.description}}</mat-card-content>
@@ -30,11 +30,11 @@
         <mat-grid-tile-header class="mat-grid-tile-header-left">
         </mat-grid-tile-header>
         <mat-tab-group class="invitation-tabs" dynamicHeight>
-          <mat-tab label="Event-Einladungen">
+          <mat-tab label="Event-Einladungen" class="mat-tab-label">
               <mat-list>
                 <mat-list-item *ngFor="let event of invitedEvents" (click)="onCardClick($event)">
                   <mat-card class="card" (click)="openCard()">
-                    <img mat-card-sm-image src="{{event.imageSource}}" alt = "" class = "mat-card-image">
+                    <img mat-card-sm-image src="{{event.image}}" alt = "" class = "mat-card-image">
                     <div class="card-content">
                       <mat-card-header>{{event.name}}</mat-card-header>
                       <mat-card-content>{{event.description}}</mat-card-content>
@@ -43,7 +43,7 @@
                 </mat-list-item>
               </mat-list>
           </mat-tab>
-          <mat-tab label="Organisations-Einladungen">
+          <mat-tab label="Organisations-Einladungen" class="mat-tab-label">
               <mat-list>
                 <mat-list-item *ngFor="let organisation of invitedOrganisations">
                   <mat-card class="card">

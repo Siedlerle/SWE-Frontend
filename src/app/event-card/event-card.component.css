@@ -50,14 +50,20 @@
 }
 .status {
   position: absolute;
+  font-weight: bolder;
+  font-size: larger;
   top: 20px;
   left: 20px;
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.5);
   color: #fff;
   font-size: 18px;
-  border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 10px;
   border-top-left-radius: 10px;
+}
+.plan-event-button {
+  font-weight: bolder;
+  font-size: larger;
 }
 mat-icon{
   margin: auto;
@@ -79,11 +85,14 @@ mat-icon{
 }
 
 .cancel-event-button {
-
+  font-weight: bolder;
+  font-size: larger;
 }
 
 .delete-event-button {
   margin-right: 10px;
+  font-weight: bolder;
+  font-size: larger;
 }
 
 img{

@@ -43,6 +43,7 @@ export class AddEventComponent implements OnInit {
     "image/*"
   ];
   file!: File;
+  formData: FormData;
 
   constructor( private breakpointObserver: BreakpointObserver, private uiOrganizerService: UiOrganizerService) {
     this.fileControl = new FormControl(this.file)
@@ -50,8 +51,8 @@ export class AddEventComponent implements OnInit {
 
 
   ngOnInit() {
-    this.fileControl.valueChanges.subscribe((file: File) => {
-
+    this.fileControl.valueChanges.subscribe((file: any) => {
+      this.file = file;
     });
   }
 
@@ -73,7 +74,7 @@ export class AddEventComponent implements OnInit {
     eventStartDate: Date = new Date();
     eventEndDate: Date = new Date();
     eventLocation: string = "";
-    eventImage: File;
+    eventImage: String;
 
     onSubmit(form: NgForm)
     {
@@ -81,12 +82,12 @@ export class AddEventComponent implements OnInit {
       const orgaId = sessionStorage.getItem('orgaId');
       if(emailAddress != null && orgaId != null){
         if(!this.wantEventSeries) {
-          this.uiOrganizerService.addEvent(this.event, emailAddress, orgaId).subscribe(response =>{
+          this.uiOrganizerService.addEvent(this.event, emailAddress, orgaId, this.file).subscribe(response =>{
               console.log(response);
             }
           );
         } else {
-          this.uiOrganizerService.addEventSeries(this.event, this.eventSeries, emailAddress, orgaId).subscribe(response => {
+          this.uiOrganizerService.addEventSeries(this.event, this.eventSeries, emailAddress, orgaId, this.file).subscribe(response => {
             console.log(response);
           });
         }
