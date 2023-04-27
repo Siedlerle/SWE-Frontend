@@ -51,7 +51,7 @@ export class AddEventComponent implements OnInit {
 
   ngOnInit() {
     this.fileControl.valueChanges.subscribe((file: File) => {
-      this.event.image = file.slice(0, file.size, file.type);
+
     });
   }
 

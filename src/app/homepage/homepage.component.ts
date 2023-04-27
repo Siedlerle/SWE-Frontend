@@ -41,6 +41,16 @@ export class HomepageComponent implements OnInit {
         this.invitedOrganisations = response;
       })
     }
+    this.registeredEvents.forEach(function (event) {
+      if (event.imageSource == null) {
+        event.imageSource = "../../assets/images/OrgaBanner.png";
+      }
+    });
+    this.invitedEvents.forEach(function (event) {
+      if (event.imageSource == null) {
+        event.imageSource = "../../assets/images/OrgaBanner.png";
+      }
+    });
   }
 
   showCard = false;

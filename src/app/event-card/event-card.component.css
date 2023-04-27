@@ -12,6 +12,15 @@
   width: 70%;
   height: 90%;
 }
+.banner {
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  max-width: 100%;
+  height: 200px;
+}
+
 .popup-background{
   position: fixed;
   top: 0;
@@ -37,6 +46,16 @@
   justify-content: center;
   width: 24px;
   height: 24px;
+}
+.status {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 18px;
+  border-bottom-right-radius: 5px;
 }
 mat-icon{
   margin: auto;

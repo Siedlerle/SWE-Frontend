@@ -6,6 +6,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
 import {NgForm} from "@angular/forms";
 import {DataSource} from "@angular/cdk/collections";
+import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
 
 @Component({
   selector: 'app-event-card',
@@ -25,6 +26,14 @@ export class EventCardComponent implements OnInit {
   attendees: User[];
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService) {
     this.eventData = this.dataService.getCardData();
+    this.eventStartDate = new Date(this.eventData.startDate);
+    this.eventEndDate = new Date(this.eventData.endDate);
+    if (this.eventData.imageSource == null) {
+      this.imageSource = "../../assets/images/OrgaBanner.png";
+    } else {
+      this.imageSource = this.eventData.imageSource;
+    }
+    this.getReadableStatus();
   }
 
   ngOnInit() {
@@ -48,7 +57,8 @@ export class EventCardComponent implements OnInit {
   eventStartDate: Date = new Date();
   eventEndDate: Date = new Date();
   eventLocation: string = "";
-
+  eventStatus: string = "";
+  imageSource: string = "";
   removeUser(user: User){
   }
 
@@ -81,6 +91,26 @@ export class EventCardComponent implements OnInit {
   fileDataSource = new MatTableDataSource();
   uploadFile(){
 
+  }
+
+  getReadableStatus() {
+    switch (this.eventData.status) {
+      case EnumEventStatus.INPREPARATION:
+        this.eventStatus = 'In Vorbereitung';
+        break;
+      case EnumEventStatus.SCHEDULED:
+        this.eventStatus = 'Geplant';
+        break;
+      case EnumEventStatus.RUNNING:
+        this.eventStatus = 'In Durchführung';
+        break;
+      case EnumEventStatus.ACCOMPLISHED:
+        this.eventStatus = 'Vergangen';
+        break;
+      case EnumEventStatus.CANCELLED:
+        this.eventStatus = 'abgesagt';
+        break;
+    }
   }
 
   protected readonly DataSource = DataSource;
