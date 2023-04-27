@@ -31,7 +31,7 @@ export class UiOrganizerService {
   }
 
   changeStatusOfEvent(eventId: number, status: string) {
-    return this.http.post<String>("",null);
+    return this.http.post<String>(URLs.backend+'/organizer/event/'+eventId+'/status/change',status);
   }
 
   addEventSeries(startEvent: CustomEvent, eventSeries: EventSeries, emailAddress: string, orgaId: string):Observable<String>{

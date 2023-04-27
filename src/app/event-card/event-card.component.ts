@@ -121,7 +121,12 @@ export class EventCardComponent implements OnInit {
 
   withDrawCancelEvent() {
     if (this.eventData.id != null) {
-
+      let newStatus = EnumEventStatus.SCHEDULED.toString();
+      console.log(newStatus);
+      this.uiOrganizerService.changeStatusOfEvent(this.eventData.id, newStatus).subscribe(response => {
+        this.eventData.status = EnumEventStatus.SCHEDULED;
+        this.getReadableStatus();
+      })
     }
   }
 
