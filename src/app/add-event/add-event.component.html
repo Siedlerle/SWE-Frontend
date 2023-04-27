@@ -39,14 +39,14 @@
                 <p>
                   <mat-form-field appearance="fill" style="position: relative; width: 47.5%; float: left">
                     <mat-label>Startzeit</mat-label>
-                    <input matInput placeholder="12:30" [(ngModel)]="event.startTime" name="eventStartTime" inputmode="numeric" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"  required>
+                    <input matInput placeholder="12:30" [(ngModel)]="event.startTime" name="eventStartTime" inputmode="numeric" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]" type="time"   required>
                     <mat-error *ngIf="!eventStartTime">Startzeit wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
                 <p>
                   <mat-form-field appearance="fill" style="position: relative; width: 47.5%; float: left; padding-left: 5%">
                     <mat-label>Endzeit</mat-label>
-                    <input matInput placeholder="13:30" [(ngModel)]="event.endTime" name="eventEndTime" inputmode="numeric" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"  required>
+                    <input matInput placeholder="13:30" [(ngModel)]="event.endTime" name="eventEndTime" inputmode="numeric" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]" type="time"   required>
                     <mat-error *ngIf="!eventEndTime">Endzeit wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
