@@ -105,6 +105,8 @@ export class NavComponent implements OnInit{
     sessionStorage.setItem('refreshToken', '');
     sessionStorage.setItem('role', '');
     sessionStorage.setItem('orgaId', '');
+    sessionStorage.setItem('emailAdress','');
+    sessionStorage.setItem('orgaRole','');
     location.reload();
   }
 }

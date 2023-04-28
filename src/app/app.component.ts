@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import {AuthService} from "../services/auth.service";
+import {UiUserService} from "../services/ui-user.service";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,15 @@ export class AppComponent implements OnInit{
   title = 'SWE-Frontend';
   isAuthenticated: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService, private activeRoute : ActivatedRoute) { }
+  constructor(private router: Router, private authService: AuthService, private uiUserService:UiUserService , private activeRoute : ActivatedRoute) {
+    document.addEventListener('mousemove', this.handleUserInput.bind(this));
+    document.addEventListener('keypress', this.handleUserInput.bind(this));
+    document.addEventListener('mousedown', this.handleUserInput.bind(this));
+  }
+  handleUserInput() {
+    this.authService.resetTimeout();
+    this.authService.lastInputTime = new Date();
+  }
   ngOnInit(){
     this.isAuthenticated =  JSON.parse(sessionStorage.getItem('authenticated') || 'false');
 
@@ -33,4 +42,5 @@ export class AppComponent implements OnInit{
       this.authService.startSendingRequests();
     }
   }
+
 }
