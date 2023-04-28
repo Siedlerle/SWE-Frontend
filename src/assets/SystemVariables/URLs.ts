@@ -7,7 +7,7 @@ export const URLs = {
   login: '/user/auth/login',
   pwdRstRqu: '/user/auth/pwd-reset-request',
   pwdRst: '/user/auth/reset-pwd',
-  refresh: 'user/auth/refresh',
+  refresh: '/user/auth/refresh',
   logout: '/logout',
   delete: 'user/auth/delete',
 

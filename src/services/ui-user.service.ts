@@ -29,6 +29,7 @@ export class UiUserService {
     }
 
     logout(){
+      console.log("logout");
       return this.http.get(URLs.backend+URLs.logout);
     }
 
@@ -38,6 +39,9 @@ export class UiUserService {
       return this.http.post<any>(URLs.backend+URLs.verify,null,{ headers:headers, params: params});
     }
 
+    refresh():Observable<any>{
+      return this.http.post<any>(URLs.backend+URLs.refresh, null, { responseType: 'json'});
+    }
 
 
     //Organisation

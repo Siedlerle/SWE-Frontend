@@ -83,6 +83,7 @@ const routes: Routes = [
     AddGroupComponent,
     EventDeleteDialogComponent,
     AddUserToOrganisationComponent,
+
   ],
   imports: [
     BrowserModule,

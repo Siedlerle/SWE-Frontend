@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ export class AppComponent implements OnInit{
   title = 'SWE-Frontend';
   isAuthenticated: boolean = false;
 
-  constructor(private router: Router, private activeRoute : ActivatedRoute) { }
+  constructor(private router: Router, private authService: AuthService, private activeRoute : ActivatedRoute) { }
   ngOnInit(){
     this.isAuthenticated =  JSON.parse(sessionStorage.getItem('authenticated') || 'false');
 
@@ -26,6 +27,10 @@ export class AppComponent implements OnInit{
           this.router.navigate([''])
         },1000)
       }
+    }
+
+    if(this.isAuthenticated){
+      this.authService.startSendingRequests();
     }
   }
 }
