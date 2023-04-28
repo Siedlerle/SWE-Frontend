@@ -35,6 +35,10 @@
   color: white;
 }
 
+mat-icon {
+  margin: auto;
+}
+
 .close-Icon{
   display: flex;
   align-items: center;
