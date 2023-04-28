@@ -29,7 +29,6 @@ export class UiUserService {
     }
 
     logout(){
-      console.log("logout");
       return this.http.get(URLs.backend+URLs.logout);
     }
 
