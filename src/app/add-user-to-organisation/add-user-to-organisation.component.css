@@ -43,7 +43,9 @@ mat-form-field {
   width: 70%;
   margin-bottom: 20px;
 }
-
+mat-icon{
+  margin: auto;
+}
 .content {
   display: flex;
   flex-direction: row;

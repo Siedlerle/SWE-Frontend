@@ -39,6 +39,10 @@
   height: 24px;
 }
 
+mat-icon{
+  margin: auto;
+}
+
 mat-form-field {
   width: 70%;
   margin-bottom: 20px;
