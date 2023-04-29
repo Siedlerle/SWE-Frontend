@@ -45,7 +45,7 @@ mat-icon{
 
 mat-form-field {
   width: 70%;
-  margin-bottom: 20px;
+  margin-bottom: 10%;
 }
 
 .content {
@@ -62,5 +62,6 @@ input {
 .add-Group-Button {
   width: 30%;
   margin-left: 10px;
+  margin-bottom: 10%;
   border: none;
 }

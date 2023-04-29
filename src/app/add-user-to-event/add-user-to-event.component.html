@@ -9,51 +9,6 @@
     </button>
 
     <div>
-      <!--mat-grid-list cols = "1" rowHeight="7:1" [gutterSize]="'15px'" class="layoutGrid">
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-        <mat-grid-tile rowspan="1" colspan="1" class="layoutGridTile">
-          <mat-grid-tile-header>
-           <h1>Mitglieder der Organisation</h1>
-            <div class="attende-add-toolbar">
-              <div class="search-bar">
-                <input class="search-control" type="text" placeholder="Suche"#searchbar>
-                <button mat-icon-button class="search-icon">
-                  <mat-icon>search</mat-icon>
-                </button>
-              </div>
-            </div>
-          </mat-grid-tile-header>
-        </mat-grid-tile>
-            </mat-expansion-panel-header>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-        <mat-grid-tile rowspan="1" colspan="1" class="layoutGridTile">
-          <mat-grid-tile-header>
-            <h1>Gruppen der Organisation</h1>
-            <div class="attende-add-toolbar">
-              <div class="search-bar">
-                <input class="search-control" type="text" placeholder="Suche"#searchbar>
-                <button mat-icon-button class="search-icon">
-                  <mat-icon>search</mat-icon>
-                </button>
-              </div>
-            </div>
-          </mat-grid-tile-header>
-        </mat-grid-tile>
-          </mat-expansion-panel-header>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-        <mat-grid-tile rowspan="1" colspan="1" class="layoutGridTile">
-          <mat-grid-tile-header>
-            <h1>Personen einladen</h1>
-          </mat-grid-tile-header>
-        </mat-grid-tile>
-          </mat-expansion-panel-header>
-        </mat-expansion-panel>
-      </mat-grid-list-->
       <mat-accordion class="headers-align" multi>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -90,14 +45,13 @@
                 <button mat-raised-button>
                   einladen
                 </button>
+                <mat-checkbox color="primary">Als Tutor einladen</mat-checkbox>
               </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="usersOfOrgaDisplayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: usersOfOrgaDisplayedColumns;"></mat-row>
           </mat-table>
         </mat-expansion-panel>
-
-
 
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -152,15 +106,10 @@
           <button mat-raised-button>
             einladen
           </button>
+          <mat-checkbox color="primary">Als Tutor einladen</mat-checkbox>
         </mat-expansion-panel>
-
       </mat-accordion>
-
     </div>
-    <!--button mat-raised-button class = "addPerson">
-      Teilnehmer hinzufügen
-      <mat-icon>person_add</mat-icon>
-    </button-->
   </div>
 </div>
 </html>

@@ -45,6 +45,9 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import { AddUserToOrganisationComponent } from './add-user-to-organisation/add-user-to-organisation.component';
 import { EventDeleteDialogComponent } from './event-delete-dialog/event-delete-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { OrganisationCardInvitationComponent } from './organisation-card-invitation/organisation-card-invitation.component';
+import { EventCardInvitationComponent } from './event-card-invitation/event-card-invitation.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 
 const routes: Routes = [
@@ -83,35 +86,38 @@ const routes: Routes = [
     AddGroupComponent,
     EventDeleteDialogComponent,
     AddUserToOrganisationComponent,
+    OrganisationCardInvitationComponent,
+    EventCardInvitationComponent,
 
   ],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(routes),
-    BrowserAnimationsModule,
-    MatGridListModule,
-    MatMomentDateModule,
-    MatIconModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatCardModule,
-    MatListModule,
-    MatToolbarModule,
-    FormsModule,
-    MatButtonModule,
-    MatTabsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MatSnackBarModule,
-    MatSlideToggleModule,
-    NgxMatFileInputModule,
-    MatTableModule,
-    MatExpansionModule,
-    MatDialogModule
-  ],
+    imports: [
+        BrowserModule,
+        RouterModule.forRoot(routes),
+        BrowserAnimationsModule,
+        MatGridListModule,
+        MatMomentDateModule,
+        MatIconModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatCardModule,
+        MatListModule,
+        MatToolbarModule,
+        FormsModule,
+        MatButtonModule,
+        MatTabsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MatSnackBarModule,
+        MatSlideToggleModule,
+        NgxMatFileInputModule,
+        MatTableModule,
+        MatExpansionModule,
+        MatDialogModule,
+        MatCheckboxModule
+    ],
   exports: [
     MatIconModule,
     MatDatepickerModule,
