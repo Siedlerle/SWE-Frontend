@@ -20,7 +20,6 @@ export class NavComponent implements OnInit{
   ];
 
   activeLink: string;
-  activeManagement: boolean;
   organisationsForUser!:Organisation[];
 
   constructor(private router: Router, private activeRoute: ActivatedRoute, private uiUserService : UiUserService) { }
@@ -41,7 +40,11 @@ export class NavComponent implements OnInit{
 
     const orgaId = sessionStorage.getItem('orgaId');
     const orgaRole = sessionStorage.getItem('orgaRole');
-    this.activeManagement = orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER';
+    if(orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER' && orgaRole !==''){
+      sessionStorage.setItem('activeManagement', JSON.stringify(true));
+    }else{
+      sessionStorage.setItem('activeManagement', JSON.stringify(false));
+    }
 
   }
 
@@ -73,9 +76,9 @@ export class NavComponent implements OnInit{
     const orgaId = sessionStorage.getItem('orgaId');
     const orgaRole = sessionStorage.getItem('orgaRole');
     if(orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER' && orgaRole !==''){
-      this.activeManagement = true;
+      sessionStorage.setItem('activeManagement', JSON.stringify(true));
     }else{
-      this.activeManagement = false;
+      sessionStorage.setItem('activeManagement', JSON.stringify(false));
     }
 
     this.router.navigate(['']);
@@ -90,9 +93,9 @@ export class NavComponent implements OnInit{
     const orgaId = sessionStorage.getItem('orgaId');
     const orgaRole = sessionStorage.getItem('orgaRole');
     if(orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER' && orgaRole !==''){
-      this.activeManagement = true;
+      sessionStorage.setItem('activeManagement', JSON.stringify(true));
     }else{
-      this.activeManagement = false;
+      sessionStorage.setItem('activeManagement', JSON.stringify(false));
     }
 
     this.router.navigate(['']);
@@ -105,6 +108,14 @@ export class NavComponent implements OnInit{
   }
   closeCard(){
     this.showCard = false;
+  }
+
+  canManage(){
+    if(sessionStorage.getItem('activeManagement') === 'true'){
+      return true;
+    }else {
+      return false;
+    }
   }
 
   logOut(){

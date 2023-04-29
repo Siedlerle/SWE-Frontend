@@ -76,6 +76,9 @@ export class UiUserService {
       return this.http.post(URLs.backend+'/user/orga/'+orgaId+'/decline-invitation/'+emailAdress,null);
     }
 
+    leaveOrganisation(orgaId: number, emailAdress: string){
+      return this.http.post(URLs.backend+'/user/orga/'+orgaId+'/leave/'+emailAdress, null);
+    }
 
     //Events
     getAllEvents(emailAdress: string):Observable<CustomEvent[]>{

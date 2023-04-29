@@ -20,16 +20,25 @@ export class OrganisationCatalogComponent implements OnInit{
 
   organisationslist = listData;
   @ViewChild('searchbar') searchbar: ElementRef;
-  searchText = '';
+  myOrgaSearchText = '';
+  allOrgaSearchText = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   toggleSearch: boolean = false;
 
-  organisations!:Organisation[]
+
+  allOrganisations!:Organisation[]
+  usersOrganisations!:Organisation[]
 
   ngOnInit(): void {
     this.uiUserService.getAllOrganisations().subscribe(response => {
-      this.organisations = response;
+      this.allOrganisations = response;
     });
+    const emailAddress = sessionStorage.getItem('emailAdress');
+    if(emailAddress != null){
+      this.uiUserService.getOrganisationForUser(emailAddress).subscribe(response =>{
+        this.usersOrganisations = response;
+      });
+    }
   }
 
 
@@ -70,7 +79,7 @@ export class OrganisationCatalogComponent implements OnInit{
   }
 
   searchClose() {
-    this.searchText = '';
+    this.myOrgaSearchText = '';
     this.toggleSearch = false;
   }
 

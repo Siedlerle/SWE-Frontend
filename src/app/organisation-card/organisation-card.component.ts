@@ -20,11 +20,14 @@ export class OrganisationCardComponent {
     this.onClose.emit();
   }
 
-  acceptInvitation() {
+  registerInOrganisation() {
     const emailAddress = sessionStorage.getItem('emailAdress');
 
     if(emailAddress != null && this.orgaData.id !=null){
-      this.uiUserService.requestJoin(this.orgaData.id,emailAddress).subscribe();
+      this.uiUserService.requestJoin(this.orgaData.id,emailAddress).subscribe(response =>{
+        this.closeCard();
+        location.reload();
+      });
     }
   }
 

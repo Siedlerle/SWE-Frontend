@@ -46,14 +46,14 @@
 
     <div class="organisation-catalog-toolbar">
       <div class="search-bar">
-        <input class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText" #searchbar>
+        <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="myOrgaSearchText">
         <mat-icon class="search-icon">search</mat-icon>
       </div>
     </div>
 
     <div class="basic-container">
       <mat-grid-list cols="2" rowHeight="10em" gutterSize=".5em" class="layoutGrid" >
-        <mat-grid-tile *ngFor="let item of organisations | filter: searchText"  class ="layoutGridTile" >
+        <mat-grid-tile *ngFor="let item of usersOrganisations | filter: myOrgaSearchText" class ="layoutGridTile" >
           <mat-card [style.width]="'100%'" (click)="onCardClick($event)" (click)="openMyOrganisation(item)" class = "card" >
             <img mat-card-sm-image src="{{item.image}}" alt = "" class = "mat-card-image">
             <div class="card-content">
@@ -82,14 +82,14 @@
 
     <div class="organisation-catalog-toolbar">
       <div class="search-bar">
-        <input class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText" #searchbar>
+        <input class="search-control" type="text" placeholder="Search" [(ngModel)]="allOrgaSearchText">
         <mat-icon class="search-icon">search</mat-icon>
       </div>
     </div>
 
     <div class="basic-container">
       <mat-grid-list cols="2" rowHeight="10em" gutterSize=".5em" class="layoutGrid" >
-        <mat-grid-tile *ngFor="let item of organisations | filter: searchText"  class ="layoutGridTile" >
+        <mat-grid-tile *ngFor="let item of allOrganisations | filter: allOrgaSearchText" class ="layoutGridTile" >
           <mat-card [style.width]="'100%'" (click)="onCardClick($event)" (click)="openOrganisation(item)" class = "card" >
             <img mat-card-sm-image src="{{item.image}}" alt = "" class = "mat-card-image">
             <div class="card-content">
