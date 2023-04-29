@@ -62,4 +62,12 @@ export class HomepageComponent implements OnInit {
   closeCard(){
     this.showCard = false;
   }
+
+  showOrganisationInvite = false;
+  openOrganisationInvite(){
+    this.showOrganisationInvite = true;
+  }
+  closeOrganisationInvite(){
+    this.showOrganisationInvite = false;
+  }
 }

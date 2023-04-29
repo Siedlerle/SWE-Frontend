@@ -45,6 +45,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import { AddUserToOrganisationComponent } from './add-user-to-organisation/add-user-to-organisation.component';
 import { EventDeleteDialogComponent } from './event-delete-dialog/event-delete-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { OrganisationCardInvitationComponent } from './organisation-card-invitation/organisation-card-invitation.component';
+import { EventCardInvitationComponent } from './event-card-invitation/event-card-invitation.component';
 
 
 const routes: Routes = [
@@ -83,6 +85,8 @@ const routes: Routes = [
     AddGroupComponent,
     EventDeleteDialogComponent,
     AddUserToOrganisationComponent,
+    OrganisationCardInvitationComponent,
+    EventCardInvitationComponent,
 
   ],
   imports: [
