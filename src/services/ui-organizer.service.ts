@@ -66,6 +66,9 @@ export class UiOrganizerService {
     return this.http.post<User[]>(URLs.backend+'/tutor/event/'+eventId+'/attendees/get-all',null);
   }
 
+  getAllUsersInOrganisation(orgaId: string):Observable<User[]>{
+    return this.http.post<User[]>(URLs.backend+'/organizer/organisation/'+orgaId+'/user/get-all',null);
+  }
   inviteUserToEvent(eventId: number, emailAddress: string){
     return this.http.post(URLs.backend+'/organizer/event/'+eventId+'/user/'+emailAddress+'/invite', null);
   }
@@ -76,5 +79,9 @@ export class UiOrganizerService {
 
   inviteGroupToEvent(eventId: number, groupId: number){
     return this.http.post(URLs.backend+'/organizer/event/'+eventId+'/group/'+groupId+'/invite', null);
+  }
+
+  inviteUserToOrganisation(orgaId: string, emailAddress: string){
+    return this.http.post(URLs.backend+'/organizer/organisation/' + orgaId + '/user/' + emailAddress + '/invite',null);
   }
 }

@@ -25,6 +25,7 @@ export class ManagementComponent implements OnInit {
   displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
   attendees: User[];
   managingEvents: CustomEvent[];
+  orgaUsers: User[];
 
   filterEvents() {
     if (!this.eventSearchText) {
@@ -61,6 +62,12 @@ export class ManagementComponent implements OnInit {
           }
         });
       });
+    }
+    if(orgaId != null && orgaId !== ''){
+      this.uiOrganizerService.getAllUsersInOrganisation(orgaId).subscribe(response =>{
+          this.orgaUsers = response;
+          this.dataSource.data = this.orgaUsers;
+        });
     }
   }
 
