@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {MatTableDataSource} from "@angular/material/table";
+import {MatCheckbox} from "@angular/material/checkbox";
 import {User} from "../../DataTransferObjects/User";
 import {DataService} from "../management/CardService";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
@@ -24,6 +25,10 @@ export class AddUserToEventComponent {
   groupsOfOrgaDisplayedColumns: string[] = ['Name', 'actions']
   userOfOrga: User[];
   groupsOfOrga: Group[];
+
+  isTutor:boolean[] = [];
+
+
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService) {
     this.eventData = this.dataService.getCardData();
   }
@@ -37,15 +42,26 @@ export class AddUserToEventComponent {
     }
   }
 
-  inviteUser(user: User){
+  inviteUser(user: User, index: number){
     let id = this.eventData.id;
     if(id!=null){
-      this.uiOrganizerService.inviteUserToEvent(id , user.emailAdress).subscribe(response =>{
-        this.uiOrganizerService.getUnafiliatedUsersForEvent(this.eventData).subscribe(response => {
-          this.userOfOrga = response;
-          this.usersOfOrgaDataSource.data = this.userOfOrga;
+      if(!this.isTutor[index]){
+        this.uiOrganizerService.inviteUserToEvent(id , user.emailAdress).subscribe(response =>{
+          this.uiOrganizerService.getUnafiliatedUsersForEvent(this.eventData).subscribe(response => {
+            this.userOfOrga = response;
+            this.usersOfOrgaDataSource.data = this.userOfOrga;
+            this.isTutor = [];
+          });
         });
-      });
+      } else if(this.isTutor[index]){
+        this.uiOrganizerService.inviteTutorToEvent(id , user.emailAdress).subscribe(response =>{
+          this.uiOrganizerService.getUnafiliatedUsersForEvent(this.eventData).subscribe(response => {
+            this.userOfOrga = response;
+            this.usersOfOrgaDataSource.data = this.userOfOrga;
+            this.isTutor = [];
+          });
+        });
+      }
     }
   }
 }

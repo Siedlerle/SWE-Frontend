@@ -41,11 +41,11 @@
 
             <ng-container matColumnDef="actions">
               <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
-              <mat-cell *matCellDef="let user">
-                <button mat-raised-button (click)="inviteUser(user)">
+              <mat-cell *matCellDef="let user; let i=index">
+                <button mat-raised-button (click)="inviteUser(user, i)">
                   einladen
                 </button>
-                <mat-checkbox color="primary">Als Tutor einladen</mat-checkbox>
+                <mat-checkbox [(ngModel)]="isTutor[i]" color="primary">Als Tutor einladen</mat-checkbox>
               </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="usersOfOrgaDisplayedColumns"></mat-header-row>
@@ -106,7 +106,7 @@
           <button mat-raised-button>
             einladen
           </button>
-          <mat-checkbox color="primary">Als Tutor einladen</mat-checkbox>
+          <mat-checkbox [(ngModel)]="isTutor" color="primary">Als Tutor einladen</mat-checkbox>
         </mat-expansion-panel>
       </mat-accordion>
     </div>
