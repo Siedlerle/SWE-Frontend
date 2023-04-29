@@ -1,21 +1,42 @@
-mat-toolbar{
-  background-color: white;
-  height: 30px;
+.organisation-catalog-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.search-icon{
-  color: #333333;
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+.search-control {
+  padding: 8px;
+
+  border-style: solid;
+  border-color: #999;
+  border-radius: 4px;
+
+  font-size: 16px;
+  background-color: white;
+}
+.search-icon {
+  position: relative;
+  right: 11%;
+  color: #999;
 }
 .filter-icon{
   color: #555555;
 }
+
 .basic-container {
-  padding: 10px;
   height: 100%;
+  width: 100%;
+  padding: 0;
 }
 .clickable{
   cursor: pointer;
 }
 mat-card{
+  width: 100%;
   background: #555555;
 }
 mat-card-header {
@@ -66,21 +87,23 @@ mat-card:active {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-
+  width: 100%;
 }
 
 mat-grid-list {
-  margin-top: 50px;
   overflow-y: auto;
   max-height: 90%;
   width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .layoutGrid{
-  margin: 15px;
+  margin-top: 1%;
   overflow-y: auto;
   max-height: 90%;
   width: 100%;
+  padding: 0;
 }
 mat-grid-tile:nth-child(n){
   height: 35%;

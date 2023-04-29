@@ -15,11 +15,6 @@ mat-grid-tile-header:nth-child(n) {
   height: 4%;
 }
 
-
-mat-toolbar{
-  background-color: white;
-  height: 30px;
-}
 .search-icon{
   color: #333333;
 }
@@ -36,10 +31,6 @@ mat-icon{
   color: grey;
 }
 
-mat-toolbar{
-  background-color: white;
-  height: 30px;
-}
 .search-icon{
   color: #333333;
 }

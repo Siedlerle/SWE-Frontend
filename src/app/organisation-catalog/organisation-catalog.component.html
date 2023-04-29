@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-<mat-toolbar>
+<!--mat-toolbar>
   <input class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText" #searchbar>
   <button class="search-icon" mat-icon-button disabled>
     <mat-icon>search</mat-icon>
@@ -21,16 +21,89 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
-
-
 </div>
 <div>
   <mat-paginator [pageSizeOptions]="[10, 20, 30]"
                  showFirstLastButtons
                  aria-label="Select page of periodic elements">
   </mat-paginator>
-</div>
+</div-->
 
-<app-organisation-card *ngIf = "showCard" (onClose) ="closeCard()"></app-organisation-card>
+<mat-accordion class="headers-align" multi>
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h3>
+          Meine Organisationen
+        </h3>
+      </mat-panel-title>
+      <mat-panel-description>
+        <mat-icon>person</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-action-row>
+    </mat-action-row>
 
-</html>
+    <div class="organisation-catalog-toolbar">
+      <div class="search-bar">
+        <input class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText" #searchbar>
+        <mat-icon class="search-icon">search</mat-icon>
+      </div>
+    </div>
+
+    <div class="basic-container">
+      <mat-grid-list cols="2" rowHeight="10em" gutterSize=".5em" class="layoutGrid" >
+        <mat-grid-tile *ngFor="let item of organisations | filter: searchText"  class ="layoutGridTile" >
+          <mat-card [style.width]="'100%'" (click)="onCardClick($event)" (click)="openCard(item)" class = "card" >
+            <img mat-card-sm-image src="{{item.image}}" alt = "" class = "mat-card-image">
+            <div class="card-content">
+              <mat-card-header>{{item.name}}</mat-card-header >
+              <mat-card-content>{{item.location}}</mat-card-content>
+            </div>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h3>
+          Alle Organisationen
+        </h3>
+      </mat-panel-title>
+      <mat-panel-description>
+        <mat-icon>groups</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-action-row>
+    </mat-action-row>
+
+    <div class="organisation-catalog-toolbar">
+      <div class="search-bar">
+        <input class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText" #searchbar>
+        <mat-icon class="search-icon">search</mat-icon>
+      </div>
+    </div>
+
+    <div class="basic-container">
+      <mat-grid-list cols="2" rowHeight="10em" gutterSize=".5em" class="layoutGrid" >
+        <mat-grid-tile *ngFor="let item of organisations | filter: searchText"  class ="layoutGridTile" >
+          <mat-card [style.width]="'100%'" (click)="onCardClick($event)" (click)="openCard(item)" class = "card" >
+            <img mat-card-sm-image src="{{item.image}}" alt = "" class = "mat-card-image">
+            <div class="card-content">
+              <mat-card-header>{{item.name}}</mat-card-header >
+              <mat-card-content>{{item.location}}</mat-card-content>
+            </div>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+
+    <app-organisation-card *ngIf = "showCard" (onClose) ="closeCard()"></app-organisation-card>
+
+    </html>
