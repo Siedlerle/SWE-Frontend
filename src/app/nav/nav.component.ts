@@ -72,7 +72,11 @@ export class NavComponent implements OnInit{
 
     const orgaId = sessionStorage.getItem('orgaId');
     const orgaRole = sessionStorage.getItem('orgaRole');
-    this.activeManagement = orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER';
+    if(orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER' && orgaRole !==''){
+      this.activeManagement = true;
+    }else{
+      this.activeManagement = false;
+    }
 
     this.router.navigate(['']);
 
@@ -85,7 +89,11 @@ export class NavComponent implements OnInit{
 
     const orgaId = sessionStorage.getItem('orgaId');
     const orgaRole = sessionStorage.getItem('orgaRole');
-    this.activeManagement = orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER';
+    if(orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER' && orgaRole !==''){
+      this.activeManagement = true;
+    }else{
+      this.activeManagement = false;
+    }
 
     this.router.navigate(['']);
 

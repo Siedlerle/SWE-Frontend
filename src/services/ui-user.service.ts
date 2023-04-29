@@ -98,11 +98,19 @@ export class UiUserService {
       return this.http.post<CustomEvent[]>(URLs.backend+'/user/orga/'+orgaId+'/event/get-available-events/'+emailAddress, null);
     }
 
-    acceptEventInvitation(eventId:number, emailAdress:string){
-      return this.http.post(URLs.backend+'/user/event/'+eventId+'/accept-invitation/'+emailAdress,null);
+    acceptEventInvitation(eventId:number, emailAddress:string){
+      return this.http.post(URLs.backend+'/user/event/'+eventId+'/accept-invitation/'+emailAddress,null);
     }
 
-    declineEventInvitation(eventId:number, emailAdress:string){
-      return this.http.post(URLs.backend+'/user/event/'+eventId+'/decline-invitation/'+emailAdress,null);
+    declineEventInvitation(eventId:number, emailAddress:string){
+      return this.http.post(URLs.backend+'/user/event/'+eventId+'/decline-invitation/'+emailAddress,null);
+    }
+
+    registerForEvent(eventId: number, emailAddress: string){
+      return this.http.post(URLs.backend+'/user/event/'+eventId+'/register/'+emailAddress, null);
+    }
+
+    unregisterFromEvent(eventId: number, emailAddress: string){
+      return this.http.post(URLs.backend+'/user/event/'+eventId+'/unregister/'+emailAddress, null);
     }
 }

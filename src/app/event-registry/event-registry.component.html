@@ -1,0 +1,40 @@
+<div class ="popup-background">
+  <div class="popup">
+    <button mat-fab (click)="closeRegistryCard()" class = "close-Button">
+      <mat-icon class ="close-Icon">close</mat-icon>
+    </button>
+    <div class="card-header">
+      <img mat-card-image src="{{imageSource}}" class="banner">
+    </div>
+
+    <h2> Eventkarte</h2>
+    <div>
+      <h2>{{eventData.name}}</h2>
+      <h3>Beschreibung</h3>
+      <p>{{eventData.description}}</p>
+      <h3>Zeit</h3>
+      <ng-container *ngIf="eventData.startDate == eventData.endDate ; else elseBlock">
+        <p>
+          Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}} bis {{getFormattedTime(eventData.endTime)}}
+        </p>
+      </ng-container>
+      <ng-template #elseBlock>
+        <p>
+          Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}}
+        </p>
+        <p>
+          Endet am {{eventData.endDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.endTime)}}
+        </p>
+      </ng-template>
+
+      <h3>Veranstaltungsort</h3>
+      <p>
+        {{eventData.location}}
+      </p>
+      <div class="buttons">
+        <button mat-raised-button (click)="registerForEvent()">Registrieren</button>
+
+      </div>
+    </div>
+  </div>
+</div>

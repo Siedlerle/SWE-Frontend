@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, OnInit, Pipe, PipeTransform, ViewC
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {UiUserService} from "../../services/ui-user.service";
+import {DataService} from "../management/CardService";
 
 @Component({
   selector: 'app-my-events',
@@ -14,7 +15,7 @@ export class MyEventsComponent implements OnInit {
   registeredEvents: CustomEvent[] = [];
   searchText = '';
 
-  constructor(private uiUserService : UiUserService) {
+  constructor(private dataService: DataService, private uiUserService : UiUserService) {
   }
 
   ngOnInit() {
@@ -43,8 +44,13 @@ export class MyEventsComponent implements OnInit {
   }
 
 
-  public onCardClick(evt: MouseEvent) {
-    console.log(evt);
+  showInvitationCard = false;
+  openCard(item: CustomEvent){
+    this.showInvitationCard = true;
+    this.dataService.setCardData(item);
+  }
+  closeCard(){
+    this.showInvitationCard = false;
   }
 
   filterEvents() {

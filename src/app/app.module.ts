@@ -49,6 +49,8 @@ import { OrganisationCardInvitationComponent } from './organisation-card-invitat
 import { EventCardInvitationComponent } from './event-card-invitation/event-card-invitation.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { OrganisationCardRegisteredComponent } from './organisation-card-registered/organisation-card-registered.component';
+import { EventRegistryComponent } from './event-registry/event-registry.component';
+import { EventUnregistryComponent } from './event-unregistry/event-unregistry.component';
 
 
 const routes: Routes = [
@@ -90,6 +92,9 @@ const routes: Routes = [
     OrganisationCardInvitationComponent,
     EventCardInvitationComponent,
     OrganisationCardRegisteredComponent,
+    EventRegistryComponent,
+    EventRegistryComponent,
+    EventUnregistryComponent,
 
   ],
     imports: [
