@@ -28,12 +28,23 @@ export class AddUserToEventComponent {
     this.eventData = this.dataService.getCardData();
   }
   ngOnInit() {
-
     let id = this.eventData.id;
     if (id != null) {
-      this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
+      this.uiOrganizerService.getUnafiliatedUsersForEvent(this.eventData).subscribe(response => {
         this.userOfOrga = response;
         this.usersOfOrgaDataSource.data = this.userOfOrga;
+      });
+    }
+  }
+
+  inviteUser(user: User){
+    let id = this.eventData.id;
+    if(id!=null){
+      this.uiOrganizerService.inviteUserToEvent(id , user.emailAdress).subscribe(response =>{
+        this.uiOrganizerService.getUnafiliatedUsersForEvent(this.eventData).subscribe(response => {
+          this.userOfOrga = response;
+          this.usersOfOrgaDataSource.data = this.userOfOrga;
+        });
       });
     }
   }

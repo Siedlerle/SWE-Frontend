@@ -36,7 +36,8 @@ export const URLs = {
   changeEvent:'/organizer/event/change',
   deleteEvent: '/organizer/event/delete/',
   createEventSeres:'/organizer/event-series/create/',
-  getManagingEventsInOrga: '/event/managing/get/'
+  getManagingEventsInOrga: '/event/managing/get/',
+  getUnafiliatedUsers: '/organizer/event/get/unaffiliated-users',
 
 
   //Administrator

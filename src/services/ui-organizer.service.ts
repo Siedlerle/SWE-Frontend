@@ -52,7 +52,15 @@ export class UiOrganizerService {
     return this.http.post<CustomEvent[]>(URLs.backend+'/organizer/orga/'+orgaId+'/event/managing/get/'+emailAddress, orgaId);
   }
 
+  getUnafiliatedUsersForEvent(event: CustomEvent):Observable<User[]>{
+    return this.http.post<User[]>(URLs.backend+URLs.getUnafiliatedUsers,event);
+  }
+
   getAttendeesForEvent(eventId: number):Observable<User[]> {
     return this.http.post<User[]>(URLs.backend+'/tutor/event/'+eventId+'/attendees/get-all',null);
+  }
+
+  inviteUserToEvent(eventId: number, emailAddress: string){
+    return this.http.post(URLs.backend+'/organizer/event/'+eventId+'/user/'+emailAddress+'/invite', null);
   }
 }

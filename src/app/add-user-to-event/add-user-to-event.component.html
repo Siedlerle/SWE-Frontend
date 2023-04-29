@@ -42,7 +42,7 @@
             <ng-container matColumnDef="actions">
               <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
               <mat-cell *matCellDef="let user">
-                <button mat-raised-button>
+                <button mat-raised-button (click)="inviteUser(user)">
                   einladen
                 </button>
                 <mat-checkbox color="primary">Als Tutor einladen</mat-checkbox>
