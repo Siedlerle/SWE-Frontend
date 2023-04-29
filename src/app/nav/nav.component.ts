@@ -15,6 +15,7 @@ export class NavComponent implements OnInit{
     { label: 'Start', route: '/homepage' },
     { label: 'Eventkatalog', route: '/event-catalog' },
     { label: 'Meine Events', route: '/my-events' },
+    { label: 'Organisationskatalog', route: 'organisation-catalog'},
     { label: 'Verwaltung', route: '/management' }
   ];
 

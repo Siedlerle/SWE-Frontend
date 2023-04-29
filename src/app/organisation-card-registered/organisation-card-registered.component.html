@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<div class="popup">
+  <button mat-fab (click)="closeCard()" class = "close-Button">
+    <mat-icon class ="close-Icon">close</mat-icon>
+  </button>
+
+  <img mat-card-image src="../../assets/images/nature.jpg">
+
+  <div class = "tab-group">
+    <h1>{{orgaData.name}}</h1>
+    <p>{{orgaData.location}}</p>
+  </div>
+
+  <div class = "action-Buttons">
+    <button mat-raised-button (click)="declineInvitation()" class="action-Button">
+      Organisation auswählen
+    </button>
+    <button mat-raised-button (click)="acceptInvitation()" class="action-Button">
+      Organisation verlassen
+    </button>
+  </div>
+</div>
+</html>

@@ -33,7 +33,7 @@
           <mat-tab label="Event-Einladungen" class="mat-tab-label">
               <mat-list>
                 <mat-list-item *ngFor="let event of invitedEvents" (click)="onCardClick($event)">
-                  <mat-card class="card" (click)="openCard()">
+                  <mat-card class="card" (click)="openEventInvite(event)">
                     <img mat-card-sm-image src="{{event.image}}" alt = "" class = "mat-card-image">
                     <div class="card-content">
                       <mat-card-header>{{event.name}}</mat-card-header>
@@ -60,7 +60,9 @@
       </mat-grid-tile>
     </mat-grid-list>
 
-    <app-organisation-card-invitation *ngIf = "showOrganisationInvite" (onClose) ="closeOrganisationInvite()"></app-organisation-card-invitation>
+    <app-event-card-invitation *ngIf="showEventInvite" (onClose)="closeEventInvite()"></app-event-card-invitation>
+
+    <app-organisation-card-invitation *ngIf="showOrganisationInvite" (onClose)="closeOrganisationInvite()"></app-organisation-card-invitation>
   </body>
 </html>
 

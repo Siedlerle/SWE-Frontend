@@ -23,6 +23,7 @@
           <a routerLink="" class="nav-item" [class.active]="activeLink ==''"  >Start</a>
           <a routerLink="/event-catalog" class="nav-item" [class.active]="activeLink =='/event-catalog'">Eventkatalog</a>
           <a routerLink="/my-events" class="nav-item" [class.active]="activeLink =='/my-events'">Meine Events</a>
+          <a routerLink="/organisation-catalog" class="nav-item" [class.active]="activeLink =='/organisation-catalog'">Organisationskatalog</a>
           <a *ngIf="activeManagement" routerLink="/management" class="nav-item" [class.active]="activeLink =='/management'">Verwaltung</a>
         </div>
         <div class="right-items">
@@ -31,7 +32,7 @@
             <div class="dropdown-content" [ngClass]="{'show': isDropdownOpen}">
               <ul (click)="isDropdownOpen = false">
                 <li (click)="openCard()">Profil ansehen</li>
-                <li>Einstellungen</li>
+                <li routerLink="/organisation-catalog">Organisationen durchsuchen</li>
                 <li (click) = "logOut()">Abmelden</li>
               </ul>
             </div>

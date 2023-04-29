@@ -54,7 +54,7 @@
     <div class="basic-container">
       <mat-grid-list cols="2" rowHeight="10em" gutterSize=".5em" class="layoutGrid" >
         <mat-grid-tile *ngFor="let item of organisations | filter: searchText"  class ="layoutGridTile" >
-          <mat-card [style.width]="'100%'" (click)="onCardClick($event)" (click)="openCard(item)" class = "card" >
+          <mat-card [style.width]="'100%'" (click)="onCardClick($event)" (click)="openMyOrganisation(item)" class = "card" >
             <img mat-card-sm-image src="{{item.image}}" alt = "" class = "mat-card-image">
             <div class="card-content">
               <mat-card-header>{{item.name}}</mat-card-header >
@@ -90,7 +90,7 @@
     <div class="basic-container">
       <mat-grid-list cols="2" rowHeight="10em" gutterSize=".5em" class="layoutGrid" >
         <mat-grid-tile *ngFor="let item of organisations | filter: searchText"  class ="layoutGridTile" >
-          <mat-card [style.width]="'100%'" (click)="onCardClick($event)" (click)="openCard(item)" class = "card" >
+          <mat-card [style.width]="'100%'" (click)="onCardClick($event)" (click)="openOrganisation(item)" class = "card" >
             <img mat-card-sm-image src="{{item.image}}" alt = "" class = "mat-card-image">
             <div class="card-content">
               <mat-card-header>{{item.name}}</mat-card-header >
@@ -103,7 +103,7 @@
   </mat-expansion-panel>
 </mat-accordion>
 
+    <app-organisation-card-registered *ngIf = "showMyOrganisation" (onClose)="closeMyOrganisation()"></app-organisation-card-registered>
+    <app-organisation-card *ngIf = "showOrganisation" (onClose) ="closeOrganisation()"></app-organisation-card>
 
-    <app-organisation-card *ngIf = "showCard" (onClose) ="closeCard()"></app-organisation-card>
-
-    </html>
+</html>

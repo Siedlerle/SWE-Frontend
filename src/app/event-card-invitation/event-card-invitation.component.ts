@@ -14,10 +14,10 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class EventCardInvitationComponent {
 
-  @Output() onCloseInvitationCard = new EventEmitter<void>();
+  @Output() onClose = new EventEmitter<void>();
 
   closeInvitationCard() {
-    this.onCloseInvitationCard.emit();
+    this.onClose.emit();
   }
 
   eventIsCancelled: boolean;

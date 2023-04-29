@@ -48,6 +48,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { OrganisationCardInvitationComponent } from './organisation-card-invitation/organisation-card-invitation.component';
 import { EventCardInvitationComponent } from './event-card-invitation/event-card-invitation.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { OrganisationCardRegisteredComponent } from './organisation-card-registered/organisation-card-registered.component';
 
 
 const routes: Routes = [
@@ -88,6 +89,7 @@ const routes: Routes = [
     AddUserToOrganisationComponent,
     OrganisationCardInvitationComponent,
     EventCardInvitationComponent,
+    OrganisationCardRegisteredComponent,
 
   ],
     imports: [

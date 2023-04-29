@@ -46,6 +46,24 @@ export class OrganisationCatalogComponent implements OnInit{
     this.showCard = false;
   }
 
+  showMyOrganisation = false;
+  openMyOrganisation(item: Organisation){
+    this.showMyOrganisation = true;
+    this.organisationCardService.setCardData(item);
+  }
+  closeMyOrganisation(){
+    this.showMyOrganisation = false;
+  }
+
+  showOrganisation = false;
+  openOrganisation(item: Organisation){
+    this.showOrganisation = true;
+    this.organisationCardService.setCardData(item)
+  }
+  closeOrganisation(){
+    this.showOrganisation = false
+  }
+
   openSearch() {
     this.toggleSearch = true;
     this.searchbar.nativeElement.focus();

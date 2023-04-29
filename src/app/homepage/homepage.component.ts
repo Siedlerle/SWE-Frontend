@@ -3,6 +3,7 @@ import {UiOrganizerService} from "../../services/ui-organizer.service";
 import {UiUserService} from "../../services/ui-user.service";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {Organisation} from "../../DataTransferObjects/Organisation";
+import {DataService} from "../management/CardService";
 
 //import { listData } from './event-list';
 
@@ -16,7 +17,7 @@ import {Organisation} from "../../DataTransferObjects/Organisation";
 
 
 export class HomepageComponent implements OnInit {
-  constructor(private uiUserService : UiUserService) {
+  constructor(private uiUserService : UiUserService, private dataService: DataService) {
   }
 
   public onCardClick(evt: MouseEvent){
@@ -51,16 +52,14 @@ export class HomepageComponent implements OnInit {
         this.invitedOrganisations = response;
       })
     }
-
-
   }
-
-  showCard = false;
-  openCard(){
-    this.showCard = true;
+  showEventInvite = false;
+  openEventInvite(item: CustomEvent){
+    this.showEventInvite = true;
+    this.dataService.setCardData(item);
   }
-  closeCard(){
-    this.showCard = false;
+  closeEventInvite(){
+    this.showEventInvite = false;
   }
 
   showOrganisationInvite = false;
@@ -70,4 +69,6 @@ export class HomepageComponent implements OnInit {
   closeOrganisationInvite(){
     this.showOrganisationInvite = false;
   }
+
+
 }
