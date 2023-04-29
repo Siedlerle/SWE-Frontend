@@ -1,14 +1,11 @@
 <!doctype html>
-<html>
-  <mat-toolbar>
-    <input class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText" #searchbar>
-    <button class="search-icon" mat-icon-button disabled>
-      <mat-icon>search</mat-icon>
-    </button>
-    <!--<button class ="filter-icon"mat-icon-button>
-      <mat-icon>filter_list</mat-icon>
-    </button>-->
-  </mat-toolbar>
+<html xmlns="http://www.w3.org/1999/html">
+    <div class="event-catalog-toolbar">
+      <div class="search-bar">
+        <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="eventSearchText">
+          <mat-icon class="search-icon">search</mat-icon>
+      </div>
+    </div>
   <div class="basic-container">
     <mat-grid-list cols="2" rowHeight="6:1" gutterSize="15px" class="layoutGrid" >
       <mat-grid-tile *ngFor="let event of filterEvents()"  class ="layoutGridTile" >
@@ -25,11 +22,5 @@
       </mat-grid-tile>
     </mat-grid-list>
   </div>
-  <div>
-    <mat-paginator [pageSizeOptions]="[10, 20, 30]"
-                   showFirstLastButtons
-                   aria-label="Select page of periodic elements">
-    </mat-paginator>
-  </div>
-
+    <app-event-card-invitation *ngIf = "showInvitationCard" (onCloseInvitationCard)="closeCard()"></app-event-card-invitation>
 </html>

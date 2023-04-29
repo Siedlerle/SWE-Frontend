@@ -3,6 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {UiUserService} from "../../services/ui-user.service";
+import {DataService} from "../management/CardService";
 
 @Component({
   selector: 'app-event-catalog',
@@ -10,19 +11,16 @@ import {UiUserService} from "../../services/ui-user.service";
   styleUrls: ['./event-catalog.component.css']
 })
 export class EventCatalogComponent implements OnInit {
-  public onCardClick(evt: MouseEvent) {
-    console.log(evt);
-  }
 
   availableEvents: CustomEvent[];
   @ViewChild('searchbar') searchbar: ElementRef;
-  searchText = '';
+  eventSearchText = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+
   toggleSearch: boolean = false;
 
-  constructor(private uiUserService: UiUserService) {
-
-  }
+  constructor(private dataService: DataService,private uiUserService: UiUserService) { }
 
   ngOnInit() {
     const emailAddress = sessionStorage.getItem('emailAdress');
@@ -48,32 +46,23 @@ export class EventCatalogComponent implements OnInit {
     }
   }
 
-
   filterEvents() {
-    if (!this.searchText) {
+    if (!this.eventSearchText) {
       return this.availableEvents;
     }
-    console.log(this.searchText)
-    return this.availableEvents.filter(event => event.name.toLowerCase().includes(this.searchText.toLowerCase()));
+    console.log(this.eventSearchText)
+    return this.availableEvents.filter(event => event.name.toLowerCase().includes(this.eventSearchText.toLowerCase()));
   }
 
-  openSearch() {
-    this.toggleSearch = true;
-    this.searchbar.nativeElement.focus();
-  }
-
-  searchClose() {
-    this.searchText = '';
-    this.toggleSearch = false;
-  }
-
-  showCard = false;
+  showInvitationCard = false;
   openCard(item: CustomEvent){
-    this.showCard = true;
-    //this.dataService.setCardData(item);
+    this.showInvitationCard = true;
+    this.dataService.setCardData(item);
   }
   closeCard(){
-    this.showCard = false;
+    this.showInvitationCard = false;
   }
+
+
 }
 
