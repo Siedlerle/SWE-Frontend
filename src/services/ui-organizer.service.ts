@@ -84,4 +84,8 @@ export class UiOrganizerService {
   inviteUserToOrganisation(orgaId: string, emailAddress: string){
     return this.http.post(URLs.backend+'/organizer/organisation/' + orgaId + '/user/' + emailAddress + '/invite',null);
   }
+
+  removeUserFromEvent(eventId: number, emailAddress:string){
+    return this.http.post(URLs.backend+'/organizer/event/'+eventId+'/attendee/'+emailAddress+'/remove',null);
+  }
 }

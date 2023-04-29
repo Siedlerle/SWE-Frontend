@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {UiOrganizerService} from "../../services/ui-organizer.service";
 import {UiUserService} from "../../services/ui-user.service";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {Organisation} from "../../DataTransferObjects/Organisation";
 import {DataService} from "../management/CardService";
+import {OrganisationCardService} from "../organisation-card/OrganisationCardService";
 
 //import { listData } from './event-list';
 
@@ -17,7 +17,7 @@ import {DataService} from "../management/CardService";
 
 
 export class HomepageComponent implements OnInit {
-  constructor(private uiUserService : UiUserService, private dataService: DataService) {
+  constructor(private uiUserService : UiUserService, private dataService: DataService, private orgaDataService: OrganisationCardService) {
   }
 
   public onCardClick(evt: MouseEvent){
@@ -32,6 +32,8 @@ export class HomepageComponent implements OnInit {
     const emailAddress = sessionStorage.getItem('emailAdress');
     const orgaId = sessionStorage.getItem('orgaId');
     if (emailAddress !== null && orgaId !== null && orgaId !=='') {
+
+      //Alle Events in denen man teilnimmt in einer Organisation
       this.uiUserService.getRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
         this.registeredEvents = response;
         this.registeredEvents.forEach(function (event) {
@@ -40,7 +42,13 @@ export class HomepageComponent implements OnInit {
           }
         });
       });
-      this.uiUserService.getEventInvitations(emailAddress, orgaId).subscribe(response => {
+
+
+    }else if( emailAddress !==null && orgaId ===''){
+      //Alle registrierten Events
+
+      //Alle Event-Einladungen
+      this.uiUserService.getAllEventInvitations(emailAddress).subscribe(response => {
         this.invitedEvents = response;
         this.invitedEvents.forEach(function (event) {
           if (event.image == null) {
@@ -48,6 +56,8 @@ export class HomepageComponent implements OnInit {
           }
         });
       });
+
+      //Alle Organisationseinladungen
       this.uiUserService.getOrganisationInvitations(emailAddress).subscribe(response => {
         this.invitedOrganisations = response;
       })
@@ -63,8 +73,10 @@ export class HomepageComponent implements OnInit {
   }
 
   showOrganisationInvite = false;
-  openOrganisationInvite(){
+  openOrganisationInvite(item: Organisation){
     this.showOrganisationInvite = true;
+    this.orgaDataService.setCardData(item);
+
   }
   closeOrganisationInvite(){
     this.showOrganisationInvite = false;

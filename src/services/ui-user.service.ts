@@ -68,6 +68,14 @@ export class UiUserService {
       return this.http.post(URLs.backend+'/user/orga/'+orgaId+'/request-join/'+emailAdress,null);
     }
 
+    acceptOrganisationInvitation(orgaId: number, emailAdress: string){
+      return this.http.post(URLs.backend+'/user/orga/'+orgaId+'/accept-invitation/'+emailAdress,null);
+    }
+
+    declineOrganisationInvitation(orgaId: number, emailAdress: string){
+      return this.http.post(URLs.backend+'/user/orga/'+orgaId+'/decline-invitation/'+emailAdress,null);
+    }
+
 
     //Events
     getAllEvents(emailAdress: string):Observable<CustomEvent[]>{
@@ -82,8 +90,8 @@ export class UiUserService {
       return this.http.post<CustomEvent[]>(URLs.backend+'/user/orga/'+orgaId+'/event/get-registered/'+emailAdress,null);
     }
 
-    getEventInvitations(emailAddress: string, orgaId: string):Observable<CustomEvent[]>{
-      return this.http.post<CustomEvent[]>(URLs.backend+URLs.getEventInvitationsForUser+emailAddress,orgaId);
+    getAllEventInvitations(emailAddress: string):Observable<CustomEvent[]>{
+      return this.http.post<CustomEvent[]>(URLs.backend+URLs.getEventInvitationsForUser+emailAddress,null);
     }
 
     getAllVisibleNoRegisteredEventsInOrganisation(emailAddress: string, orgaId: string):Observable<CustomEvent[]>{

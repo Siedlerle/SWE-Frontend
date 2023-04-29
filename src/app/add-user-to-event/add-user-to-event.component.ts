@@ -27,6 +27,7 @@ export class AddUserToEventComponent {
   groupsOfOrga: Group[];
 
   isTutor:boolean[] = [];
+  isExternTutor: boolean;
 
 
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService) {

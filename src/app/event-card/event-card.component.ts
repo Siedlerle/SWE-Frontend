@@ -29,6 +29,7 @@ export class EventCardComponent implements OnInit {
   dataSource = new MatTableDataSource<User>();
   displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
   attendees: User[];
+
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar,private dialog: MatDialog) {
     this.eventData = this.dataService.getCardData();
     this.eventStartDate = new Date(this.eventData.startDate);
@@ -64,6 +65,13 @@ export class EventCardComponent implements OnInit {
   eventStatus: string = "";
   imageSource: string = "";
   removeUser(user: User){
+    let eventId = this.eventData.id;
+    if ( eventId != null ){
+      this.uiOrganizerService.removeUserFromEvent(eventId,user.emailAdress).subscribe(response => {
+        this.ngOnInit();
+      });
+
+    }
   }
 
 

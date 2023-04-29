@@ -17,7 +17,7 @@ export class AddUserToOrganisationComponent {
   inviteUserToOrga(){
     const orgaId = sessionStorage.getItem('orgaId');
     if(orgaId !=null){
-      this.uiOrganizerService.inviteUserToOrganisation(orgaId, this.emailAddress).subscribe(respones =>{
+      this.uiOrganizerService.inviteUserToOrganisation(orgaId, this.emailAddress).subscribe(response =>{
         this.closeAddUser();
       });
     }

@@ -7,7 +7,7 @@
 
   <img mat-card-image src="../../assets/images/nature.jpg">
 
-  <div class = "tab-group">
+  <div class = "tab-group" *ngIf="orgaData">
     <h1>{{orgaData.name}}</h1>
     <p>{{orgaData.location}}</p>
   </div>

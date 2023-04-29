@@ -46,7 +46,7 @@
           <mat-tab label="Organisations-Einladungen" class="mat-tab-label">
               <mat-list>
                 <mat-list-item *ngFor="let organisation of invitedOrganisations">
-                  <mat-card class="card" (click)="openOrganisationInvite()">
+                  <mat-card class="card" (click)="openOrganisationInvite(organisation)">
                     <!--<img mat-card-sm-image src="{{organisation.logo}}" alt = "" class = "mat-card-image">-->
                     <div class="card-content">
                       <mat-card-header>{{organisation.name}}</mat-card-header>
