@@ -22,7 +22,6 @@ mat-card-header {
 }
 .card-content{
   width: 70%;
-  font-size: 20px;
   height: 100%;
 }
 
@@ -37,11 +36,10 @@ mat-card-header {
 
 mat-card-content {
   font-size: 16px;
-  object-fit: cover;
+
 }
 
 mat-list-item {
-
 }
 
 mat-card:hover {
@@ -76,8 +74,6 @@ mat-grid-list {
   max-height: 100%;
   width: 100%;
 }
-
-
 
 .search-bar {
   display: flex;

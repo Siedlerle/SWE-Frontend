@@ -1,16 +1,7 @@
-mat-toolbar{
-  background-color: white;
-  height: 10%;
-}
-.search-icon{
-  color: #333333;
-}
-.filter-icon{
-  color: #555555;
-}
+
 .basic-container {
   padding: 10px;
-  height: 100%;
+  padding: 1%;
 }
 .clickable{
   cursor: pointer;
@@ -20,6 +11,9 @@ mat-card{
 }
 mat-card-header {
   font-size: larger;
+  font-size: 24px;
+  font-weight: bolder;
+  padding-bottom: 1%;
 }
 .mat-card-image {
   width: 30%;
@@ -28,8 +22,8 @@ mat-card-header {
 
 }
 .card-content{
-
   width: 70%;
+  height: 100%;
 }
 
 .card {
@@ -45,7 +39,6 @@ mat-card-content {
   font-size: 16px;
 }
 mat-list-item {
-  margin-bottom: 2%;
 }
 
 mat-card:hover {
@@ -70,18 +63,41 @@ mat-card:active {
 }
 
 mat-grid-list {
-  margin-top: 5%;
   overflow-y: auto;
   max-height: 90%;
   width: 100%;
 }
 
 .layoutGrid{
-  margin: 1%;
   overflow-y: auto;
   max-height: 90%;
   width: 100%;
 }
-mat-grid-tile:nth-child(n){
-  height: 35%;
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-control {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-icon {
+  position: relative;
+  color: #999;
+  right: 11%;
+}
+
+.my-events-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1%;
+
 }
