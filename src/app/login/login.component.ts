@@ -45,20 +45,22 @@ export class LoginComponent implements OnInit{
     const config: MatSnackBarConfig = {
       duration: 10000,
       politeness: "off",
-      panelClass: ["snackbar"],
+      panelClass: ['snackbar', 'success'],
       verticalPosition: "top"
-
     };
+
     this.route.queryParamMap.subscribe((params: ParamMap) => {
       this.authToken = params.get('authToken');
       if (this.authToken !== null) {
         this.uiUserService.verify(this.authToken).subscribe(
           (response) => {
             const text = response.message;
-            this.snackBar.open(text, 'Close', { duration: 10000 });
+            this.snackBar.open(text, 'Close', config);
           },
           (error) => {
-            this.snackBar.open(error.message, 'Close', config);
+            if(error.status === 403){
+              this.snackBar.open('Verifikation war erfolgos', 'Close', {duration : 10000});
+            }
           }
         );
       }
