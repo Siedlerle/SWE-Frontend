@@ -39,6 +39,11 @@ export class AddUserToEventComponent {
         this.userOfOrga = response;
         this.usersOfOrgaDataSource.data = this.userOfOrga;
       });
+
+      this.uiOrganizerService.getUnafiliatedGroupsForEvent(this.eventData).subscribe(response => {
+        this.groupsOfOrga = response;
+        this.groupsOfOrgaDataSource.data = this.groupsOfOrga;
+      });
     }
   }
 

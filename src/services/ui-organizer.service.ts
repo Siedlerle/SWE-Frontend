@@ -7,6 +7,8 @@ import {EventSeries} from "../DataTransferObjects/EventSeries";
 import {C} from "@angular/cdk/keycodes";
 import {User} from "../DataTransferObjects/User";
 import {Form} from "@angular/forms";
+import {CurrencyPipe} from "@angular/common";
+import {Group} from "../DataTransferObjects/Group";
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +56,10 @@ export class UiOrganizerService {
 
   getUnafiliatedUsersForEvent(event: CustomEvent):Observable<User[]>{
     return this.http.post<User[]>(URLs.backend+URLs.getUnafiliatedUsers,event);
+  }
+
+  getUnafiliatedGroupsForEvent(event: CustomEvent):Observable<Group[]>{
+    return this.http.post<Group[]>(URLs.backend+URLs.getUnafiliatedGroups, event);
   }
 
   getAttendeesForEvent(eventId: number):Observable<User[]> {
