@@ -18,11 +18,11 @@ export class AddUserToOrganisationComponent {
     const orgaId = sessionStorage.getItem('orgaId');
     if(orgaId !=null){
       this.uiOrganizerService.inviteUserToOrganisation(orgaId, this.emailAddress).subscribe(respones =>{
-        console.log(respones);
+        this.closeAddUser();
       });
     }
   }
-  closeAddGroup() {
+  closeAddUser() {
     this.onClose.emit();
   }
 }

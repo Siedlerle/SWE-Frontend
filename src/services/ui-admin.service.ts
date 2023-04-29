@@ -14,4 +14,8 @@ export class UiAdminService {
   getEventsofOrganisation(orgaId: string):Observable<CustomEvent[]>{
     return this.http.post<CustomEvent[]>(URLs.backend+'/admin/orga/'+orgaId+'/events',null);
   }
+
+  removeUserFromOrganisation(orgaId: string, emailAddress: string){
+    return this.http.post(URLs.backend+'/admin/orga/'+orgaId+'/user/'+emailAddress+'/remove', null);
+  }
 }

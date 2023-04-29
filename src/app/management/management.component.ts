@@ -114,7 +114,17 @@ export class ManagementComponent implements OnInit {
 
   inviteToOrganisation(){}
 
-  removeUser(user: User){}
+  removeUser(user: User){
+    const orgaId = sessionStorage.getItem('orgaId');
+    if(orgaId !=null) {
+      this.uiAdminService.removeUserFromOrganisation(orgaId,user.emailAdress).subscribe(response => {
+        this.uiOrganizerService.getAllUsersInOrganisation(orgaId).subscribe(response =>{
+          this.orgaUsers = response;
+          this.dataSource.data = this.orgaUsers;
+        });
+      });
+    }
+  }
 }
 
 
