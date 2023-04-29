@@ -1,6 +1,6 @@
 mat-toolbar{
   background-color: white;
-  height: 30px;
+  height: 10%;
 }
 .search-icon{
   color: #333333;
@@ -28,7 +28,7 @@ mat-card-header {
 
 }
 .card-content{
-  padding: 20px;
+
   width: 70%;
 }
 
@@ -45,7 +45,7 @@ mat-card-content {
   font-size: 16px;
 }
 mat-list-item {
-  margin-bottom: 10px;
+  margin-bottom: 2%;
 }
 
 mat-card:hover {
@@ -70,14 +70,14 @@ mat-card:active {
 }
 
 mat-grid-list {
-  margin-top: 50px;
+  margin-top: 5%;
   overflow-y: auto;
   max-height: 90%;
   width: 100%;
 }
 
 .layoutGrid{
-  margin: 15px;
+  margin: 1%;
   overflow-y: auto;
   max-height: 90%;
   width: 100%;
