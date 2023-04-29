@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnInit} from '@angular/core';
 import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import {AuthService} from "../services/auth.service";
 import {UiUserService} from "../services/ui-user.service";
@@ -37,10 +37,7 @@ export class AppComponent implements OnInit{
         },1000)
       }
     }
-
-    if(this.isAuthenticated){
-      this.authService.startSendingRequests();
-    }
   }
+
 
 }

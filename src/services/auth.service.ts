@@ -11,7 +11,11 @@ export class AuthService {
   private intervalHandler: any;
   lastInputTime: Date = new Date();
 
-  constructor(private uiUserService: UiUserService) { }
+  constructor(private uiUserService: UiUserService) {
+    if(sessionStorage.getItem('authenticated')){
+      this.startSendingRequests();
+    }
+  }
 
   getToken(){
     return sessionStorage.getItem('accessToken')||'';
