@@ -73,4 +73,8 @@ export class UiOrganizerService {
   inviteTutorToEvent(eventId: number, emailAddress: string){
     return this.http.post(URLs.backend+'/organizer/event/'+eventId+'/tutor/'+emailAddress+'/invite', null);
   }
+
+  inviteGroupToEvent(eventId: number, groupId: number){
+    return this.http.post(URLs.backend+'/organizer/event/'+eventId+'/group/'+groupId+'/invite', null);
+  }
 }

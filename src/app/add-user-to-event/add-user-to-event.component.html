@@ -76,7 +76,7 @@
             <ng-container matColumnDef="actions">
               <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
               <mat-cell *matCellDef="let group">
-                <button mat-raised-button>
+                <button mat-raised-button (click)="inviteGroup(group)">
                   einladen
                 </button>
               </mat-cell>

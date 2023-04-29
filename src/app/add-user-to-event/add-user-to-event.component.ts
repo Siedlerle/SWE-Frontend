@@ -69,4 +69,12 @@ export class AddUserToEventComponent {
       }
     }
   }
+
+  inviteGroup(group: Group){
+    let eventId = this.eventData.id;
+    let groupId = group.id;
+    if(eventId!=null && groupId!=null){
+      this.uiOrganizerService.inviteGroupToEvent(eventId,groupId).subscribe();
+    }
+  }
 }
