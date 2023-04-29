@@ -97,4 +97,12 @@ export class UiUserService {
     getAllVisibleNoRegisteredEventsInOrganisation(emailAddress: string, orgaId: string):Observable<CustomEvent[]>{
       return this.http.post<CustomEvent[]>(URLs.backend+'/user/orga/'+orgaId+'/event/get-available-events/'+emailAddress, null);
     }
+
+    acceptEventInvitation(eventId:number, emailAdress:string){
+      return this.http.post(URLs.backend+'/user/event/'+eventId+'/accept-invitation/'+emailAdress,null);
+    }
+
+    declineEventInvitation(eventId:number, emailAdress:string){
+      return this.http.post(URLs.backend+'/user/event/'+eventId+'/decline-invitation/'+emailAdress,null);
+    }
 }

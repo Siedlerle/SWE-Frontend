@@ -15,7 +15,7 @@
         <h3>Zeit</h3>
         <ng-container *ngIf="eventData.startDate == eventData.endDate ; else elseBlock">
           <p>
-            Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}} bis {{getFormattedTime(eventData.startTime)}}
+            Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}} bis {{getFormattedTime(eventData.endTime)}}
           </p>
         </ng-container>
         <ng-template #elseBlock>
@@ -23,7 +23,7 @@
             Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}}
           </p>
           <p>
-            Endet am {{eventData.endDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}}
+            Endet am {{eventData.endDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.endTime)}}
           </p>
         </ng-template>
 

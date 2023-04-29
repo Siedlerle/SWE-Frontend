@@ -6,6 +6,7 @@ import {DataService} from "../management/CardService";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
+import {UiUserService} from "../../services/ui-user.service";
 
 @Component({
   selector: 'app-event-card-invitation',
@@ -35,7 +36,7 @@ export class EventCardInvitationComponent {
   eventStatus: string = "";
   imageSource: string = "";
 
-  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar, private dialog: MatDialog) {
+  constructor(private dataService: DataService, private uiUserService:UiUserService) {
     this.eventData = this.dataService.getCardData();
     this.eventStartDate = new Date(this.eventData.startDate);
     this.eventEndDate = new Date(this.eventData.endDate);
@@ -55,10 +56,24 @@ export class EventCardInvitationComponent {
   }
 
   acceptInvite() {
-
+    let id = this.eventData.id
+    const emailAddress = sessionStorage.getItem('emailAdress');
+    if(emailAddress != null && id !=null){
+      this.uiUserService.acceptEventInvitation(id, emailAddress).subscribe(response =>{
+        this.closeInvitationCard();
+        location.reload();
+      });
+    }
   }
 
   declineInvite() {
-
+    let id = this.eventData.id
+    const emailAddress = sessionStorage.getItem('emailAdress');
+    if(emailAddress != null && id !=null){
+      this.uiUserService.declineEventInvitation(id, emailAddress).subscribe(response =>{
+        this.closeInvitationCard();
+        location.reload();
+      })
+    }
   }
 }
