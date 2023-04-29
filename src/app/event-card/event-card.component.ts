@@ -170,5 +170,9 @@ export class EventCardComponent implements OnInit {
     }
   }
 
+  removeTutor(user: User){
+
+  }
+
   protected readonly DataSource = DataSource;
 }

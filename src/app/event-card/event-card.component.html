@@ -195,7 +195,12 @@
               <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
                 <mat-cell *matCellDef="let user">
-                  <button mat-icon-button (click)="removeUser(user)">
+                  <button mat-icon-button matTooltip="Teilnehmer absagen" (click)="removeUser(user)" >
+                    <mat-icon>
+                      delete
+                    </mat-icon>
+                  </button>
+                  <button mat-icon-button matTooltip="Als Tutor entfernen" (click)="removeTutor(user)" >
                     <mat-icon>
                       person_remove
                     </mat-icon>
