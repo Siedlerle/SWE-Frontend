@@ -135,6 +135,9 @@ export class LoginComponent implements OnInit{
       }
       this.loading = true;
       this.uiUserService.register(newUser).subscribe(response => {
+        if (typeof response === 'object' && response !== null) {
+          this.snackBar.open(response.message, 'Close', {duration : 5000});
+        }
         this.loading = false;
         this.tabGroup.selectedIndex = 0;
         form.resetForm();
@@ -145,7 +148,9 @@ export class LoginComponent implements OnInit{
         this.registerPassword = '';
         this.confirmRegisterPassword = '';
         sessionStorage.setItem('authenticated', JSON.stringify(false));
-        location.reload();
+        setTimeout(() => {
+          location.reload();
+        }, 5000);
       });
     }
   }

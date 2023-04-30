@@ -20,8 +20,8 @@ export class UiUserService {
 
 
     //Authentifizierung
-    register(newUser : User){
-      return this.http.post(URLs.backend+URLs.register,newUser,{responseType:'text'});
+    register(newUser : User):Observable<any>{
+      return this.http.post<any>(URLs.backend+URLs.register,newUser);
     }
 
     login(newUser : User):Observable<any>{
