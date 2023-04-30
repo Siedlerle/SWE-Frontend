@@ -24,6 +24,7 @@ export class OrganisationCardComponent {
     const emailAddress = sessionStorage.getItem('emailAdress');
 
     if(emailAddress != null && this.orgaData.id !=null){
+      console.log(this.orgaData.id)
       this.uiUserService.requestJoin(this.orgaData.id,emailAddress).subscribe(response =>{
         this.closeCard();
         location.reload();

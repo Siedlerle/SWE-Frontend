@@ -13,7 +13,7 @@
     <mat-grid-list cols="2" rowHeight="6:1" gutterSize="2%" class="layoutGrid" >
       <mat-grid-tile *ngFor="let event of filterEvents()"  class ="layoutGridTile" >
         <mat-card [style.width]="'100%'" (click)="openCard(event)" class = "card">
-          <img mat-card-sm-image src="{{event.image}}" alt = "" class = "mat-card-image">
+          <img mat-card-sm-image src="{{backendURL + event.image}}" alt = "" class = "mat-card-image">
           <div class="card-content">
             <mat-card-header>{{event.name}}</mat-card-header >
             <mat-card-content>{{event.description}}</mat-card-content>

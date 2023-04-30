@@ -11,6 +11,7 @@ import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
 import {DatePipe} from "@angular/common";
 import {EventDeleteDialogComponent} from "../event-delete-dialog/event-delete-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {URLs} from "../../assets/SystemVariables/URLs";
 
 @Component({
   selector: 'app-event-card',
@@ -29,6 +30,7 @@ export class EventCardComponent implements OnInit {
   dataSource = new MatTableDataSource<User>();
   displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
   attendees: User[];
+  backendURL: string = "";
 
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar,private dialog: MatDialog) {
     this.eventData = this.dataService.getCardData();
@@ -40,6 +42,7 @@ export class EventCardComponent implements OnInit {
       this.imageSource = this.eventData.image;
     }
     this.getReadableStatus();
+    this.backendURL = URLs.backend;
   }
 
   ngOnInit() {

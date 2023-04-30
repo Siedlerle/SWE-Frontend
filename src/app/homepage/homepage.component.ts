@@ -4,6 +4,7 @@ import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {Organisation} from "../../DataTransferObjects/Organisation";
 import {DataService} from "../management/CardService";
 import {OrganisationCardService} from "../organisation-card/OrganisationCardService";
+import {URLs} from "../../assets/SystemVariables/URLs";
 
 //import { listData } from './event-list';
 
@@ -17,7 +18,9 @@ import {OrganisationCardService} from "../organisation-card/OrganisationCardServ
 
 
 export class HomepageComponent implements OnInit {
+  backendURL: string = "";
   constructor(private uiUserService : UiUserService, private dataService: DataService, private orgaDataService: OrganisationCardService) {
+    this.backendURL = URLs.backend;
   }
 
   public onCardClick(evt: MouseEvent){

@@ -6,6 +6,7 @@ import {UiOrganizerService} from "../../services/ui-organizer.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {User} from "../../DataTransferObjects/User";
 import {UiAdminService} from "../../services/ui-admin.service";
+import {URLs} from "../../assets/SystemVariables/URLs";
 
 @Component({
   selector: 'app-management',
@@ -13,8 +14,10 @@ import {UiAdminService} from "../../services/ui-admin.service";
   styleUrls: ['./management.component.css']
 })
 export class ManagementComponent implements OnInit {
-
-  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiAdminService: UiAdminService) { }
+  backendURL: string = "";
+  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiAdminService: UiAdminService) {
+    this.backendURL = URLs.backend;
+  }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   eventSearchText = '';

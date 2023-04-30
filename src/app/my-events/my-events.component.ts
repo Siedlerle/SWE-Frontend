@@ -3,6 +3,7 @@ import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {UiUserService} from "../../services/ui-user.service";
 import {DataService} from "../management/CardService";
+import {URLs} from "../../assets/SystemVariables/URLs";
 
 @Component({
   selector: 'app-my-events',
@@ -14,8 +15,10 @@ export class MyEventsComponent implements OnInit {
   //toggleSearch: boolean = false;
   registeredEvents: CustomEvent[] = [];
   searchText = '';
+  backendURL: string = "";
 
   constructor(private dataService: DataService, private uiUserService : UiUserService) {
+    this.backendURL = URLs.backend;
   }
 
   ngOnInit() {

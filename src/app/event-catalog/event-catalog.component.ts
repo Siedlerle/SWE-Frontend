@@ -4,6 +4,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {UiUserService} from "../../services/ui-user.service";
 import {DataService} from "../management/CardService";
+import {URLs} from "../../assets/SystemVariables/URLs";
 
 @Component({
   selector: 'app-event-catalog',
@@ -17,10 +18,12 @@ export class EventCatalogComponent implements OnInit {
   eventSearchText = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-
+  backendURL: string = "";
   toggleSearch: boolean = false;
 
-  constructor(private dataService: DataService,private uiUserService: UiUserService) { }
+  constructor(private dataService: DataService,private uiUserService: UiUserService) {
+    this.backendURL = URLs.backend;
+  }
 
   ngOnInit() {
     const emailAddress = sessionStorage.getItem('emailAdress');

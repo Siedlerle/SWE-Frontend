@@ -10,7 +10,7 @@
         <mat-list>
           <mat-list-item *ngFor="let event of registeredEvents" (click)="onCardClick($event)">
             <mat-card class="card">
-              <img mat-card-sm-image src="{{event.image}}" alt = "" class = "mat-card-image">
+              <img mat-card-sm-image src="{{backendURL + event.image}}" alt = "" class = "mat-card-image">
               <div class="card-content">
                 <mat-card-header>{{event.name}}</mat-card-header>
                 <mat-card-content>{{event.description}}</mat-card-content>
@@ -34,7 +34,7 @@
               <mat-list>
                 <mat-list-item *ngFor="let event of invitedEvents" (click)="onCardClick($event)">
                   <mat-card class="card" (click)="openEventInvite(event)">
-                    <img mat-card-sm-image src="{{event.image}}" alt = "" class = "mat-card-image">
+                    <img mat-card-sm-image src="{{backendURL + event.image}}" alt = "" class = "mat-card-image">
                     <div class="card-content">
                       <mat-card-header>{{event.name}}</mat-card-header>
                       <mat-card-content>{{event.description}}</mat-card-content>

@@ -3,6 +3,7 @@ import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {User} from "../../DataTransferObjects/User";
 import {DataService} from "../management/CardService";
 import {UiUserService} from "../../services/ui-user.service";
+import {URLs} from "../../assets/SystemVariables/URLs";
 
 @Component({
   selector: 'app-event-card-invitation',
@@ -31,6 +32,7 @@ export class EventCardInvitationComponent {
   eventLocation: string = "";
   eventStatus: string = "";
   imageSource: string = "";
+  backendURL: string = "";
 
   constructor(private dataService: DataService, private uiUserService:UiUserService) {
     this.eventData = this.dataService.getCardData();
@@ -41,6 +43,7 @@ export class EventCardInvitationComponent {
     } else {
       this.imageSource = this.eventData.image;
     }
+    this.backendURL = URLs.backend;
   }
 
   ngOnInit() {

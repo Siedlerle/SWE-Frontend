@@ -2,6 +2,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {DataService} from "../management/CardService";
 import {UiUserService} from "../../services/ui-user.service";
+import {URLs} from "../../assets/SystemVariables/URLs";
 
 @Component({
   selector: 'app-event-unregistry',
@@ -16,6 +17,7 @@ export class EventUnregistryComponent {
   eventEndDate: Date = new Date();
 
   imageSource: string = "";
+  backendURL: string = "";
 
   constructor(private dataService: DataService, private uiUserService:UiUserService) {
     this.eventData = this.dataService.getCardData();
@@ -26,6 +28,7 @@ export class EventUnregistryComponent {
     } else {
       this.imageSource = this.eventData.image;
     }
+    this.backendURL = URLs.backend;
   }
 
   closeRegistryCard() {

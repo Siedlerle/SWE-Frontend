@@ -3,6 +3,7 @@ import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {User} from "../../DataTransferObjects/User";
 import {DataService} from "../management/CardService";
 import {UiUserService} from "../../services/ui-user.service";
+import {URLs} from "../../assets/SystemVariables/URLs";
 
 @Component({
   selector: 'app-event-registry',
@@ -18,6 +19,7 @@ export class EventRegistryComponent {
   eventEndDate: Date = new Date();
 
   imageSource: string = "";
+  backendURL: string = "";
 
   constructor(private dataService: DataService, private uiUserService:UiUserService) {
     this.eventData = this.dataService.getCardData();
@@ -28,6 +30,7 @@ export class EventRegistryComponent {
     } else {
       this.imageSource = this.eventData.image;
     }
+    this.backendURL = URLs.backend;
   }
 
   closeRegistryCard() {
