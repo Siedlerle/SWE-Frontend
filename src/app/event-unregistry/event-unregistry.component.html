@@ -6,7 +6,15 @@
     <div class="card-header">
       <img mat-card-image src="{{backendURL + imageSource}}" class="banner">
     </div>
-    <div>
+
+    <mat-tab-group class="tab-group" >
+      <mat-tab >
+        <ng-template mat-tab-label class="mat-tab-label">
+          <mat-icon class = "mat-tab-icon">event_note</mat-icon>
+          <div class = "mat-tab-labelcontent">
+            Eventkarte
+          </div>
+        </ng-template>
       <h1>{{eventData.name}}</h1>
       <h3>Beschreibung</h3>
       <p>{{eventData.description}}</p>
@@ -24,15 +32,46 @@
           Endet am {{eventData.endDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.endTime)}}
         </p>
       </ng-template>
-
       <h3>Veranstaltungsort</h3>
       <p>
         {{eventData.location}}
       </p>
       <div class="buttons">
         <button mat-raised-button (click)="unregisterFromEvent()">Abmelden</button>
-
       </div>
-    </div>
+      </mat-tab>
+
+      <mat-tab >
+        <ng-template mat-tab-label class="mat-tab-label">
+          <mat-icon class = "mat-tab-icon">chat</mat-icon>
+          Chat
+        </ng-template>
+        <mat-card class="dashboard-card">
+          <mat-card-content>
+            <div  #chatContainer style="height: 150px; overflow-y: scroll;margin-bottom: 1%">
+              <div>
+                <mat-icon>chevron_right</mat-icon>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
+
+      <mat-tab >
+        <ng-template mat-tab-label class="mat-tab-label">
+          <mat-icon class = "mat-tab-icon">file_open</mat-icon>
+          Dateien
+        </ng-template>
+        <h3>Hier können hochgeladene Dateien vom Benutzer heruntergeladen werden</h3>
+      </mat-tab>
+
+      <mat-tab >
+        <ng-template mat-tab-label class="mat-tab-label">
+          <mat-icon class = "mat-tab-icon">rate_review</mat-icon>
+          Umfragen
+        </ng-template>
+        <h3>Hier können erstellte Umfragen vom Benutzer beantwortet werden</h3>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>

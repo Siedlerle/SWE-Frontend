@@ -70,18 +70,21 @@ export class NavComponent implements OnInit{
     if(emailAdress != null && organisation.id != null){
       this.uiUserService.getRoleForUserInOrga(organisation.id, emailAdress).subscribe(response =>{
         sessionStorage.setItem('orgaRole',response.role);
+
+        const orgaId = sessionStorage.getItem('orgaId');
+        const orgaRole = sessionStorage.getItem('orgaRole');
+
+        if(orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER' && orgaRole !==''){
+          sessionStorage.setItem('activeManagement', JSON.stringify(true));
+          this.canManage();
+        }else{
+          sessionStorage.setItem('activeManagement', JSON.stringify(false));
+          this.canManage();
+        }
+
+        this.router.navigate(['']);
       });
     }
-
-    const orgaId = sessionStorage.getItem('orgaId');
-    const orgaRole = sessionStorage.getItem('orgaRole');
-    if(orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER' && orgaRole !==''){
-      sessionStorage.setItem('activeManagement', JSON.stringify(true));
-    }else{
-      sessionStorage.setItem('activeManagement', JSON.stringify(false));
-    }
-
-    this.router.navigate(['']);
 
   }
 
@@ -94,8 +97,10 @@ export class NavComponent implements OnInit{
     const orgaRole = sessionStorage.getItem('orgaRole');
     if(orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER' && orgaRole !==''){
       sessionStorage.setItem('activeManagement', JSON.stringify(true));
+      this.canManage();
     }else{
       sessionStorage.setItem('activeManagement', JSON.stringify(false));
+      this.canManage();
     }
 
     this.router.navigate(['']);
@@ -111,11 +116,7 @@ export class NavComponent implements OnInit{
   }
 
   canManage(){
-    if(sessionStorage.getItem('activeManagement') === 'true'){
-      return true;
-    }else {
-      return false;
-    }
+    return sessionStorage.getItem('activeManagement') === 'true';
   }
 
   logOut(){
