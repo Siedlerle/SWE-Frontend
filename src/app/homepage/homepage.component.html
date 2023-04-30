@@ -8,7 +8,7 @@
         </mat-grid-tile-header>
 
         <mat-list>
-          <mat-list-item *ngFor="let event of registeredEvents" (click)="onCardClick($event)">
+          <mat-list-item *ngFor="let event of registeredEvents" (click)="openEventUnregistry(event)">
             <mat-card class="card">
               <img mat-card-sm-image src="{{event.image}}" alt = "" class = "mat-card-image">
               <div class="card-content">
@@ -61,8 +61,8 @@
     </mat-grid-list>
 
     <app-event-card-invitation *ngIf="showEventInvite" (onClose)="closeEventInvite()"></app-event-card-invitation>
-
     <app-organisation-card-invitation *ngIf="showOrganisationInvite" (onClose)="closeOrganisationInvite()"></app-organisation-card-invitation>
+    <app-event-unregistry *ngIf = "showEventUnregistry" (onClose)="closeEventUnregitry()"></app-event-unregistry>
   </body>
 </html>
 

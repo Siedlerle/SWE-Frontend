@@ -82,5 +82,14 @@ export class HomepageComponent implements OnInit {
     this.showOrganisationInvite = false;
   }
 
+  showEventUnregistry = false;
+  openEventUnregistry(item: CustomEvent){
+    this.showEventUnregistry = true;
+    this.dataService.setCardData(item);
+  }
+  closeEventUnregitry(){
+    this.showEventUnregistry = false;
+  }
+
 
 }
