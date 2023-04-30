@@ -227,21 +227,21 @@
                   <mat-form-field appearance="fill" style="position: relative; width: 100%">
                     <mat-label>Titel des Events</mat-label>
                     <input matInput placeholder="Name des Events" [(ngModel)]="eventData.name" name="eventName" required>
-                    <mat-error *ngIf="!eventName">Titel wird benötigt</mat-error>
+                    <mat-error *ngIf="!eventData.name">Titel wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
                 <p>
                   <mat-form-field appearance="fill" style="position: relative; width: 100%">
                     <mat-label>Beschreibung des Events</mat-label>
                     <input matInput placeholder="Beschreibung des Events" [(ngModel)]="eventData.description" name="eventDescription" required>
-                    <mat-error *ngIf="!eventDescription">Beschreibung wird benötigt</mat-error>
+                    <mat-error *ngIf="!eventData.description">Beschreibung wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
                 <p>
                   <mat-form-field appearance="fill" style="position: relative; width: 100%">
                     <mat-label>Art des Events</mat-label>
                     <input matInput placeholder="Art des Events" [(ngModel)]="eventData.type" name="eventType" required>
-                    <mat-error *ngIf="!eventType">Beschreibung wird benötigt</mat-error>
+                    <mat-error *ngIf="!eventData.type">Beschreibung wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
                 <div>
@@ -249,14 +249,14 @@
                     <mat-form-field appearance="fill" style="position: relative; width: 47.5%; float: left">
                       <mat-label>Startzeit</mat-label>
                       <input matInput placeholder="12:30" [(ngModel)]="eventData.startTime" name="eventStartTime" inputmode="numeric" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]" type="time"   required>
-                      <mat-error *ngIf="!eventStartTime">Startzeit wird benötigt</mat-error>
+                      <mat-error *ngIf="!eventData.startTime">Startzeit wird benötigt</mat-error>
                     </mat-form-field>
                   </p>
                   <p>
                     <mat-form-field appearance="fill" style="position: relative; width: 47.5%; float: left; padding-left: 5%">
                       <mat-label>Endzeit</mat-label>
                       <input matInput placeholder="13:30" [(ngModel)]="eventData.endTime" name="eventEndTime" inputmode="numeric" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"  type="time"  required>
-                      <mat-error *ngIf="!eventEndTime">Endzeit wird benötigt</mat-error>
+                      <mat-error *ngIf="!eventData.endTime">Endzeit wird benötigt</mat-error>
                     </mat-form-field>
                   </p>
                 </div>
@@ -267,7 +267,7 @@
                       <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="eventStartDate" name="eventStartDate" required>
                       <mat-datepicker-toggle matIconSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                       <mat-datepicker #startDatePicker></mat-datepicker>
-                      <mat-error *ngIf="!eventStartDate">Datum wird benötigt</mat-error>
+                      <mat-error *ngIf="!eventData.startDate">Datum wird benötigt</mat-error>
                     </mat-form-field>
                   </p>
                   <p>
@@ -276,7 +276,7 @@
                       <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="eventEndDate" name="eventEndDate" required>
                       <mat-datepicker-toggle matIconSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                       <mat-datepicker #endDatePicker></mat-datepicker>
-                      <mat-error *ngIf="!eventEndDate">Datum wird benötigt</mat-error>
+                      <mat-error *ngIf="!eventData.endDate">Datum wird benötigt</mat-error>
                     </mat-form-field>
                   </p>
                 </div>
@@ -284,7 +284,7 @@
                   <mat-form-field appearance="fill" style="position: relative; width: 100%">
                     <mat-label>Ort</mat-label>
                     <input matInput placeholder="Veranstaltungsort" [(ngModel)]="eventData.location" name="eventLocation" required>
-                    <mat-error *ngIf="!eventLocation">Veranstaltungsort wird benötigt</mat-error>
+                    <mat-error *ngIf="!eventData.location">Veranstaltungsort wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
                 <div style="display:flex; justify-content: center">

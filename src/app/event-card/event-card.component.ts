@@ -23,6 +23,7 @@ export class EventCardComponent implements OnInit {
   closeCard() {
     this.isEditing = false;
     this.onClose.emit();
+    location.reload();
   }
 
   eventIsCancelled: boolean;
@@ -33,7 +34,7 @@ export class EventCardComponent implements OnInit {
   backendURL: string = "";
 
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar,private dialog: MatDialog) {
-    this.eventData = this.dataService.getCardData();
+    this.eventData = Object.assign({},this.dataService.getCardData());
     this.eventStartDate = new Date(this.eventData.startDate);
     this.eventEndDate = new Date(this.eventData.endDate);
     if (this.eventData.image == null) {
