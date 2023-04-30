@@ -117,7 +117,13 @@ export class LoginComponent implements OnInit{
             sessionStorage.setItem('authenticated', JSON.stringify(false));
             location.reload()
           }
-        });
+        },
+          (error) =>{
+            if(error.status === 403){
+              this.snackBar.open('Benutzername oder Passwort ist falsch.', 'Close', {duration : 10000});
+            }
+          }
+        );
       }
     }else if(form == this.registerForm){
 
