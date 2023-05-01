@@ -4,14 +4,16 @@ import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {User} from "../../DataTransferObjects/User";
 import {MatTableDataSource} from "@angular/material/table";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
-import {NgForm} from "@angular/forms";
+import {FormControl, NgForm} from "@angular/forms";
 import {DataSource} from "@angular/cdk/collections";
 import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
-import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
-import {DatePipe} from "@angular/common";
+import {MatSnackBar} from "@angular/material/snack-bar";
 import {EventDeleteDialogComponent} from "../event-delete-dialog/event-delete-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {URLs} from "../../assets/SystemVariables/URLs";
+import {UiTutorService} from "../../services/ui-tutor.service";
+import {CustomDocument} from "../../DataTransferObjects/CustomDocument";
+import {UiAttendeeService} from "../../services/ui-attendee.service";
 
 @Component({
   selector: 'app-event-card',
@@ -29,11 +31,20 @@ export class EventCardComponent implements OnInit {
   eventIsCancelled: boolean;
   eventData: CustomEvent;
   dataSource = new MatTableDataSource<User>();
+  fileDataSource = new MatTableDataSource<CustomDocument>();
   displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
+  displayedDocumentColumns: string[] = ['Filename', 'Filetype', 'Filesize', 'actions'];
   attendees: User[];
   backendURL: string = "";
 
-  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar,private dialog: MatDialog) {
+
+  accept!: string;
+  fileControl = new FormControl();
+  file!: File;
+  eventDocs: CustomDocument[] = [];
+
+
+  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService, private snackBar: MatSnackBar,private dialog: MatDialog) {
     this.eventData = Object.assign({},this.dataService.getCardData());
     this.eventStartDate = new Date(this.eventData.startDate);
     this.eventEndDate = new Date(this.eventData.endDate);
@@ -49,11 +60,46 @@ export class EventCardComponent implements OnInit {
   ngOnInit() {
     let id = this.eventData.id;
     if (id != null) {
+      this.uiAttendeeService.getDocumentsOfEvent(id).subscribe(data => {
+        this.eventDocs = data;
+        this.fileDataSource.data = this.eventDocs;
+      });
       this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
         this.attendees = response;
         this.dataSource.data = this.attendees;
       });
     }
+
+
+
+      this.fileControl.valueChanges.subscribe((file: any) => {
+        if (Array.isArray(file)) {
+          /*
+          files.forEach(function(item) {
+            this.service.addDocumentToEvent(this.eventId, item).subscribe(data => {
+              console.log(data); // handle the response
+            });
+          });
+          */
+        } else {
+          this.file = file;
+          const formData = new FormData();
+          formData.append('file', this.file, this.file.name);
+          if (this.file.size <= 52428800)//
+          {
+            const id = this.eventData.id;
+            if(id != null){
+              this.uiTutorService.addDocumentToEvent(id, formData).subscribe(response => {
+                location.reload();
+              });
+            }
+          }
+          else {
+            console.log("Datei zu groß");
+          }
+        }
+      });
+
   }
 
 
@@ -68,6 +114,7 @@ export class EventCardComponent implements OnInit {
   eventLocation: string = "";
   eventStatus: string = "";
   imageSource: string = "";
+
   removeUser(user: User){
     let eventId = this.eventData.id;
     if ( eventId != null ){
@@ -77,7 +124,6 @@ export class EventCardComponent implements OnInit {
 
     }
   }
-
 
   getFormattedTime(timeString: string): string {
     const [hours, minutes, seconds] = timeString.split(':');
@@ -117,10 +163,7 @@ export class EventCardComponent implements OnInit {
 
   }
 
-  fileDataSource = new MatTableDataSource();
-  uploadFile(){
 
-  }
 
   cancelEvent() {
     if (this.eventData.id != null) {
@@ -187,4 +230,42 @@ export class EventCardComponent implements OnInit {
   }
 
   protected readonly DataSource = DataSource;
+
+
+  getFileExtension(filename: string): string {
+    return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
+  }
+
+  downloadFile(doc: CustomDocument)
+  {
+    let uri = doc.downloadUri;
+    if(uri != null){
+      this.uiAttendeeService.downloadDocument(uri, doc.name).subscribe(blob => {
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = doc.name;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      });
+    }
+  }
+
+  deleteFile(doc: CustomDocument)
+  {
+    this.uiTutorService.deleteDocument(doc).subscribe(response =>{
+      location.reload();
+    });
+  }
+
+  bytesToMegabytes(bytes: number): string {
+    if(bytes < 1000000){
+      let kilobytes = bytes/1024
+      return kilobytes.toFixed(2) + " KB"
+    }
+    let megabytes = bytes / (1024 * 1024);
+    return megabytes.toFixed(2) + " MB";
+  }
+
 }
