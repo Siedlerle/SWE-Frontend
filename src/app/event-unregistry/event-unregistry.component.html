@@ -7,7 +7,7 @@
       <img mat-card-image src="{{backendURL + imageSource}}" class="banner">
     </div>
 
-    <mat-tab-group class="tab-group" >
+    <mat-tab-group class="tab-group"  dynamicHeight>
       <mat-tab >
         <ng-template mat-tab-label class="mat-tab-label">
           <mat-icon class = "mat-tab-icon">event_note</mat-icon>
@@ -15,30 +15,35 @@
             Eventkarte
           </div>
         </ng-template>
-      <h1>{{eventData.name}}</h1>
-      <h3>Beschreibung</h3>
-      <p>{{eventData.description}}</p>
-      <h3>Zeit</h3>
-      <ng-container *ngIf="eventData.startDate == eventData.endDate ; else elseBlock">
-        <p>
-          Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}} bis {{getFormattedTime(eventData.endTime)}}
-        </p>
-      </ng-container>
-      <ng-template #elseBlock>
-        <p>
-          Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}}
-        </p>
-        <p>
-          Endet am {{eventData.endDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.endTime)}}
-        </p>
-      </ng-template>
-      <h3>Veranstaltungsort</h3>
-      <p>
-        {{eventData.location}}
-      </p>
-      <div class="buttons">
-        <button mat-raised-button (click)="unregisterFromEvent()">Abmelden</button>
-      </div>
+        <mat-card>
+          <div class="tab-content">
+            <h1>{{eventData.name}}</h1>
+            <h3>Beschreibung</h3>
+            <p>{{eventData.description}}</p>
+            <h3>Zeit</h3>
+            <ng-container *ngIf="eventData.startDate == eventData.endDate ; else elseBlock">
+              <p>
+                Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}} bis {{getFormattedTime(eventData.endTime)}}
+              </p>
+            </ng-container>
+            <ng-template #elseBlock>
+              <p>
+                Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}}
+              </p>
+              <p>
+                Endet am {{eventData.endDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.endTime)}}
+              </p>
+            </ng-template>
+            <h3>Veranstaltungsort</h3>
+            <p>
+              {{eventData.location}}
+            </p>
+          </div>
+          <div class="unregister-button">
+            <button mat-raised-button (click)="unregisterFromEvent()">Abmelden</button>
+          </div>
+        </mat-card>
+
       </mat-tab>
 
       <mat-tab >
@@ -62,7 +67,45 @@
           <mat-icon class = "mat-tab-icon">file_open</mat-icon>
           Dateien
         </ng-template>
-        <h3>Hier können hochgeladene Dateien vom Benutzer heruntergeladen werden</h3>
+        <mat-card class="dashboard-card">
+          <mat-card-header style="position: relative; display: flex; width: 100%; margin: 10px">
+            <div class="tableControlls"
+                 style="position:relative; justify-self: stretch; width: 100%; text-align: right">
+              <mat-card-title style="float: left">Dateien</mat-card-title>
+            </div>
+          </mat-card-header>
+          <mat-card-content>
+            <div class = "fileTable">
+              <mat-table [dataSource]="fileDataSource">
+                <ng-container matColumnDef="Filename">
+                  <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                  <mat-cell *matCellDef="let file">{{file.name}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Filetype">
+                  <mat-header-cell *matHeaderCellDef>Typ der Datei</mat-header-cell>
+                  <mat-cell *matCellDef="let file">{{getFileExtension(file.name)}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Filesize">
+                  <mat-header-cell *matHeaderCellDef>Größe der Datei</mat-header-cell>
+                  <mat-cell *matCellDef="let file">{{bytesToMegabytes(file.size)}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                  <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+                  <mat-cell *matCellDef="let file">
+                    <button mat-icon-button (click)="downloadFile(file)" >
+                      <mat-icon>download</mat-icon>
+                    </button>
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedDocumentColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedDocumentColumns;"></mat-row>
+              </mat-table>
+            </div>
+          </mat-card-content>
+        </mat-card>
       </mat-tab>
 
       <mat-tab >
