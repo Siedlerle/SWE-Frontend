@@ -18,4 +18,16 @@ export class UiAdminService {
   removeUserFromOrganisation(orgaId: string, emailAddress: string){
     return this.http.post(URLs.backend+'/admin/orga/'+orgaId+'/user/'+emailAddress+'/remove', null);
   }
+
+  setPersonAdmin(orgaId: string, emailAddress: string) {
+    return this.http.post(URLs.backend+'/admin/orga/'+orgaId+'/user/role/admin', emailAddress);
+  }
+
+  setPersonOrganizer(orgaId: string, emailAddress: string) {
+    return this.http.post(URLs.backend+'/admin/orga/'+orgaId+'/user/role/organizer', emailAddress);
+  }
+
+  setPersonUser(orgaId: string, emailAddress: string) {
+    return this.http.post(URLs.backend+'/admin/orga/'+orgaId+'/user/role/user', emailAddress);
+  }
 }

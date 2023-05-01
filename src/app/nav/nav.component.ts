@@ -74,7 +74,7 @@ export class NavComponent implements OnInit{
         const orgaId = sessionStorage.getItem('orgaId');
         const orgaRole = sessionStorage.getItem('orgaRole');
 
-        if(orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER' && orgaRole !==''){
+        if(orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER' && orgaRole !==''){ //TODO Muss hier nicht noch neben User auch invited und requested hin? Gibts auch noch als Rollen in Orga
           sessionStorage.setItem('activeManagement', JSON.stringify(true));
           this.canManage();
         }else{

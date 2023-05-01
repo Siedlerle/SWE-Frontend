@@ -44,6 +44,9 @@ mat-icon{
 .clickable{
   cursor: pointer;
 }
+.select-role-form {
+  margin-top: 10px;
+}
 
 
 mat-list {

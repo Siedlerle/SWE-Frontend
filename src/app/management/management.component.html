@@ -87,6 +87,20 @@
             <mat-cell *matCellDef="let user">{{user.emailAdress}}</mat-cell>
           </ng-container>
 
+          <ng-container matColumnDef="rights">
+            <mat-header-cell *matHeaderCellDef>Rechte</mat-header-cell>
+            <mat-cell *matCellDef="let user, let i = index">
+              <mat-form-field class="select-role-form" appearance="fill">
+                <mat-label>Rolle auswählen</mat-label>
+                <mat-select [value]="getRoleOfUser(i)" (selectionChange)="setRoleOfUser($event, user)">
+                  <mat-option *ngFor="let right of rightsList" [value]="right">
+                    {{right}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-cell>
+          </ng-container>
+
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
             <mat-cell *matCellDef="let user">

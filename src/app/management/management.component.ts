@@ -7,6 +7,9 @@ import {MatTableDataSource} from "@angular/material/table";
 import {User} from "../../DataTransferObjects/User";
 import {UiAdminService} from "../../services/ui-admin.service";
 import {URLs} from "../../assets/SystemVariables/URLs";
+import {MatSelectChange} from "@angular/material/select";
+import {UiUserService} from "../../services/ui-user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-management',
@@ -15,7 +18,7 @@ import {URLs} from "../../assets/SystemVariables/URLs";
 })
 export class ManagementComponent implements OnInit {
   backendURL: string = "";
-  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiAdminService: UiAdminService) {
+  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiAdminService: UiAdminService, private uiUserService: UiUserService, private router: Router) {
     this.backendURL = URLs.backend;
   }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -23,12 +26,13 @@ export class ManagementComponent implements OnInit {
   eventSearchText = '';
   orgaSearchText = '';
   toggleSearch: boolean = false;
-
   dataSource = new MatTableDataSource<User>();
-  displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
+  displayedColumns: string[];
   attendees: User[];
   managingEvents: CustomEvent[];
   orgaUsers: User[];
+  orgaUserRoles: string[] = [];
+  rightsList = ['Administrator', 'Organisator', 'Benutzer'];
 
   filterEvents() {
     if (!this.eventSearchText) {
@@ -68,9 +72,20 @@ export class ManagementComponent implements OnInit {
     }
     if(orgaId != null && orgaId !== ''){
       this.uiOrganizerService.getAllUsersInOrganisation(orgaId).subscribe(response =>{
-          this.orgaUsers = response;
-          this.dataSource.data = this.orgaUsers;
-        });
+        this.orgaUsers = response;
+        this.dataSource.data = this.orgaUsers;
+
+        for (let i = 0; i < this.orgaUsers.length; i++) {
+          this.uiUserService.getRoleForUserInOrga(+orgaId, this.orgaUsers[i].emailAdress).subscribe(response => {
+            this.orgaUserRoles[i] = response.role;
+          })
+        }
+      });
+    }
+    if (orgaRole === "ADMIN") {
+      this.displayedColumns = ['FirstName','LastName','eMail','rights','actions'];
+    } else {
+      this.displayedColumns = ['FirstName','LastName','eMail','actions'];
     }
   }
 
@@ -117,6 +132,12 @@ export class ManagementComponent implements OnInit {
 
   inviteToOrganisation(){}
 
+  onRightsSelectionChange(event: any, user: any) {
+    let newRole = event.target.value;
+
+
+  }
+
   removeUser(user: User){
     const orgaId = sessionStorage.getItem('orgaId');
     if(orgaId !=null) {
@@ -126,6 +147,40 @@ export class ManagementComponent implements OnInit {
           this.dataSource.data = this.orgaUsers;
         });
       });
+    }
+  }
+
+  getRoleOfUser(index: number) {
+    let role = this.orgaUserRoles[index]
+    if (role === "ADMIN") {
+      return "Administrator";
+    } else if (role === "ORGANIZER") {
+      return "Organisator";
+    } else if (role === "USER") {
+      return "Benutzer";
+    }
+    return;
+  }
+
+  setRoleOfUser(event: MatSelectChange, user: User) {
+    let newRole = event.value;
+    const orgaId = sessionStorage.getItem('orgaId');
+    const emailAddress = sessionStorage.getItem('emailAdress');
+    if (orgaId !== null) {
+      if (newRole === "Administrator") {
+        this.uiAdminService.setPersonAdmin(orgaId, user.emailAdress).subscribe();
+      } else if (newRole === "Organisator") {
+        this.uiAdminService.setPersonOrganizer(orgaId, user.emailAdress).subscribe();
+      } else if (newRole === "Benutzer") {
+        this.uiAdminService.setPersonUser(orgaId, user.emailAdress).subscribe();
+      }
+    }
+    if (emailAddress === user.emailAdress) {
+      sessionStorage.setItem('orgaId', '');
+      sessionStorage.setItem('orgaRole', '');
+      sessionStorage.setItem('eventRole', '');
+      sessionStorage.setItem('activeManagement', JSON.stringify(false));
+      this.router.navigate(['']);
     }
   }
 }

@@ -51,6 +51,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import { OrganisationCardRegisteredComponent } from './organisation-card-registered/organisation-card-registered.component';
 import { EventRegistryComponent } from './event-registry/event-registry.component';
 import { EventUnregistryComponent } from './event-unregistry/event-unregistry.component';
+import {MatSelectModule} from "@angular/material/select";
 
 
 const routes: Routes = [
@@ -123,7 +124,8 @@ const routes: Routes = [
         MatTableModule,
         MatExpansionModule,
         MatDialogModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatSelectModule
     ],
   exports: [
     MatIconModule,
