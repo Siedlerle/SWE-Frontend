@@ -2,10 +2,10 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DataService} from "../management/CardService";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {User} from "../../DataTransferObjects/User";
+import {QuestionType} from "../../DataTransferObjects/QuestionType";
 import {MatTableDataSource} from "@angular/material/table";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
 import {FormControl, NgForm} from "@angular/forms";
-import {DataSource} from "@angular/cdk/collections";
 import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {EventDeleteDialogComponent} from "../event-delete-dialog/event-delete-dialog.component";
@@ -14,6 +14,7 @@ import {URLs} from "../../assets/SystemVariables/URLs";
 import {UiTutorService} from "../../services/ui-tutor.service";
 import {CustomDocument} from "../../DataTransferObjects/CustomDocument";
 import {UiAttendeeService} from "../../services/ui-attendee.service";
+import {Question} from "../../DataTransferObjects/Question";
 
 @Component({
   selector: 'app-event-card',
@@ -43,6 +44,9 @@ export class EventCardComponent implements OnInit {
   file!: File;
   eventDocs: CustomDocument[] = [];
 
+
+  questions: Question[] = [];
+  QuestionType = QuestionType;
 
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService, private snackBar: MatSnackBar,private dialog: MatDialog) {
     this.eventData = Object.assign({},this.dataService.getCardData());
@@ -229,9 +233,6 @@ export class EventCardComponent implements OnInit {
 
   }
 
-  protected readonly DataSource = DataSource;
-
-
   getFileExtension(filename: string): string {
     return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
   }
@@ -268,4 +269,29 @@ export class EventCardComponent implements OnInit {
     return megabytes.toFixed(2) + " MB";
   }
 
+
+  submitQuestionaire() {
+    const id = this.eventData.id;
+    if(id != null){
+      this.uiTutorService.addQuestion(id, this.questions).subscribe(response => {
+        this.closeCard();
+      });
+    }
+  }
+
+  addQuestion() {
+    const newQuestion: Question = {
+      questionText: '',
+      questionType: QuestionType.TEXT,
+      answerString: []
+    };
+    this.questions.push(newQuestion);
+  }
+
+  removeQuestion(question: Question): void {
+    const index = this.questions.indexOf(question);
+    if (index !== -1) {
+      this.questions.splice(index, 1);
+    }
+  }
 }

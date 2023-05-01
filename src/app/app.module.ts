@@ -52,6 +52,7 @@ import { OrganisationCardRegisteredComponent } from './organisation-card-registe
 import { EventRegistryComponent } from './event-registry/event-registry.component';
 import { EventUnregistryComponent } from './event-unregistry/event-unregistry.component';
 import {MatSelectModule} from "@angular/material/select";
+import {MatRadioModule} from "@angular/material/radio";
 
 
 const routes: Routes = [
@@ -125,7 +126,8 @@ const routes: Routes = [
         MatExpansionModule,
         MatDialogModule,
         MatCheckboxModule,
-        MatSelectModule
+        MatSelectModule,
+        MatRadioModule
     ],
   exports: [
     MatIconModule,

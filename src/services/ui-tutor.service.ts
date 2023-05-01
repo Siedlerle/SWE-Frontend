@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable, timer} from "rxjs";
 import {URLs} from "../assets/SystemVariables/URLs";
 import {CustomDocument} from "../DataTransferObjects/CustomDocument";
+import {Question} from "../DataTransferObjects/Question";
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +18,9 @@ export class UiTutorService {
 
   deleteDocument(doc: CustomDocument): Observable<CustomDocument> {
     return this.http.post<CustomDocument>(URLs.backend+"/tutor/event/file/"+doc.id+"/delete", doc);
+  }
+
+  addQuestion(eventId:number, question:Question[]){
+    return this.http.post(URLs.backend+"/tutor/event/"+eventId+"/question/add", question);
   }
 }
