@@ -270,7 +270,7 @@ export class EventCardComponent implements OnInit {
   }
 
 
-  submitQuestionaire() {
+  submitQuestionaire(questions: Question[]) {
     const id = this.eventData.id;
     if(id != null){
       this.uiTutorService.addQuestion(id, this.questions).subscribe(response => {
@@ -279,13 +279,13 @@ export class EventCardComponent implements OnInit {
     }
   }
 
-  addQuestion() {
+  addQuestion(questions: Question[]) {
     const newQuestion: Question = {
       questionText: '',
       questionType: QuestionType.TEXT,
       answerString: []
     };
-    this.questions.push(newQuestion);
+    questions.push(newQuestion);
   }
 
   removeQuestion(question: Question): void {

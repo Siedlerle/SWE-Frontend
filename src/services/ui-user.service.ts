@@ -43,6 +43,25 @@ export class UiUserService {
     }
 
 
+
+    //User
+    getUserInformation(emailAdress: string):Observable<User>{
+      return this.http.post<User>(URLs.backend+URLs.getInfo+emailAdress, null);
+    }
+
+    changePassword(){
+      return this.http.post(URLs.backend+URLs.resetPWD, null);
+    }
+
+    deleteUser(emailAdress: string){
+      return this.http.post(URLs.backend+URLs.delete+emailAdress, null);
+    }
+
+    resetPassword( user: User):Observable<any>{
+      return this.http.post<any>(URLs.backend+URLs.resetPWD, user);
+    }
+
+
     //Organisation
     getAllOrganisations():Observable<Organisation[]>{
       return this.http.post<Organisation[]>(URLs.backend+URLs.getAllOrganisations,null);

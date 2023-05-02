@@ -53,6 +53,7 @@ import { EventRegistryComponent } from './event-registry/event-registry.componen
 import { EventUnregistryComponent } from './event-unregistry/event-unregistry.component';
 import {MatSelectModule} from "@angular/material/select";
 import {MatRadioModule} from "@angular/material/radio";
+import { UserDeleteDialogComponent } from './user-delete-dialog/user-delete-dialog.component';
 
 import {MatMenuModule} from "@angular/material/menu";
 import { EventCardTutorComponent } from './event-card-tutor/event-card-tutor.component';
@@ -99,6 +100,7 @@ const routes: Routes = [
     EventRegistryComponent,
     EventRegistryComponent,
     EventUnregistryComponent,
+    UserDeleteDialogComponent,
     EventCardTutorComponent,
 
   ],

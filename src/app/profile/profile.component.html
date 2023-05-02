@@ -7,13 +7,81 @@
 
   <img mat-card-image src="../../assets/images/nature.jpg">
 
-  <div class = "tab-group">
-    <h1>Name des Benutzers</h1>
-    <p>Nutzerinformationen:</p>
-    <p>
-      E-Mail Adresse des Nutzers
-    </p>
-  </div>
+  <mat-card>
+    <mat-card-header><h1>Nutzerinformationen:</h1></mat-card-header>
+    <mat-card-content *ngIf="user">
+        <h3>Vorname:</h3> <p>{{user.firstname}}</p>
+        <h3>Nachname:</h3> <p>{{user.lastname}}</p>
+        <h3>Email-Adresse:</h3> <p>{{user.emailAdress}}</p>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h3>
+              Passwort ändern
+            </h3>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon>lock</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+            <form [formGroup]="myForm">
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Geben Sie das neue Passwort ein"
+                  type="password"
+                  required
+                  minlength="6"
+                  name="newPassword"
+                  [(ngModel)]="newPassword"
+                  formControlName="field1">
+                <mat-error *ngIf="!newPassword">
+                  Passwort ist erforderlich
+                </mat-error>
+                <mat-icon matSuffix>lock</mat-icon>
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Neues Passwort wiederholen"
+                  type="password"
+                  required
+                  minlength="6"
+                  name="confirmNewPassword"
+                  [(ngModel)]="confirmNewPassword"
+                  formControlName="field2">
+                <mat-error *ngIf="!confirmNewPassword">
+                  Passwort wiederholen!
+                </mat-error>
+                <mat-error *ngIf="myForm.controls['field2'].hasError('notMatching')">
+                  Passwörter stimmen nicht überein!
+                </mat-error>
+                <mat-icon matSuffix>lock</mat-icon>
+              </mat-form-field>
+            </form>
+            <button mat-raised-button
+                    (click)="resetPassword()"
+                    [disabled]="!newPassword || !confirmNewPassword">
+              Passwort ändern
+            </button>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h3>
+              Profil löschen
+            </h3>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon>delete</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+            <button mat-raised-button color="warn" (click)="deleteUser(user)">Profil löschen</button>
+      </mat-expansion-panel>
+    </mat-card-content>
+  </mat-card>
+
 </div>
 </html>
 
