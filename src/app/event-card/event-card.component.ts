@@ -283,7 +283,7 @@ export class EventCardComponent implements OnInit {
     const id = this.eventData.id;
     if(id != null){
       this.uiTutorService.addQuestion(id, this.questions).subscribe(response => {
-        //this.closeCard();
+        this.closeCard();
       });
     }
   }

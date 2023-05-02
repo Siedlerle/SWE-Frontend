@@ -54,8 +54,6 @@ export class EventUnregistryComponent implements OnInit {
 
       if(emailAdress != null){
         this.uiAttendeeService.getSurveyForEvent(id,emailAdress).subscribe(response => {
-          // @ts-ignore
-          console.log(response.at(0).questionType);
           this.questions = response;
         });
       }
