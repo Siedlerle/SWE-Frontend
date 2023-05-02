@@ -65,7 +65,5 @@ export class EventCatalogComponent implements OnInit {
   closeCard(){
     this.showInvitationCard = false;
   }
-
-
 }
 

@@ -54,6 +54,8 @@ import { EventUnregistryComponent } from './event-unregistry/event-unregistry.co
 import {MatSelectModule} from "@angular/material/select";
 import {MatRadioModule} from "@angular/material/radio";
 
+import {MatMenuModule} from "@angular/material/menu";
+import { EventCardTutorComponent } from './event-card-tutor/event-card-tutor.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -97,6 +99,7 @@ const routes: Routes = [
     EventRegistryComponent,
     EventRegistryComponent,
     EventUnregistryComponent,
+    EventCardTutorComponent,
 
   ],
     imports: [
@@ -125,6 +128,8 @@ const routes: Routes = [
         MatTableModule,
         MatExpansionModule,
         MatDialogModule,
+        MatCheckboxModule,
+        MatMenuModule,
         MatCheckboxModule,
         MatSelectModule,
         MatRadioModule

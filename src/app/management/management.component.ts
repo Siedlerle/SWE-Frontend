@@ -6,6 +6,7 @@ import {UiOrganizerService} from "../../services/ui-organizer.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {User} from "../../DataTransferObjects/User";
 import {UiAdminService} from "../../services/ui-admin.service";
+import {MatMenuTrigger} from "@angular/material/menu";
 import {URLs} from "../../assets/SystemVariables/URLs";
 import {MatSelectChange} from "@angular/material/select";
 import {UiUserService} from "../../services/ui-user.service";

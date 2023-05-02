@@ -17,13 +17,14 @@ mat-grid-tile-header:nth-child(n) {
 
 .search-icon{
   color: #333333;
+  margin: auto;
 }
 .filter-icon{
   color: #555555;
 }
 
 mat-icon{
-  margin: auto;
+
 }
 
 .add-button:hover{
@@ -197,3 +198,4 @@ mat-card:active {
   right: .5%;
   color: #999;
 }
+
