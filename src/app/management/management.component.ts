@@ -131,6 +131,14 @@ export class ManagementComponent implements OnInit {
     this.showAddUserToOrganisation = false;
   }
 
+  showOrganisationsBannerUpload = false;
+  openOrganisationBannerUpload(){
+    this.showOrganisationsBannerUpload = true;
+  }
+  closeOrganisationBannerUpload() {
+    this.showOrganisationsBannerUpload = false;
+  }
+
   inviteToOrganisation(){}
 
   onRightsSelectionChange(event: any, user: any) {

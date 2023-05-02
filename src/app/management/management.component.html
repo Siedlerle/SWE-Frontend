@@ -59,6 +59,10 @@
             Gruppen verwalten
             <mat-icon>settings</mat-icon>
           </button>
+          <button mat-raised-button (click) = "openOrganisationBannerUpload()" class="group-management-button">
+            Banner hochladen
+            <mat-icon>upload</mat-icon>
+          </button>
         </div>
         <div class="right-items">
           <div class="search-bar">
@@ -124,6 +128,7 @@
 <app-usermanagement-in-organisation *ngIf="showUserManagement" (onClose)="closeUserManagement()"></app-usermanagement-in-organisation>
 <app-group-management *ngIf="showGroupManagement" (onClose)="closeGroupManagement()"></app-group-management>
 <app-add-user-to-organisation *ngIf="showAddUserToOrganisation" (onClose)="closeAddUserToOrganisation()"></app-add-user-to-organisation>
+<app-organisation-banner-upload *ngIf="showOrganisationsBannerUpload" (onClose)="closeOrganisationBannerUpload()"></app-organisation-banner-upload>
 <!--
 <div class="basic-container">
   <mat-grid-list cols="2" rowHeight="6:1" gutterSize="15px" class="layoutGrid" >

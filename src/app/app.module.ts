@@ -57,6 +57,7 @@ import { UserDeleteDialogComponent } from './user-delete-dialog/user-delete-dial
 
 import {MatMenuModule} from "@angular/material/menu";
 import { EventCardTutorComponent } from './event-card-tutor/event-card-tutor.component';
+import { OrganisationBannerUploadComponent } from './organisation-banner-upload/organisation-banner-upload.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -102,6 +103,7 @@ const routes: Routes = [
     EventUnregistryComponent,
     UserDeleteDialogComponent,
     EventCardTutorComponent,
+    OrganisationBannerUploadComponent,
 
   ],
     imports: [
