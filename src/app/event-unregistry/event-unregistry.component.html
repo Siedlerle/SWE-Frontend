@@ -113,7 +113,20 @@
           <mat-icon class = "mat-tab-icon">rate_review</mat-icon>
           Umfragen
         </ng-template>
-        <h3>Hier können erstellte Umfragen vom Benutzer beantwortet werden</h3>
+        <ng-container *ngFor="let question of questions">
+          <mat-form-field *ngIf="mapStringToEnum(question.questionType.toString()) === QuestionType.TEXT">
+            <mat-label>{{ question.questionText }}</mat-label>
+            <input matInput type="text" [(ngModel)]="question.answerString">
+          </mat-form-field>
+          <div *ngIf="mapStringToEnum(question.questionType.toString()) === QuestionType.MULTIPLECHOICE">
+            <div>{{ question.questionText }}</div>
+            <mat-radio-group [(ngModel)]="question.answerString">
+              <mat-radio-button *ngFor="let answer of question.answerString" [value]="answer">
+                {{ answer }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </ng-container>
       </mat-tab>
     </mat-tab-group>
   </div>

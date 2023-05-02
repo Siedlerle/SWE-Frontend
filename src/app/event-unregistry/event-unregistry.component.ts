@@ -6,6 +6,8 @@ import {URLs} from "../../assets/SystemVariables/URLs";
 import {MatTableDataSource} from "@angular/material/table";
 import {CustomDocument} from "../../DataTransferObjects/CustomDocument";
 import {UiAttendeeService} from "../../services/ui-attendee.service";
+import {Question} from "../../DataTransferObjects/Question";
+import {QuestionType} from "../../DataTransferObjects/QuestionType";
 
 @Component({
   selector: 'app-event-unregistry',
@@ -25,6 +27,10 @@ export class EventUnregistryComponent implements OnInit {
   eventDocs: CustomDocument[] = [];
   displayedDocumentColumns: string[] = ['Filename', 'Filetype', 'Filesize', 'actions'];
 
+
+  QuestionType = QuestionType;
+  questions: Question[] = [];
+
   constructor(private dataService: DataService, private uiUserService:UiUserService, private uiAttendeeService:UiAttendeeService )  {
     this.eventData = this.dataService.getCardData();
     this.eventStartDate = new Date(this.eventData.startDate);
@@ -39,11 +45,28 @@ export class EventUnregistryComponent implements OnInit {
 
   ngOnInit() {
     let id = this.eventData.id;
+    const emailAdress = sessionStorage.getItem('emailAdress');
     if (id != null) {
       this.uiAttendeeService.getDocumentsOfEvent(id).subscribe(data => {
         this.eventDocs = data;
         this.fileDataSource.data = this.eventDocs;
       });
+
+      if(emailAdress != null){
+        this.uiAttendeeService.getSurveyForEvent(id,emailAdress).subscribe(response => {
+          // @ts-ignore
+          console.log(response.at(0).questionType);
+          this.questions = response;
+        });
+      }
+    }
+  }
+
+  mapStringToEnum(value: string): QuestionType | null {
+    switch(value) {
+      case 'MULTIPLECHOICE': return QuestionType.MULTIPLECHOICE;
+      case 'TEXT': return QuestionType.TEXT;
+      default: return null;
     }
   }
 

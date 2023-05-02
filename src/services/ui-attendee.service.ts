@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable, timer} from "rxjs";
 import {CustomDocument} from "../DataTransferObjects/CustomDocument";
 import {URLs} from "../assets/SystemVariables/URLs";
+import {Question} from "../DataTransferObjects/Question";
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class UiAttendeeService {
     queryParams = queryParams.append("filename", fileName);
 
     return this.http.post(URLs.backend+URLs.downloadFile, null,{ responseType: 'blob', params: queryParams });
+  }
+
+  getSurveyForEvent(eventId:number, emailAdress:string):Observable<Question[]>{
+    return this.http.post<Question[]>(URLs.backend+"/attendee/get-survey/"+eventId+"/"+emailAdress,null);
   }
 }
