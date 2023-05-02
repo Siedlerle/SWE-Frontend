@@ -141,6 +141,9 @@
                 </mat-card-content>
               </mat-card>
             </mat-expansion-panel>
+
+
+
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -157,38 +160,42 @@
                   <mat-card>
                     <mat-card-content *ngIf="question">
                       <mat-form-field>
-                        <input matInput placeholder="Stellen Sie ihre Frage hier" [(ngModel)]="question.questionText">
+                        <input matInput [(ngModel)]="question.questionText" placeholder="Stellen Sie ihre Frage hier" >
+                        <button matSuffix mat-icon-button  color="warn" (click)="removeQuestion(question)" aria-label="Entfernen">
+                          <mat-icon>delete</mat-icon>
+                        </button>
                       </mat-form-field>
-                      <button mat-icon-button color="warn" (click)="removeQuestion(question)" aria-label="Entfernen">
-                        <mat-icon>delete</mat-icon>
-                      </button>
                       <mat-radio-group [(ngModel)]="question.questionType">
                         <mat-radio-button  [value]="QuestionType.TEXT">Textantwort</mat-radio-button>
                         <mat-radio-button [value]="QuestionType.MULTIPLECHOICE">Multiple Choice</mat-radio-button>
                       </mat-radio-group>
-                      <div *ngIf="question.questionType === 'multipleChoice'">
+
+                      <div *ngIf="question.questionType === QuestionType.MULTIPLECHOICE">
                         <ng-container *ngFor="let answer of question.answerString; let i = index" class="flex-row">
                           <mat-form-field>
                             <input matInput placeholder="Antwortmöglichkeit {{ i + 1 }}" [(ngModel)]="question.answerString[i]" *ngIf="question.answerString">
+                            <button matSuffix mat-icon-button color="warn" *ngIf="question.answerString && question.answerString.length > 2" (click)="question.answerString.splice(i, 1)">
+                              <mat-icon>delete</mat-icon>
+                            </button>
                           </mat-form-field>
-                          <button mat-icon-button color="warn" *ngIf="question.answerString && question.answerString.length > 2" (click)="question.answerString.splice(i, 1)">
-                            <mat-icon>delete</mat-icon>
-                          </button>
                         </ng-container>
-                        <button mat-raised-button color="primary" (click)="question.answerString?.push('')" *ngIf="question.answerString">Antwort hinzufügen</button>
+                        <button mat-raised-button  color="primary" (click)="question.answerString.push('')" *ngIf="question.answerString">Antwort hinzufügen</button>
                       </div>
+
                     </mat-card-content>
                   </mat-card>
                 </ng-container>
                 <mat-card-actions>
-                  <button mat-raised-button (click)="addQuestion(questions)" >Frage hinzufügen</button>
-                  <button mat-raised-button (click)="submitQuestionaire(questions)">Umfrage erstellen</button>
+                  <button mat-raised-button (click)="addQuestion()" >Frage hinzufügen</button>
+                  <button mat-raised-button [disabled]="questions.length<1" (click)="submitQuestionaire()">Umfrage erstellen</button>
                 </mat-card-actions>
               </mat-card>
             </mat-expansion-panel>
+
+
+
             </mat-accordion>
         </mat-tab>
-
         <mat-tab  >
           <ng-template mat-tab-label class="mat-tab-label">
             <mat-icon class="mat-tab-icon">groups</mat-icon>

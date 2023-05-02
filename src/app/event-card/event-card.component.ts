@@ -23,11 +23,6 @@ import {Question} from "../../DataTransferObjects/Question";
 })
 export class EventCardComponent implements OnInit {
   @Output() onClose = new EventEmitter<void>();
-  closeCard() {
-    this.isEditing = false;
-    this.onClose.emit();
-    location.reload();
-  }
 
   eventIsCancelled: boolean;
   eventData: CustomEvent;
@@ -47,6 +42,18 @@ export class EventCardComponent implements OnInit {
 
   questions: Question[] = [];
   QuestionType = QuestionType;
+
+  isEditing = false;
+  eventName: string ="";
+  eventDescription: string = "";
+  eventType: string = "";
+  eventStartTime: string = "";
+  eventEndTime: string = "";
+  eventStartDate: Date = new Date();
+  eventEndDate: Date = new Date();
+  eventLocation: string = "";
+  eventStatus: string = "";
+  imageSource: string = "";
 
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService, private snackBar: MatSnackBar,private dialog: MatDialog) {
     this.eventData = Object.assign({},this.dataService.getCardData());
@@ -106,19 +113,6 @@ export class EventCardComponent implements OnInit {
 
   }
 
-
-  isEditing = false;
-  eventName: string ="";
-  eventDescription: string = "";
-  eventType: string = "";
-  eventStartTime: string = "";
-  eventEndTime: string = "";
-  eventStartDate: Date = new Date();
-  eventEndDate: Date = new Date();
-  eventLocation: string = "";
-  eventStatus: string = "";
-  imageSource: string = "";
-
   removeUser(user: User){
     let eventId = this.eventData.id;
     if ( eventId != null ){
@@ -166,8 +160,6 @@ export class EventCardComponent implements OnInit {
     });
 
   }
-
-
 
   cancelEvent() {
     if (this.eventData.id != null) {
@@ -270,22 +262,14 @@ export class EventCardComponent implements OnInit {
   }
 
 
-  submitQuestionaire(questions: Question[]) {
-    const id = this.eventData.id;
-    if(id != null){
-      this.uiTutorService.addQuestion(id, this.questions).subscribe(response => {
-        this.closeCard();
-      });
-    }
-  }
 
-  addQuestion(questions: Question[]) {
+  addQuestion() {
     const newQuestion: Question = {
       questionText: '',
       questionType: QuestionType.TEXT,
       answerString: []
     };
-    questions.push(newQuestion);
+    this.questions.push(newQuestion);
   }
 
   removeQuestion(question: Question): void {
@@ -293,5 +277,20 @@ export class EventCardComponent implements OnInit {
     if (index !== -1) {
       this.questions.splice(index, 1);
     }
+  }
+
+  submitQuestionaire() {
+    const id = this.eventData.id;
+    if(id != null){
+      this.uiTutorService.addQuestion(id, this.questions).subscribe(response => {
+        //this.closeCard();
+      });
+    }
+  }
+
+  closeCard() {
+    this.isEditing = false;
+    this.onClose.emit();
+    location.reload();
   }
 }

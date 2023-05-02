@@ -1,4 +1,5 @@
 export enum QuestionType{
-  TEXT ='text',
-  MULTIPLECHOICE = 'multipleChoice'
+  MULTIPLECHOICE,
+  TEXT,
+
 }
