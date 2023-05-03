@@ -101,7 +101,7 @@
                 <div class="tableControlls"
                      style="position:relative; justify-self: stretch; width: 100%; text-align: right">
                   <mat-card-title style="float: left">Dateien</mat-card-title>
-                  <ngx-mat-file-input  style="float: right; margin-right: 45px">
+                  <ngx-mat-file-input [formControl]="fileControl" [multiple]="false" [accept]="accept" [color]="color"  style="float: right; margin-right: 45px">
                   </ngx-mat-file-input>
                 </div>
               </mat-card-header>

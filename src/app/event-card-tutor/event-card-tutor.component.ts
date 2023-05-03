@@ -11,6 +11,8 @@ import {UiTutorService} from "../../services/ui-tutor.service";
 import {UiAttendeeService} from "../../services/ui-attendee.service";
 import {URLs} from "../../assets/SystemVariables/URLs";
 import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
+import {FormControl} from "@angular/forms";
+import {ThemePalette} from "@angular/material/core";
 
 @Component({
   selector: 'app-event-card-tutor',
@@ -36,6 +38,12 @@ export class EventCardTutorComponent {
   attendees: User[];
   isAttending:boolean[]=[];
 
+  fileControl: FormControl;
+  accept: string;
+  color: ThemePalette = 'primary';
+  file!: File;
+
+
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService) {
     this.eventData = this.dataService.getCardData();
     this.eventStartDate = new Date(this.eventData.startDate);
@@ -47,6 +55,8 @@ export class EventCardTutorComponent {
     }
     this.getReadableStatus();
     this.backendURL = URLs.backend;
+    this.fileControl = new FormControl(this.file)
+
   }
 
   ngOnInit() {
@@ -61,6 +71,34 @@ export class EventCardTutorComponent {
         this.dataSource.data = this.attendees;
       });
     }
+    this.fileControl.valueChanges.subscribe((file: any) => {
+      if (Array.isArray(file)) {
+        /*
+        files.forEach(function(item) {
+          this.service.addDocumentToEvent(this.eventId, item).subscribe(data => {
+            console.log(data); // handle the response
+          });
+        });
+        */
+      } else {
+        this.file = file;
+        const formData = new FormData();
+        formData.append('file', this.file, this.file.name);
+        if (this.file.size <= 52428800)//
+        {
+          const id = this.eventData.id;
+          if(id != null){
+            this.uiTutorService.addDocumentToEvent(id, formData).subscribe(response => {
+              location.reload();
+            });
+          }
+        }
+        else {
+          console.log("Datei zu groß");
+        }
+      }
+    });
+
   }
 
   isEditing = false;
