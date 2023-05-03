@@ -13,6 +13,8 @@ import {URLs} from "../../assets/SystemVariables/URLs";
 import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
 import {FormControl} from "@angular/forms";
 import {ThemePalette} from "@angular/material/core";
+import {Question} from "../../DataTransferObjects/Question";
+import {QuestionType} from "../../DataTransferObjects/QuestionType";
 
 @Component({
   selector: 'app-event-card-tutor',
@@ -43,6 +45,8 @@ export class EventCardTutorComponent {
   color: ThemePalette = 'primary';
   file!: File;
 
+  questions: Question[] = [];
+  QuestionType = QuestionType;
 
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService) {
     this.eventData = this.dataService.getCardData();
@@ -137,9 +141,7 @@ export class EventCardTutorComponent {
   closeAddUsertoEvent(){
     this.showAddUsertoEvent = false
   }
-  removeTutor(user: User){
 
-  }
 
   getReadableStatus() {
     switch (this.eventData.status) {
@@ -169,14 +171,12 @@ export class EventCardTutorComponent {
   getFileExtension(filename: string): string {
     return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
   }
-
   deleteFile(doc: CustomDocument)
   {
     this.uiTutorService.deleteDocument(doc).subscribe(response =>{
       location.reload();
     });
   }
-
   bytesToMegabytes(bytes: number): string {
     if(bytes < 1000000){
       let kilobytes = bytes/1024
@@ -184,6 +184,30 @@ export class EventCardTutorComponent {
     }
     let megabytes = bytes / (1024 * 1024);
     return megabytes.toFixed(2) + " MB";
+  }
+
+
+  addQuestion() {
+    const newQuestion: Question = {
+      questionText: '',
+      questionType: QuestionType.TEXT,
+      answerString: []
+    };
+    this.questions.push(newQuestion);
+  }
+  removeQuestion(question: Question): void {
+    const index = this.questions.indexOf(question);
+    if (index !== -1) {
+      this.questions.splice(index, 1);
+    }
+  }
+  submitQuestionaire() {
+    const id = this.eventData.id;
+    if(id != null){
+      this.uiTutorService.addQuestion(id, this.questions).subscribe(response => {
+        this.closeCard();
+      });
+    }
   }
 
 }
