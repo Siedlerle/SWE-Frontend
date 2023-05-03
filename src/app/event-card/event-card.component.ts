@@ -15,6 +15,8 @@ import {UiTutorService} from "../../services/ui-tutor.service";
 import {CustomDocument} from "../../DataTransferObjects/CustomDocument";
 import {UiAttendeeService} from "../../services/ui-attendee.service";
 import {Question} from "../../DataTransferObjects/Question";
+import {EnumEventRole} from "../../DataTransferObjects/EnumEventRole";
+import {UiUserService} from "../../services/ui-user.service";
 
 @Component({
   selector: 'app-event-card',
@@ -55,7 +57,9 @@ export class EventCardComponent implements OnInit {
   eventStatus: string = "";
   imageSource: string = "";
 
-  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService, private snackBar: MatSnackBar,private dialog: MatDialog) {
+  attendeeRoleMap: {[key:number]:boolean} = {};
+
+  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService, private uiUserService: UiUserService, private snackBar: MatSnackBar,private dialog: MatDialog) {
     this.eventData = Object.assign({},this.dataService.getCardData());
     this.eventStartDate = new Date(this.eventData.startDate);
     this.eventEndDate = new Date(this.eventData.endDate);
@@ -78,39 +82,55 @@ export class EventCardComponent implements OnInit {
       this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
         this.attendees = response;
         this.dataSource.data = this.attendees;
+        if(this.attendees){
+          for(let i=0; i<this.attendees.length; i++){
+            const emailAdress = this.attendees[i].emailAdress;
+            if (id != null && emailAdress != null) {
+              this.uiUserService.getRoleInEvent(id, emailAdress).subscribe(response => {
+                if (response.role === EnumEventRole.TUTOR) {
+                  // @ts-ignore
+                  this.attendeeRoleMap[this.attendees.at(i).id]=true;
+                } else {
+                  // @ts-ignore
+                  this.attendeeRoleMap[this.attendees.at(i).id] = false;
+                }
+              });
+            }
+          }
+        }
+
       });
     }
 
 
 
-      this.fileControl.valueChanges.subscribe((file: any) => {
-        if (Array.isArray(file)) {
-          /*
-          files.forEach(function(item) {
-            this.service.addDocumentToEvent(this.eventId, item).subscribe(data => {
-              console.log(data); // handle the response
-            });
+    this.fileControl.valueChanges.subscribe((file: any) => {
+      if (Array.isArray(file)) {
+        /*
+        files.forEach(function(item) {
+          this.service.addDocumentToEvent(this.eventId, item).subscribe(data => {
+            console.log(data); // handle the response
           });
-          */
-        } else {
-          this.file = file;
-          const formData = new FormData();
-          formData.append('file', this.file, this.file.name);
-          if (this.file.size <= 52428800)//
-          {
-            const id = this.eventData.id;
-            if(id != null){
-              this.uiTutorService.addDocumentToEvent(id, formData).subscribe(response => {
-                location.reload();
-              });
-            }
-          }
-          else {
-            console.log("Datei zu groß");
+        });
+        */
+      } else {
+        this.file = file;
+        const formData = new FormData();
+        formData.append('file', this.file, this.file.name);
+        if (this.file.size <= 52428800)//
+        {
+          const id = this.eventData.id;
+          if(id != null){
+            this.uiTutorService.addDocumentToEvent(id, formData).subscribe(response => {
+              location.reload();
+            });
           }
         }
-      });
-
+        else {
+          console.log("Datei zu groß");
+        }
+      }
+    });
   }
 
   removeUser(user: User){
@@ -222,7 +242,12 @@ export class EventCardComponent implements OnInit {
   }
 
   removeTutor(user: User){
-
+    const id = this.eventData.id;
+    const emailAdress = user.emailAdress;
+    if(id!= null)
+    this.uiOrganizerService.changeTutorToAttendee(id, emailAdress).subscribe(response =>{
+      this.closeCard();
+    });
   }
 
   getFileExtension(filename: string): string {
