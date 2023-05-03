@@ -28,7 +28,6 @@ export class MyEventsComponent implements OnInit {
 
     if (emailAddress != null && orgaId != null && orgaId !== '') {
       this.uiUserService.getRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
-        console.log(response)
         this.registeredEvents = response;
         this.registeredEvents.forEach(function (event) {
           if (event.image == null) {
@@ -56,7 +55,7 @@ export class MyEventsComponent implements OnInit {
     const emailAdress = sessionStorage.getItem('emailAdress');
     if(id != null && emailAdress != null){
       this.uiUserService.getRoleInEvent(id,emailAdress).subscribe(response =>{
-          console.log(response.role)
+
           if(response.role === EnumEventRole.TUTOR){
             this.showTutorCard = true;
           }else{
