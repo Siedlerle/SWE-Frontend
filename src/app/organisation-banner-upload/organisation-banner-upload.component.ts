@@ -20,6 +20,7 @@ export class OrganisationBannerUploadComponent {
 
     this.fileControl.valueChanges.subscribe((file: any) => {
       this.file = file;
+      this.uiAdminService.changeOrganisation(this.orga, this.file).subscribe();
     });
 
   if(orgaId != null) {
@@ -40,6 +41,5 @@ export class OrganisationBannerUploadComponent {
   @Output() onClose = new EventEmitter<void>();
   closeOrganisationBannerUpload() {
     this.onClose.emit();
-    this.uiAdminService.changeOrganisation(this.orga, this.file).subscribe();
   }
 }
