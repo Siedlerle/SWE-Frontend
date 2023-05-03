@@ -6,6 +6,7 @@ import {Organisation} from "../../DataTransferObjects/Organisation";
 import {User} from "../../DataTransferObjects/User";
 import {OrganisationCardComponent} from "../organisation-card/organisation-card.component";
 import {OrganisationCardService} from "../organisation-card/OrganisationCardService";
+import {URLs} from "../../assets/SystemVariables/URLs";
 
 @Component({
   selector: 'app-organisation-catalog',
@@ -15,21 +16,6 @@ import {OrganisationCardService} from "../organisation-card/OrganisationCardServ
 export class OrganisationCatalogComponent implements OnInit{
 
   constructor(private uiUserService:UiUserService, private organisationCardService:OrganisationCardService) {
-
-  }
-
-  organisationslist = listData;
-  @ViewChild('searchbar') searchbar: ElementRef;
-  myOrgaSearchText = '';
-  allOrgaSearchText = '';
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  toggleSearch: boolean = false;
-
-
-  allOrganisations!:Organisation[]
-  usersOrganisations!:Organisation[]
-
-  ngOnInit(): void {
     this.uiUserService.getAllOrganisations().subscribe(response => {
       this.allOrganisations = response;
     });
@@ -40,6 +26,23 @@ export class OrganisationCatalogComponent implements OnInit{
       });
     }
   }
+
+  organisationslist = listData;
+  @ViewChild('searchbar') searchbar: ElementRef;
+  myOrgaSearchText = '';
+  allOrgaSearchText = '';
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  toggleSearch: boolean = false;
+  backendURL: string = URLs.backend;
+
+  allOrganisations!:Organisation[]
+  usersOrganisations!:Organisation[]
+
+  ngOnInit(): void {
+
+  }
+
+
 
 
   public onCardClick(evt: MouseEvent) {

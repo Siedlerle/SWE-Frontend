@@ -3,6 +3,7 @@ import {Organisation} from "../../DataTransferObjects/Organisation";
 import {UiUserService} from "../../services/ui-user.service";
 import {OrganisationCardService} from "../organisation-card/OrganisationCardService";
 import {Router} from "@angular/router";
+import {URLs} from "../../assets/SystemVariables/URLs";
 
 @Component({
   selector: 'app-organisation-card-registered',
@@ -18,6 +19,16 @@ export class OrganisationCardRegisteredComponent {
   @Output() onClose = new EventEmitter<void>();
   closeCard() {
     this.onClose.emit();
+  }
+
+  backendURL: string = URLs.backend;
+  imageSource: string = "";
+  ngOnInit() {
+    if (this.orgaData.image === null || this.orgaData.image === "") {
+      this.imageSource = "../../assets/images/OrgaBanner.png";
+    } else {
+      this.imageSource = this.backendURL+this.orgaData.image;
+    }
   }
 
   leaveOrganisation() {

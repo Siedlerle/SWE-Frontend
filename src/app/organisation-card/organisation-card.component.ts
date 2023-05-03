@@ -1,14 +1,15 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UiUserService} from "../../services/ui-user.service";
 import {OrganisationCardService} from "./OrganisationCardService";
 import {Organisation} from "../../DataTransferObjects/Organisation";
+import {URLs} from "../../assets/SystemVariables/URLs";
 
 @Component({
   selector: 'app-organisation-card',
   templateUrl: './organisation-card.component.html',
   styleUrls: ['./organisation-card.component.css']
 })
-export class OrganisationCardComponent {
+export class OrganisationCardComponent implements OnInit {
 
   orgaData:Organisation;
 
@@ -18,6 +19,16 @@ export class OrganisationCardComponent {
   @Output() onClose = new EventEmitter<void>();
   closeCard() {
     this.onClose.emit();
+  }
+
+  backendURL: string = URLs.backend;
+  imageSource: string = "";
+  ngOnInit() {
+    if (this.orgaData.image === null || this.orgaData.image === "") {
+      this.imageSource = "../../assets/images/OrgaBanner.png";
+    } else {
+      this.imageSource = this.backendURL+this.orgaData.image;
+    }
   }
 
   registerInOrganisation() {

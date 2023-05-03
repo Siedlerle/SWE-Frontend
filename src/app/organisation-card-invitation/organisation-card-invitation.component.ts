@@ -1,14 +1,15 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Organisation} from "../../DataTransferObjects/Organisation";
 import {UiUserService} from "../../services/ui-user.service";
 import {OrganisationCardService} from "../organisation-card/OrganisationCardService";
+import {URLs} from "../../assets/SystemVariables/URLs";
 
 @Component({
   selector: 'app-organisation-card-invitation',
   templateUrl: './organisation-card-invitation.component.html',
   styleUrls: ['./organisation-card-invitation.component.css']
 })
-export class OrganisationCardInvitationComponent {
+export class OrganisationCardInvitationComponent implements OnInit {
   orgaData:Organisation;
 
   constructor(private uiUserService:UiUserService, private organisationCardService:OrganisationCardService) {
@@ -17,6 +18,16 @@ export class OrganisationCardInvitationComponent {
   @Output() onClose = new EventEmitter<void>();
   closeCard() {
     this.onClose.emit();
+  }
+
+  backendURL: string = URLs.backend;
+  imageSource: string = "";
+  ngOnInit() {
+    if (this.orgaData.image === null || this.orgaData.image === "") {
+      this.imageSource = "../../assets/images/OrgaBanner.png";
+    } else {
+      this.imageSource = this.backendURL+this.orgaData.image;
+    }
   }
 
   acceptInvitation() {
