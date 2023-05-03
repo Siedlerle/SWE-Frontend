@@ -4,6 +4,7 @@ import {listData} from "../organisation-catalog/organisation-list";
 import {MatCardContent} from "@angular/material/card";
 import {UiUserService} from "../../services/ui-user.service";
 import {Organisation} from "../../DataTransferObjects/Organisation";
+import {URLs} from "../../assets/SystemVariables/URLs";
 
 @Component({
   selector: 'app-nav',
@@ -46,12 +47,30 @@ export class NavComponent implements OnInit{
       sessionStorage.setItem('activeManagement', JSON.stringify(false));
     }
 
+    if(orgaId === null || orgaId === ""){
+      this.imageSource = "../../assets/images/OrgaBanner.png";
+    }else{
+
+      this.uiUserService.getOrganisation(orgaId).subscribe(data =>{
+        if(data.image === null || data.image === "") {
+          this.imageSource = "../../assets/images/OrgaBanner.png";
+
+        }else{
+          this.imageSource = this.backendURL+data.image;
+
+        }
+      })
+    }
+
   }
 
   isDropdownOpen = false;
   isDropdownOpenBanner = false;
   dropDownTop = 0;
   dropDownLeft = 0;
+
+  backendURL: string = URLs.backend;
+  imageSource?: string = "";
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
@@ -65,6 +84,12 @@ export class NavComponent implements OnInit{
 
   onOrganisationClick(organisation:Organisation){
     sessionStorage.setItem('orgaId', JSON.stringify(organisation.id));
+    if(organisation.image === null || organisation.image === ""){
+      this.imageSource = "../../assets/images/OrgaBanner.png";
+    }else{
+
+      this.imageSource = this.backendURL+organisation.image;
+    }
 
     const emailAdress = sessionStorage.getItem('emailAdress');
     if(emailAdress != null && organisation.id != null){
@@ -92,6 +117,11 @@ export class NavComponent implements OnInit{
     sessionStorage.setItem('orgaId', '');
     sessionStorage.setItem('orgaRole', '');
     sessionStorage.setItem('eventRole', '');
+
+    this.imageSource = "../../assets/images/OrgaBanner.png";
+
+
+
 
     const orgaId = sessionStorage.getItem('orgaId');
     const orgaRole = sessionStorage.getItem('orgaRole');

@@ -5,7 +5,7 @@
   </header>
   <body>
   <div class="banner-dropdown" (click)="isDropdownOpen = false">
-    <img src="../../assets/images/OrgaBanner.png" alt="Banner" class="banner-image" (click)="toggleDropdownBanner($event)">
+    <img src="{{imageSource}}" alt="Banner" class="banner-image" (click)="toggleDropdownBanner($event)">
     <div class="dropdown-content-Banner"[ngClass]="{'show': isDropdownOpenBanner}"  [style.top.px]="dropDownTop" [style.left.px]="dropDownLeft">
       <ul (click)="isDropdownOpenBanner = false">
         <li *ngFor="let item of organisationsForUser" (click)="onOrganisationClick(item)">{{ item.name }}</li>

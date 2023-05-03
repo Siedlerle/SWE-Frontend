@@ -17,7 +17,7 @@ export const URLs = {
 
   //Organisation
   getAllOrganisations: '/user/orga/get-all',
-  getOrganisation: 'user/orga/get-orga/',
+  getOrganisation: '/user/orga/get-orga/',
   getOrganisationForUser: '/user/orga/get-for-user/',
   getRoleInOrganisation: '',
   acceptOrgaInvite:'',

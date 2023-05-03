@@ -67,7 +67,7 @@ export class UiUserService {
       return this.http.post<Organisation[]>(URLs.backend+URLs.getAllOrganisations,null);
     }
 
-    getOrganisation(orgaId: number):Observable<Organisation>{
+    getOrganisation(orgaId: string):Observable<Organisation>{
       return this.http.post<Organisation>(URLs.backend+URLs.getOrganisation+orgaId,null);
     }
 
