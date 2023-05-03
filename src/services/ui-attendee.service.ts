@@ -4,6 +4,7 @@ import {Observable, timer} from "rxjs";
 import {CustomDocument} from "../DataTransferObjects/CustomDocument";
 import {URLs} from "../assets/SystemVariables/URLs";
 import {Question} from "../DataTransferObjects/Question";
+import {Answer} from "../DataTransferObjects/Answer";
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,9 @@ export class UiAttendeeService {
 
   getSurveyForEvent(eventId:number, emailAdress:string):Observable<Question[]>{
     return this.http.post<Question[]>(URLs.backend+"/attendee/get-survey/"+eventId+"/"+emailAdress,null);
+  }
+
+  submitSurvey(emailAdress: string, answers:Answer[]){
+    return this.http.post(URLs.backend+URLs.answerSurvey+emailAdress,answers);
   }
 }
