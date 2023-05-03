@@ -18,10 +18,16 @@
     <div class="management-tile-content">
       <div class="event-management-toolbar">
 
-        <button mat-raised-button (click)="openPopup()" class="add-event-button">
-          Event erstellen
-          <mat-icon>add</mat-icon>
-        </button>
+        <div class="left-items">
+          <button mat-raised-button (click)="openPopup()" class="add-event-button">
+            Event erstellen
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-raised-button (click)="openPresetManagement()" class="manage-presets-button">
+            Vorlagen verwalten
+            <mat-icon>manage_search</mat-icon>
+          </button>
+        </div>
 
         <div class="search-bar">
           <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="eventSearchText">
@@ -125,6 +131,7 @@
 </mat-grid-list>
 <app-event-card *ngIf = "showCard" (onClose) ="closeCard()"></app-event-card>
 <app-add-event *ngIf="showPopup" (onClose)="closePopup()"></app-add-event>
+<app-preset-management *ngIf="showPresetManagement" (onClose)="closePresetManagement()"></app-preset-management>
 <app-usermanagement-in-organisation *ngIf="showUserManagement" (onClose)="closeUserManagement()"></app-usermanagement-in-organisation>
 <app-group-management *ngIf="showGroupManagement" (onClose)="closeGroupManagement()"></app-group-management>
 <app-add-user-to-organisation *ngIf="showAddUserToOrganisation" (onClose)="closeAddUserToOrganisation()"></app-add-user-to-organisation>

@@ -106,6 +106,15 @@ export class ManagementComponent implements OnInit {
     this.showCard = false;
   }
 
+  showPresetManagement = false;
+
+  openPresetManagement() {
+    this.showPresetManagement = true;
+  }
+  closePresetManagement() {
+    this.showPresetManagement = false;
+  }
+
   showGroupManagement = false;
   openGroupManagement() {
     this.showGroupManagement = true;

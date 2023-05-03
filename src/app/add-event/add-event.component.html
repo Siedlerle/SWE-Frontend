@@ -16,6 +16,17 @@
             <div class="form-div">
               <p>
                 <mat-form-field appearance="fill" style="position: relative; width: 100%">
+                  <mat-label>Daten aus Vorlagen übernehmen</mat-label>
+                  <mat-select value="create_new_event" (selectionChange)="selectPreset($event)">
+                    <mat-option value="create_new_event">Neues Event erstellen</mat-option>
+                    <mat-option *ngFor="let presetOfList of presets" [value]="presetOfList.name">
+                      {{presetOfList.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </p>
+              <p>
+                <mat-form-field appearance="fill" style="position: relative; width: 100%">
                   <mat-label>Name des Events</mat-label>
                   <input matInput placeholder="Name des Events" [(ngModel)]="event.name" name="eventName" required>
                   <mat-error *ngIf="!eventName">Name wird benötigt</mat-error>
@@ -80,7 +91,7 @@
               </p>
               <div style="display:flex; justify-content: center">
                 <p>
-                  <mat-form-field>
+                  <mat-form-field style="width: 240px">
                     <ngx-mat-file-input [formControl]="fileControl" [multiple]="false" [accept]="accept" [color]="color" style="position: relative; width: 100%">
                       <mat-icon ngxMatFileInputIcon>upload</mat-icon>
                     </ngx-mat-file-input>

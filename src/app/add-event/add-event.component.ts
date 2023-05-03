@@ -8,6 +8,8 @@ import {D} from "@angular/cdk/keycodes";
 import {TimeInterval} from "rxjs/internal/operators/timeInterval";
 import {EventSeries} from "../../DataTransferObjects/EventSeries";
 import {ThemePalette} from "@angular/material/core";
+import {Preset} from "../../DataTransferObjects/Preset";
+import {MatSelectChange} from "@angular/material/select";
 
 @Component({
   selector: 'app-add-event',
@@ -28,6 +30,8 @@ export class AddEventComponent implements OnInit {
     endTime: "",
     isPublic: false
   };
+
+  presets: Preset[] = [];
 
   eventSeries: EventSeries = {
     amount : undefined,
@@ -54,6 +58,13 @@ export class AddEventComponent implements OnInit {
     this.fileControl.valueChanges.subscribe((file: any) => {
       this.file = file;
     });
+
+    const orgaId = sessionStorage.getItem('orgaId');
+    if (orgaId != null) {
+      this.uiOrganizerService.getPresetsFromOrganisation(orgaId).subscribe(response => {
+        this.presets = response;
+      })
+    }
   }
 
 
@@ -61,52 +72,71 @@ export class AddEventComponent implements OnInit {
     this.onClose.emit();
   }
 
+  selectPreset(event: MatSelectChange) {
+    let selectedPresetName = event.value;
 
-    wantEventSeries: boolean = false;
-    eventSeriesAmount : number;
-    eventSeriesInterval : number;
-
-    eventName: string ="";
-    eventDescription: string = "";
-    eventType: string = "";
-    eventStartTime: string = "";
-    eventEndTime: string = "";
-    eventStartDate: Date = new Date();
-    eventEndDate: Date = new Date();
-    eventLocation: string = "";
-    eventImage: String;
-
-    onSubmit(form: NgForm)
-    {
-      const emailAddress = sessionStorage.getItem('emailAdress');
-      const orgaId = sessionStorage.getItem('orgaId');
-      if(emailAddress != null && orgaId != null){
-        if(!this.wantEventSeries) {
-          this.uiOrganizerService.addEvent(this.event, emailAddress, orgaId, this.file).subscribe(response =>{
-              console.log(response);
-            }
-          );
-        } else {
-          this.uiOrganizerService.addEventSeries(this.event, this.eventSeries, emailAddress, orgaId, this.file).subscribe(response => {
-            console.log(response);
-          });
-        }
-
+    if (selectedPresetName === "create_new_event") {
+      this.event = {
+        name : "",
+        type : "",
+        description : "",
+        location : "",
+        startDate : new Date(),
+        startTime : "",
+        endDate : new Date(),
+        endTime : "",
+        isPublic : false
       }
-      this.closePopup();
-      location.reload();
+    } else {
+      this.presets.forEach(value => {
+        if (value.name === selectedPresetName) {
+          this.event.name = value.name;
+          this.event.description = value.description;
+          this.event.startDate = value.startDate;
+          this.event.startTime = value.startTime;
+          this.event.endDate = value.endDate;
+          this.event.endTime = value.endTime;
+          this.event.location = value.location;
+          this.event.type = value.type;
+          this.event.image = value.image;
+        }
+      })
+    }
+  }
 
-    /*
-    const newEvent = {
-        eventTitle: this.eventTitle,
-        eventDescription: this.eventDescription,
-        eventDate: this.eventDate.toDateString(),
-        eventOrganizer: this.eventOrganizer
-      };
-      listData.fill(newEvent);
-      form.reset();
-      this.closePopup();
-      location.reload();*/
+  wantEventSeries: boolean = false;
+  eventSeriesAmount : number;
+  eventSeriesInterval : number;
+
+  eventName: string ="";
+  eventDescription: string = "";
+  eventType: string = "";
+  eventStartTime: string = "";
+  eventEndTime: string = "";
+  eventStartDate: Date = new Date();
+  eventEndDate: Date = new Date();
+  eventLocation: string = "";
+  eventImage: String;
+
+  onSubmit(form: NgForm)
+  {
+    const emailAddress = sessionStorage.getItem('emailAdress');
+    const orgaId = sessionStorage.getItem('orgaId');
+    if(emailAddress != null && orgaId != null){
+      if(!this.wantEventSeries) {
+        this.uiOrganizerService.addEvent(this.event, emailAddress, orgaId, this.file).subscribe(response =>{
+            console.log(response);
+          }
+        );
+      } else {
+        this.uiOrganizerService.addEventSeries(this.event, this.eventSeries, emailAddress, orgaId, this.file).subscribe(response => {
+          console.log(response);
+        });
+      }
+
+    }
+    this.closePopup();
+    location.reload();
   }
 
 

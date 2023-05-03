@@ -157,6 +157,13 @@ mat-card:active {
   width: auto;
 }
 
+.manage-presets-button {
+  background-color: white;
+  color: black;
+  display: block;
+  margin-left: 1%;
+  margin-right: auto;
+}
 
 .group-management-button {
   background-color: white;

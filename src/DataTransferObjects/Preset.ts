@@ -5,10 +5,10 @@ export interface Preset {
   name: string;
   type: string;
   description: string;
-  image: File;
+  image?: string;
   location: string;
   startDate: Date;
-  startTime: Time;
+  startTime: string;
   endDate: Date;
-  endTime: Time;
+  endTime: string;
 }

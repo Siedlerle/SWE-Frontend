@@ -9,6 +9,7 @@ import {User} from "../DataTransferObjects/User";
 import {Form} from "@angular/forms";
 import {CurrencyPipe} from "@angular/common";
 import {Group} from "../DataTransferObjects/Group";
+import {Preset} from "../DataTransferObjects/Preset";
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,30 @@ export class UiOrganizerService {
     formData.append('image', image);
 
     return this.http.post<String>(URLs.backend+URLs.createEventSeres+emailAddress+'/'+orgaId, formData);
+  }
+
+  getPresetsFromOrganisation(orgaId: string): Observable<Preset[]> {
+    return this.http.post<Preset[]>(URLs.backend+URLs.getPresetsFromOrga+orgaId, null)
+  }
+
+  addPreset(preset: Preset, orgaId: string, image: File): Observable<String> {
+    const formData = new FormData();
+    formData.append('preset', JSON.stringify(preset));
+    formData.append('image', image);
+
+    return this.http.post<String>(URLs.backend+URLs.createPreset+orgaId, formData);
+  }
+
+  changePreset(preset: Preset, image: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('preset', JSON.stringify(preset));
+    formData.append('image', image);
+
+    return this.http.post<any>(URLs.backend+URLs.changePreset, formData);
+  }
+
+  deletePreset(presetId: number) {
+    return this.http.post(URLs.backend+URLs.deletePreset+presetId, null);
   }
 
   getManagingEvents(emailAddress: string, orgaId: string):Observable<CustomEvent[]> {

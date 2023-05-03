@@ -33,7 +33,6 @@ export const URLs = {
   getAllEventsForUser:'/user/event/get-all/',
   getEventInvitationsForUser:'/user/event/get-invitations/',
 
-
   //Organisator
   createEvent:'/organizer/event/create/',
   changeEvent:'/organizer/event/change',
@@ -42,6 +41,11 @@ export const URLs = {
   getManagingEventsInOrga: '/event/managing/get/',
   getUnafiliatedUsers: '/organizer/event/get/unaffiliated-users',
   getUnafiliatedGroups: '/organizer/event/get/unaffiliated-groups',
+  createPreset:'/organizer/preset/create/',
+  changePreset:'/organizer/preset/change',
+  deletePreset:'/organizer/preset/delete/',
+  getPresetsFromOrga:'/organizer/preset/get-from-orga/',
+
 
   //Administrator
 

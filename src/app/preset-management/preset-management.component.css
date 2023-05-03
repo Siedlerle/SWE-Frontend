@@ -1,0 +1,61 @@
+.popup {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  right: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  padding: 20px ;
+  width: 50%;
+  height: auto;
+  border-radius: 10px;
+}
+.popup-background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+.close-Button{
+  width: 30px;
+  height: 30px;
+  display: block;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: firebrick;
+  color: white;
+}
+.close-Icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+.submit-button{
+  font-weight: bolder;
+  font-size: larger;
+  float: right;
+}
+mat-icon{
+  margin: auto;
+}
+
+.manage-preset-buttons-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
+}
+
+.delete-preset-button {
+  font-weight: bolder;
+  font-size: larger;
+}
