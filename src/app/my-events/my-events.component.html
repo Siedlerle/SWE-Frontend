@@ -30,5 +30,6 @@
     </mat-paginator>
   </div>
   <app-event-unregistry *ngIf = "showInvitationCard" (onClose)="closeCard()"></app-event-unregistry>
+  <app-event-card-tutor *ngIf="showTutorCard" (onClose)="closeCard()"></app-event-card-tutor>
 
 </html>

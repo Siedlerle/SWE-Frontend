@@ -7,7 +7,7 @@
     </button>
 
     <div class="card-header">
-      <img mat-card-image src="{{imageSource}}" class="banner">
+      <img mat-card-image src="{{backendURL + imageSource}}" onerror="this.src='../../assets/images/nature.jpg'" class="banner">
       <div class="status">{{eventStatus}}</div>
     </div>
 
@@ -107,35 +107,32 @@
               </mat-card-header>
               <mat-card-content>
                 <div class = "fileTable">
-                  <mat-table [dataSource]="dataSource" matSort class = "">
-                    <ng-container matColumnDef="FirstName">
+                  <mat-table [dataSource]="fileDataSource">
+                    <ng-container matColumnDef="Filename">
                       <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-                      <mat-cell *matCellDef="let user">{{user.firstname}}</mat-cell>
+                      <mat-cell *matCellDef="let file">{{file.name}}</mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="LastName">
+                    <ng-container matColumnDef="Filetype">
                       <mat-header-cell *matHeaderCellDef>Typ der Datei</mat-header-cell>
-                      <mat-cell *matCellDef="let user">{{user.lastname}}</mat-cell>
+                      <mat-cell *matCellDef="let file">{{getFileExtension(file.name)}}</mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="eMail">
+                    <ng-container matColumnDef="Filesize">
                       <mat-header-cell *matHeaderCellDef>Größe der Datei</mat-header-cell>
-                      <mat-cell *matCellDef="let user">{{user.emailAdress}}</mat-cell>
+                      <mat-cell *matCellDef="let file">{{bytesToMegabytes(file.size)}}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="actions">
                       <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
-                      <mat-cell *matCellDef="let user">
-                        <button mat-icon-button >
-                          <mat-icon>download</mat-icon>
-                        </button>
-                        <button mat-icon-button>
-                          <mat-icon>delete</mat-icon>
+                      <mat-cell *matCellDef="let file">
+                        <button mat-icon-button (click)="deleteFile(file)">
+                          <mat-icon >delete</mat-icon>
                         </button>
                       </mat-cell>
                     </ng-container>
-                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    <mat-header-row *matHeaderRowDef="displayedColumnsFiles"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumnsFiles;"></mat-row>
                   </mat-table>
                 </div>
               </mat-card-content>
@@ -192,6 +189,13 @@
               <mat-cell *matCellDef="let user">{{user.emailAdress}}</mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="attendence">
+              <mat-header-cell *matHeaderCellDef>Nimmt Teil</mat-header-cell>
+              <mat-cell *matCellDef="let user; let i=index">
+                <mat-checkbox [(ngModel)]="isAttending[i]" color="primary"></mat-checkbox>
+              </mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="actions">
               <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
               <mat-cell *matCellDef="let user">
@@ -200,15 +204,11 @@
                     delete
                   </mat-icon>
                 </button>
-                <button mat-icon-button matTooltip="Als Tutor entfernen" (click)="removeTutor(user)" >
-                  <mat-icon>
-                    person_remove
-                  </mat-icon>
-                </button>
+
               </mat-cell>
             </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-header-row *matHeaderRowDef="displayedColumsAttendees"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumsAttendees;"></mat-row>
           </mat-table>
         </div>
       </mat-tab>

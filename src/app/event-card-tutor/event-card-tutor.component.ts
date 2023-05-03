@@ -6,6 +6,11 @@ import {DataService} from "../management/CardService";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
+import {CustomDocument} from "../../DataTransferObjects/CustomDocument";
+import {UiTutorService} from "../../services/ui-tutor.service";
+import {UiAttendeeService} from "../../services/ui-attendee.service";
+import {URLs} from "../../assets/SystemVariables/URLs";
+import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
 
 @Component({
   selector: 'app-event-card-tutor',
@@ -17,14 +22,21 @@ export class EventCardTutorComponent {
   closeCard() {
     this.onClose.emit();
   }
+  backendURL: string = "";
+
 
   eventIsCancelled: boolean;
   eventData: CustomEvent;
   dataSource = new MatTableDataSource<User>();
-  displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
-  attendees: User[];
+  displayedColumnsFiles: string[] = ['Filename','Filetype','Filesize','actions'];
+  fileDataSource = new MatTableDataSource<CustomDocument>();
+  eventDocs: CustomDocument[] = [];
 
-  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar,private dialog: MatDialog) {
+  displayedColumsAttendees:string[] = ['FirstName','LastName','eMail', 'attendence','actions'];
+  attendees: User[];
+  isAttending:boolean[]=[];
+
+  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService) {
     this.eventData = this.dataService.getCardData();
     this.eventStartDate = new Date(this.eventData.startDate);
     this.eventEndDate = new Date(this.eventData.endDate);
@@ -33,12 +45,17 @@ export class EventCardTutorComponent {
     } else {
       this.imageSource = this.eventData.image;
     }
-    //this.getReadableStatus();
+    this.getReadableStatus();
+    this.backendURL = URLs.backend;
   }
 
   ngOnInit() {
     let id = this.eventData.id;
     if (id != null) {
+      this.uiAttendeeService.getDocumentsOfEvent(id).subscribe(data => {
+        this.eventDocs = data;
+        this.fileDataSource.data = this.eventDocs;
+      });
       this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
         this.attendees = response;
         this.dataSource.data = this.attendees;
@@ -85,4 +102,50 @@ export class EventCardTutorComponent {
   removeTutor(user: User){
 
   }
+
+  getReadableStatus() {
+    switch (this.eventData.status) {
+      case EnumEventStatus.INPREPARATION:
+        this.eventStatus = 'In Vorbereitung';
+        this.eventIsCancelled = false;
+        break;
+      case EnumEventStatus.SCHEDULED:
+        this.eventStatus = 'Geplant';
+        this.eventIsCancelled = false;
+        break;
+      case EnumEventStatus.RUNNING:
+        this.eventStatus = 'In Durchführung';
+        this.eventIsCancelled = false;
+        break;
+      case EnumEventStatus.ACCOMPLISHED:
+        this.eventStatus = 'Vergangen';
+        this.eventIsCancelled = false;
+        break;
+      case EnumEventStatus.CANCELLED:
+        this.eventStatus = 'abgesagt';
+        this.eventIsCancelled = true;
+        break;
+    }
+  }
+
+  getFileExtension(filename: string): string {
+    return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
+  }
+
+  deleteFile(doc: CustomDocument)
+  {
+    this.uiTutorService.deleteDocument(doc).subscribe(response =>{
+      location.reload();
+    });
+  }
+
+  bytesToMegabytes(bytes: number): string {
+    if(bytes < 1000000){
+      let kilobytes = bytes/1024
+      return kilobytes.toFixed(2) + " KB"
+    }
+    let megabytes = bytes / (1024 * 1024);
+    return megabytes.toFixed(2) + " MB";
+  }
+
 }

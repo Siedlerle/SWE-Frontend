@@ -48,12 +48,15 @@ export class MyEventsComponent implements OnInit {
 
 
   showInvitationCard = false;
+  showTutorCard = false;
   openCard(item: CustomEvent){
-    this.showInvitationCard = true;
+    this.showTutorCard = true;
     this.dataService.setCardData(item);
   }
   closeCard(){
     this.showInvitationCard = false;
+    this.showTutorCard = false;
+
   }
 
   filterEvents() {
