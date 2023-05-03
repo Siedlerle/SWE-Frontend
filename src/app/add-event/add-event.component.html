@@ -16,9 +16,9 @@
             <div class="form-div">
               <p>
                 <mat-form-field appearance="fill" style="position: relative; width: 100%">
-                  <mat-label>Titel des Events</mat-label>
+                  <mat-label>Name des Events</mat-label>
                   <input matInput placeholder="Name des Events" [(ngModel)]="event.name" name="eventName" required>
-                  <mat-error *ngIf="!eventName">Titel wird benötigt</mat-error>
+                  <mat-error *ngIf="!eventName">Name wird benötigt</mat-error>
                 </mat-form-field>
               </p>
               <p>
@@ -32,7 +32,7 @@
                 <mat-form-field appearance="fill" style="position: relative; width: 100%">
                   <mat-label>Art des Events</mat-label>
                   <input matInput placeholder="Art des Events" [(ngModel)]="event.type" name="eventType" required>
-                  <mat-error *ngIf="!eventType">Beschreibung wird benötigt</mat-error>
+                  <mat-error *ngIf="!eventType">Art wird benötigt</mat-error>
                 </mat-form-field>
               </p>
               <div>
