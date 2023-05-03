@@ -2,6 +2,7 @@ import {AfterViewInit, Component, HostListener, OnInit} from '@angular/core';
 import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import {AuthService} from "../services/auth.service";
 import {UiUserService} from "../services/ui-user.service";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 
 @Component({
   selector: 'app-root',
@@ -11,8 +12,9 @@ import {UiUserService} from "../services/ui-user.service";
 export class AppComponent implements OnInit{
   title = 'SWE-Frontend';
   isAuthenticated: boolean = false;
+  private isPhoneviewed: boolean;
 
-  constructor(private router: Router, private authService: AuthService, private uiUserService:UiUserService , private activeRoute : ActivatedRoute) {
+  constructor(private router: Router, private authService: AuthService, private uiUserService:UiUserService , private activeRoute : ActivatedRoute, public responsive: BreakpointObserver) {
     document.addEventListener('mousemove', this.handleUserInput.bind(this));
     document.addEventListener('keypress', this.handleUserInput.bind(this));
     document.addEventListener('mousedown', this.handleUserInput.bind(this));
@@ -37,7 +39,19 @@ export class AppComponent implements OnInit{
         },1000)
       }
     }
-  }
+    this.responsive.observe(Breakpoints.HandsetPortrait)
+      .subscribe(result => {
 
+        this.isPhoneviewed = false;
+
+        if (result.matches) {
+          this.isPhoneviewed = true;
+        }
+        {
+          console.log('HandsetPortrait is on');
+        }
+
+      });
+  }
 
 }

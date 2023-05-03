@@ -2,7 +2,12 @@ app-nav {
   margin: 0;
 }
 
+app-login{
+  height: 100%;
+}
+
 footer {
+  transform:translatey(0);
   bottom: 0;
   width: 100%;
   display: flex;
@@ -10,6 +15,8 @@ footer {
   background-color: #f8f9fa;
   color: #6c757d;
   padding: 5px 0;
+  position: fixed;
+
 
 
 }
