@@ -8,6 +8,7 @@ import {AuthService} from "./auth.service";
 import {OrgaRole} from "../DataTransferObjects/OrgaRole";
 import {CustomEvent} from "../DataTransferObjects/CustomEvent";
 import {C} from "@angular/cdk/keycodes";
+import {EventRole} from "../DataTransferObjects/EventRole";
 
 
 @Injectable({
@@ -134,5 +135,9 @@ export class UiUserService {
 
     unregisterFromEvent(eventId: number, emailAddress: string){
       return this.http.post(URLs.backend+'/user/event/'+eventId+'/unregister/'+emailAddress, null);
+    }
+
+    getRoleInEvent(eventId: number, emailAddress: string):Observable<EventRole>{
+      return this.http.post<EventRole>(URLs.backend+"/user/event/"+eventId+"/get-role/"+emailAddress,null);
     }
 }
