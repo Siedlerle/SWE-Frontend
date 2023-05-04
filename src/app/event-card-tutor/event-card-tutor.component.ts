@@ -60,6 +60,8 @@ export class EventCardTutorComponent {
   allComments: Comment[][] = [];
   chatMessage: string;
 
+  answersMatchingToId: Answer[] = [];
+
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService) {
     this.eventData = this.dataService.getCardData();
     this.eventStartDate = new Date(this.eventData.startDate);
@@ -259,7 +261,9 @@ export class EventCardTutorComponent {
 
   // @ts-ignore
   getAnswersToQuestion(item:Question){
+    for(let i=0; i<this.answersToEvaluate.length;i++){
 
+    }
   }
 
 }

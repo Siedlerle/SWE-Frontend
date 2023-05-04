@@ -78,11 +78,24 @@ mat-tab-group{
 
 }
 
+.umfragen{
+  align-items: center;
+  text-align: center;
+}
+.text-question{
+  padding-bottom: 1%;
+}
+.mult-question{
+  padding-bottom: 1%;
+}
 
 
 
 
-
+.radio-label {
+  display: flex;
+  flex-direction: column;
+}
 
 
 
