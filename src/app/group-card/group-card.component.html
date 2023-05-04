@@ -14,7 +14,7 @@
         <mat-label>Name der Gruppe</mat-label>
         <input matInput placeholder="Name der Gruppe" name="gruppenName" [(ngModel)]="group.name">
       </mat-form-field>
-      <button mat-raised-button="addEventButton" class="add-Group-Button" (click)="saveName()" [disabled]="!group.name">speichern</button>
+      <button mat-raised-button="addEventButton" class="add-Group-Button" (click)="saveName()" [disabled]="!group.name" class="save-button">speichern</button>
     </div>
     <div class = "userTable">
         <div class="group-user-management-toolbar">

@@ -57,7 +57,7 @@
 
 .search-icon {
   position: absolute;
-  right: 1%;
+  right: 2.5%;
   color: #999;
 }
 .group-user-management-toolbar{
@@ -71,5 +71,10 @@ mat-icon {
   margin: auto;
 }
 .changeName{
-  border-bottom: 1px ;
+  border-bottom: 1px;
+  margin: 1%;
+}
+
+.save-button {
+  margin-left: 1%;
 }
