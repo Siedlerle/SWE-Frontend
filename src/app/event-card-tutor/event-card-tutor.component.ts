@@ -42,7 +42,9 @@ export class EventCardTutorComponent {
 
   displayedColumsAttendees:string[] = ['FirstName','LastName','eMail', 'attendence','actions'];
   attendees: User[];
-  isAttending:boolean[]=[];
+  isAttending:Boolean[]=[];
+
+  attendeeId: number[]=[];
 
   fileControl: FormControl;
   accept: string;
@@ -87,6 +89,17 @@ export class EventCardTutorComponent {
       this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
         this.attendees = response;
         this.dataSource.data = this.attendees;
+          for(let i=0; i<this.attendees.length;i++){
+            // @ts-ignore
+            this.attendeeId[i] = this.attendees.at(i).id;
+          }
+
+          if (id != null) {
+            this.uiTutorService.getAttendingstatusForUsers(id, this.attendeeId).subscribe(response => {
+              console.log(response);
+              this.isAttending = response;
+            });
+          }
       });
       this.uiTutorService.getAllQuestionsForEvent(id).subscribe(response =>{
         this.questionsToEvaluate = response;
@@ -101,9 +114,7 @@ export class EventCardTutorComponent {
 
           let chatId : number = response[i].id!;
 
-
           this.uiAttendeeService.getCommentsForChat(chatId!, 0).subscribe(data =>{
-
             this.allComments[chatId] = data;
           })
         }
