@@ -8,9 +8,10 @@
   z-index: 9999;
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  padding: 10px ;
+  padding: 20px;
   width: 40%;
   height: 80%;
+  border-radius: 10px;
 }
 .banner {
   display: block;
@@ -36,8 +37,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
 }
 mat-icon{
   margin: auto;
@@ -49,7 +48,6 @@ img{
   object-fit: cover;
   z-index: -2;
 }
-
 
 .example-small-box, .example-large-box {
   display: flex;
