@@ -10,9 +10,8 @@
   height: 90%;
   border-radius: 10px;
   margin: 3%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 1%;
+
 }
 .popup-background{
   position: fixed;
@@ -20,7 +19,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
 
@@ -43,10 +41,6 @@
   width: 24px;
   height: 24px;
 }
-.tab-group {
-  height: 80%;
-  width: 100%;
-}
 .search-bar {
   display: flex;
   align-items: center;
@@ -63,12 +57,8 @@
 
 .search-icon {
   position: absolute;
-  right: .5%;
+  right: 1%;
   color: #999;
-}
-.mat-tab-label {
-  background-color: #6c757d;
-  color: #fff;
 }
 .group-user-management-toolbar{
   display: flex;
@@ -79,4 +69,7 @@
 }
 mat-icon {
   margin: auto;
+}
+.changeName{
+  border-bottom: 1px ;
 }

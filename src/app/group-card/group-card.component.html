@@ -6,22 +6,17 @@
       <button mat-fab (click)="closeGroupCard()" class = "close-Button">
         <mat-icon class ="close-Icon">close</mat-icon>
       </button>
+      <h1>Gruppe verwalten</h1>
     </div>
-    <mat-tab-group class = "tab-group">
-      <mat-tab>
-        <ng-template mat-tab-label class="mat-tab-label">
-          <mat-icon class="mat-tab-icon">edit</mat-icon>
-          Gruppenverwaltung
-        </ng-template>
+    <div class = "changeName">
 
-        <input type="text" placeholder="Name">
-      </mat-tab>
-      <mat-tab>
-        <ng-template mat-tab-label class="mat-tab-label">
-          <mat-icon class="mat-tab-icon">groups</mat-icon>
-          Mitgliederverwaltung
-        </ng-template>
-
+    <mat-form-field>
+        <mat-label>Name der Gruppe</mat-label>
+        <input matInput placeholder="Name der Gruppe" name="gruppenName" [(ngModel)]="group.name">
+      </mat-form-field>
+      <button mat-raised-button="addEventButton" class="add-Group-Button" (click)="saveGroup()" [disabled]="!group.name">speichern</button>
+    </div>
+    <div class = "userTable">
         <div class="group-user-management-toolbar">
           <button mat-raised-button (click) = "openAddUserToGroup()" class = "addPerson">
             Mitglieder hinzufügen
@@ -66,8 +61,7 @@
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
         </div>
-      </mat-tab>
-    </mat-tab-group>
+    </div>
   </div>
 </div>
 

@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {User} from "../../DataTransferObjects/User";
+import {UiAdminService} from "../../services/ui-admin.service";
+import {Group} from "../../DataTransferObjects/Group";
 
 @Component({
   selector: 'app-group-card',
@@ -20,6 +22,10 @@ export class GroupCardComponent {
   attendeeRoleMap: {[key:number]:boolean} = {};
   displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
 
+  group: Group = {
+    name : ""
+  }
+
 
   showAddUserToGroup = false;
   openAddUserToGroup() {
@@ -28,4 +34,14 @@ export class GroupCardComponent {
   closeAddUserToGroup() {
     this.showAddUserToGroup = false;
   }
+
+  constructor(private uiAdminService: UiAdminService) {
+
+  }
+
+  saveGroup() {
+  }
+
+
+
 }
