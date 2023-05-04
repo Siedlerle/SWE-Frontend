@@ -185,6 +185,43 @@
               </mat-card-actions>
             </mat-card>
           </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h3>Umfragen auswerten</h3>
+              </mat-panel-title>
+              <mat-panel-description>
+                <mat-icon>
+                  show_chart
+                </mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-card>
+              <mat-list>
+                <ng-container *ngFor="let question of questionsToEvaluate">
+                  <mat-list-item>
+                    {{question.questionText}}
+                  </mat-list-item>
+                    <mat-list *ngIf="question.questionType === QuestionType.MULTIPLECHOICE">
+                      <mat-list-item *ngFor="let answer of answersToEvaluate">
+                        <ng-container *ngIf="question.id === answer.question.id">
+                          {{answer.text}}: {{answer.amount}}
+                        </ng-container>
+                      </mat-list-item>
+                    </mat-list>
+                    <mat-list *ngIf="question.questionType === QuestionType.TEXT">
+                      <mat-list-item *ngFor="let answer of answersToEvaluate">
+                        <ng-container *ngIf="question.id === answer.question.id">
+                          {{answer.text}}
+                        </ng-container>
+                      </mat-list-item>
+                    </mat-list>
+                </ng-container>
+              </mat-list>
+            </mat-card>
+          </mat-expansion-panel>
+
         </mat-accordion>
       </mat-tab>
 

@@ -15,6 +15,8 @@ import {FormControl} from "@angular/forms";
 import {ThemePalette} from "@angular/material/core";
 import {Question} from "../../DataTransferObjects/Question";
 import {QuestionType} from "../../DataTransferObjects/QuestionType";
+import {Answer} from "../../DataTransferObjects/Answer";
+import {considerSettingUpAutocompletion} from "@angular/cli/src/utilities/completion";
 
 @Component({
   selector: 'app-event-card-tutor',
@@ -50,6 +52,8 @@ export class EventCardTutorComponent {
 
   answerString : string[] = [];
 
+  questionsToEvaluate: Question[] = [];
+  answersToEvaluate: Answer[] = [];
 
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService) {
     this.eventData = this.dataService.getCardData();
@@ -77,7 +81,14 @@ export class EventCardTutorComponent {
         this.attendees = response;
         this.dataSource.data = this.attendees;
       });
+      this.uiTutorService.getAllQuestionsForEvent(id).subscribe(response =>{
+        this.questionsToEvaluate = response;
+      });
+      this.uiTutorService.getAllAnswersForQuestion(id).subscribe(response =>{
+        this.answersToEvaluate = response;
+      });
     }
+
     this.fileControl.valueChanges.subscribe((file: any) => {
       if (Array.isArray(file)) {
         /*
@@ -105,7 +116,6 @@ export class EventCardTutorComponent {
         }
       }
     });
-
   }
 
   isEditing = false;
@@ -214,6 +224,11 @@ export class EventCardTutorComponent {
         this.closeCard();
       });
     }
+  }
+
+  // @ts-ignore
+  getAnswersToQuestion(item:Question){
+
   }
 
 }
