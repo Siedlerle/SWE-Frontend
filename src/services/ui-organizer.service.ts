@@ -26,8 +26,12 @@ export class UiOrganizerService {
     return this.http.post<String>(URLs.backend+URLs.createEvent+emailAddress+'/'+orgaId, formData);
   }
 
-  changeEvent(event:CustomEvent):Observable<any>{
-    return this.http.post<any>(URLs.backend+URLs.changeEvent,event);
+  changeEvent(event:CustomEvent, image: File):Observable<any>{
+    const formData = new FormData();
+    formData.append('event', JSON.stringify(event));
+    formData.append('image', image);
+
+    return this.http.post<any>(URLs.backend+URLs.changeEvent,formData);
   }
 
   cancelEvent(eventId: number, reason: string):Observable<String>{

@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import {DataService} from "../management/CardService";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
 import {UiAdminService} from "../../services/ui-admin.service";
@@ -7,18 +7,20 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {User} from "../../DataTransferObjects/User";
 import {Group} from "../../DataTransferObjects/Group";
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-group-management',
   templateUrl: './group-management.component.html',
   styleUrls: ['./group-management.component.css']
 })
-export class GroupManagementComponent {
+export class GroupManagementComponent implements AfterViewInit {
 
 
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiAdminService: UiAdminService) { }
   managingEvents: CustomEvent[];
   @ViewChild('searchbar') searchbar: ElementRef;
+  @ViewChild(MatSort) sort: MatSort;
   searchText = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   toggleSearch: boolean = false;
@@ -46,6 +48,9 @@ export class GroupManagementComponent {
         this.dataSource.data = this.groups;
       })
     }
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   deleteGroup(groupId: number) {

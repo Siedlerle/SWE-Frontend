@@ -1,6 +1,6 @@
 .popup {
   position: fixed;
-  top: 10%;
+  top: 8%;
   left: 50%;
   right: 50%;
   transform: translateX(-50%);
@@ -9,7 +9,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   padding: 20px ;
   width: 50%;
-  height: 80%;
+  height: 85%;
   border-radius: 10px;
 }
 .banner {

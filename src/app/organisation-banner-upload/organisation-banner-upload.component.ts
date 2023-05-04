@@ -20,12 +20,11 @@ export class OrganisationBannerUploadComponent {
     const orgaId = sessionStorage.getItem('orgaId');
 
     this.fileControl.valueChanges.subscribe((file: any) => {
-      this.file = file;
-      if (this.file.size > 1048576) {
+
+      if (file.size > 1048576) {
         this.snackBar.open("Image-Größe maximal 1MB", 'Close', { duration: 5000 });
       } else {
-        this.uiAdminService.changeOrganisation(this.orga, this.file).subscribe();
-        this.closeOrganisationBannerUpload();
+        this.file = file;
       }
 
     });
@@ -33,7 +32,6 @@ export class OrganisationBannerUploadComponent {
   if(orgaId != null) {
     this.uiUserService.getOrganisation(orgaId).subscribe(data => {
       this.orga = data;
-      console.log(data);
     });
   }
   }
@@ -41,7 +39,16 @@ export class OrganisationBannerUploadComponent {
   accept!: string;
   fileControl = new FormControl();
   file!: File;
-  orga: Organisation;
+  orga: Organisation = {
+    name: "",
+    location: ""
+  };
+
+  changeOrganisation() {
+    this.uiAdminService.changeOrganisation(this.orga, this.file).subscribe();
+    this.closeOrganisationBannerUpload();
+    location.reload();
+  }
 
 
 

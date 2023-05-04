@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {DataService} from "./CardService";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
@@ -17,13 +17,12 @@ import {Router} from "@angular/router";
   templateUrl: './management.component.html',
   styleUrls: ['./management.component.css']
 })
-export class ManagementComponent implements OnInit {
+export class ManagementComponent implements OnInit  {
   backendURL: string = "";
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiAdminService: UiAdminService, private uiUserService: UiUserService, private router: Router) {
     this.backendURL = URLs.backend;
   }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
   eventSearchText = '';
   orgaSearchText = '';
   toggleSearch: boolean = false;
@@ -75,7 +74,6 @@ export class ManagementComponent implements OnInit {
       this.uiOrganizerService.getAllUsersInOrganisation(orgaId).subscribe(response =>{
         this.orgaUsers = response;
         this.dataSource.data = this.orgaUsers;
-
         for (let i = 0; i < this.orgaUsers.length; i++) {
           this.uiUserService.getRoleForUserInOrga(+orgaId, this.orgaUsers[i].emailAdress).subscribe(response => {
             this.orgaUserRoles[i] = response.role;
@@ -89,6 +87,7 @@ export class ManagementComponent implements OnInit {
       this.displayedColumns = ['FirstName','LastName','eMail','actions'];
     }
   }
+
 
   showPopup = false;
   openPopup() {

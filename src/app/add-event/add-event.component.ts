@@ -10,6 +10,7 @@ import {EventSeries} from "../../DataTransferObjects/EventSeries";
 import {ThemePalette} from "@angular/material/core";
 import {Preset} from "../../DataTransferObjects/Preset";
 import {MatSelectChange} from "@angular/material/select";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-add-event',
@@ -49,14 +50,18 @@ export class AddEventComponent implements OnInit {
   file!: File;
   formData: FormData;
 
-  constructor( private breakpointObserver: BreakpointObserver, private uiOrganizerService: UiOrganizerService) {
+  constructor( private breakpointObserver: BreakpointObserver, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar) {
     this.fileControl = new FormControl(this.file)
   }
 
 
   ngOnInit() {
     this.fileControl.valueChanges.subscribe((file: any) => {
-      this.file = file;
+      if (file.size > 1048576) {
+        this.snackBar.open("Image-Größe maximal 1MB", 'Close', { duration: 5000 });
+      } else {
+        this.file = file;
+      }
     });
 
     const orgaId = sessionStorage.getItem('orgaId');

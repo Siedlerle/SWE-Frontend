@@ -17,6 +17,7 @@ import {UiAttendeeService} from "../../services/ui-attendee.service";
 import {Question} from "../../DataTransferObjects/Question";
 import {EnumEventRole} from "../../DataTransferObjects/EnumEventRole";
 import {UiUserService} from "../../services/ui-user.service";
+import {ThemePalette} from "@angular/material/core";
 
 @Component({
   selector: 'app-event-card',
@@ -34,8 +35,9 @@ export class EventCardComponent implements OnInit {
   displayedDocumentColumns: string[] = ['Filename', 'Filetype', 'Filesize', 'actions'];
   attendees: User[];
   backendURL: string = "";
-
-
+  newEventImage!: File;
+  newEventImageControl: FormControl;
+  color: ThemePalette = 'primary';
   accept!: string;
   fileControl = new FormControl();
   file!: File;
@@ -72,6 +74,7 @@ export class EventCardComponent implements OnInit {
     }
     this.getReadableStatus();
     this.backendURL = URLs.backend;
+    this.newEventImageControl = new FormControl(this.file)
   }
 
   ngOnInit() {
@@ -133,6 +136,14 @@ export class EventCardComponent implements OnInit {
         }
       }
     });
+
+    this.newEventImageControl.valueChanges.subscribe((file: any) => {
+      if (file.size > 1048576) {
+        this.snackBar.open("Image-Größe maximal 1MB", 'Close', { duration: 5000 });
+      } else {
+        this.newEventImage = file;
+      }
+    })
   }
 
   removeUser(user: User){
@@ -171,11 +182,11 @@ export class EventCardComponent implements OnInit {
   }
 
   onChangeEvent(form: NgForm) {
-    this.uiOrganizerService.changeEvent(this.eventData).subscribe(response => {
-      console.log(response);
+    this.uiOrganizerService.changeEvent(this.eventData, this.newEventImage).subscribe(response => {
       const text = response.message;
       if (text === "Event changed successfully") {
         this.snackBar.open("Event erfolgreich geändert", 'Close', { duration: 10000 });
+        location.reload()
       } else {
         this.snackBar.open("Änderung des Events fehlgeschlagen", 'Close', { duration: 10000 });
       }

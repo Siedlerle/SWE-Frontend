@@ -7,25 +7,25 @@
       <button mat-fab (click)="closeOrganisationBannerUpload()" class = "close-Button">
         <mat-icon class ="close-Icon">close</mat-icon>
       </button>
-      <h2>Organisationsbanner hochladen</h2>
+      <h2>Organisation bearbeiten</h2>
     </div>
     <div class="content">
-
+      <mat-form-field appearance="fill" style="position: relative; width: 100%">
+        <mat-label>Name der Organisation</mat-label>
+        <input matInput placeholder="Name der Organisation" [(ngModel)]="orga.name">
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="position: relative; width: 100%">
+        <mat-label>Standort der Organisation</mat-label>
+        <input matInput placeholder="Standort der Organisation" [(ngModel)]="orga.location">
+      </mat-form-field>
       <mat-form-field style="width: 240px">
         <ngx-mat-file-input [formControl]="fileControl" [multiple]="false" [accept]="accept" style="position: relative; width: 100%" class="upload">
           <mat-icon ngxMatFileInputIcon>upload</mat-icon>
         </ngx-mat-file-input>
       </mat-form-field>
-
-      <mat-form-field appearance="fill" style="position: relative; width: 100%">
-        <mat-label>Name der Organisation</mat-label>
-        <input matInput placeholder="Name der Organisation">
-      </mat-form-field>
-      <mat-form-field appearance="fill" style="position: relative; width: 100%">
-        <mat-label>Standort der Organisation</mat-label>
-        <input matInput placeholder="Standort der Organisation">
-      </mat-form-field>
-      <button mat-raised-button class="submit-button" type="submit">Änderungen übernehmen</button>
+      <p>
+        <button mat-raised-button class="submit-button" (click)="changeOrganisation()">Änderungen übernehmen</button>
+      </p>
     </div>
   </div>
 
