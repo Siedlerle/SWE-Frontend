@@ -63,11 +63,11 @@
             Person einladen
             <mat-icon>person_add</mat-icon>
           </button>
-          <button mat-raised-button (click) = "openGroupManagement()" class="group-management-button">
+          <button mat-raised-button *ngIf="isAdmin" (click) = "openGroupManagement()" class="group-management-button">
             Gruppen verwalten
             <mat-icon>settings</mat-icon>
           </button>
-          <button mat-raised-button (click) = "openOrganisationBannerUpload()" class="group-management-button">
+          <button mat-raised-button *ngIf="isAdmin" (click) = "openOrganisationBannerUpload()" class="group-management-button">
             Organisation bearbeiten
             <mat-icon>edit</mat-icon>
           </button>

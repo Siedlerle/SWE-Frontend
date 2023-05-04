@@ -100,6 +100,16 @@ mat-form-field{
   color: black;
   display: block;
   margin-right: auto;
+  margin-bottom: 3px;
+}
+
+.mat-column-actions {
+  flex: 0 0 20%;
+}
+
+
+.group-table {
+  table-layout: fixed;
 }
 
 .memberTable {

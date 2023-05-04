@@ -5,6 +5,7 @@ import {URLs} from "../assets/SystemVariables/URLs";
 import {CustomEvent} from "../DataTransferObjects/CustomEvent";
 import {Organisation} from "../DataTransferObjects/Organisation";
 import {Group} from "../DataTransferObjects/Group";
+import {User} from "../DataTransferObjects/User";
 
 @Injectable({
   providedIn: 'root'

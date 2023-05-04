@@ -121,4 +121,9 @@ export class UiOrganizerService {
   changeTutorToAttendee(eventId: number, emailAddress: string){
     return this.http.post(URLs.backend+'/organizer/event/'+eventId+'/attendee/'+emailAddress+'/set-attendee',null);
   }
+
+  getUsersOfGroup(groupId: number):Observable<User[]> {
+    return this.http.post<User[]>(URLs.backend+'/organizer/group/'+groupId+'/users/get-all', null)
+  }
+
 }

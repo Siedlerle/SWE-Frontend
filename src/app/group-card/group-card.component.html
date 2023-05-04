@@ -14,7 +14,7 @@
         <mat-label>Name der Gruppe</mat-label>
         <input matInput placeholder="Name der Gruppe" name="gruppenName" [(ngModel)]="group.name">
       </mat-form-field>
-      <button mat-raised-button="addEventButton" class="add-Group-Button" (click)="saveGroup()" [disabled]="!group.name">speichern</button>
+      <button mat-raised-button="addEventButton" class="add-Group-Button" (click)="saveName()" [disabled]="!group.name">speichern</button>
     </div>
     <div class = "userTable">
         <div class="group-user-management-toolbar">
@@ -50,7 +50,7 @@
             <ng-container matColumnDef="actions">
               <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
               <mat-cell *matCellDef="let user">
-                <button mat-icon-button matTooltip="Benutzer aus Gruppe entfernen" >
+                <button mat-icon-button matTooltip="Benutzer aus Gruppe entfernen" (click)="removeUserFromGroup(user)">
                   <mat-icon>
                     delete
                   </mat-icon>

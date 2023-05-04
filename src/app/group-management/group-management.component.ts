@@ -8,6 +8,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {User} from "../../DataTransferObjects/User";
 import {Group} from "../../DataTransferObjects/Group";
 import { MatSort } from '@angular/material/sort';
+import {GroupCardDataService} from "../group-card/GroupCardDataService";
 
 @Component({
   selector: 'app-group-management',
@@ -17,7 +18,7 @@ import { MatSort } from '@angular/material/sort';
 export class GroupManagementComponent implements AfterViewInit {
 
 
-  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiAdminService: UiAdminService) { }
+  constructor(private groupCardDataService: GroupCardDataService, private uiOrganizerService: UiOrganizerService, private uiAdminService: UiAdminService) { }
   managingEvents: CustomEvent[];
   @ViewChild('searchbar') searchbar: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
@@ -86,8 +87,9 @@ export class GroupManagementComponent implements AfterViewInit {
 
 
   showGroupCard = false;
-  openGroupCard(){
+  openGroupCard(group: Group){
     this.showGroupCard = true;
+    this.groupCardDataService.setCardData(group);
   }
   closeGroupCard(){
     this.showGroupCard = false;

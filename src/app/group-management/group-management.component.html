@@ -26,7 +26,7 @@
 
       </div>
       <div class = "memberTable">
-        <mat-table [dataSource]="dataSource" matSort class = "">
+        <mat-table [dataSource]="dataSource" matSort class = "group-table">
           <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
             <mat-cell *matCellDef="let group">{{group.name}}</mat-cell>
@@ -35,14 +35,14 @@
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
             <mat-cell *matCellDef="let group">
+              <button mat-icon-button (click)="openGroupCard(group)">
+                <mat-icon>
+                  edit
+                </mat-icon>
+              </button>
               <button mat-icon-button (click)="deleteGroup(group.id)">
                 <mat-icon>
                   delete
-                </mat-icon>
-              </button>
-              <button mat-icon-button (click)="openGroupCard()">
-                <mat-icon>
-                  edit
                 </mat-icon>
               </button>
             </mat-cell>

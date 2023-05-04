@@ -2,15 +2,16 @@
   position: fixed;
   left: 50%;
   right: 50%;
+  top: 10%;
   transform: translateX(-55%);
   z-index: 9999;
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   width: 50%;
-  height: 90%;
+  height: 70%;
   border-radius: 10px;
   margin: 3%;
-
+  padding: 1%;
 }
 .popup-background{
   position: fixed;
@@ -18,9 +19,12 @@
   left: 0;
   right: 0;
   bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
-
+.heading {
+  height: 10%;
+}
 .close-Button{
   width: 30px;
   height: 30px;

@@ -112,7 +112,7 @@ const routes: Routes = [
     GroupCardComponent,
     AddUserToGroupComponent,
 
-    ],
+  ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),

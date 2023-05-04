@@ -29,11 +29,11 @@ export class OrganisationBannerUploadComponent {
 
     });
 
-  if(orgaId != null) {
-    this.uiUserService.getOrganisation(orgaId).subscribe(data => {
-      this.orga = data;
-    });
-  }
+    if(orgaId != null) {
+      this.uiUserService.getOrganisation(orgaId).subscribe(data => {
+        this.orga = data;
+      });
+    }
   }
 
   accept!: string;

@@ -33,6 +33,7 @@ export class ManagementComponent implements OnInit  {
   orgaUsers: User[];
   orgaUserRoles: string[] = [];
   rightsList = ['Administrator', 'Organisator', 'Benutzer'];
+  isAdmin: boolean;
 
   filterEvents() {
     if (!this.eventSearchText) {
@@ -60,6 +61,7 @@ export class ManagementComponent implements OnInit  {
           }
         });
       });
+
     } else if(emailAddress != null && orgaId != null && orgaId !=='' && orgaRole != null && orgaRole === 'ADMIN') {
       this.uiAdminService.getEventsofOrganisation(orgaId).subscribe(response =>{
         this.managingEvents = response;
@@ -69,6 +71,7 @@ export class ManagementComponent implements OnInit  {
           }
         });
       });
+
     }
     if(orgaId != null && orgaId !== ''){
       this.uiOrganizerService.getAllUsersInOrganisation(orgaId).subscribe(response =>{
@@ -83,8 +86,10 @@ export class ManagementComponent implements OnInit  {
     }
     if (orgaRole === "ADMIN") {
       this.displayedColumns = ['FirstName','LastName','eMail','rights','actions'];
+      this.isAdmin = true;
     } else {
-      this.displayedColumns = ['FirstName','LastName','eMail','actions'];
+      this.displayedColumns = ['FirstName','LastName','eMail'];
+      this.isAdmin = false;
     }
   }
 
