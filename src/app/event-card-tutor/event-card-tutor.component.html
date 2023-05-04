@@ -79,6 +79,7 @@
 
                         <mat-list *ngFor="let comments of allComments[chat.id!]">
                           {{comments.text}}
+                          <div style="text-align: right; float: right">{{comments.user!.firstname}} {{comments.user!.lastname}}</div>
                         </mat-list>
 
                       </mat-expansion-panel>
