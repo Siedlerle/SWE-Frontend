@@ -49,6 +49,7 @@ export class AddEventComponent implements OnInit {
   ];
   file!: File;
   formData: FormData;
+  private eventForm: any;
 
   constructor( private breakpointObserver: BreakpointObserver, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar) {
     this.fileControl = new FormControl(this.file)
@@ -158,6 +159,18 @@ export class AddEventComponent implements OnInit {
       ];
     })
   );
+
+  validateTime() {
+    if (this.event.startTime && this.event.endTime) {
+      const startTime = new Date(this.eventStartDate + this.event.startTime);
+      const endTime = new Date(this.eventEndDate + this.event.endTime );
+      if (startTime >= endTime) {
+        this.eventForm.controls['eventEndTime'].setErrors({ 'incorrect': true });
+      } else {
+        this.eventForm.controls['eventEndTime'].setErrors(null);
+      }
+    }
+  }
 }
 
 
