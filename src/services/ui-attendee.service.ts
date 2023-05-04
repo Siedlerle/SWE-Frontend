@@ -5,6 +5,8 @@ import {CustomDocument} from "../DataTransferObjects/CustomDocument";
 import {URLs} from "../assets/SystemVariables/URLs";
 import {Question} from "../DataTransferObjects/Question";
 import {Answer} from "../DataTransferObjects/Answer";
+import {Chat} from "../DataTransferObjects/Chat";
+import {Comment} from "../DataTransferObjects/Comment";
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +34,17 @@ export class UiAttendeeService {
 
   submitSurvey(emailAdress: string, answers:Answer[]){
     return this.http.post(URLs.backend+URLs.answerSurvey+emailAdress,answers);
+  }
+
+  getChatForEvent(eventId: number):Observable<Chat[]>{
+    return this.http.post<Chat[]>(URLs.backend+"/attendee/get-chat/"+eventId, null);
+  }
+
+  getCommentsForChat(chatId: number, userId: number):Observable<Comment[]>{
+    return this.http.post<Comment[]>(URLs.backend+"/attendee/get-comment-on-chat/"+chatId+"/"+userId, null);
+  }
+
+  commentOnChat(chatId: number, text: string, userEmail: string){
+    return this.http.post(URLs.backend+"/attendee/comment-on-chat/"+chatId+"/"+userEmail, text);
   }
 }

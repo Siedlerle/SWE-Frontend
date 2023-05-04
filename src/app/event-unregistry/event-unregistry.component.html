@@ -15,7 +15,6 @@
             Eventkarte
           </div>
         </ng-template>
-        <mat-card>
           <div class="tab-content">
             <h1>{{eventData.name}}</h1>
             <h3>Beschreibung</h3>
@@ -39,10 +38,10 @@
               {{eventData.location}}
             </p>
           </div>
-          <div class="unregister-button">
-            <button mat-raised-button (click)="unregisterFromEvent()">Abmelden</button>
-          </div>
-        </mat-card>
+            <button mat-raised-button (click)="unregisterFromEvent()" class="unregister-button">Abmelden</button>
+
+
+
 
       </mat-tab>
 

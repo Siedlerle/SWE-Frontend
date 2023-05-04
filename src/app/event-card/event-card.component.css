@@ -104,27 +104,6 @@ img{
 .image-container{
 }
 
-.example-small-box, .example-large-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 16px;
-  padding: 16px;
-  border-radius: 8px;
-  opacity: 1;
-}
-
-.example-small-box {
-  height: 100px;
-  width: 100px;
-  opacity: 1;
-}
-
-.example-large-box {
-  height: 300px;
-  width: 300px;
-  opacity: 1;
-}
 mat-form-field{
   width: 100%;
 

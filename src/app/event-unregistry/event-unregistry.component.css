@@ -11,6 +11,7 @@
   width: 50%;
   height: 80%;
   border-radius: 10px;
+  overflow: auto;
 }
 .banner {
   display: block;
@@ -59,29 +60,26 @@ img{
 }
 .image-container{
 }
+.unregister-button{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 2%;
+  display: block;
+  font-weight: bolder;
+}
+
 mat-tab-group{
-  height: auto;
   width: auto;
 }
 
-mat-tab{
+.tab-content {
   height: 100%;
-  overflow: hidden;
-}
-
-.mat-tab-label {
-  background-color: #6c757d;
-  color: #fff;
-}
-
-.mat-mdc-tab-body {
 
 }
-.buttons{
-  position: absolute;
-  right: .5%;
-  down: .5%
-}
+
+
+
 
 
 

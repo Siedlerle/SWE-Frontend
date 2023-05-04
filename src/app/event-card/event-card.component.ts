@@ -17,6 +17,8 @@ import {UiAttendeeService} from "../../services/ui-attendee.service";
 import {Question} from "../../DataTransferObjects/Question";
 import {EnumEventRole} from "../../DataTransferObjects/EnumEventRole";
 import {UiUserService} from "../../services/ui-user.service";
+import {Chat} from "../../DataTransferObjects/Chat";
+import {Comment} from "../../DataTransferObjects/Comment";
 import {ThemePalette} from "@angular/material/core";
 
 @Component({
@@ -60,6 +62,12 @@ export class EventCardComponent implements OnInit {
   eventLocation: string = "";
   eventStatus: string = "";
   imageSource: string = "";
+  chatMessage: string;
+  allChats: Chat[] = [];
+  chat: Chat;
+  commentMessage: string;
+  allComments: Comment [][] = [];
+
 
   attendeeRoleMap: {[key:number]:boolean} = {};
 
@@ -105,6 +113,20 @@ export class EventCardComponent implements OnInit {
         }
 
       });
+
+      this.uiAttendeeService.getChatForEvent(id).subscribe(response =>{
+          this.allChats = response;
+          for(let i = 0; i < this.allChats.length; i++){
+
+            let chatId : number = response[i].id!;
+
+
+            this.uiAttendeeService.getCommentsForChat(chatId!, 0).subscribe(data =>{
+
+              this.allComments[chatId] = data;
+            })
+          }
+      })
     }
 
 
@@ -146,6 +168,29 @@ export class EventCardComponent implements OnInit {
     })
   }
 
+  sendChatMessage(message: string){
+    const id = this.eventData.id;
+
+    const emailAddress = sessionStorage.getItem('emailAdress');
+    if(id != null && emailAddress != null) {
+      this.uiTutorService.sendMessage(id, this.chatMessage, emailAddress).subscribe(response =>{
+
+      })
+    }
+    location.reload();
+  }
+
+  sendComment(chatId: number, message: string){
+    const id = this.eventData.id;
+    const emailAddress = sessionStorage.getItem('emailAdress');
+
+    if(id != null && chatId != null && emailAddress != null) {
+      this.uiAttendeeService.commentOnChat(chatId, message, emailAddress).subscribe(response =>{
+
+      })
+    }
+    location.reload();
+  }
   removeUser(user: User){
     let eventId = this.eventData.id;
     if ( eventId != null ){

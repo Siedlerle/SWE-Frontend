@@ -46,6 +46,55 @@
           <p *ngIf="attendees">
             {{attendees.length}}
           </p>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h3>
+                  Nachrichten
+                </h3>
+              </mat-panel-title>
+              <mat-panel-description>
+                <mat-icon>chat</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-action-row>
+            </mat-action-row>
+            <mat-card class="dashboard-card">
+              <mat-card-content>
+                <div  #chatContainer style="height: 150px; overflow-y: scroll;margin-bottom: 1%">
+                  <div>
+
+                    <mat-accordion *ngFor="let chat of allChats">
+                      <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          {{chat.message}}
+                        </mat-expansion-panel-header>
+
+
+                          <mat-list *ngFor="let comment of allComments[chat.id!]">
+                            {{comment.text}}
+                            <div style="text-align: right; float: right">{{comment.user!.firstname}} {{comment.user!.lastname}}</div>
+                          </mat-list>
+
+
+                        <mat-form-field style="display: flex; width: 80%; justify-content: center; align-content: center">
+                          <input matInput placeholder="send comment" [(ngModel)]="commentMessage" >
+                          <button mat-icon-button matSuffix (click)="sendComment(chat.id!, commentMessage)" >
+                            <mat-icon>send</mat-icon>
+                          </button>
+                        </mat-form-field>
+
+                      </mat-expansion-panel>
+                    </mat-accordion>
+
+                  </div>
+                </div>
+
+              </mat-card-content>
+            </mat-card>
+          </mat-expansion-panel>
+
         </mat-tab>
         <mat-tab >
           <ng-template mat-tab-label class="mat-tab-label">
@@ -70,12 +119,27 @@
                 <mat-card-content>
                   <div  #chatContainer style="height: 150px; overflow-y: scroll;margin-bottom: 1%">
                     <div>
-                      <mat-icon>chevron_right</mat-icon>
+
+                      <mat-accordion *ngFor="let chat of allChats">
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            {{chat.message}}
+                          </mat-expansion-panel-header>
+
+                          <mat-list *ngFor="let comments of allComments[chat.id!]">
+                            {{comments.text}}
+                          </mat-list>
+
+                        </mat-expansion-panel>
+                      </mat-accordion>
+
+
+                      </div>
                     </div>
-                  </div>
+
                   <mat-form-field style="display: flex; width: 80%; justify-content: center; align-content: center">
-                    <input matInput placeholder="Enter text" >
-                    <button mat-icon-button matSuffix >
+                    <input matInput placeholder="Enter text" [(ngModel)]="chatMessage" >
+                    <button mat-icon-button matSuffix (click)="sendChatMessage(chatMessage)" >
                       <mat-icon>send</mat-icon>
                     </button>
                   </mat-form-field>
