@@ -36,4 +36,9 @@ export class UiTutorService {
   getAllAnswersForQuestion(eventId: number):Observable<Answer[]>{
     return this.http.post<Answer[]>(URLs.backend+"/tutor/event/"+eventId+"/question-answers",null);
   }
+
+  sendMessage(eventId : number, message: string, email: string){
+
+    return this.http.post(URLs.backend+"/tutor/event/"+eventId+"/chat/add/"+email, message);
+  }
 }
