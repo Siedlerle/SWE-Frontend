@@ -40,7 +40,7 @@
                   delete
                 </mat-icon>
               </button>
-              <button mat-icon-button>
+              <button mat-icon-button (click)="openGroupCard()">
                 <mat-icon>
                   edit
                 </mat-icon>
@@ -61,6 +61,7 @@
   </div>
 
   <app-add-group *ngIf="showAddGroup" (onCloseAddGroup)="closeAddGroup(); reloadGroups();"></app-add-group>
+  <app-group-card *ngIf="showGroupCard" (onClose)="closeGroupCard()"></app-group-card>
 
 </html>
 

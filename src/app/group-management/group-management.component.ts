@@ -73,4 +73,13 @@ export class GroupManagementComponent {
   closePopup() {
     this.onClose.emit();
   }
+
+
+  showGroupCard = false;
+  openGroupCard(){
+    this.showGroupCard = true;
+  }
+  closeGroupCard(){
+    this.showGroupCard = false;
+  }
 }
