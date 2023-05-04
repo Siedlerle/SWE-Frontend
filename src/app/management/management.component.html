@@ -36,7 +36,8 @@
           </button>
         </div>
       </div>
-      <mat-list>
+
+      <mat-list class="event-list">
         <mat-list-item *ngFor="let event of filterEvents()">
           <mat-card (click)="openCard(event)" class="card">
             <img mat-card-sm-image src="{{backendURL + event.image}}" onerror="this.src='../../assets/images/nature.jpg'" alt = "" class = "mat-card-image">
@@ -47,6 +48,7 @@
           </mat-card>
         </mat-list-item>
       </mat-list>
+
     </div>
 
   </mat-grid-tile>
