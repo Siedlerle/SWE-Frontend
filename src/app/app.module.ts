@@ -62,6 +62,7 @@ import { PresetManagementComponent } from './preset-management/preset-management
 import {AddUserToGroupComponent} from "./add-user-to-group/add-user-to-group.component";
 import {GroupCardComponent} from "./group-card/group-card.component";
 import {MatSortModule} from "@angular/material/sort";
+import { ChangeOrganizerOfEventComponent } from './change-organizer-of-event/change-organizer-of-event.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -111,6 +112,7 @@ const routes: Routes = [
     PresetManagementComponent,
     GroupCardComponent,
     AddUserToGroupComponent,
+    ChangeOrganizerOfEventComponent,
 
   ],
   imports: [

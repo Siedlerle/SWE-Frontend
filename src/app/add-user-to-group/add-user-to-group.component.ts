@@ -31,12 +31,16 @@ export class AddUserToGroupComponent implements OnInit {
     }
   }
 
-  closeAddUserToGroup() {
-    this.onClose.emit();
+  addUserToGroup(user: User) {
+    if (this.group.id != null) {
+      this.uiAdminService.addUserToGroup(this.group.id, user.emailAdress).subscribe();
+      new Promise(resolve => setTimeout(resolve, 1500)).then(() => {
+        this.ngOnInit();
+      });
+    }
   }
 
-
-  addUserToGroup(user: User) {
-    
+  closeAddUserToGroup() {
+    this.onClose.emit();
   }
 }

@@ -38,7 +38,7 @@ export class GroupCardComponent implements OnInit {
 
 
   saveName() {
-
+    this.uiAdminService.changeGroup(this.group).subscribe();
   }
 
   removeUserFromGroup(user: User) {
@@ -57,6 +57,7 @@ export class GroupCardComponent implements OnInit {
   }
   closeAddUserToGroup() {
     this.showAddUserToGroup = false;
+    this.ngOnInit();
   }
   closeGroupCard(){
     this.onClose.emit();

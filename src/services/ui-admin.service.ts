@@ -42,8 +42,16 @@ export class UiAdminService {
     return this.http.post<String>(URLs.backend+'/admin/orga/change', formData);
   }
 
+  changeOrganizerOfEvent(eventId: number, emailAddress: string):Observable<User>{
+    return this.http.post<User>(URLs.backend+'/admin/event/'+eventId+'/organizer/change/'+emailAddress, null);
+  }
+
   createGroup(orgaId: string, group: Group) {
     return this.http.post(URLs.backend+'/admin/orga/'+orgaId+'/group/add', group);
+  }
+
+  changeGroup(group: Group) {
+    return this.http.post(URLs.backend+'/admin/group/change', group);
   }
 
   deleteGroup(groupId: number) {
@@ -64,5 +72,9 @@ export class UiAdminService {
 
   getUsersOfOrgaNotInGroup(groupId: number, orgaId: string):Observable<User[]> {
     return this.http.post<User[]>(URLs.backend+'/admin/orga/'+orgaId+'/group/'+groupId+'/user/get-not-in-group', null);
+  }
+
+  getAllOrganizersOfOrganisation(orgaId: string):Observable<User[]> {
+    return this.http.post<User[]>(URLs.backend+'/admin/orga/'+orgaId+'/organizers/get-all', null);
   }
 }

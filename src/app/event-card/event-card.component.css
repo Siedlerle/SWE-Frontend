@@ -68,7 +68,10 @@
 mat-icon{
   margin: auto;
 }
-
+.left-items {
+  display: flex;
+  align-items: center;
+}
 .submit-button{
   font-weight: bolder;
   font-size: larger;
