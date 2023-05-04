@@ -53,6 +53,7 @@ export class GroupCardComponent implements OnInit {
   showAddUserToGroup = false;
   openAddUserToGroup() {
     this.showAddUserToGroup = true;
+    this.groupCardDataService.setCardData(this.group);
   }
   closeAddUserToGroup() {
     this.showAddUserToGroup = false;

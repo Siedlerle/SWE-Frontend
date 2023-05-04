@@ -61,4 +61,8 @@ export class UiAdminService {
   removeUserFromGroup(groupId: number, userMail: string) {
     return this.http.post(URLs.backend+'/admin/group/'+groupId+'/user/'+userMail+'/remove', null);
   }
+
+  getUsersOfOrgaNotInGroup(groupId: number, orgaId: string):Observable<User[]> {
+    return this.http.post<User[]>(URLs.backend+'/admin/orga/'+orgaId+'/group/'+groupId+'/user/get-not-in-group', null);
+  }
 }

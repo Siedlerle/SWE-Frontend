@@ -33,8 +33,10 @@
             <ng-container matColumnDef="actions">
               <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
               <mat-cell *matCellDef="let user; let i=index">
-                <button mat-raised-button>
-                  einladen
+                <button mat-icon-button (click)="addUserToGroup(user)">
+                  <mat-icon>
+                    person_add
+                  </mat-icon>
                 </button>
               </mat-cell>
             </ng-container>
