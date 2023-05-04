@@ -48,6 +48,9 @@ export class EventCardTutorComponent {
   questions: Question[] = [];
   QuestionType = QuestionType;
 
+  answerString : string[] = [];
+
+
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService) {
     this.eventData = this.dataService.getCardData();
     this.eventStartDate = new Date(this.eventData.startDate);
@@ -186,7 +189,10 @@ export class EventCardTutorComponent {
     return megabytes.toFixed(2) + " MB";
   }
 
-
+  saveAnswer(index: number, question:Question) {
+    // @ts-ignore
+    question.answerString[index] = this.answerString[index];
+  }
   addQuestion() {
     const newQuestion: Question = {
       questionText: '',

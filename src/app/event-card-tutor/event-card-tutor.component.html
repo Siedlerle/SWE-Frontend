@@ -167,7 +167,7 @@
                     <div *ngIf="question.questionType === QuestionType.MULTIPLECHOICE">
                       <ng-container *ngFor="let answer of question.answerString; let i = index" class="flex-row">
                         <mat-form-field>
-                          <input matInput placeholder="Antwortmöglichkeit {{ i + 1 }}" [(ngModel)]="question.answerString[i]" *ngIf="question.answerString">
+                          <input matInput placeholder="Antwortmöglichkeit {{ i + 1 }}" [(ngModel)]="answerString[i]" *ngIf="question.answerString" (blur)="saveAnswer(i, question)">
                           <button matSuffix mat-icon-button color="warn" *ngIf="question.answerString && question.answerString.length > 2" (click)="question.answerString.splice(i, 1)">
                             <mat-icon>delete</mat-icon>
                           </button>

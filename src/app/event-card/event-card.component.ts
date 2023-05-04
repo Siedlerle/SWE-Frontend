@@ -45,6 +45,8 @@ export class EventCardComponent implements OnInit {
   questions: Question[] = [];
   QuestionType = QuestionType;
 
+  answerString : string[] = [];
+
   isEditing = false;
   eventName: string ="";
   eventDescription: string = "";
@@ -286,7 +288,10 @@ export class EventCardComponent implements OnInit {
     return megabytes.toFixed(2) + " MB";
   }
 
-
+  saveAnswer(index: number, question:Question) {
+    // @ts-ignore
+    question.answerString[index] = this.answerString[index];
+  }
 
   addQuestion() {
     const newQuestion: Question = {

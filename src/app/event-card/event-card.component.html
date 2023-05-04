@@ -143,7 +143,7 @@
             </mat-expansion-panel>
 
 
-
+            <div class="umfrage-panel">
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -158,7 +158,7 @@
               <mat-card>
                 <ng-container *ngFor="let question of questions">
                   <mat-card>
-                    <mat-card-content *ngIf="question">
+                    <mat-card-content *ngIf="question" >
                       <mat-form-field>
                         <input matInput [(ngModel)]="question.questionText" placeholder="Stellen Sie ihre Frage hier" >
                         <button matSuffix mat-icon-button  color="warn" (click)="removeQuestion(question)" aria-label="Entfernen">
@@ -173,7 +173,7 @@
                       <div *ngIf="question.questionType === QuestionType.MULTIPLECHOICE">
                         <ng-container *ngFor="let answer of question.answerString; let i = index" class="flex-row">
                           <mat-form-field>
-                            <input matInput placeholder="Antwortmöglichkeit {{ i + 1 }}" [(ngModel)]="question.answerString[i]" *ngIf="question.answerString">
+                            <input matInput placeholder="Antwortmöglichkeit {{ i + 1 }}" [(ngModel)]="answerString[i]" *ngIf="question.answerString" (blur)="saveAnswer(i, question)">
                             <button matSuffix mat-icon-button color="warn" *ngIf="question.answerString && question.answerString.length > 2" (click)="question.answerString.splice(i, 1)">
                               <mat-icon>delete</mat-icon>
                             </button>
@@ -191,8 +191,7 @@
                 </mat-card-actions>
               </mat-card>
             </mat-expansion-panel>
-
-
+            </div>
 
             </mat-accordion>
         </mat-tab>
