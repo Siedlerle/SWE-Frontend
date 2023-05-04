@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {URLs} from "../assets/SystemVariables/URLs";
 import {CustomEvent} from "../DataTransferObjects/CustomEvent";
 import {Organisation} from "../DataTransferObjects/Organisation";
+import {Group} from "../DataTransferObjects/Group";
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,13 @@ export class UiAdminService {
     formData.append('image', image);
 
     return this.http.post<String>(URLs.backend+'/admin/orga/change', formData);
+  }
+
+  createGroup(orgaId: string, group: Group) {
+    return this.http.post(URLs.backend+'/admin/orga/'+orgaId+'/group/add', group);
+  }
+
+  getGroupsOfOrganisation(orgaId: string):Observable<Group[]> {
+    return this.http.post<Group[]>(URLs.backend+'/organizer/organisation/'+orgaId+'/group/get-all', null);
   }
 }

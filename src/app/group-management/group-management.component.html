@@ -27,24 +27,14 @@
       </div>
       <div class = "memberTable">
         <mat-table [dataSource]="dataSource" matSort class = "">
-          <ng-container matColumnDef="FirstName">
+          <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-            <mat-cell *matCellDef="let user">{{user.firstname}}</mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="LastName">
-            <mat-header-cell *matHeaderCellDef>Beschreibung</mat-header-cell>
-            <mat-cell *matCellDef="let user">{{user.lastname}}</mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="eMail">
-            <mat-header-cell *matHeaderCellDef>Mitglieder</mat-header-cell>
-            <mat-cell *matCellDef="let user">{{user.emailAdress}}</mat-cell>
+            <mat-cell *matCellDef="let group">{{group.name}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
-            <mat-cell *matCellDef="let user">
+            <mat-cell *matCellDef="let group">
               <button mat-icon-button>
                 <mat-icon>
                   delete
@@ -70,7 +60,7 @@
 
   </div>
 
-  <app-add-group *ngIf="showAddGroup" (onCloseAddGroup)="closeAddGroup()"></app-add-group>
+  <app-add-group *ngIf="showAddGroup" (onCloseAddGroup)="closeAddGroup(); reloadGroups();"></app-add-group>
 
 </html>
 

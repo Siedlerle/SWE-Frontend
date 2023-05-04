@@ -6,6 +6,7 @@ import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {User} from "../../DataTransferObjects/User";
+import {Group} from "../../DataTransferObjects/Group";
 
 @Component({
   selector: 'app-group-management',
@@ -24,11 +25,11 @@ export class GroupManagementComponent {
 
   @Output() onClose = new EventEmitter<void>();
 
-  dataSource = new MatTableDataSource<User>();
-  displayedColumns: string[] = ['FirstName','LastName','eMail','actions'];
-  attendees: User[];
+  dataSource = new MatTableDataSource<Group>();
+  displayedColumns: string[] = ['name','actions'];
+  groups: Group[];
 
-  filterEvents() {
+  filterGroups() {
     if (!this.searchText) {
       return this.managingEvents;
     }
@@ -38,18 +39,25 @@ export class GroupManagementComponent {
   }
 
   ngOnInit() {
-    const emailAddress = sessionStorage.getItem('emailAdress');
     const orgaId = sessionStorage.getItem('orgaId');
-    const orgaRole = sessionStorage.getItem('orgaRole')
-    if (emailAddress != null && orgaId != null && orgaId !=='' && orgaRole != null && orgaRole === 'ORGANIZER') {
-      this.uiOrganizerService.getManagingEvents(emailAddress, orgaId).subscribe(response => {
-        this.managingEvents = response;
-      });
-    } else if(emailAddress != null && orgaId != null && orgaId !=='' && orgaRole != null && orgaRole === 'ADMIN') {
-      this.uiAdminService.getEventsofOrganisation(orgaId).subscribe(response =>{
-        this.managingEvents = response;
-      });
+    if (orgaId != null) {
+      this.uiAdminService.getGroupsOfOrganisation(orgaId).subscribe(response => {
+        this.groups = response;
+        this.dataSource.data = this.groups;
+      })
     }
+  }
+
+  reloadGroups() {
+    const orgaId = sessionStorage.getItem('orgaId');
+    new Promise(resolve => setTimeout(resolve, 1500)).then(() => {
+      if (orgaId != null) {
+        this.uiAdminService.getGroupsOfOrganisation(orgaId).subscribe(response => {
+          this.groups = response;
+          this.dataSource.data = this.groups;
+        })
+      }
+    });
   }
 
   showAddGroup = false;

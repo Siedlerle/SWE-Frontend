@@ -10,9 +10,9 @@
     <div class="content">
       <mat-form-field>
         <mat-label>Name der Gruppe</mat-label>
-        <input matInput placeholder="Name der Gruppe" name="gruppenName">
+        <input matInput placeholder="Name der Gruppe" name="gruppenName" [(ngModel)]="group.name">
       </mat-form-field>
-      <button mat-raised-button="addEventButton" class="add-Group-Button">Erstellen</button>
+      <button mat-raised-button="addEventButton" class="add-Group-Button" (click)="createGroup()" [disabled]="!group.name">Erstellen</button>
     </div>
 
   </div>
