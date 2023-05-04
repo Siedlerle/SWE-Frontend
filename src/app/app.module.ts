@@ -59,6 +59,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import { EventCardTutorComponent } from './event-card-tutor/event-card-tutor.component';
 import { OrganisationBannerUploadComponent } from './organisation-banner-upload/organisation-banner-upload.component';
 import { PresetManagementComponent } from './preset-management/preset-management.component';
+import {AddUserToGroupComponent} from "./add-user-to-group/add-user-to-group.component";
 import {GroupCardComponent} from "./group-card/group-card.component";
 import {MatSortModule} from "@angular/material/sort";
 
@@ -76,39 +77,40 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        NavComponent,
-        EventCatalogComponent,
-        MyEventsComponent,
-        HomepageComponent,
-        ManagementComponent,
-        ProfileComponent,
-        FilterPipe,
-        AddEventComponent,
-        EventCardComponent,
-        LoginComponent,
-        OrganisationCatalogComponent,
-        ImprintComponent,
-        PrivacyPolicyComponent,
-        OrganisationCardComponent,
-        UsermanagementInOrganisationComponent,
-        AddUserToEventComponent,
-        GroupManagementComponent,
-        AddGroupComponent,
-        EventDeleteDialogComponent,
-        AddUserToOrganisationComponent,
-        OrganisationCardInvitationComponent,
-        EventCardInvitationComponent,
-        OrganisationCardRegisteredComponent,
-        EventRegistryComponent,
-        EventRegistryComponent,
-        EventUnregistryComponent,
-        UserDeleteDialogComponent,
-        EventCardTutorComponent,
-        OrganisationBannerUploadComponent,
-        PresetManagementComponent,
-        GroupCardComponent,
+  declarations: [
+    AppComponent,
+    NavComponent,
+    EventCatalogComponent,
+    MyEventsComponent,
+    HomepageComponent,
+    ManagementComponent,
+    ProfileComponent,
+    FilterPipe,
+    AddEventComponent,
+    EventCardComponent,
+    LoginComponent,
+    OrganisationCatalogComponent,
+    ImprintComponent,
+    PrivacyPolicyComponent,
+    OrganisationCardComponent,
+    UsermanagementInOrganisationComponent,
+    AddUserToEventComponent,
+    GroupManagementComponent,
+    AddGroupComponent,
+    EventDeleteDialogComponent,
+    AddUserToOrganisationComponent,
+    OrganisationCardInvitationComponent,
+    EventCardInvitationComponent,
+    OrganisationCardRegisteredComponent,
+    EventRegistryComponent,
+    EventRegistryComponent,
+    EventUnregistryComponent,
+    UserDeleteDialogComponent,
+    EventCardTutorComponent,
+    OrganisationBannerUploadComponent,
+    PresetManagementComponent,
+    GroupCardComponent,
+    AddUserToGroupComponent,
 
     ],
   imports: [
