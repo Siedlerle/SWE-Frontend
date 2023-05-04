@@ -10,10 +10,23 @@
       <h2>Organisationsbanner hochladen</h2>
     </div>
     <div class="content">
-      <ngx-mat-file-input  [formControl]="fileControl" [multiple]="false" [accept]="accept" style="float: right; margin-right: 45px">
-      </ngx-mat-file-input>
-    </div>
 
+      <mat-form-field style="width: 240px">
+        <ngx-mat-file-input [formControl]="fileControl" [multiple]="false" [accept]="accept" style="position: relative; width: 100%" class="upload">
+          <mat-icon ngxMatFileInputIcon>upload</mat-icon>
+        </ngx-mat-file-input>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="position: relative; width: 100%">
+        <mat-label>Name der Organisation</mat-label>
+        <input matInput placeholder="Name der Organisation">
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="position: relative; width: 100%">
+        <mat-label>Standort der Organisation</mat-label>
+        <input matInput placeholder="Standort der Organisation">
+      </mat-form-field>
+      <button mat-raised-button class="submit-button" type="submit">Änderungen übernehmen</button>
+    </div>
   </div>
 
 </div>
