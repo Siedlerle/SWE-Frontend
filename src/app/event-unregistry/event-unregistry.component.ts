@@ -9,6 +9,8 @@ import {UiAttendeeService} from "../../services/ui-attendee.service";
 import {Question} from "../../DataTransferObjects/Question";
 import {QuestionType} from "../../DataTransferObjects/QuestionType";
 import {Answer} from "../../DataTransferObjects/Answer";
+import {Chat} from "../../DataTransferObjects/Chat";
+import {Comment} from "../../DataTransferObjects/Comment";
 
 @Component({
   selector: 'app-event-unregistry',
@@ -27,13 +29,15 @@ export class EventUnregistryComponent implements OnInit {
   fileDataSource = new MatTableDataSource<CustomDocument>();
   eventDocs: CustomDocument[] = [];
   displayedDocumentColumns: string[] = ['Filename', 'Filetype', 'Filesize', 'actions'];
-
+  commentMessage: string;
 
   QuestionType = QuestionType;
   questions: Question[] = [];
 
   answer:string;
   answers: Answer[] = [];
+  allChats: Chat[] = [];
+  allComments: Comment[][] = [];
 
   constructor(private dataService: DataService, private uiUserService:UiUserService, private uiAttendeeService:UiAttendeeService )  {
     this.eventData = this.dataService.getCardData();
@@ -68,9 +72,33 @@ export class EventUnregistryComponent implements OnInit {
           }
         });
       }
+      this.uiAttendeeService.getChatForEvent(id).subscribe(response =>{
+        this.allChats = response;
+        for(let i = 0; i < this.allChats.length; i++){
+
+          let chatId : number = response[i].id!;
+
+
+          this.uiAttendeeService.getCommentsForChat(chatId!, 0).subscribe(data =>{
+
+            this.allComments[chatId] = data;
+          })
+        }
+      })
     }
   }
 
+  sendComment(chatId: number, message: string){
+    const id = this.eventData.id;
+    const emailAddress = sessionStorage.getItem('emailAdress');
+
+    if(id != null && chatId != null && emailAddress != null) {
+      this.uiAttendeeService.commentOnChat(chatId, message, emailAddress).subscribe(response =>{
+
+      })
+    }
+    location.reload();
+  }
   mapStringToEnum(value: string): QuestionType | null {
     switch(value) {
       case 'MULTIPLECHOICE': return QuestionType.MULTIPLECHOICE;

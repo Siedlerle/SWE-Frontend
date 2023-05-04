@@ -65,7 +65,7 @@ export class EventCardComponent implements OnInit {
   chatMessage: string;
   allChats: Chat[] = [];
   chat: Chat;
-  commentMessage: string;
+
   allComments: Comment [][] = [];
 
 
@@ -180,17 +180,7 @@ export class EventCardComponent implements OnInit {
     location.reload();
   }
 
-  sendComment(chatId: number, message: string){
-    const id = this.eventData.id;
-    const emailAddress = sessionStorage.getItem('emailAdress');
 
-    if(id != null && chatId != null && emailAddress != null) {
-      this.uiAttendeeService.commentOnChat(chatId, message, emailAddress).subscribe(response =>{
-
-      })
-    }
-    location.reload();
-  }
   removeUser(user: User){
     let eventId = this.eventData.id;
     if ( eventId != null ){

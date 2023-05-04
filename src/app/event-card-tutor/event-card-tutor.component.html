@@ -70,12 +70,27 @@
               <mat-card-content>
                 <div  #chatContainer style="height: 150px; overflow-y: scroll;margin-bottom: 1%">
                   <div>
-                    <mat-icon>chevron_right</mat-icon>
+
+                    <mat-accordion *ngFor="let chat of allChats">
+                      <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          {{chat.message}}
+                        </mat-expansion-panel-header>
+
+                        <mat-list *ngFor="let comments of allComments[chat.id!]">
+                          {{comments.text}}
+                        </mat-list>
+
+                      </mat-expansion-panel>
+                    </mat-accordion>
+
+
                   </div>
                 </div>
+
                 <mat-form-field style="display: flex; width: 80%; justify-content: center; align-content: center">
-                  <input matInput placeholder="Enter text" >
-                  <button mat-icon-button matSuffix >
+                  <input matInput placeholder="Enter text" [(ngModel)]="chatMessage" >
+                  <button mat-icon-button matSuffix (click)="sendChatMessage(chatMessage)" >
                     <mat-icon>send</mat-icon>
                   </button>
                 </mat-form-field>
