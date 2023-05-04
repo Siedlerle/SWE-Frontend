@@ -48,4 +48,12 @@ export class UiAdminService {
   getGroupsOfOrganisation(orgaId: string):Observable<Group[]> {
     return this.http.post<Group[]>(URLs.backend+'/organizer/organisation/'+orgaId+'/group/get-all', null);
   }
+
+  addUserToGroup(groupId: number, userMail: string) {
+    return this.http.post(URLs.backend+'/admin/group/'+groupId+'/user/add', userMail);
+  }
+
+  removeUserFromGroup(groupId: number, userMail: string) {
+    return this.http.post(URLs.backend+'/admin/group/'+groupId+'/user/'+userMail+'/remove', null);
+  }
 }
