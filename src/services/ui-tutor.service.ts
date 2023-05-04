@@ -46,4 +46,13 @@ export class UiTutorService {
   getAttendingstatusForUsers(eventId: number, userIds:number[]):Observable<Boolean[]>{
     return this.http.post<Boolean[]>(URLs.backend+"/tutor/event/"+eventId+"/attendees/get-status", userIds);
   }
+
+  changeAttendingStatus(eventId: number, userIds:number[], attending:Boolean[]){
+    const formData = new FormData();
+    // @ts-ignore
+    formData.append('userIds', userIds);
+    // @ts-ignore
+    formData.append('attending', attending);
+    return this.http.post(URLs.backend+"/tutor/event/"+eventId+"/attendees/update-status",formData);
+  }
 }

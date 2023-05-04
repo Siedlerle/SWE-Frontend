@@ -242,7 +242,7 @@
         </mat-accordion>
       </mat-tab>
 
-      <mat-tab  >
+      <mat-tab>
         <ng-template mat-tab-label class="mat-tab-label">
           <mat-icon class="mat-tab-icon">groups</mat-icon>
           Teilnehmerverwaltung
@@ -252,6 +252,10 @@
           <button mat-raised-button (click) = "openAddUsertoEvent()" class = "addPerson">
             Teilnehmer hinzufügen
             <mat-icon>person_add</mat-icon>
+          </button>
+
+          <button mat-raised-button (click) = "checkAttendingStatus()">
+            Teilnahmestatus senden
           </button>
 
           <div class="search-bar">

@@ -270,10 +270,10 @@ export class EventCardTutorComponent {
     }
   }
 
-  // @ts-ignore
-  getAnswersToQuestion(item:Question){
-    for(let i=0; i<this.answersToEvaluate.length;i++){
-
+  checkAttendingStatus(){
+    const id = this.eventData.id;
+    if(id != null) {
+      this.uiTutorService.changeAttendingStatus(id, this.attendeeId, this.isAttending).subscribe();
     }
   }
 
