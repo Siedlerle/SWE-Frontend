@@ -8,6 +8,7 @@ import {CustomDocument} from "../../DataTransferObjects/CustomDocument";
 import {UiAttendeeService} from "../../services/ui-attendee.service";
 import {Question} from "../../DataTransferObjects/Question";
 import {QuestionType} from "../../DataTransferObjects/QuestionType";
+import {Answer} from "../../DataTransferObjects/Answer";
 
 @Component({
   selector: 'app-event-unregistry',
@@ -30,6 +31,9 @@ export class EventUnregistryComponent implements OnInit {
 
   QuestionType = QuestionType;
   questions: Question[] = [];
+
+  answer:string;
+  answers: Answer[] = [];
 
   constructor(private dataService: DataService, private uiUserService:UiUserService, private uiAttendeeService:UiAttendeeService )  {
     this.eventData = this.dataService.getCardData();
@@ -55,6 +59,13 @@ export class EventUnregistryComponent implements OnInit {
       if(emailAdress != null){
         this.uiAttendeeService.getSurveyForEvent(id,emailAdress).subscribe(response => {
           this.questions = response;
+          let a: Answer;
+          for(let q=0; q<this.questions.length; q++){
+            a={
+              question: this.questions.at(q)!,
+            }
+            this.answers.push(a);
+          }
         });
       }
     }
@@ -114,5 +125,15 @@ export class EventUnregistryComponent implements OnInit {
     }
     let megabytes = bytes / (1024 * 1024);
     return megabytes.toFixed(2) + " MB";
+  }
+
+  submitSurvey(){
+    const emailAdress = sessionStorage.getItem('emailAdress');
+    if(emailAdress != null){
+      this.uiAttendeeService.submitSurvey(emailAdress, this.answers).subscribe(response=>{
+        this.closeRegistryCard();
+      });
+
+    }
   }
 }

@@ -32,6 +32,7 @@ export const URLs = {
   getRegisteredEventsForUser:'/user/event/get-registered/',
   getAllEventsForUser:'/user/event/get-all/',
   getEventInvitationsForUser:'/user/event/get-invitations/',
+  answerSurvey:'/attendee/answer-survey/',
 
   //Organisator
   createEvent:'/organizer/event/create/',

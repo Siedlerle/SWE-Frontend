@@ -113,4 +113,8 @@ export class UiOrganizerService {
   removeUserFromEvent(eventId: number, emailAddress:string){
     return this.http.post(URLs.backend+'/organizer/event/'+eventId+'/attendee/'+emailAddress+'/remove',null);
   }
+
+  changeTutorToAttendee(eventId: number, emailAddress: string){
+    return this.http.post(URLs.backend+'/organizer/event/'+eventId+'/attendee/'+emailAddress+'/set-attendee',null);
+  }
 }

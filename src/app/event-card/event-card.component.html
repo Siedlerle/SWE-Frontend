@@ -240,7 +240,7 @@
                       delete
                     </mat-icon>
                   </button>
-                  <button mat-icon-button matTooltip="Als Tutor entfernen" (click)="removeTutor(user)" >
+                  <button *ngIf="attendeeRoleMap[user.id]" mat-icon-button matTooltip="Als Tutor entfernen" (click)="removeTutor(user)" >
                     <mat-icon>
                       person_remove
                     </mat-icon>

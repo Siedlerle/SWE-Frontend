@@ -7,7 +7,7 @@
     </button>
 
     <div class="card-header">
-      <img mat-card-image src="{{imageSource}}" class="banner">
+      <img mat-card-image src="{{backendURL + imageSource}}" onerror="this.src='../../assets/images/nature.jpg'" class="banner">
       <div class="status">{{eventStatus}}</div>
     </div>
 
@@ -101,41 +101,38 @@
                 <div class="tableControlls"
                      style="position:relative; justify-self: stretch; width: 100%; text-align: right">
                   <mat-card-title style="float: left">Dateien</mat-card-title>
-                  <ngx-mat-file-input  style="float: right; margin-right: 45px">
+                  <ngx-mat-file-input [formControl]="fileControl" [multiple]="false" [accept]="accept" [color]="color"  style="float: right; margin-right: 45px">
                   </ngx-mat-file-input>
                 </div>
               </mat-card-header>
               <mat-card-content>
                 <div class = "fileTable">
-                  <mat-table [dataSource]="dataSource" matSort class = "">
-                    <ng-container matColumnDef="FirstName">
+                  <mat-table [dataSource]="fileDataSource">
+                    <ng-container matColumnDef="Filename">
                       <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-                      <mat-cell *matCellDef="let user">{{user.firstname}}</mat-cell>
+                      <mat-cell *matCellDef="let file">{{file.name}}</mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="LastName">
+                    <ng-container matColumnDef="Filetype">
                       <mat-header-cell *matHeaderCellDef>Typ der Datei</mat-header-cell>
-                      <mat-cell *matCellDef="let user">{{user.lastname}}</mat-cell>
+                      <mat-cell *matCellDef="let file">{{getFileExtension(file.name)}}</mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="eMail">
+                    <ng-container matColumnDef="Filesize">
                       <mat-header-cell *matHeaderCellDef>Größe der Datei</mat-header-cell>
-                      <mat-cell *matCellDef="let user">{{user.emailAdress}}</mat-cell>
+                      <mat-cell *matCellDef="let file">{{bytesToMegabytes(file.size)}}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="actions">
                       <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
-                      <mat-cell *matCellDef="let user">
-                        <button mat-icon-button >
-                          <mat-icon>download</mat-icon>
-                        </button>
-                        <button mat-icon-button>
-                          <mat-icon>delete</mat-icon>
+                      <mat-cell *matCellDef="let file">
+                        <button mat-icon-button (click)="deleteFile(file)">
+                          <mat-icon >delete</mat-icon>
                         </button>
                       </mat-cell>
                     </ng-container>
-                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    <mat-header-row *matHeaderRowDef="displayedColumnsFiles"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumnsFiles;"></mat-row>
                   </mat-table>
                 </div>
               </mat-card-content>
@@ -152,6 +149,41 @@
                 </mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
+            <mat-card>
+              <ng-container *ngFor="let question of questions">
+                <mat-card>
+                  <mat-card-content *ngIf="question">
+                    <mat-form-field>
+                      <input matInput [(ngModel)]="question.questionText" placeholder="Stellen Sie ihre Frage hier" >
+                      <button matSuffix mat-icon-button  color="warn" (click)="removeQuestion(question)" aria-label="Entfernen">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </mat-form-field>
+                    <mat-radio-group [(ngModel)]="question.questionType">
+                      <mat-radio-button  [value]="QuestionType.TEXT">Textantwort</mat-radio-button>
+                      <mat-radio-button [value]="QuestionType.MULTIPLECHOICE">Multiple Choice</mat-radio-button>
+                    </mat-radio-group>
+
+                    <div *ngIf="question.questionType === QuestionType.MULTIPLECHOICE">
+                      <ng-container *ngFor="let answer of question.answerString; let i = index" class="flex-row">
+                        <mat-form-field>
+                          <input matInput placeholder="Antwortmöglichkeit {{ i + 1 }}" [(ngModel)]="question.answerString[i]" *ngIf="question.answerString">
+                          <button matSuffix mat-icon-button color="warn" *ngIf="question.answerString && question.answerString.length > 2" (click)="question.answerString.splice(i, 1)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                        </mat-form-field>
+                      </ng-container>
+                      <button mat-raised-button  color="primary" (click)="question.answerString.push('')" *ngIf="question.answerString">Antwort hinzufügen</button>
+                    </div>
+
+                  </mat-card-content>
+                </mat-card>
+              </ng-container>
+              <mat-card-actions>
+                <button mat-raised-button (click)="addQuestion()" >Frage hinzufügen</button>
+                <button mat-raised-button [disabled]="questions.length<1" (click)="submitQuestionaire()">Umfrage erstellen</button>
+              </mat-card-actions>
+            </mat-card>
           </mat-expansion-panel>
         </mat-accordion>
       </mat-tab>
@@ -192,6 +224,13 @@
               <mat-cell *matCellDef="let user">{{user.emailAdress}}</mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="attendence">
+              <mat-header-cell *matHeaderCellDef>Nimmt Teil</mat-header-cell>
+              <mat-cell *matCellDef="let user; let i=index">
+                <mat-checkbox [(ngModel)]="isAttending[i]" color="primary"></mat-checkbox>
+              </mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="actions">
               <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
               <mat-cell *matCellDef="let user">
@@ -200,15 +239,11 @@
                     delete
                   </mat-icon>
                 </button>
-                <button mat-icon-button matTooltip="Als Tutor entfernen" (click)="removeTutor(user)" >
-                  <mat-icon>
-                    person_remove
-                  </mat-icon>
-                </button>
+
               </mat-cell>
             </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-header-row *matHeaderRowDef="displayedColumsAttendees"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumsAttendees;"></mat-row>
           </mat-table>
         </div>
       </mat-tab>

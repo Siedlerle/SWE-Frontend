@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, ElementRef, OnInit, Pipe, PipeTransform, ViewChild} from '@angular/core';
-import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator} from "@angular/material/paginator";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {UiUserService} from "../../services/ui-user.service";
 import {DataService} from "../management/CardService";
 import {URLs} from "../../assets/SystemVariables/URLs";
+import {EnumEventRole} from "../../DataTransferObjects/EnumEventRole";
 
 @Component({
   selector: 'app-my-events',
@@ -48,12 +49,27 @@ export class MyEventsComponent implements OnInit {
 
 
   showInvitationCard = false;
+  showTutorCard = false;
   openCard(item: CustomEvent){
-    this.showInvitationCard = true;
+    const id = item.id;
+    const emailAdress = sessionStorage.getItem('emailAdress');
+    if(id != null && emailAdress != null){
+      this.uiUserService.getRoleInEvent(id,emailAdress).subscribe(response =>{
+
+          if(response.role === EnumEventRole.TUTOR){
+            this.showTutorCard = true;
+          }else{
+            this.showInvitationCard = true;
+
+          }
+      });
+    }
     this.dataService.setCardData(item);
   }
   closeCard(){
     this.showInvitationCard = false;
+    this.showTutorCard = false;
+
   }
 
   filterEvents() {

@@ -1,4 +1,6 @@
+import {EnumEventRole} from "./EnumEventRole";
+
 export interface EventRole {
   id? : number;
-  name?: string;
+  role?: EnumEventRole;
 }
