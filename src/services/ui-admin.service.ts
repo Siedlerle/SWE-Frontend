@@ -45,6 +45,10 @@ export class UiAdminService {
     return this.http.post(URLs.backend+'/admin/orga/'+orgaId+'/group/add', group);
   }
 
+  deleteGroup(groupId: number) {
+    return this.http.post(URLs.backend+'/admin/group/'+groupId+'/delete', null);
+  }
+
   getGroupsOfOrganisation(orgaId: string):Observable<Group[]> {
     return this.http.post<Group[]>(URLs.backend+'/organizer/organisation/'+orgaId+'/group/get-all', null);
   }

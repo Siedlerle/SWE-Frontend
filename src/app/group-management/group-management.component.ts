@@ -48,6 +48,11 @@ export class GroupManagementComponent {
     }
   }
 
+  deleteGroup(groupId: number) {
+    this.uiAdminService.deleteGroup(groupId).subscribe();
+    this.reloadGroups();
+  }
+
   reloadGroups() {
     const orgaId = sessionStorage.getItem('orgaId');
     new Promise(resolve => setTimeout(resolve, 1500)).then(() => {

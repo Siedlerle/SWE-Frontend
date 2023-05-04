@@ -35,7 +35,7 @@
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
             <mat-cell *matCellDef="let group">
-              <button mat-icon-button>
+              <button mat-icon-button (click)="deleteGroup(group.id)">
                 <mat-icon>
                   delete
                 </mat-icon>
@@ -43,11 +43,6 @@
               <button mat-icon-button (click)="openGroupCard()">
                 <mat-icon>
                   edit
-                </mat-icon>
-              </button>
-              <button mat-icon-button>
-                <mat-icon>
-                  person_add
                 </mat-icon>
               </button>
             </mat-cell>
