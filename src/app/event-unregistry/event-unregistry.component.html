@@ -56,6 +56,28 @@
               <div>
                 <mat-icon>chevron_right</mat-icon>
               </div>
+              <mat-accordion *ngFor="let chat of allChats">
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    {{chat.message}}
+                  </mat-expansion-panel-header>
+
+
+                  <mat-list *ngFor="let comment of allComments[chat.id!]">
+                    {{comment.text}}
+                    <div style="text-align: right; float: right">{{comment.user!.firstname}} {{comment.user!.lastname}}</div>
+                  </mat-list>
+
+
+                  <mat-form-field style="display: flex; width: 80%; justify-content: center; align-content: center">
+                    <input matInput placeholder="send comment" [(ngModel)]="commentMessage" >
+                    <button mat-icon-button matSuffix (click)="sendComment(chat.id!, commentMessage)" >
+                      <mat-icon>send</mat-icon>
+                    </button>
+                  </mat-form-field>
+
+                </mat-expansion-panel>
+              </mat-accordion>
             </div>
           </mat-card-content>
         </mat-card>
@@ -112,22 +134,26 @@
           <mat-icon class = "mat-tab-icon">rate_review</mat-icon>
           Umfragen
         </ng-template>
-        <ng-container *ngFor="let question of questions; let indexOfElement = index">
-          <mat-form-field *ngIf="mapStringToEnum(question.questionType.toString()) === QuestionType.TEXT">
-            <mat-label>{{ question.questionText}}</mat-label>
-            <input matInput type="text" [(ngModel)]="answers[indexOfElement].text">
-          </mat-form-field>
-          <div *ngIf="mapStringToEnum(question.questionType.toString()) === QuestionType.MULTIPLECHOICE">
-            <div>{{ question.questionText }}</div>
-            <mat-radio-group [(ngModel)]="answers[indexOfElement].text">
-              <mat-radio-button *ngFor="let choice of question.answerString" [value]="choice">
-                {{ choice }}
-              </mat-radio-button>
-            </mat-radio-group>
+        <div class="umfragen">
+          <ng-container *ngFor="let question of questions; let indexOfElement = index">
+            <div *ngIf="mapStringToEnum(question.questionType.toString()) === QuestionType.TEXT" class="text-question">
+              <mat-form-field>
+                <mat-label>{{ question.questionText}}</mat-label>
+                <input matInput type="text" [(ngModel)]="answers[indexOfElement].text">
+              </mat-form-field>
+            </div>
+            <div *ngIf="mapStringToEnum(question.questionType.toString()) === QuestionType.MULTIPLECHOICE" class="mult-question">
+              <h4>{{ question.questionText }}</h4>
+              <mat-radio-group [(ngModel)]="answers[indexOfElement].text">
+                <mat-radio-button *ngFor="let choice of question.answerString" [value]="choice">
+                  <div class="radio-label">{{ choice }}</div>
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </ng-container>
+          <div class="submit-survey-button">
+            <button mat-raised-button [disabled]="questions.length<1" (click)="submitSurvey()">Beantworten</button>
           </div>
-        </ng-container>
-        <div class="submit-survey-button">
-          <button mat-raised-button [disabled]="questions.length<1" (click)="submitSurvey()">Beantworten</button>
         </div>
       </mat-tab>
     </mat-tab-group>

@@ -5,6 +5,7 @@ import {URLs} from "../assets/SystemVariables/URLs";
 import {CustomDocument} from "../DataTransferObjects/CustomDocument";
 import {Question} from "../DataTransferObjects/Question";
 import {Answer} from "../DataTransferObjects/Answer";
+import {User} from "../DataTransferObjects/User";
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,18 @@ export class UiTutorService {
   sendMessage(eventId : number, message: string, email: string){
 
     return this.http.post(URLs.backend+"/tutor/event/"+eventId+"/chat/add/"+email, message);
+  }
+
+  getAttendingstatusForUsers(eventId: number, userIds:number[]):Observable<Boolean[]>{
+    return this.http.post<Boolean[]>(URLs.backend+"/tutor/event/"+eventId+"/attendees/get-status", userIds);
+  }
+
+  changeAttendingStatus(eventId: number, userIds:number[], attending:Boolean[]){
+    const formData = new FormData();
+    // @ts-ignore
+    formData.append('userIds', userIds);
+    // @ts-ignore
+    formData.append('attending', attending);
+    return this.http.post(URLs.backend+"/tutor/event/"+eventId+"/attendees/update-status",formData);
   }
 }

@@ -11,6 +11,7 @@ import {ThemePalette} from "@angular/material/core";
 import {Preset} from "../../DataTransferObjects/Preset";
 import {MatSelectChange} from "@angular/material/select";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-event',
@@ -51,7 +52,7 @@ export class AddEventComponent implements OnInit {
   formData: FormData;
   private eventForm: any;
 
-  constructor( private breakpointObserver: BreakpointObserver, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar) {
+  constructor( private breakpointObserver: BreakpointObserver, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar, private router:Router) {
     this.fileControl = new FormControl(this.file)
   }
 
@@ -129,6 +130,7 @@ export class AddEventComponent implements OnInit {
     const emailAddress = sessionStorage.getItem('emailAdress');
     const orgaId = sessionStorage.getItem('orgaId');
     if(emailAddress != null && orgaId != null){
+      this.router.navigate(['']);
       if(!this.wantEventSeries) {
         this.uiOrganizerService.addEvent(this.event, emailAddress, orgaId, this.file).subscribe(response =>{
             console.log(response);

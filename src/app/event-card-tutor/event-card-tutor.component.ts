@@ -17,6 +17,8 @@ import {Question} from "../../DataTransferObjects/Question";
 import {QuestionType} from "../../DataTransferObjects/QuestionType";
 import {Answer} from "../../DataTransferObjects/Answer";
 import {considerSettingUpAutocompletion} from "@angular/cli/src/utilities/completion";
+import {Chat} from "../../DataTransferObjects/Chat";
+import {Comment} from "../../DataTransferObjects/Comment";
 
 @Component({
   selector: 'app-event-card-tutor',
@@ -40,7 +42,9 @@ export class EventCardTutorComponent {
 
   displayedColumsAttendees:string[] = ['FirstName','LastName','eMail', 'attendence','actions'];
   attendees: User[];
-  isAttending:boolean[]=[];
+  isAttending:Boolean[]=[];
+
+  attendeeId: number[]=[];
 
   fileControl: FormControl;
   accept: string;
@@ -54,6 +58,11 @@ export class EventCardTutorComponent {
 
   questionsToEvaluate: Question[] = [];
   answersToEvaluate: Answer[] = [];
+  allChats: Chat[] = [];
+  allComments: Comment[][] = [];
+  chatMessage: string;
+
+  answersMatchingToId: Answer[] = [];
 
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService) {
     this.eventData = this.dataService.getCardData();
@@ -80,6 +89,17 @@ export class EventCardTutorComponent {
       this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
         this.attendees = response;
         this.dataSource.data = this.attendees;
+          for(let i=0; i<this.attendees.length;i++){
+            // @ts-ignore
+            this.attendeeId[i] = this.attendees.at(i).id;
+          }
+
+          if (id != null) {
+            this.uiTutorService.getAttendingstatusForUsers(id, this.attendeeId).subscribe(response => {
+              console.log(response);
+              this.isAttending = response;
+            });
+          }
       });
       this.uiTutorService.getAllQuestionsForEvent(id).subscribe(response =>{
         this.questionsToEvaluate = response;
@@ -87,7 +107,20 @@ export class EventCardTutorComponent {
       this.uiTutorService.getAllAnswersForQuestion(id).subscribe(response =>{
         this.answersToEvaluate = response;
       });
+
+      this.uiAttendeeService.getChatForEvent(id).subscribe(response =>{
+        this.allChats = response;
+        for(let i = 0; i < this.allChats.length; i++){
+
+          let chatId : number = response[i].id!;
+
+          this.uiAttendeeService.getCommentsForChat(chatId!, 0).subscribe(data =>{
+            this.allComments[chatId] = data;
+          })
+        }
+      })
     }
+
 
     this.fileControl.valueChanges.subscribe((file: any) => {
       if (Array.isArray(file)) {
@@ -116,6 +149,7 @@ export class EventCardTutorComponent {
         }
       }
     });
+
   }
 
   isEditing = false;
@@ -129,7 +163,17 @@ export class EventCardTutorComponent {
   eventLocation: string = "";
   eventStatus: string = "";
   imageSource: string = "";
+  sendChatMessage(message: string){
+    const id = this.eventData.id;
 
+    const emailAddress = sessionStorage.getItem('emailAdress');
+    if(id != null && emailAddress != null) {
+      this.uiTutorService.sendMessage(id, this.chatMessage, emailAddress).subscribe(response =>{
+
+      })
+    }
+    location.reload();
+  }
   removeUser(user: User){
     let eventId = this.eventData.id;
     if ( eventId != null ){
@@ -226,9 +270,11 @@ export class EventCardTutorComponent {
     }
   }
 
-  // @ts-ignore
-  getAnswersToQuestion(item:Question){
-
+  checkAttendingStatus(){
+    const id = this.eventData.id;
+    if(id != null) {
+      this.uiTutorService.changeAttendingStatus(id, this.attendeeId, this.isAttending).subscribe();
+    }
   }
 
 }
