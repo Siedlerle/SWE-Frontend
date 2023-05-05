@@ -287,10 +287,10 @@ export class EventCardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
+
         this.eventData.status = EnumEventStatus.CANCELLED;
         this.getReadableStatus();
-      }
+
     });
   }
 
@@ -423,3 +423,4 @@ export class EventCardComponent implements OnInit {
     this.onClose.emit();
   }
 }
+

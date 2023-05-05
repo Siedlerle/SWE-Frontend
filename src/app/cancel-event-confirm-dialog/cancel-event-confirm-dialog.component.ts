@@ -21,7 +21,7 @@ export class CancelEventConfirmDialogComponent {
   onYesClick(id: number): void {
       if (id != null) {
         this.uiOrganizerService.cancelEvent(id, this.feedback).subscribe(response => {
-          console.log(response);
+          this.dialogRef.close(false);
         });
       }
   }
