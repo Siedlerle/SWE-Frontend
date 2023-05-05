@@ -266,7 +266,7 @@ export class EventCardComponent implements OnInit {
         return;
       }
     }
-/*
+
     this.uiOrganizerService.changeEvent(this.eventData, this.newEventImage).subscribe(response => {
       const text = response.message;
       if (text === "Event changed successfully") {
@@ -275,7 +275,7 @@ export class EventCardComponent implements OnInit {
       } else {
         this.snackBar.open("Änderung des Events fehlgeschlagen", 'Close', { duration: 10000 });
       }
-    });*/
+    });
 
   }
 
