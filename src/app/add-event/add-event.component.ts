@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {BreakpointObserver,Breakpoints} from "@angular/cdk/layout";
 import {map} from "rxjs";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
@@ -21,8 +21,8 @@ import {Router} from "@angular/router";
 export class AddEventComponent implements OnInit {
   @Output() onClose = new EventEmitter<void>();
 
-  event : CustomEvent = {
-    name : "",
+  event: CustomEvent = {
+    name: "",
     description: "",
     location: "",
     startDate: new Date(),
@@ -36,8 +36,8 @@ export class AddEventComponent implements OnInit {
   presets: Preset[] = [];
 
   eventSeries: EventSeries = {
-    amount : undefined,
-    daysBetweenEvents : undefined
+    amount: undefined,
+    daysBetweenEvents: undefined
   };
 
   fileControl: FormControl;
@@ -53,19 +53,19 @@ export class AddEventComponent implements OnInit {
   eventForm: FormGroup;
 
 
-  constructor( private breakpointObserver: BreakpointObserver, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar, private router:Router) {
+  constructor(private breakpointObserver: BreakpointObserver, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar, private router: Router, private formBuilder: FormBuilder) {
     this.fileControl = new FormControl(this.file)
   }
 
 
   ngOnInit() {
     this.eventForm = new FormGroup({
-      eventEndTime: new FormControl('',[Validators.required, Validators.min(Number(this.eventStartTime))])
+      eventEndTime: new FormControl('', [Validators.required, Validators.min(Number(this.eventStartTime))])
     })
 
     this.fileControl.valueChanges.subscribe((file: any) => {
       if (file.size > 1048576) {
-        this.snackBar.open("Image-Größe maximal 1MB", 'Close', { duration: 5000 });
+        this.snackBar.open("Image-Größe maximal 1MB", 'Close', {duration: 5000});
       } else {
         this.file = file;
       }
@@ -89,15 +89,15 @@ export class AddEventComponent implements OnInit {
 
     if (selectedPresetName === "create_new_event") {
       this.event = {
-        name : "",
-        type : "",
-        description : "",
-        location : "",
-        startDate : new Date(),
-        startTime : "",
-        endDate : new Date(),
-        endTime : "",
-        isPublic : false
+        name: "",
+        type: "",
+        description: "",
+        location: "",
+        startDate: new Date(),
+        startTime: "",
+        endDate: new Date(),
+        endTime: "",
+        isPublic: false
       }
     } else {
       this.presets.forEach(value => {
@@ -117,10 +117,10 @@ export class AddEventComponent implements OnInit {
   }
 
   wantEventSeries: boolean = false;
-  eventSeriesAmount : number;
-  eventSeriesInterval : number;
+  eventSeriesAmount: number;
+  eventSeriesInterval: number;
 
-  eventName: string ="";
+  eventName: string = "";
   eventDescription: string = "";
   eventType: string = "";
   eventStartTime: string = "";
@@ -130,48 +130,36 @@ export class AddEventComponent implements OnInit {
   eventLocation: string = "";
   eventImage: String;
 
-  onSubmit(form: NgForm)
-  {
-    const startDate = new Date(this.event.startDate);
-    const endDate = new Date(this.event.endDate);
-    const dayTime = new Date();
 
-    if(this.event.startDate.getDay() <= dayTime.getDay()-1){
+  onSubmit(form: NgForm) {
+    const dayTime = new Date();
+    if (this.event.startDate.getDay() <= dayTime.getDay() - 1) {
       this.snackBar.open('Das Startdatum darf nicht vor dem heutigen Tag liegen', 'Schließen', {
         horizontalPosition: 'center',
-        verticalPosition: 'top',
+        verticalPosition: 'bottom',
         duration: 3000,
         panelClass: ['errorSnackbar']
-
       });
       return;
     }
-    if (this.event.startDate.getTime() > this.event.endDate.getTime() ) {
+    if (this.event.startDate.getTime() > this.event.endDate.getTime()) {
 
       this.snackBar.open('Das Enddatum darf nicht vor dem Startdatum liegen', 'Schließen', {
         horizontalPosition: 'center',
-        verticalPosition: 'top',
+        verticalPosition: 'bottom',
         duration: 3000,
         panelClass: ['errorSnackbar']
-
       });
       return;
     }
     if (this.event.startDate.getTime() == this.event.endDate.getTime()) {
-      const startTimeParts = this.event.startTime.split(':');
-      const startHours = parseInt(startTimeParts[0], 10);
-      const startMinutes = parseInt(startTimeParts[1], 10);
-      const endTimeParts = this.event.endTime.split(':');
-      const endHours = parseInt(endTimeParts[0], 10);
-      const endMinutes = parseInt(endTimeParts[1], 10);
-      if (endHours < startHours || (endHours === startHours && endMinutes <= startMinutes)) {
+      if(this.event.startTime > this.event.endTime){
         // Endzeit darf nicht vor der Startzeit liegen
         this.snackBar.open('Die Endzeit des Events darf nicht vor der Startzeit liegen', 'Schließen', {
           horizontalPosition: 'center',
-          verticalPosition: 'top',
+          verticalPosition: 'bottom',
           duration: 3000,
           panelClass: ['errorSnackbar']
-
         });
         return;
       }
@@ -179,9 +167,9 @@ export class AddEventComponent implements OnInit {
 
     const emailAddress = sessionStorage.getItem('emailAdress');
     const orgaId = sessionStorage.getItem('orgaId');
-    if(emailAddress != null && orgaId != null){
-      if(!this.wantEventSeries) {
-        this.uiOrganizerService.addEvent(this.event, emailAddress, orgaId, this.file).subscribe(response =>{
+    if (emailAddress != null && orgaId != null) {
+      if (!this.wantEventSeries) {
+        this.uiOrganizerService.addEvent(this.event, emailAddress, orgaId, this.file).subscribe(response => {
             console.log(response);
             this.closePopup();
             location.reload();
@@ -199,23 +187,18 @@ export class AddEventComponent implements OnInit {
 
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
+    map(({matches}) => {
       if (matches) {
         return [
-          { title: 'Basic Configuration', cols: 1, rows: 4 }
+          {title: 'Basic Configuration', cols: 1, rows: 4}
         ];
       }
 
       return [
-        { title: 'Basic Configuration', cols: 1, rows: 4 }
+        {title: 'Basic Configuration', cols: 1, rows: 4}
       ];
     })
   );
-
-  public hasError = (controlName: string, errorName: string) =>{
-    return this.eventForm.controls[controlName].hasError(errorName);
-  }
-
 
 
 }

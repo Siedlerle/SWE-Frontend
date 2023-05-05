@@ -234,6 +234,39 @@ export class EventCardComponent implements OnInit {
   }
 
   onChangeEvent(form: NgForm) {
+    const dayTime = new Date();
+    if (this.eventStartDate.getDay() <= dayTime.getDay()-1) {
+      this.snackBar.open('Das Startdatum darf nicht vor dem heutigen Tag liegen', 'Schließen', {
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        duration: 3000,
+        panelClass: ['errorSnackbar']
+      });
+      return;
+    }
+    if (this.eventStartDate.getDate() > this.eventEndDate.getDate()) {
+
+      this.snackBar.open('Das Enddatum darf nicht vor dem Startdatum liegen', 'Schließen', {
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        duration: 3000,
+        panelClass: ['errorSnackbar']
+      });
+      return;
+    }
+    if (this.eventData.startDate == this.eventData.endDate) {
+      if(this.eventData.startTime > this.eventData.endTime){
+        // Endzeit darf nicht vor der Startzeit liegen
+        this.snackBar.open('Die Endzeit des Events darf nicht vor der Startzeit liegen', 'Schließen', {
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+          duration: 3000,
+          panelClass: ['errorSnackbar']
+        });
+        return;
+      }
+    }
+/*
     this.uiOrganizerService.changeEvent(this.eventData, this.newEventImage).subscribe(response => {
       const text = response.message;
       if (text === "Event changed successfully") {
@@ -242,7 +275,7 @@ export class EventCardComponent implements OnInit {
       } else {
         this.snackBar.open("Änderung des Events fehlgeschlagen", 'Close', { duration: 10000 });
       }
-    });
+    });*/
 
   }
 
