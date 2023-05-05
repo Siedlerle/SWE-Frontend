@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormControl, NgForm} from "@angular/forms";
+import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {BreakpointObserver,Breakpoints} from "@angular/cdk/layout";
 import {map} from "rxjs";
 import {UiOrganizerService} from "../../services/ui-organizer.service";
@@ -50,7 +50,8 @@ export class AddEventComponent implements OnInit {
   ];
   file!: File;
   formData: FormData;
-  private eventForm: any;
+  eventForm: FormGroup;
+
 
   constructor( private breakpointObserver: BreakpointObserver, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar, private router:Router) {
     this.fileControl = new FormControl(this.file)
@@ -58,6 +59,10 @@ export class AddEventComponent implements OnInit {
 
 
   ngOnInit() {
+    this.eventForm = new FormGroup({
+      eventEndTime: new FormControl('',[Validators.required, Validators.min(Number(this.eventStartTime))])
+    })
+
     this.fileControl.valueChanges.subscribe((file: any) => {
       if (file.size > 1048576) {
         this.snackBar.open("Image-Größe maximal 1MB", 'Close', { duration: 5000 });
@@ -127,6 +132,51 @@ export class AddEventComponent implements OnInit {
 
   onSubmit(form: NgForm)
   {
+    const startDate = new Date(this.event.startDate);
+    const endDate = new Date(this.event.endDate);
+    const dayTime = new Date();
+
+    if(this.event.startDate.getDay() <= dayTime.getDay()-1){
+      this.snackBar.open('Das Startdatum darf nicht vor dem heutigen Tag liegen', 'Schließen', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        duration: 3000,
+        panelClass: ['errorSnackbar']
+
+      });
+      return;
+    }
+    if (this.event.startDate.getTime() > this.event.endDate.getTime() ) {
+
+      this.snackBar.open('Das Enddatum darf nicht vor dem Startdatum liegen', 'Schließen', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        duration: 3000,
+        panelClass: ['errorSnackbar']
+
+      });
+      return;
+    }
+    if (this.event.startDate.getTime() == this.event.endDate.getTime()) {
+      const startTimeParts = this.event.startTime.split(':');
+      const startHours = parseInt(startTimeParts[0], 10);
+      const startMinutes = parseInt(startTimeParts[1], 10);
+      const endTimeParts = this.event.endTime.split(':');
+      const endHours = parseInt(endTimeParts[0], 10);
+      const endMinutes = parseInt(endTimeParts[1], 10);
+      if (endHours < startHours || (endHours === startHours && endMinutes <= startMinutes)) {
+        // Endzeit darf nicht vor der Startzeit liegen
+        this.snackBar.open('Die Endzeit des Events darf nicht vor der Startzeit liegen', 'Schließen', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          duration: 3000,
+          panelClass: ['errorSnackbar']
+
+        });
+        return;
+      }
+    }
+
     const emailAddress = sessionStorage.getItem('emailAdress');
     const orgaId = sessionStorage.getItem('orgaId');
     if(emailAddress != null && orgaId != null){
@@ -162,18 +212,12 @@ export class AddEventComponent implements OnInit {
     })
   );
 
-
-  validateTime() {
-    if (this.event.startTime && this.event.endTime) {
-      const startTime = new Date(this.eventStartDate + this.event.startTime);
-      const endTime = new Date(this.eventEndDate + this.event.endTime );
-      if (startTime <= endTime) {
-        //this.eventForm.controls['eventEndTime'].setErrors({ 'incorrect': true });
-      } else {
-        //this.eventForm.controls['eventEndTime'].setErrors(null);
-      }
-    }
+  public hasError = (controlName: string, errorName: string) =>{
+    return this.eventForm.controls[controlName].hasError(errorName);
   }
+
+
+
 }
 
 

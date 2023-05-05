@@ -43,3 +43,13 @@ $SWE-Frontend-theme: mat.define-light-theme((
   }
 }
 
+.errorSnackbar {
+  max-width: max-content !important;
+  color: red;
+  f
+
+  .mat-simple-snackbar-action {
+    color: white;
+  }
+}
+
