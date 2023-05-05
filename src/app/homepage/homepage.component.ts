@@ -5,6 +5,7 @@ import {Organisation} from "../../DataTransferObjects/Organisation";
 import {DataService} from "../management/CardService";
 import {OrganisationCardService} from "../organisation-card/OrganisationCardService";
 import {URLs} from "../../assets/SystemVariables/URLs";
+import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
 
 //import { listData } from './event-list';
 
@@ -39,11 +40,7 @@ export class HomepageComponent implements OnInit {
       //Alle Events in denen man teilnimmt in einer Organisation
       this.uiUserService.getRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
         this.registeredEvents = response;
-        this.registeredEvents.forEach(function (event) {
-          if (event.image == null) {
-            event.image = "../../assets/images/OrgaBanner.png";
-          }
-        });
+        this.updateStatusOfEvents(this.registeredEvents);
       });
 
 
@@ -53,11 +50,7 @@ export class HomepageComponent implements OnInit {
       //Alle Event-Einladungen
       this.uiUserService.getAllEventInvitations(emailAddress).subscribe(response => {
         this.invitedEvents = response;
-        this.invitedEvents.forEach(function (event) {
-          if (event.image == null) {
-            event.image = "../../assets/images/OrgaBanner.png";
-          }
-        });
+        this.updateStatusOfEvents(this.invitedEvents);
       });
 
       //Alle Organisationseinladungen
@@ -75,6 +68,30 @@ export class HomepageComponent implements OnInit {
     this.showEventInvite = false;
   }
 
+  updateStatusOfEvents(events: CustomEvent[]) {
+    const now = new Date();
+    events.forEach(event => {
+      const startTime = this.getDate(event.startDate, event.startTime);
+      const endTime = this.getDate(event.endDate, event.endTime);
+
+      if (event.status != EnumEventStatus.CANCELLED) {
+        if (startTime > now) {
+          event.status = EnumEventStatus.SCHEDULED;
+        } else if (startTime < now && endTime > now) {
+          event.status = EnumEventStatus.RUNNING;
+        } else if (endTime < now) {
+          event.status = EnumEventStatus.ACCOMPLISHED;
+        }
+      }
+    });
+  }
+
+  getDate(date: Date, time: string): Date {
+    const [hours, minutes] = time.split(':').map(Number);
+    const newDate = new Date(date);
+    newDate.setHours(hours, minutes, 0);
+    return newDate;
+  }
   showOrganisationInvite = false;
   openOrganisationInvite(item: Organisation){
     this.showOrganisationInvite = true;

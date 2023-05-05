@@ -4,6 +4,7 @@ import {User} from "../../DataTransferObjects/User";
 import {DataService} from "../management/CardService";
 import {UiUserService} from "../../services/ui-user.service";
 import {URLs} from "../../assets/SystemVariables/URLs";
+import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
 
 @Component({
   selector: 'app-event-registry',
@@ -20,9 +21,10 @@ export class EventRegistryComponent {
 
   imageSource: string = "";
   backendURL: string = "";
-
+  eventStatus: string = "";
   constructor(private dataService: DataService, private uiUserService:UiUserService) {
     this.eventData = this.dataService.getCardData();
+    this.getReadableStatus();
     this.eventStartDate = new Date(this.eventData.startDate);
     this.eventEndDate = new Date(this.eventData.endDate);
     if (this.eventData.image == null) {
@@ -49,6 +51,26 @@ export class EventRegistryComponent {
         this.closeRegistryCard();
         location.reload();
       });
+    }
+  }
+
+  getReadableStatus() {
+    switch (this.eventData.status) {
+      case EnumEventStatus.INPREPARATION:
+        this.eventStatus = 'In Vorbereitung';
+        break;
+      case EnumEventStatus.SCHEDULED:
+        this.eventStatus = 'Geplant';
+        break;
+      case EnumEventStatus.RUNNING:
+        this.eventStatus = 'In Durchführung';
+        break;
+      case EnumEventStatus.ACCOMPLISHED:
+        this.eventStatus = 'Vergangen';
+        break;
+      case EnumEventStatus.CANCELLED:
+        this.eventStatus = 'abgesagt';
+        break;
     }
   }
 }

@@ -5,6 +5,7 @@ import {UiUserService} from "../../services/ui-user.service";
 import {DataService} from "../management/CardService";
 import {URLs} from "../../assets/SystemVariables/URLs";
 import {EnumEventRole} from "../../DataTransferObjects/EnumEventRole";
+import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
 
 @Component({
   selector: 'app-my-events',
@@ -29,24 +30,40 @@ export class MyEventsComponent implements OnInit {
     if (emailAddress != null && orgaId != null && orgaId !== '') {
       this.uiUserService.getRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
         this.registeredEvents = response;
-        this.registeredEvents.forEach(function (event) {
-          if (event.image == null) {
-            event.image = "../../assets/images/OrgaBanner.png";
-          }
-        });
+        this.updateStatusOfEvents(this.registeredEvents);
       });
     } else if(emailAddress != null){
       this.uiUserService.getAllRegisteredEvents(emailAddress).subscribe(response =>{
         this.registeredEvents = response;
-        this.registeredEvents.forEach(function (event) {
-          if (event.image == null) {
-            event.image = "../../assets/images/OrgaBanner.png";
-          }
-        });
+        this.updateStatusOfEvents(this.registeredEvents);
       });
     }
   }
 
+  updateStatusOfEvents(events: CustomEvent[]) {
+    const now = new Date();
+    events.forEach(event => {
+      const startTime = this.getDate(event.startDate, event.startTime);
+      const endTime = this.getDate(event.endDate, event.endTime);
+
+      if (event.status != EnumEventStatus.CANCELLED) {
+        if (startTime > now) {
+          event.status = EnumEventStatus.SCHEDULED;
+        } else if (startTime < now && endTime > now) {
+          event.status = EnumEventStatus.RUNNING;
+        } else if (endTime < now) {
+          event.status = EnumEventStatus.ACCOMPLISHED;
+        }
+      }
+    });
+  }
+
+  getDate(date: Date, time: string): Date {
+    const [hours, minutes] = time.split(':').map(Number);
+    const newDate = new Date(date);
+    newDate.setHours(hours, minutes, 0);
+    return newDate;
+  }
 
   showInvitationCard = false;
   showTutorCard = false;
