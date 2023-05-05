@@ -64,6 +64,7 @@ import {GroupCardComponent} from "./group-card/group-card.component";
 import {MatSortModule} from "@angular/material/sort";
 import { ChangeOrganizerOfEventComponent } from './change-organizer-of-event/change-organizer-of-event.component';
 import { OrganisationLeaveComponentComponent } from './organisation-leave-component/organisation-leave-component.component';
+import { EventLeaveDialogComponent } from './event-leave-dialog/event-leave-dialog.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -115,6 +116,7 @@ const routes: Routes = [
     AddUserToGroupComponent,
     ChangeOrganizerOfEventComponent,
     OrganisationLeaveComponentComponent,
+    EventLeaveDialogComponent,
 
   ],
   imports: [

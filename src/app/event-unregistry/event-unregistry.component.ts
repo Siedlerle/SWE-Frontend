@@ -11,6 +11,9 @@ import {QuestionType} from "../../DataTransferObjects/QuestionType";
 import {Answer} from "../../DataTransferObjects/Answer";
 import {Chat} from "../../DataTransferObjects/Chat";
 import {Comment} from "../../DataTransferObjects/Comment";
+import {EventDeleteDialogComponent} from "../event-delete-dialog/event-delete-dialog.component";
+import {EventLeaveDialogComponent} from "../event-leave-dialog/event-leave-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-event-unregistry',
@@ -39,7 +42,7 @@ export class EventUnregistryComponent implements OnInit {
   allChats: Chat[] = [];
   allComments: Comment[][] = [];
 
-  constructor(private dataService: DataService, private uiUserService:UiUserService, private uiAttendeeService:UiAttendeeService )  {
+  constructor(private dataService: DataService, private uiUserService:UiUserService, private uiAttendeeService:UiAttendeeService,private dialog: MatDialog )  {
     this.eventData = this.dataService.getCardData();
     this.eventStartDate = new Date(this.eventData.startDate);
     this.eventEndDate = new Date(this.eventData.endDate);
@@ -117,14 +120,17 @@ export class EventUnregistryComponent implements OnInit {
   }
 
   unregisterFromEvent(){
-    const emailAddress = sessionStorage.getItem('emailAdress');
-    if(emailAddress != null && this.eventData.id != null){
-      this.uiUserService.unregisterFromEvent(this.eventData.id, emailAddress).subscribe(response =>{
-        this.closeRegistryCard();
-        location.reload();
-      });
+    const dialogRef = this.dialog.open(EventLeaveDialogComponent, {
+      width: '20vw',
+      height:'20vw',
+      data: {eventName: this.eventData.name, eventID: this.eventData.id}
+    });
 
-    }
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+      }
+    });
   }
   getFileExtension(filename: string): string {
     return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
