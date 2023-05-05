@@ -29,6 +29,7 @@ export class AddUserToEventComponent {
   isTutor:boolean[] = [];
   isExternTutor: boolean;
 
+  externEmail: string;
 
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService) {
     this.eventData = this.dataService.getCardData();
@@ -76,6 +77,13 @@ export class AddUserToEventComponent {
     let groupId = group.id;
     if(eventId!=null && groupId!=null){
       this.uiOrganizerService.inviteGroupToEvent(eventId,groupId).subscribe();
+    }
+  }
+
+  inviteExtern(){
+    let eventId = this.eventData.id;
+    if(eventId!=null && this.externEmail != null){
+      this.uiOrganizerService.inviteExternToEvent(eventId,this.externEmail).subscribe();
     }
   }
 }

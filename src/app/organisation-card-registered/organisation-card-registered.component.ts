@@ -4,6 +4,11 @@ import {UiUserService} from "../../services/ui-user.service";
 import {OrganisationCardService} from "../organisation-card/OrganisationCardService";
 import {Router} from "@angular/router";
 import {URLs} from "../../assets/SystemVariables/URLs";
+import {EventDeleteDialogComponent} from "../event-delete-dialog/event-delete-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  OrganisationLeaveComponentComponent
+} from "../organisation-leave-component/organisation-leave-component.component";
 
 @Component({
   selector: 'app-organisation-card-registered',
@@ -13,7 +18,7 @@ import {URLs} from "../../assets/SystemVariables/URLs";
 export class OrganisationCardRegisteredComponent {
   orgaData:Organisation;
 
-  constructor(private uiUserService:UiUserService, private organisationCardService:OrganisationCardService, private router:Router) {
+  constructor(private uiUserService:UiUserService, private organisationCardService:OrganisationCardService, private router:Router, private dialog: MatDialog) {
     this.orgaData = this.organisationCardService.getCardData();
   }
   @Output() onClose = new EventEmitter<void>();
@@ -32,14 +37,17 @@ export class OrganisationCardRegisteredComponent {
   }
 
   leaveOrganisation() {
-    const emailAddress = sessionStorage.getItem('emailAdress');
 
-    if(emailAddress != null && this.orgaData.id !=null){
-      this.uiUserService.leaveOrganisation(this.orgaData.id,emailAddress).subscribe(response => {
-        this.closeCard();
+    const dialogRef = this.dialog.open(OrganisationLeaveComponentComponent, {
+      width: '250px',
+      data: {orgaId: this.orgaData.id, orgaName: this.orgaData.name}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
         location.reload();
-      });
-    }
+      }
+    });
   }
 
   selectOrganisation(organisation: Organisation) {

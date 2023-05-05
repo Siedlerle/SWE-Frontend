@@ -1,10 +1,12 @@
-<h1 mat-dialog-title>Event löschen:</h1>
-<mat-dialog-content class="popup-dialog">
-  Wollen sie das Event <br><br>
-  <strong>{{ data.eventName}}</strong><br><br>
-  wirklich löschen?
-</mat-dialog-content>
-<mat-dialog-actions class="popup-dialog">
-  <button mat-button (click)="onNoClick()">Abbrechen</button>
-  <button mat-button color="warn" (click)="onYesClick(data.eventID)">Löschen</button>
-</mat-dialog-actions>
+<div>
+  <h1 mat-dialog-title>Event löschen:</h1>
+  <mat-dialog-content class="popup-dialog">
+    Wollen sie das Event <br><br>
+    <strong>{{ data.eventName}}</strong><br><br>
+    wirklich löschen?
+  </mat-dialog-content>
+  <mat-dialog-actions class="popup-dialog">
+    <button mat-button (click)="onNoClick()">Abbrechen</button>
+    <button mat-button color="warn" (click)="onYesClick(data.eventID)">Löschen</button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Event verlassen:</h1>
+<mat-dialog-content class="popup-dialog">
+  Wollen Sie das Event <br><br>
+  <strong>{{ data.eventName}}</strong><br><br>
+  wirklich verlassen?<br><br>
+  Falls Sie das Event wirklich verlassen wollen,
+  geben sie uns Feedback was der Grund für Ihre
+  Entscheidung ist.
+  <mat-form-field>
+    <textarea matInput placeholder="Grund für Verlassen" [(ngModel)]="feedback" cols="80"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions class="popup-dialog">
+  <button mat-button (click)="onNoClick()">Abbrechen</button>
+  <button mat-button color="warn" (click)="onYesClick(data.eventID)">Verlassen</button>
+</mat-dialog-actions>
+
