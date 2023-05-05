@@ -130,21 +130,21 @@ export class AddEventComponent implements OnInit {
     const emailAddress = sessionStorage.getItem('emailAdress');
     const orgaId = sessionStorage.getItem('orgaId');
     if(emailAddress != null && orgaId != null){
-      this.router.navigate(['']);
       if(!this.wantEventSeries) {
         this.uiOrganizerService.addEvent(this.event, emailAddress, orgaId, this.file).subscribe(response =>{
             console.log(response);
+            this.closePopup();
+            location.reload();
           }
         );
       } else {
         this.uiOrganizerService.addEventSeries(this.event, this.eventSeries, emailAddress, orgaId, this.file).subscribe(response => {
           console.log(response);
+          this.closePopup();
+          location.reload();
         });
       }
-
     }
-    this.closePopup();
-    location.reload();
   }
 
 
