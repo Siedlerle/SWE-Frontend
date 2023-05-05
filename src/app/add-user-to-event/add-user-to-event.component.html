@@ -101,9 +101,9 @@
           </mat-action-row>
           <mat-form-field appearance="fill">
             <mat-label>E-Mail Addresse</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="externEmail">
           </mat-form-field>
-          <button mat-raised-button>
+          <button mat-raised-button (click)="inviteExtern()">
             einladen
           </button>
           <mat-checkbox [(ngModel)]="isExternTutor" color="primary">Als Tutor einladen</mat-checkbox>
