@@ -296,9 +296,10 @@
                   </mat-form-field>
                 </p>
                 <p>
-                  <mat-form-field appearance="fill" style="position: relative; width: 100%">
+                  <mat-form-field appearance="fill" hintLabel="Max 300 Zeichen" style="position: relative; width: 100%">
                     <mat-label>Beschreibung des Events</mat-label>
-                    <input matInput placeholder="Beschreibung des Events" [(ngModel)]="eventData.description" name="eventDescription" required>
+                    <input matInput placeholder="Beschreibung des Events" [(ngModel)]="eventData.description" name="eventDescription" maxlength="300" #input required>
+                    <mat-hint align="end">{{input.value.length || 0}}/300</mat-hint>
                     <mat-error *ngIf="!eventData.description">Beschreibung wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
