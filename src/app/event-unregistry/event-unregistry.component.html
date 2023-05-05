@@ -137,8 +137,9 @@
         <div class="umfragen">
           <ng-container *ngFor="let question of questions; let indexOfElement = index">
             <div *ngIf="mapStringToEnum(question.questionType.toString()) === QuestionType.TEXT" class="text-question">
-              <mat-form-field>
-                <mat-label>{{ question.questionText}}</mat-label>
+              <h4>{{ question.questionText }}</h4>
+              <mat-form-field class="answer-Question">
+                <mat-label>Beantworten Sie die Frage hier</mat-label>
                 <input matInput type="text" [(ngModel)]="answers[indexOfElement].text">
               </mat-form-field>
             </div>

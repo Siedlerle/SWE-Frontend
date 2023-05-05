@@ -1,33 +1,5 @@
 <!doctype html>
 <html>
-<!--mat-toolbar>
-  <input class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText" #searchbar>
-  <button class="search-icon" mat-icon-button disabled>
-    <mat-icon>search</mat-icon>
-  </button>
-  <button class ="filter-icon"mat-icon-button>
-    <mat-icon>filter_list</mat-icon>
-  </button>
-</mat-toolbar>
-<div class="basic-container">
-  <mat-grid-list cols="2" rowHeight="100px" gutterSize="15px" class="layoutGrid" >
-    <mat-grid-tile *ngFor="let item of organisations | filter: searchText"  class ="layoutGridTile" >
-      <mat-card [style.width]="'100%'" (click)="onCardClick($event)" (click)="openCard(item)" class = "card" >
-        <img mat-card-sm-image src="{{item.image}}" alt = "" class = "mat-card-image">
-        <div class="card-content">
-          <mat-card-header>{{item.name}}</mat-card-header >
-          <mat-card-content>{{item.location}}</mat-card-content>
-        </div>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
-<div>
-  <mat-paginator [pageSizeOptions]="[10, 20, 30]"
-                 showFirstLastButtons
-                 aria-label="Select page of periodic elements">
-  </mat-paginator>
-</div-->
 
 <mat-accordion class="headers-align" multi>
   <mat-expansion-panel [expanded]="true">
@@ -46,14 +18,14 @@
 
     <div class="organisation-catalog-toolbar">
       <div class="search-bar">
-        <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="myOrgaSearchText">
+        <input class="search-control mat-elevation-z3" type="text" placeholder="Suche" [(ngModel)]="myOrgaSearchText">
         <mat-icon class="search-icon">search</mat-icon>
       </div>
     </div>
 
     <div class="basic-container">
       <mat-grid-list cols="2" rowHeight="10em" gutterSize=".5em" class="layoutGrid" >
-        <mat-grid-tile *ngFor="let item of usersOrganisations | filter: myOrgaSearchText" class ="layoutGridTile" >
+        <mat-grid-tile *ngFor="let item of usersOrganisations | filter: myOrgaSearchText" class ="layoutGridTile mat-elevation-z8" >
           <mat-card [style.width]="'100%'" (click)="onCardClick($event)" (click)="openMyOrganisation(item)" class = "card" >
             <img mat-card-sm-image src="{{backendURL+item.image}}" onerror="this.src='../../assets/images/OrgaBanner.png'" alt = "" class = "mat-card-image">
             <div class="card-content">
@@ -82,14 +54,14 @@
 
     <div class="organisation-catalog-toolbar">
       <div class="search-bar">
-        <input class="search-control" type="text" placeholder="Search" [(ngModel)]="allOrgaSearchText">
+        <input class="search-control mat-elevation-z3" type="text" placeholder="Search" [(ngModel)]="allOrgaSearchText">
         <mat-icon class="search-icon">search</mat-icon>
       </div>
     </div>
 
     <div class="basic-container">
       <mat-grid-list cols="2" rowHeight="10em" gutterSize=".5em" class="layoutGrid" >
-        <mat-grid-tile *ngFor="let item of allOrganisations | filter: allOrgaSearchText" class ="layoutGridTile" >
+        <mat-grid-tile *ngFor="let item of allOrganisations | filter: allOrgaSearchText" class ="layoutGridTile mat-elevation-z8" >
           <mat-card [style.width]="'100%'" (click)="onCardClick($event)" (click)="openOrganisation(item)" class = "card" >
             <img mat-card-sm-image src="{{backendURL+item.image}}" onerror="this.src='../../assets/images/OrgaBanner.png'" alt = "" class = "mat-card-image">
             <div class="card-content">

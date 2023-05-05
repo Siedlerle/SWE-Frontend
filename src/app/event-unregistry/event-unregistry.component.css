@@ -97,5 +97,7 @@ mat-tab-group{
   flex-direction: column;
 }
 
-
+.answer-Question {
+  width: 40%;
+}
 
