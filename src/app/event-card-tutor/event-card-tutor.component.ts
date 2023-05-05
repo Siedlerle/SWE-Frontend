@@ -96,7 +96,6 @@ export class EventCardTutorComponent {
 
           if (id != null) {
             this.uiTutorService.getAttendingstatusForUsers(id, this.attendeeId).subscribe(response => {
-              console.log(response);
               this.isAttending = response;
             });
           }
@@ -277,4 +276,16 @@ export class EventCardTutorComponent {
     }
   }
 
+  isUserOrganizerOrHimself(user: User): boolean {
+    let visible = true;
+    const emailAddress = sessionStorage.getItem('emailAdress');
+
+    if (emailAddress === user.emailAdress) {
+      visible = false;
+    } else {
+      visible = true;
+    }
+
+    return visible;
+  }
 }

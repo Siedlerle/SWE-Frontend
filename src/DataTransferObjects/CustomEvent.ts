@@ -1,4 +1,5 @@
 import {Time} from "@angular/common";
+import {EventSeries} from "./EventSeries";
 
 export interface CustomEvent
 {
@@ -17,6 +18,6 @@ export interface CustomEvent
 
   image?:string;
 
-  eventSeriesId?:number;
+  eventSeries?: EventSeries;
   organizationId?:number;
 }

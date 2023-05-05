@@ -49,17 +49,19 @@ export class OrganisationCardRegisteredComponent {
     if(emailAdress != null && organisation.id != null){
       this.uiUserService.getRoleForUserInOrga(organisation.id, emailAdress).subscribe(response =>{
         sessionStorage.setItem('orgaRole',response.role);
+        const orgaId = sessionStorage.getItem('orgaId');
+        const orgaRole = sessionStorage.getItem('orgaRole');
+        if(orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER' && orgaRole !==''){
+          sessionStorage.setItem('activeManagement', JSON.stringify(true));
+        }else{
+          sessionStorage.setItem('activeManagement', JSON.stringify(false));
+        }
+
+        location.reload()
+
       });
     }
 
-    const orgaId = sessionStorage.getItem('orgaId');
-    const orgaRole = sessionStorage.getItem('orgaRole');
-    if(orgaId != null && orgaId !== '' && orgaRole != null && orgaRole !== 'USER' && orgaRole !==''){
-      sessionStorage.setItem('activeManagement', JSON.stringify(true));
-    }else{
-      sessionStorage.setItem('activeManagement', JSON.stringify(false));
-    }
 
-    this.router.navigate(['']);
   }
 }

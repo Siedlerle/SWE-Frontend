@@ -5,12 +5,10 @@
     <mat-icon class ="close-Icon">close</mat-icon>
   </button>
 
-  <img mat-card-image src="{{imageSource}}" class="banner">
+  <img mat-card-image src="{{imageSource}}" onerror="this.src='../../assets/images/OrgaBanner.png'" class="banner">
 
-  <div class = "tab-group" *ngIf="orgaData">
-    <h1>{{orgaData.name}}</h1>
-    <p>{{orgaData.location}}</p>
-  </div>
+  <h1>{{orgaData.name}}</h1>
+  <h2 style="text-indent: 20px">Standort: {{orgaData.location}}</h2>
 
   <div class = "action-Buttons">
     <button mat-raised-button (click)="acceptInvitation()" class="action-Button">

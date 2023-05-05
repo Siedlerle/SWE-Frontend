@@ -24,18 +24,12 @@ export class OrganisationCardComponent implements OnInit {
   backendURL: string = URLs.backend;
   imageSource: string = "";
   ngOnInit() {
-    if (this.orgaData.image === null || this.orgaData.image === "") {
-      this.imageSource = "../../assets/images/OrgaBanner.png";
-    } else {
-      this.imageSource = this.backendURL+this.orgaData.image;
-    }
   }
 
   registerInOrganisation() {
     const emailAddress = sessionStorage.getItem('emailAdress');
 
     if(emailAddress != null && this.orgaData.id !=null){
-      console.log(this.orgaData.id)
       this.uiUserService.requestJoin(this.orgaData.id,emailAddress).subscribe(response =>{
         this.closeCard();
         location.reload();
