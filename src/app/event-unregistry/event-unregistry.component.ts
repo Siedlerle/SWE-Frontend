@@ -14,6 +14,7 @@ import {Comment} from "../../DataTransferObjects/Comment";
 import {EventDeleteDialogComponent} from "../event-delete-dialog/event-delete-dialog.component";
 import {EventLeaveDialogComponent} from "../event-leave-dialog/event-leave-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
 
 @Component({
   selector: 'app-event-unregistry',
@@ -36,7 +37,7 @@ export class EventUnregistryComponent implements OnInit {
 
   QuestionType = QuestionType;
   questions: Question[] = [];
-
+  eventStatus: string = "";
   answer:string;
   answers: Answer[] = [];
   allChats: Chat[] = [];
@@ -44,6 +45,7 @@ export class EventUnregistryComponent implements OnInit {
 
   constructor(private dataService: DataService, private uiUserService:UiUserService, private uiAttendeeService:UiAttendeeService,private dialog: MatDialog )  {
     this.eventData = this.dataService.getCardData();
+    this.getReadableStatus();
     this.eventStartDate = new Date(this.eventData.startDate);
     this.eventEndDate = new Date(this.eventData.endDate);
     if (this.eventData.image == null) {
@@ -149,6 +151,26 @@ export class EventUnregistryComponent implements OnInit {
         a.click();
         document.body.removeChild(a);
       });
+    }
+  }
+
+  getReadableStatus() {
+    switch (this.eventData.status) {
+      case EnumEventStatus.INPREPARATION:
+        this.eventStatus = 'In Vorbereitung';
+        break;
+      case EnumEventStatus.SCHEDULED:
+        this.eventStatus = 'Geplant';
+        break;
+      case EnumEventStatus.RUNNING:
+        this.eventStatus = 'In Durchführung';
+        break;
+      case EnumEventStatus.ACCOMPLISHED:
+        this.eventStatus = 'Vergangen';
+        break;
+      case EnumEventStatus.CANCELLED:
+        this.eventStatus = 'abgesagt';
+        break;
     }
   }
 
