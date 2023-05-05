@@ -63,6 +63,7 @@ import {AddUserToGroupComponent} from "./add-user-to-group/add-user-to-group.com
 import {GroupCardComponent} from "./group-card/group-card.component";
 import {MatSortModule} from "@angular/material/sort";
 import { ChangeOrganizerOfEventComponent } from './change-organizer-of-event/change-organizer-of-event.component';
+import { OrganisationLeaveComponentComponent } from './organisation-leave-component/organisation-leave-component.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -113,6 +114,7 @@ const routes: Routes = [
     GroupCardComponent,
     AddUserToGroupComponent,
     ChangeOrganizerOfEventComponent,
+    OrganisationLeaveComponentComponent,
 
   ],
   imports: [
