@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Event absagen:</h1>
+<mat-dialog-content class="popup-dialog">
+  Wollen Sie das Event <br><br>
+  <strong>{{ data.eventName}}</strong><br><br>
+  wirklich absagen?<br><br>
+  Falls Sie das Event wirklich absagen wollen,
+  geben sie Ihren Teilnehmern Rückmeldung.<br>
+  <mat-form-field>
+    <textarea matInput placeholder="Grund für die Absage" [(ngModel)]="feedback" cols="80"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions class="popup-dialog">
+  <button mat-button (click)="onNoClick()">Abbrechen</button>
+  <button mat-button color="warn" (click)="onYesClick(data.eventID)">Verlassen</button>
+</mat-dialog-actions>
+

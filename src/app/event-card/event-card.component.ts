@@ -20,6 +20,8 @@ import {UiUserService} from "../../services/ui-user.service";
 import {Chat} from "../../DataTransferObjects/Chat";
 import {Comment} from "../../DataTransferObjects/Comment";
 import {ThemePalette} from "@angular/material/core";
+import {CancelEventConfirmDialogComponent} from "../cancel-event-confirm-dialog/cancel-event-confirm-dialog.component";
+import {Event} from "@angular/router";
 
 @Component({
   selector: 'app-event-card',
@@ -244,15 +246,19 @@ export class EventCardComponent implements OnInit {
 
   }
 
-  cancelEvent() {
-    if (this.eventData.id != null) {
-      let reason = 'abgesagt';
-      this.uiOrganizerService.cancelEvent(this.eventData.id, reason).subscribe(response => {
-        console.log(response);
+  cancelEvent(event: CustomEvent) {
+    const dialogRef = this.dialog.open(CancelEventConfirmDialogComponent, {
+      width: '20vw',
+      height:'20vw',
+      data: {eventName: event.name, eventID: event.id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
         this.eventData.status = EnumEventStatus.CANCELLED;
         this.getReadableStatus();
-      });
-    }
+      }
+    });
   }
 
   deleteEvent(event: CustomEvent) {

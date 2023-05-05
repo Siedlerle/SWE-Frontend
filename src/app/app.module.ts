@@ -65,6 +65,7 @@ import {MatSortModule} from "@angular/material/sort";
 import { ChangeOrganizerOfEventComponent } from './change-organizer-of-event/change-organizer-of-event.component';
 import { OrganisationLeaveComponentComponent } from './organisation-leave-component/organisation-leave-component.component';
 import { EventLeaveDialogComponent } from './event-leave-dialog/event-leave-dialog.component';
+import { CancelEventConfirmDialogComponent } from './cancel-event-confirm-dialog/cancel-event-confirm-dialog.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -117,6 +118,7 @@ const routes: Routes = [
     ChangeOrganizerOfEventComponent,
     OrganisationLeaveComponentComponent,
     EventLeaveDialogComponent,
+    CancelEventConfirmDialogComponent,
 
   ],
   imports: [
