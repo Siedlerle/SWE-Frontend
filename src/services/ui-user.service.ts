@@ -140,4 +140,8 @@ export class UiUserService {
     getRoleInEvent(eventId: number, emailAddress: string):Observable<EventRole>{
       return this.http.post<EventRole>(URLs.backend+"/user/event/"+eventId+"/get-role/"+emailAddress,null);
     }
+
+    getOrganizerOfEvent(eventId: number):Observable<User> {
+      return this.http.post<User>(URLs.backend+'/user/event/'+eventId+'/get-organizer', null)
+    }
 }

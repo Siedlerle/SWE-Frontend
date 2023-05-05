@@ -221,10 +221,17 @@
           </ng-template>
 
           <div class="attende-management-toolbar">
-            <button mat-raised-button (click) = "openAddUsertoEvent()" class = "addPerson">
-              Teilnehmer hinzufügen
-              <mat-icon>person_add</mat-icon>
-            </button>
+            <div class="left-items">
+              <button mat-raised-button (click) = "openAddUsertoEvent()" class = "addPerson">
+                Teilnehmer hinzufügen
+                <mat-icon>person_add</mat-icon>
+              </button>
+              <button mat-raised-button *ngIf="isAdmin" (click) = "openChangeOrganizerOfEvent()" class = "addPerson">
+                Organisator ändern
+                <mat-icon>person_change</mat-icon>
+              </button>
+            </div>
+
 
             <div class="search-bar">
               <input class="search-control" type="text" placeholder="Suche"#searchbar>
@@ -378,6 +385,7 @@
   </div>
 </div>
 <app-add-user-to-event *ngIf="showAddUsertoEvent" (onCloseAddUser)="closeAddUsertoEvent()"></app-add-user-to-event>
+<app-change-organizer-of-event *ngIf="showChangeOrganizerOfEvent" (onCloseChangeOrganizerOfEvent)="closeChangeOrganizerOfEvent()"></app-change-organizer-of-event>
 </html>
 
 

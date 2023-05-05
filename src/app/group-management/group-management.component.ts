@@ -93,5 +93,6 @@ export class GroupManagementComponent implements AfterViewInit {
   }
   closeGroupCard(){
     this.showGroupCard = false;
+    this.ngOnInit();
   }
 }

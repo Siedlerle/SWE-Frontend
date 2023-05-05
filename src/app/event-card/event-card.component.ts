@@ -44,7 +44,7 @@ export class EventCardComponent implements OnInit {
   fileControl = new FormControl();
   file!: File;
   eventDocs: CustomDocument[] = [];
-
+  isAdmin: boolean;
 
   questions: Question[] = [];
   QuestionType = QuestionType;
@@ -83,6 +83,13 @@ export class EventCardComponent implements OnInit {
     this.getReadableStatus();
     this.backendURL = URLs.backend;
     this.newEventImageControl = new FormControl(this.file)
+
+    const orgaRole = sessionStorage.getItem('orgaRole');
+    if (orgaRole === "ADMIN") {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
   }
 
   ngOnInit() {
@@ -205,6 +212,14 @@ export class EventCardComponent implements OnInit {
   onCancel() {
     // discard changes and exit editing mode
     this.isEditing = false;
+  }
+
+  showChangeOrganizerOfEvent = false;
+  openChangeOrganizerOfEvent(){
+    this.showChangeOrganizerOfEvent = true;
+  }
+  closeChangeOrganizerOfEvent(){
+    this.showChangeOrganizerOfEvent = false;
   }
 
   showAddUsertoEvent = false;
