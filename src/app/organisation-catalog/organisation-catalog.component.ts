@@ -46,7 +46,6 @@ export class OrganisationCatalogComponent implements OnInit{
 
 
   public onCardClick(evt: MouseEvent) {
-    console.log(evt);
   }
 
   showCard = false;

@@ -10,7 +10,16 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   padding: 20px ;
   width: 40%;
-  height: 80%;
+  border-radius: 10px;
+}
+.popup-background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
 }
 
 .popup-background{
@@ -42,6 +51,9 @@
 }
 mat-icon{
   margin: auto;
+}
+h2 {
+  margin-bottom: 50px;
 }
 .banner {
   display: block;
@@ -102,17 +114,19 @@ mat-form-field{
   position: absolute;
   bottom: 0;
   right: 0;
-  margin: 2%;
+  margin-right: 2%;
+  margin-bottom: 2%;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
 
 .action-Button {
-  background-color: white;
-  color: black;
-  display: block;
-  margin-right: auto;
-  width: auto;
+  font-weight: bolder;
+  font-size: larger;
+  float: right;
+  bottom: 3%;
+  width: 300px;
   margin-left: 2%;
 }
 

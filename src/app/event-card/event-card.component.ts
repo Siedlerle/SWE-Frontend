@@ -388,6 +388,5 @@ export class EventCardComponent implements OnInit {
   closeCard() {
     this.isEditing = false;
     this.onClose.emit();
-    location.reload();
   }
 }

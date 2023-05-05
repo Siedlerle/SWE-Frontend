@@ -1,21 +1,21 @@
 <!doctype html>
 <html>
-<div class="popup">
-  <button mat-fab (click)="closeCard()" class = "close-Button">
-    <mat-icon class ="close-Icon">close</mat-icon>
-  </button>
-
-  <img mat-card-image src="{{imageSource}}" class="banner">
-
-  <div class = "tab-group">
-    <h1>{{orgaData.name}}</h1>
-    <p>{{orgaData.location}}</p>
-  </div>
-
-  <div class = "action-Buttons">
-    <button mat-raised-button (click)="registerInOrganisation()" class="action-Button">
-      Registrieren
+<div class ="popup-background">
+  <div class="popup">
+    <button mat-fab (click)="closeCard()" class = "close-Button">
+      <mat-icon class ="close-Icon">close</mat-icon>
     </button>
+
+    <img mat-card-image src="{{imageSource}}" onerror="this.src='../../assets/images/OrgaBanner.png'" class="banner">
+
+    <h1>{{orgaData.name}}</h1>
+    <h2 style="text-indent: 20px">Standort: {{orgaData.location}}</h2>
+
+    <div class = "action-Buttons">
+      <button mat-raised-button (click)="registerInOrganisation()" class="action-Button">
+        Registrieren
+      </button>
+    </div>
   </div>
 </div>
 </html>

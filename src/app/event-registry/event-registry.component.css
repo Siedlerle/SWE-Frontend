@@ -9,7 +9,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   padding: 20px ;
   width: 50%;
-  height: 80%;
+
   border-radius: 10px;
 }
 .banner {
@@ -30,6 +30,16 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0);
   z-index: 999;
+
+}
+
+.submit-button{
+  font-weight: bolder;
+  font-size: larger;
+  float: right;
+  bottom: 3%;
+
+
 }
 .close-Button{
   width: 30px;
@@ -76,11 +86,6 @@ mat-tab{
 
 .mat-mdc-tab-body {
 
-}
-.buttons{
-  position: absolute;
-  right: .5%;
-  down: .5%
 }
 
 

@@ -4,7 +4,7 @@
       <mat-icon class ="close-Icon">close</mat-icon>
     </button>
     <div class="card-header">
-      <img mat-card-image src="{{backendURL + imageSource}}" class="banner">
+      <img mat-card-image src="{{backendURL + imageSource}}" onerror="this.src='../../assets/images/nature.jpg'"  class="banner">
     </div>
 
 
@@ -31,10 +31,10 @@
       <p>
         {{eventData.location}}
       </p>
-      <div class="buttons">
-        <button mat-raised-button (click)="registerForEvent()">Registrieren</button>
+      <p>
+        <button mat-raised-button class="submit-button" (click)="registerForEvent()">Registrieren</button>
+      </p>
 
-      </div>
     </div>
   </div>
 </div>
