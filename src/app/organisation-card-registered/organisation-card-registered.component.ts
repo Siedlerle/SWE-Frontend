@@ -69,7 +69,6 @@ export class OrganisationCardRegisteredComponent {
 
       });
     }
-
-
+    this.router.navigate(['']);
   }
 }

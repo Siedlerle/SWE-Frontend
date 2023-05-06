@@ -107,10 +107,10 @@ export class NavComponent implements OnInit{
           this.canManage();
         }
 
-        this.router.navigate(['']);
+        location.reload();
       });
     }
-
+    this.router.navigate(['']);
   }
 
   goBackToStart(){
@@ -119,9 +119,6 @@ export class NavComponent implements OnInit{
     sessionStorage.setItem('eventRole', '');
 
     this.imageSource = "../../assets/images/OrgaBanner.png";
-
-
-
 
     const orgaId = sessionStorage.getItem('orgaId');
     const orgaRole = sessionStorage.getItem('orgaRole');
@@ -134,7 +131,7 @@ export class NavComponent implements OnInit{
     }
 
     this.router.navigate(['']);
-
+    location.reload();
   }
 
   showCard = false;
