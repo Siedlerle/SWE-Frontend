@@ -94,7 +94,6 @@ export class MyEventsComponent implements OnInit {
             this.showTutorCard = true;
           }else{
             this.showInvitationCard = true;
-
           }
       });
     }

@@ -9,7 +9,7 @@
   z-index: 1000;
   top: 30%;
   left: 50%;
-
+  border-radius: 10px;
 }
 
 .popup-background{
