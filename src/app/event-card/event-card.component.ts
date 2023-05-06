@@ -238,48 +238,33 @@ export class EventCardComponent implements OnInit {
 
   onChangeEvent(form: NgForm) {
     const dayTime = new Date();
-    if (this.eventStartDate.getDay() <= dayTime.getDay()-1) {
-      this.snackBar.open('Das Startdatum darf nicht vor dem heutigen Tag liegen', 'Schließen', {
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom',
-        duration: 3000,
-        panelClass: ['errorSnackbar']
-      });
+    const startTime = this.getDate(this.eventData.startDate, this.eventData.startTime);
+    const endTime = this.getDate(this.eventData.endDate, this.eventData.endTime);
+    if (startTime > endTime) {
+      this.snackBar.open("Startzeitpunkt liegt nach Endzeitpunkt. Event wird nicht erstellt.", 'Schließen', { duration: 5000 });
       return;
-    }
-    if (this.eventStartDate.getDate() > this.eventEndDate.getDate()) {
-
-      this.snackBar.open('Das Enddatum darf nicht vor dem Startdatum liegen', 'Schließen', {
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom',
-        duration: 3000,
-        panelClass: ['errorSnackbar']
-      });
+    } else if (startTime < dayTime) {
+      this.snackBar.open("Startzeitpunkt liegt vor jetzigem Zeitpunkt. Event wird nicht erstellt.", 'Schließen', { duration: 5000 });
       return;
-    }
-    if (this.eventData.startDate == this.eventData.endDate) {
-      if(this.eventData.startTime > this.eventData.endTime){
-        // Endzeit darf nicht vor der Startzeit liegen
-        this.snackBar.open('Die Endzeit des Events darf nicht vor der Startzeit liegen', 'Schließen', {
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-          duration: 3000,
-          panelClass: ['errorSnackbar']
-        });
-        return;
-      }
     }
 
     this.uiOrganizerService.changeEvent(this.eventData, this.newEventImage).subscribe(response => {
       const text = response.message;
       if (text === "Event changed successfully") {
-        this.snackBar.open("Event erfolgreich geändert", 'Close', { duration: 10000 });
+        this.snackBar.open("Event erfolgreich geändert", 'Schließen', { duration: 10000 });
         location.reload()
       } else {
-        this.snackBar.open("Änderung des Events fehlgeschlagen", 'Close', { duration: 10000 });
+        this.snackBar.open("Änderung des Events fehlgeschlagen", 'Schließen', { duration: 10000 });
       }
     });
 
+  }
+
+  getDate(date: Date, time: string): Date {
+    const [hours, minutes] = time.split(':').map(Number);
+    const newDate = new Date(date);
+    newDate.setHours(hours, minutes, 0);
+    return newDate;
   }
 
   cancelEvent(event: CustomEvent) {

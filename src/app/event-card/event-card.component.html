@@ -330,7 +330,7 @@
                   <p>
                     <mat-form-field appearance="fill" style="position: relative; width: 47.5%; float: left">
                       <mat-label>Startdatum des Events (MM/DD/YY)</mat-label>
-                      <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="eventStartDate" name="eventStartDate" required>
+                      <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="eventData.startDate" name="eventStartDate" required>
                       <mat-datepicker-toggle matIconSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                       <mat-datepicker #startDatePicker></mat-datepicker>
                       <mat-error *ngIf="!eventData.startDate">Datum wird benötigt</mat-error>
@@ -339,7 +339,7 @@
                   <p>
                     <mat-form-field appearance="fill" style="position: relative; width: 47.5%; float: left; padding-left: 5%">
                       <mat-label>Enddatum des Events (MM/DD/YY)</mat-label>
-                      <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="eventEndDate" name="eventEndDate" required>
+                      <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="eventData.endDate" name="eventEndDate" required>
                       <mat-datepicker-toggle matIconSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                       <mat-datepicker #endDatePicker></mat-datepicker>
                       <mat-error *ngIf="!eventData.endDate">Datum wird benötigt</mat-error>

@@ -133,36 +133,14 @@ export class AddEventComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     const dayTime = new Date();
-    if (this.event.startDate.getDay() <= dayTime.getDay() - 1) {
-      this.snackBar.open('Das Startdatum darf nicht vor dem heutigen Tag liegen', 'Schließen', {
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom',
-        duration: 3000,
-        panelClass: ['errorSnackbar']
-      });
+    const startTime = this.getDate(this.event.startDate, this.event.startTime);
+    const endTime = this.getDate(this.event.endDate, this.event.endTime);
+    if (startTime > endTime) {
+      this.snackBar.open("Startzeitpunkt liegt nach Endzeitpunkt. Event wird nicht erstellt.", 'Schließen', { duration: 5000 });
       return;
-    }
-    if (this.event.startDate.getTime() > this.event.endDate.getTime()) {
-
-      this.snackBar.open('Das Enddatum darf nicht vor dem Startdatum liegen', 'Schließen', {
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom',
-        duration: 3000,
-        panelClass: ['errorSnackbar']
-      });
+    } else if (startTime < dayTime) {
+      this.snackBar.open("Startzeitpunkt liegt vor jetzigem Zeitpunkt. Event wird nicht erstellt.", 'Schließen', { duration: 5000 });
       return;
-    }
-    if (this.event.startDate.getTime() == this.event.endDate.getTime()) {
-      if(this.event.startTime > this.event.endTime){
-        // Endzeit darf nicht vor der Startzeit liegen
-        this.snackBar.open('Die Endzeit des Events darf nicht vor der Startzeit liegen', 'Schließen', {
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-          duration: 3000,
-          panelClass: ['errorSnackbar']
-        });
-        return;
-      }
     }
 
     const emailAddress = sessionStorage.getItem('emailAdress');
@@ -185,6 +163,12 @@ export class AddEventComponent implements OnInit {
     }
   }
 
+  getDate(date: Date, time: string): Date {
+    const [hours, minutes] = time.split(':').map(Number);
+    const newDate = new Date(date);
+    newDate.setHours(hours, minutes, 0);
+    return newDate;
+  }
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({matches}) => {
