@@ -178,7 +178,6 @@ export class EventCardTutorComponent {
     let eventId = this.eventData.id;
     if ( eventId != null ){
       this.uiOrganizerService.removeUserFromEvent(eventId,user.emailAdress).subscribe(response => {
-        //this.ngOnInit();
         this.ngOnInit();
       });
 
