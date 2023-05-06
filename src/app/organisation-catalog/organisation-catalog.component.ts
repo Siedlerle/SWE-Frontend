@@ -85,5 +85,20 @@ export class OrganisationCatalogComponent implements OnInit{
     this.toggleSearch = false;
   }
 
+  filterMyOrgas() {
+    if (!this.myOrgaSearchText) {
+      return this.usersOrganisations;
+    }
+    console.log(this.myOrgaSearchText)
+    return this.usersOrganisations.filter(orga => orga.name.toLowerCase().includes(this.myOrgaSearchText.toLowerCase()));
+  }
+  filterAllOrgas() {
+    if (!this.allOrgaSearchText) {
+      return this.usersOrganisations;
+    }
+    console.log(this.allOrgaSearchText)
+    return this.usersOrganisations.filter(orga => orga.name.toLowerCase().includes(this.allOrgaSearchText.toLowerCase()));
+  }
+
 
 }
