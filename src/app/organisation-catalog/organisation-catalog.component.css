@@ -10,11 +10,8 @@
 }
 .search-control {
   padding: 8px;
-
-  border-style: solid;
-  border-color: #999;
+  border: none;
   border-radius: 4px;
-
   font-size: 16px;
   background-color: white;
 }
@@ -71,7 +68,6 @@ mat-list-item {
 
 mat-card:hover {
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  transform: translateY(-5px);
   background-color: gray;
 }
 

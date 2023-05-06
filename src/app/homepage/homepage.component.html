@@ -2,8 +2,8 @@
 <html>
   <body>
     <mat-grid-list cols="2" rowHeight="2:1" [gutterSize]="'15px'" class="layoutGrid">
-      <mat-grid-tile rowspan="1" colspan="1" class="layoutGridTile">
-        <mat-grid-tile-header class="mat-grid-tile-header-left">
+      <mat-grid-tile rowspan="1" colspan="1" class="layoutGridTile mat-elevation-z5">
+        <mat-grid-tile-header class="mat-grid-tile-header-left mat-elevation-z3">
           <h1>Meine Events</h1>
         </mat-grid-tile-header>
 
@@ -20,15 +20,14 @@
         </mat-list>
 
       </mat-grid-tile>
-      <mat-grid-tile rowspan="2" colspan="1" class="layoutGridTile">
-        <mat-grid-tile-header class="mat-grid-tile-header-right">
+      <mat-grid-tile rowspan="2" colspan="1" class="layoutGridTile mat-elevation-z5">
+        <mat-grid-tile-header class="mat-grid-tile-header-right mat-elevation-z3">
           <h1>Kalender</h1>
         </mat-grid-tile-header>
         <mat-calendar></mat-calendar>
       </mat-grid-tile>
-      <mat-grid-tile rowspan="1" colspan="1" class="layoutGridTile">
-        <mat-grid-tile-header class="mat-grid-tile-header-left">
-        </mat-grid-tile-header>
+      <mat-grid-tile rowspan="1" colspan="1" class="layoutGridTile mat-elevation-z5">
+        <mat-grid-tile-header class="mat-grid-tile-header-left mat-elevation-z3"></mat-grid-tile-header>
         <mat-tab-group class="invitation-tabs" dynamicHeight>
           <mat-tab label="Event-Einladungen" class="mat-tab-label">
               <mat-list>

@@ -45,8 +45,8 @@ $SWE-Frontend-theme: mat.define-light-theme((
 
 .errorSnackbar {
   max-width: max-content !important;
-  color: red;
-  f
+  --mdc-snackbar-supporting-text-color: #fff;
+  --mdc-snackbar-container-margin: 2%;
 
   .mat-simple-snackbar-action {
     color: white;

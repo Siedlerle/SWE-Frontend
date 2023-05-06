@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {UiUserService} from "../../services/ui-user.service";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {Organisation} from "../../DataTransferObjects/Organisation";
@@ -13,7 +13,6 @@ import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
-
 })
 
 

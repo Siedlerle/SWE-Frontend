@@ -1,34 +1,82 @@
 <!doctype html>
 <html>
-  <div class = "my-events-toolbar">
-    <div class="search-bar">
-      <input class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText">
-      <mat-icon class="search-icon" >search</mat-icon>
-    </div>
-    <!--button class ="filter-icon"mat-icon-button>
-      <mat-icon>filter_list</mat-icon>
-    </--button-->
-  </div>
-  <div class="basic-container">
-    <mat-grid-list cols="2" rowHeight="6:1" gutterSize="2%" class="layoutGrid" >
-      <mat-grid-tile *ngFor="let event of filterEvents()"  class ="layoutGridTile" >
-        <mat-card [style.width]="'100%'" (click)="openCard(event)" class = "card">
-          <img mat-card-sm-image src="{{backendURL + event.image}}" onerror="this.src='../../assets/images/nature.jpg'"  alt = "" class = "mat-card-image">
-          <div class="card-content">
-            <mat-card-header>{{event.name}}</mat-card-header >
-            <mat-card-content>{{event.description}}</mat-card-content>
-          </div>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
+  <mat-accordion class="headers-align" multi>
+    <mat-expansion-panel [expanded] = "true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h3>
+            Anstehende Events
+          </h3>
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-icon>person</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-action-row>
+      </mat-action-row>
+      <div class = "my-events-toolbar">
+        <div class="search-bar">
+          <input class="search-control mat-elevation-z3" type="text" placeholder="Suche" [(ngModel)]="searchText">
+          <mat-icon class="search-icon" >search</mat-icon>
+        </div>
+        <!--button class ="filter-icon"mat-icon-button>
+          <mat-icon>filter_list</mat-icon>
+        </button-->
+      </div>
+      <div class="basic-container">
+        <mat-grid-list cols="2" rowHeight="6:1" gutterSize="2%" class="layoutGrid" >
+          <mat-grid-tile *ngFor="let event of filterEvents()"  class ="layoutGridTile mat-elevation-z8" >
+            <mat-card [style.width]="'100%'" (click)="openCard(event)" class = "card">
+              <img mat-card-sm-image src="{{backendURL + event.image}}" onerror="this.src='../../assets/images/nature.jpg'"  alt = "" class = "mat-card-image">
+              <div class="card-content">
+                <mat-card-header>{{event.name}}</mat-card-header >
+                <mat-card-content>{{event.description}}</mat-card-content>
+              </div>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
 
-  </div>
-  <div>
-    <mat-paginator [pageSizeOptions]="[10, 20, 30]"
-                   showFirstLastButtons
-                   aria-label="Select page of periodic elements">
-    </mat-paginator>
-  </div>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h3>
+            Vergangene Events
+          </h3>
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-icon>person</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-action-row>
+      </mat-action-row>
+      <div class = "my-events-toolbar">
+        <div class="search-bar">
+          <input class="search-control mat-elevation-z3" type="text" placeholder="Suche" [(ngModel)]="searchText">
+          <mat-icon class="search-icon" >search</mat-icon>
+        </div>
+        <!--button class ="filter-icon"mat-icon-button>
+          <mat-icon>filter_list</mat-icon>
+        </button-->
+      </div>
+      <div class="basic-container">
+        <mat-grid-list cols="2" rowHeight="6:1" gutterSize="2%" class="layoutGrid" >
+          <mat-grid-tile *ngFor="let event of filterEvents()"  class ="layoutGridTile mat-elevation-z8" >
+            <mat-card [style.width]="'100%'" (click)="openCard(event)" class = "card">
+              <img mat-card-sm-image src="{{backendURL + event.image}}" onerror="this.src='../../assets/images/nature.jpg'"  alt = "" class = "mat-card-image">
+              <div class="card-content">
+                <mat-card-header>{{event.name}}</mat-card-header >
+                <mat-card-content>{{event.description}}</mat-card-content>
+              </div>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
   <app-event-unregistry *ngIf = "showInvitationCard" (onClose)="closeCard()"></app-event-unregistry>
   <app-event-card-tutor *ngIf="showTutorCard" (onClose)="closeCard()"></app-event-card-tutor>
 
