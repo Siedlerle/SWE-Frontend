@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
-import {listData} from "../organisation-catalog/organisation-list";
 import {MatCardContent} from "@angular/material/card";
 import {UiUserService} from "../../services/ui-user.service";
 import {Organisation} from "../../DataTransferObjects/Organisation";
@@ -28,7 +27,6 @@ export class NavComponent implements OnInit{
   lastName: string | undefined = "";
 
   constructor(private router: Router, private activeRoute: ActivatedRoute, private uiUserService : UiUserService) { }
-  organisationList = listData;
   ngOnInit() {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {

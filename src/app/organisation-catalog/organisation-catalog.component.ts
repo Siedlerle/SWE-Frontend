@@ -1,5 +1,4 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {listData} from "./organisation-list";
 import {MatPaginator} from "@angular/material/paginator";
 import {UiUserService} from "../../services/ui-user.service";
 import {Organisation} from "../../DataTransferObjects/Organisation";
@@ -23,11 +22,13 @@ export class OrganisationCatalogComponent implements OnInit{
     if(emailAddress != null){
       this.uiUserService.getOrganisationForUser(emailAddress).subscribe(response =>{
         this.usersOrganisations = response;
+        this.allOrganisations = this.allOrganisations.filter((org) => {
+          return this.usersOrganisations.findIndex((myOrg) => myOrg.id === org.id) === -1;
+        })
       });
     }
   }
 
-  organisationslist = listData;
   @ViewChild('searchbar') searchbar: ElementRef;
   myOrgaSearchText = '';
   allOrgaSearchText = '';
@@ -89,15 +90,13 @@ export class OrganisationCatalogComponent implements OnInit{
     if (!this.myOrgaSearchText) {
       return this.usersOrganisations;
     }
-    console.log(this.myOrgaSearchText)
     return this.usersOrganisations.filter(orga => orga.name.toLowerCase().includes(this.myOrgaSearchText.toLowerCase()));
   }
   filterAllOrgas() {
     if (!this.allOrgaSearchText) {
-      return this.usersOrganisations;
+      return this.allOrganisations;
     }
-    console.log(this.allOrgaSearchText)
-    return this.usersOrganisations.filter(orga => orga.name.toLowerCase().includes(this.allOrgaSearchText.toLowerCase()));
+    return this.allOrganisations.filter(orga => orga.name.toLowerCase().includes(this.allOrgaSearchText.toLowerCase()));
   }
 
 
