@@ -19,7 +19,8 @@ export class MyEventsComponent implements OnInit {
   executingEvents: CustomEvent[] = [];
   inactiveEvents: CustomEvent[] = [];
 
-  searchText = '';
+  searchExecutingEventsText = '';
+  searchInactiveEventsText = '';
   backendURL: string = "";
 
   constructor(private dataService: DataService, private uiUserService : UiUserService) {
@@ -106,17 +107,17 @@ export class MyEventsComponent implements OnInit {
   }
 
   filterExecutingEvents() {
-    if (!this.searchText) {
+    if (!this.searchExecutingEventsText) {
       return this.executingEvents;
     }
-    return this.executingEvents.filter(event => event.name.toLowerCase().includes(this.searchText.toLowerCase()));
+    return this.executingEvents.filter(event => event.name.toLowerCase().includes(this.searchExecutingEventsText.toLowerCase()));
   }
 
   filterInactiveEvents() {
-    if (!this.searchText) {
+    if (!this.searchInactiveEventsText) {
       return this.inactiveEvents;
     }
-    return this.inactiveEvents.filter(event => event.name.toLowerCase().includes(this.searchText.toLowerCase()));
+    return this.inactiveEvents.filter(event => event.name.toLowerCase().includes(this.searchInactiveEventsText.toLowerCase()));
   }
 }
 
