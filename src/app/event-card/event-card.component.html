@@ -93,8 +93,8 @@
                     </div>
 
                   <mat-form-field style="display: flex; width: 80%; justify-content: center; align-content: center">
-                    <input matInput placeholder="Enter text" [(ngModel)]="chatMessage" >
-                    <button mat-icon-button matSuffix (click)="sendChatMessage(chatMessage)" >
+                    <input matInput placeholder="Enter text" [(ngModel)]="chatMessage" (keyup.enter)="sendChatMessage()" >
+                    <button mat-icon-button matSuffix (click)="sendChatMessage()" >
                       <mat-icon>send</mat-icon>
                     </button>
                   </mat-form-field>
@@ -120,7 +120,7 @@
                   <div class="tableControlls"
                        style="position:relative; justify-self: stretch; width: 100%; text-align: right">
                     <mat-card-title style="float: left">Dateien</mat-card-title>
-                    <ngx-mat-file-input  [formControl]="fileControl" [multiple]="false" [accept]="accept" style="float: right; margin-right: 45px">
+                    <ngx-mat-file-input  [formControl]="fileControl" [multiple]="false" [accept]="accept" (change)="onFileSelected($event)" style="float: right; margin-right: 45px">
                     </ngx-mat-file-input>
                   </div>
                 </mat-card-header>

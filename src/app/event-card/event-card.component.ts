@@ -152,18 +152,21 @@ export class EventCardComponent implements OnInit {
       } else {
         this.file = file;
         const formData = new FormData();
-        formData.append('file', this.file, this.file.name);
-        if (this.file.size <= 52428800)//
-        {
-          const id = this.eventData.id;
-          if(id != null){
-            this.uiTutorService.addDocumentToEvent(id, formData).subscribe(response => {
-              location.reload();
-            });
+        if(this.file){
+          formData.append('file', this.file, this.file.name);
+          if (this.file.size <= 52428800)//
+          {
+            const id = this.eventData.id;
+            if(id != null){
+              this.uiTutorService.addDocumentToEvent(id, formData).subscribe(response => {
+                //location.reload();
+                this.ngOnInit();
+              });
+            }
           }
-        }
-        else {
-          console.log("Datei zu groß");
+          else {
+            console.log("Datei zu groß");
+          }
         }
       }
     });
@@ -177,16 +180,16 @@ export class EventCardComponent implements OnInit {
     })
   }
 
-  sendChatMessage(message: string){
+  sendChatMessage(){
     const id = this.eventData.id;
 
     const emailAddress = sessionStorage.getItem('emailAdress');
     if(id != null && emailAddress != null) {
       this.uiTutorService.sendMessage(id, this.chatMessage, emailAddress).subscribe(response =>{
-
-      })
+        this.ngOnInit();
+        this.chatMessage = "";
+      });
     }
-    location.reload();
   }
 
 
@@ -373,8 +376,15 @@ export class EventCardComponent implements OnInit {
   deleteFile(doc: CustomDocument)
   {
     this.uiTutorService.deleteDocument(doc).subscribe(response =>{
-      location.reload();
+      //location.reload();
+      this.ngOnInit();
     });
+  }
+  onFileSelected(event: any) {
+    if(this.fileControl != null){
+      this.fileControl.setValue(null);
+
+    }
   }
 
   bytesToMegabytes(bytes: number): string {

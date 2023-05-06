@@ -139,7 +139,8 @@ export class EventCardTutorComponent {
           const id = this.eventData.id;
           if(id != null){
             this.uiTutorService.addDocumentToEvent(id, formData).subscribe(response => {
-              location.reload();
+              //location.reload();
+              this.ngOnInit();
             });
           }
         }
@@ -162,21 +163,22 @@ export class EventCardTutorComponent {
   eventLocation: string = "";
   eventStatus: string = "";
   imageSource: string = "";
-  sendChatMessage(message: string){
+  sendChatMessage(){
     const id = this.eventData.id;
 
     const emailAddress = sessionStorage.getItem('emailAdress');
     if(id != null && emailAddress != null) {
       this.uiTutorService.sendMessage(id, this.chatMessage, emailAddress).subscribe(response =>{
-
+        this.ngOnInit();
+        this.chatMessage = "";
       })
     }
-    location.reload();
   }
   removeUser(user: User){
     let eventId = this.eventData.id;
     if ( eventId != null ){
       this.uiOrganizerService.removeUserFromEvent(eventId,user.emailAdress).subscribe(response => {
+        //this.ngOnInit();
         this.ngOnInit();
       });
 
@@ -230,7 +232,8 @@ export class EventCardTutorComponent {
   deleteFile(doc: CustomDocument)
   {
     this.uiTutorService.deleteDocument(doc).subscribe(response =>{
-      location.reload();
+      //location.reload();
+      this.ngOnInit();
     });
   }
   bytesToMegabytes(bytes: number): string {
@@ -240,6 +243,13 @@ export class EventCardTutorComponent {
     }
     let megabytes = bytes / (1024 * 1024);
     return megabytes.toFixed(2) + " MB";
+  }
+
+  onFileSelected(event: any) {
+    if(this.fileControl != null){
+      this.fileControl.setValue(null);
+
+    }
   }
 
   saveAnswer(index: number, question:Question) {
