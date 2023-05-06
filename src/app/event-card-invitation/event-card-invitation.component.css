@@ -9,7 +9,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   padding: 20px ;
   width: 50%;
-  height: 80%;
   border-radius: 10px;
 }
 .banner {
@@ -28,7 +27,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
 .close-Button{
@@ -79,11 +78,20 @@ mat-tab{
 }
 .buttons{
   position: absolute;
-  right: .5%;
-  down: .5%
+  bottom: 0;
+  right: 0;
+  margin-right: 2%;
+  margin-bottom: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-
+.submit-button {
+  font-weight: bolder;
+  font-size: larger;
+  flex-basis: 48%;
+}
 
 
 

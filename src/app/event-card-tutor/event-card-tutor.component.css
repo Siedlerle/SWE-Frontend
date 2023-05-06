@@ -29,7 +29,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
 .close-Button{
@@ -183,7 +183,7 @@ mat-form-field{
 }
 
 .tab-group {
-  height: 80%;
+  height: 100%;
   width: 100%;
 }
 .mat-tab-label {
@@ -210,6 +210,10 @@ mat-form-field{
   font-size: 16px;
   background-color: white;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content {
+  margin-bottom: 50px;
 }
 
 .search-icon {
