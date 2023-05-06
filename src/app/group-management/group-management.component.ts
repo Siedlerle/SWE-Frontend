@@ -29,17 +29,11 @@ export class GroupManagementComponent implements AfterViewInit {
   @Output() onClose = new EventEmitter<void>();
 
   dataSource = new MatTableDataSource<Group>();
+
   displayedColumns: string[] = ['name','actions'];
   groups: Group[];
 
-  filterGroups() {
-    if (!this.searchText) {
-      return this.managingEvents;
-    }
-    return this.managingEvents.filter(event => {
-      return event.name.toLowerCase().includes(this.searchText.toLowerCase());
-    });
-  }
+
 
   ngOnInit() {
     const orgaId = sessionStorage.getItem('orgaId');
@@ -52,6 +46,10 @@ export class GroupManagementComponent implements AfterViewInit {
   }
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+  }
+
+  applyFilter() {
+    this.dataSource.filter = this.searchText.trim().toLowerCase();
   }
 
   deleteGroup(groupId: number) {
