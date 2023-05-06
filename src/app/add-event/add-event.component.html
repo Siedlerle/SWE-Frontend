@@ -34,7 +34,7 @@
                 </mat-form-field>
               </p>
               <p>
-                <mat-form-field appearance="fill" hintLabel="Max 300 Zeichen" style="position: relative; width: 100%">
+                <mat-form-field appearance="fill" hintLabel="Max. 300 Zeichen" style="position: relative; width: 100%">
                   <mat-label>Beschreibung des Events</mat-label>
                   <input matInput placeholder="Beschreibung des Events" [(ngModel)]="event.description" name="eventDescription" maxlength="300" #input required>
                   <mat-hint align="end">{{input.value.length || 0}}/300</mat-hint>
