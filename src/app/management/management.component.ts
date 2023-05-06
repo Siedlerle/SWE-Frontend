@@ -120,6 +120,7 @@ export class ManagementComponent implements OnInit  {
   }
   showCard = false;
   openCard(item: CustomEvent){
+    this.updateStatusOfEvents(this.managingEvents);
     this.showCard = true;
     this.dataService.setCardData(item);
   }

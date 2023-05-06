@@ -77,6 +77,10 @@ export class EventCatalogComponent implements OnInit {
 
   showInvitationCard = false;
   openCard(item: CustomEvent){
+
+    this.updateStatusOfEvents(this.availableEvents);
+
+
     this.showInvitationCard = true;
     this.dataService.setCardData(item);
   }

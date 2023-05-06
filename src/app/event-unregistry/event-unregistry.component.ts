@@ -57,6 +57,8 @@ export class EventUnregistryComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getReadableStatus();
+
     let id = this.eventData.id;
     const emailAdress = sessionStorage.getItem('emailAdress');
     if (id != null) {

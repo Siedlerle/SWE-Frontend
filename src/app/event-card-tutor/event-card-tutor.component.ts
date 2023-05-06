@@ -82,6 +82,8 @@ export class EventCardTutorComponent {
   }
 
   ngOnInit() {
+    this.getReadableStatus();
+
     let id = this.eventData.id;
     if (id != null) {
       this.uiAttendeeService.getDocumentsOfEvent(id).subscribe(data => {
