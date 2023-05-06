@@ -3,7 +3,7 @@
 }
 
 .layoutGridTile{
-  background-color: lightgray;
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,7 +11,9 @@
 
 mat-grid-tile-header:nth-child(n) {
   height: 4%;
+  background-color: gray;
 }
+
 
 .search-icon{
   color: #333333;

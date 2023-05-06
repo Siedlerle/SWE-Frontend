@@ -1,5 +1,5 @@
 .layoutGridTile{
-  background-color: lightgray;
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,13 +12,27 @@
 
 .mat-grid-tile-header-left:nth-child(n) {
   height: 8%;
+  background-color: gray;
 }
 
 .mat-grid-tile-header-right:nth-child(n) {
   height: 4%;
+  background-color: gray;
+}
+
+
+.invitation-tabs {
+  height: 100%;
+  width: 100%;
 }
 
 .invitation-tabs-header {
+  height: 8%;
+  background-color: gray;
+}
+
+.mat-tab-label {
+  background-color: gray;
   height: 8%;
 }
 /*
@@ -93,14 +107,7 @@ mat-calendar {
 
 }
 
-.invitation-tabs {
-  height: 100%;
-  width: 100%;
-}
 
-.invitation-tabs-header {
-  height: 8%;
-}
 
 mat-list {
   margin-top: 5%;
@@ -170,7 +177,6 @@ mat-list-item {
 
 mat-card:hover {
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  transform: translateY(-5px);
   background-color: gray;
 }
 
