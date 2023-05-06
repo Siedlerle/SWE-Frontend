@@ -6,6 +6,7 @@ import {DataService} from "../management/CardService";
 import {OrganisationCardService} from "../organisation-card/OrganisationCardService";
 import {URLs} from "../../assets/SystemVariables/URLs";
 import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
+import {EnumEventRole} from "../../DataTransferObjects/EnumEventRole";
 
 //import { listData } from './event-list';
 
@@ -129,12 +130,25 @@ export class HomepageComponent implements OnInit {
   }
 
   showEventUnregistry = false;
+  showTutorCard = false;
   openEventUnregistry(item: CustomEvent){
-    this.showEventUnregistry = true;
+    const id = item.id;
+    const emailAdress = sessionStorage.getItem('emailAdress');
+    if(id != null && emailAdress != null){
+      this.uiUserService.getRoleInEvent(id,emailAdress).subscribe(response =>{
+
+        if(response.role === EnumEventRole.TUTOR){
+          this.showTutorCard = true;
+        }else{
+          this.showEventUnregistry = true;
+        }
+      });
+    }
     this.dataService.setCardData(item);
   }
   closeEventUnregitry(){
     this.showEventUnregistry = false;
+    this.showTutorCard = false;
   }
 
 
