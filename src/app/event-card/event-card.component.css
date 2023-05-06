@@ -191,5 +191,7 @@ mat-form-field{
   right: .5%;
   color: #999;
 }
-
+.questionItem{
+  border: 1px solid #343a40;
+}
 

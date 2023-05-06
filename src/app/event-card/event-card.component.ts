@@ -22,6 +22,7 @@ import {Comment} from "../../DataTransferObjects/Comment";
 import {ThemePalette} from "@angular/material/core";
 import {CancelEventConfirmDialogComponent} from "../cancel-event-confirm-dialog/cancel-event-confirm-dialog.component";
 import {Event} from "@angular/router";
+import {Answer} from "../../DataTransferObjects/Answer";
 
 @Component({
   selector: 'app-event-card',
@@ -70,8 +71,11 @@ export class EventCardComponent implements OnInit {
 
   allComments: Comment [][] = [];
 
-
   attendeeRoleMap: {[key:number]:boolean} = {};
+
+  questionsToEvaluate: Question[] = [];
+  answersToEvaluate: Answer[] = [];
+
 
   searchText = '';
 
@@ -122,7 +126,13 @@ export class EventCardComponent implements OnInit {
             }
           }
         }
+      });
 
+      this.uiTutorService.getAllQuestionsForEvent(id).subscribe(response =>{
+        this.questionsToEvaluate = response;
+      });
+      this.uiTutorService.getAllAnswersForQuestion(id).subscribe(response =>{
+        this.answersToEvaluate = response;
       });
 
       this.uiAttendeeService.getChatForEvent(id).subscribe(response =>{
