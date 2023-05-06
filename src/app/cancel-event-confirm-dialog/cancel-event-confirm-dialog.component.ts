@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 import {UiOrganizerService} from "../../services/ui-organizer.service";
 import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
+import {EventCardComponent} from "../event-card/event-card.component";
 
 @Component({
   selector: 'app-cancel-event-confirm-dialog',
@@ -21,6 +22,7 @@ export class CancelEventConfirmDialogComponent {
   onYesClick(id: number): void {
       if (id != null) {
         this.uiOrganizerService.cancelEvent(id, this.feedback).subscribe(response => {
+          this.data.status = EnumEventStatus.CANCELLED;
           this.dialogRef.close(false);
         });
       }

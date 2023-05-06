@@ -283,14 +283,12 @@ export class EventCardComponent implements OnInit {
     const dialogRef = this.dialog.open(CancelEventConfirmDialogComponent, {
       width: '20vw',
       height:'20vw',
-      data: {eventName: event.name, eventID: event.id}
+      data: {eventName: event.name, eventID: event.id, status: this.eventData.status}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
-        this.eventData.status = EnumEventStatus.CANCELLED;
-        this.getReadableStatus();
-
+      this.getReadableStatus();
+      location.reload();
     });
   }
 
