@@ -39,9 +39,9 @@ export class UiUserService {
       return this.http.post<any>(URLs.backend+URLs.verify,null,{ headers:headers, params: params});
     }
 
-    refresh():Observable<any>{
+    /*refresh():Observable<any>{
       return this.http.post<any>(URLs.backend+URLs.refresh, null, { responseType: 'json'});
-    }
+    }*/
 
 
 
