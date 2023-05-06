@@ -47,6 +47,10 @@ export class HomepageComponent implements OnInit {
 
     }else if( emailAddress !==null && orgaId ===''){
       //Alle registrierten Events
+      this.uiUserService.getAllRegisteredEvents(emailAddress).subscribe(response => {
+        this.registeredEvents = response;
+        this.updateStatusOfEvents(this.registeredEvents);
+      });
 
       //Alle Event-Einladungen
       this.uiUserService.getAllEventInvitations(emailAddress).subscribe(response => {
