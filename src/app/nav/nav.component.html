@@ -28,7 +28,7 @@
         </div>
         <div class="right-items">
           <div class="profile-dropdown" (click)="toggleDropdown()">
-            <a class="nav-item">Profil</a>
+            <a class="nav-item">{{firstName + " " + lastName}}</a>
             <div class="dropdown-content" [ngClass]="{'show': isDropdownOpen}">
               <ul (click)="isDropdownOpen = false">
                 <li (click)="openCard()">Profil ansehen</li>

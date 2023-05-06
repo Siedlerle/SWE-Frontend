@@ -8,7 +8,7 @@
         </mat-grid-tile-header>
 
         <mat-list>
-          <mat-list-item *ngFor="let event of registeredEvents" (click)="openEventUnregistry(event)">
+          <mat-list-item *ngFor="let event of activeRegisteredEvents" (click)="openEventUnregistry(event)">
             <mat-card class="card">
               <img mat-card-sm-image src="{{backendURL + event.image}}"  onerror="this.src='../../assets/images/nature.jpg'"  alt = "" class = "mat-card-image">
               <div class="card-content">

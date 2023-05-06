@@ -28,6 +28,7 @@ export class HomepageComponent implements OnInit {
   }
 
   registeredEvents: CustomEvent[] = [];
+  activeRegisteredEvents: CustomEvent[] = [];
   invitedEvents: CustomEvent[] = [];
   invitedOrganisations: Organisation[] = [];
 
@@ -40,6 +41,7 @@ export class HomepageComponent implements OnInit {
       this.uiUserService.getRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
         this.registeredEvents = response;
         this.updateStatusOfEvents(this.registeredEvents);
+        this.splitEventsByStatus(this.registeredEvents);
       });
 
 
@@ -91,6 +93,17 @@ export class HomepageComponent implements OnInit {
     newDate.setHours(hours, minutes, 0);
     return newDate;
   }
+
+  splitEventsByStatus(events: CustomEvent[]) {
+    events.forEach(event => {
+      if (event.status === EnumEventStatus.CANCELLED.toString() || event.status === EnumEventStatus.ACCOMPLISHED.toString()) {
+
+      } else {
+        this.activeRegisteredEvents.push(event);
+      }
+    })
+  }
+
   showOrganisationInvite = false;
   openOrganisationInvite(item: Organisation){
     this.showOrganisationInvite = true;

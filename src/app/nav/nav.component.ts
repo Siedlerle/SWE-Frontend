@@ -5,6 +5,7 @@ import {MatCardContent} from "@angular/material/card";
 import {UiUserService} from "../../services/ui-user.service";
 import {Organisation} from "../../DataTransferObjects/Organisation";
 import {URLs} from "../../assets/SystemVariables/URLs";
+import {User} from "../../DataTransferObjects/User";
 
 @Component({
   selector: 'app-nav',
@@ -22,6 +23,9 @@ export class NavComponent implements OnInit{
 
   activeLink: string;
   organisationsForUser!:Organisation[];
+  user!: User;
+  firstName: string | undefined = "";
+  lastName: string | undefined = "";
 
   constructor(private router: Router, private activeRoute: ActivatedRoute, private uiUserService : UiUserService) { }
   organisationList = listData;
@@ -36,6 +40,11 @@ export class NavComponent implements OnInit{
     if(emailAdress!=null){
       this.uiUserService.getOrganisationForUser(emailAdress).subscribe(response =>{
         this.organisationsForUser = response;
+      });
+      this.uiUserService.getUserInformation(emailAdress).subscribe(response =>{
+        this.user = response;
+        this.firstName = this.user.firstname;
+        this.lastName = this.user.lastname;
       });
     }
 
@@ -62,6 +71,10 @@ export class NavComponent implements OnInit{
       })
     }
 
+
+    if (this.firstName === "") {
+      this.firstName = "Profil";
+    }
   }
 
   isDropdownOpen = false;
