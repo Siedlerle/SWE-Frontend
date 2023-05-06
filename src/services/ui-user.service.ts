@@ -117,6 +117,10 @@ export class UiUserService {
       return this.http.post<CustomEvent[]>(URLs.backend+URLs.getEventInvitationsForUser+emailAddress,null);
     }
 
+    getAllEventInvitationsForUserInOrga(orgaId: string, emailAdress: string):Observable<CustomEvent[]>{
+      return this.http.post<CustomEvent[]>(URLs.backend+"/user/orga/"+orgaId+"/event/get-invitations/"+emailAdress, null);
+    }
+
     getAllVisibleNoRegisteredEventsInOrganisation(emailAddress: string, orgaId: string):Observable<CustomEvent[]>{
       return this.http.post<CustomEvent[]>(URLs.backend+'/user/orga/'+orgaId+'/event/get-available-events/'+emailAddress, null);
     }

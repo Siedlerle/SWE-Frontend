@@ -32,10 +32,15 @@ export class HomepageComponent implements OnInit {
   invitedEvents: CustomEvent[] = [];
   invitedOrganisations: Organisation[] = [];
 
+  hideOrgaInvite = true;
+
   ngOnInit() {
     const emailAddress = sessionStorage.getItem('emailAdress');
     const orgaId = sessionStorage.getItem('orgaId');
+
     if (emailAddress !== null && orgaId !== null && orgaId !=='') {
+
+      this.hideOrgaInvite = false;
 
       //Alle Events in denen man teilnimmt in einer Organisation
       this.uiUserService.getRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
@@ -44,6 +49,11 @@ export class HomepageComponent implements OnInit {
         this.splitEventsByStatus(this.registeredEvents);
       });
 
+      //Alle Events in denen man in einer Orga eingeladen ist
+      this.uiUserService.getAllEventInvitationsForUserInOrga(orgaId, emailAddress).subscribe(response => {
+        this.invitedEvents = response;
+        this.updateStatusOfEvents(this.invitedEvents);
+      });
 
     }else if( emailAddress !==null && orgaId ===''){
       //Alle registrierten Events
