@@ -15,7 +15,10 @@ import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
 export class MyEventsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   //toggleSearch: boolean = false;
-  registeredEvents: CustomEvent[] = [];
+  allRegisteredEvents: CustomEvent[] = [];
+  executingEvents: CustomEvent[] = [];
+  inactiveEvents: CustomEvent[] = [];
+
   searchText = '';
   backendURL: string = "";
 
@@ -29,13 +32,15 @@ export class MyEventsComponent implements OnInit {
 
     if (emailAddress != null && orgaId != null && orgaId !== '') {
       this.uiUserService.getRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
-        this.registeredEvents = response;
-        this.updateStatusOfEvents(this.registeredEvents);
+        this.allRegisteredEvents = response;
+        this.updateStatusOfEvents(this.allRegisteredEvents);
+        this.splitEventsByStatus(this.allRegisteredEvents);
       });
     } else if(emailAddress != null){
       this.uiUserService.getAllRegisteredEvents(emailAddress).subscribe(response =>{
-        this.registeredEvents = response;
-        this.updateStatusOfEvents(this.registeredEvents);
+        this.allRegisteredEvents = response;
+        this.updateStatusOfEvents(this.allRegisteredEvents);
+        this.splitEventsByStatus(this.allRegisteredEvents);
       });
     }
   }
@@ -65,6 +70,17 @@ export class MyEventsComponent implements OnInit {
     return newDate;
   }
 
+  splitEventsByStatus(events: CustomEvent[]) {
+    events.forEach(event => {
+      if (event.status === EnumEventStatus.CANCELLED.toString() || event.status === EnumEventStatus.ACCOMPLISHED.toString()) {
+        this.inactiveEvents.push(event);
+      } else {
+        this.executingEvents.push(event);
+      }
+    })
+  }
+
+
   showInvitationCard = false;
   showTutorCard = false;
   openCard(item: CustomEvent){
@@ -89,12 +105,18 @@ export class MyEventsComponent implements OnInit {
 
   }
 
-  filterEvents() {
+  filterExecutingEvents() {
     if (!this.searchText) {
-      return this.registeredEvents;
+      return this.executingEvents;
     }
-    console.log(this.searchText)
-    return this.registeredEvents.filter(event => event.name.toLowerCase().includes(this.searchText.toLowerCase()));
+    return this.executingEvents.filter(event => event.name.toLowerCase().includes(this.searchText.toLowerCase()));
+  }
+
+  filterInactiveEvents() {
+    if (!this.searchText) {
+      return this.inactiveEvents;
+    }
+    return this.inactiveEvents.filter(event => event.name.toLowerCase().includes(this.searchText.toLowerCase()));
   }
 }
 

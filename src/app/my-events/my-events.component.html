@@ -25,7 +25,7 @@
       </div>
       <div class="basic-container">
         <mat-grid-list cols="2" rowHeight="6:1" gutterSize="2%" class="layoutGrid" >
-          <mat-grid-tile *ngFor="let event of filterEvents()"  class ="layoutGridTile mat-elevation-z8" >
+          <mat-grid-tile *ngFor="let event of filterExecutingEvents()"  class ="layoutGridTile mat-elevation-z8" >
             <mat-card [style.width]="'100%'" (click)="openCard(event)" class = "card">
               <img mat-card-sm-image src="{{backendURL + event.image}}" onerror="this.src='../../assets/images/nature.jpg'"  alt = "" class = "mat-card-image">
               <div class="card-content">
@@ -62,7 +62,7 @@
       </div>
       <div class="basic-container">
         <mat-grid-list cols="2" rowHeight="6:1" gutterSize="2%" class="layoutGrid" >
-          <mat-grid-tile *ngFor="let event of filterEvents()"  class ="layoutGridTile mat-elevation-z8" >
+          <mat-grid-tile *ngFor="let event of filterInactiveEvents()"  class ="layoutGridTile mat-elevation-z8" >
             <mat-card [style.width]="'100%'" (click)="openCard(event)" class = "card">
               <img mat-card-sm-image src="{{backendURL + event.image}}" onerror="this.src='../../assets/images/nature.jpg'"  alt = "" class = "mat-card-image">
               <div class="card-content">
