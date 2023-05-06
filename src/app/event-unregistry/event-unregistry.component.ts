@@ -183,6 +183,15 @@ export class EventUnregistryComponent implements OnInit {
     return megabytes.toFixed(2) + " MB";
   }
 
+  areAllQuestionsAnswered(): boolean {
+    for (const answer of this.answers) {
+      if (!answer.text) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   submitSurvey(){
     const emailAdress = sessionStorage.getItem('emailAdress');
     if(emailAdress != null){

@@ -397,7 +397,9 @@ export class EventCardComponent implements OnInit {
   removeQuestion(question: Question): void {
     const index = this.questions.indexOf(question);
     if (index !== -1) {
+      console.log(index)
       this.questions.splice(index, 1);
+      this.answerString = [];
     }
   }
 
@@ -405,11 +407,18 @@ export class EventCardComponent implements OnInit {
     const id = this.eventData.id;
     if(id != null){
       this.uiTutorService.addQuestion(id, this.questions).subscribe(response => {
-        this.closeCard();
+        this.answerString = [];
+        this.questions = [];
+        this.ngOnInit();
       });
     }
   }
 
+
+  deleteChoice(question:Question, answerIndex: number){
+    question.answerString!.splice(answerIndex, 1);
+    this.answerString.splice(answerIndex,1);
+  }
   closeCard() {
     this.isEditing = false;
     this.onClose.emit();

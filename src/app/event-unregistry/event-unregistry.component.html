@@ -151,7 +151,7 @@
             </div>
           </ng-container>
           <div class="submit-survey-button">
-            <button mat-raised-button [disabled]="questions.length<1" (click)="submitSurvey()">Beantworten</button>
+            <button mat-raised-button [disabled]="!areAllQuestionsAnswered()" (click)="submitSurvey()">Beantworten</button>
           </div>
         </div>
       </mat-tab>
