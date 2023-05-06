@@ -34,7 +34,7 @@ export class EventCatalogComponent implements OnInit {
         this.availableEvents = response;
         this.updateStatusOfEvents(this.availableEvents);
       });
-    }else if(emailAddress != null && orgaId == null && orgaId===''){
+    }else if(emailAddress != null && orgaId != null && orgaId===''){
       this.uiUserService.getAllEvents(emailAddress).subscribe(response =>{
         this.availableEvents = response;
         this.updateStatusOfEvents(this.availableEvents);
