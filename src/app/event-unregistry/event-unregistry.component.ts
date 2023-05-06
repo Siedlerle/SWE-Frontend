@@ -99,10 +99,10 @@ export class EventUnregistryComponent implements OnInit {
 
     if(id != null && chatId != null && emailAddress != null) {
       this.uiAttendeeService.commentOnChat(chatId, message, emailAddress).subscribe(response =>{
-
+        this.commentMessage = "";
+        this.ngOnInit();
       })
     }
-    location.reload();
   }
   mapStringToEnum(value: string): QuestionType | null {
     switch(value) {
