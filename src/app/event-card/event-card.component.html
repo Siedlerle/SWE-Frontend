@@ -190,17 +190,16 @@
                       </mat-radio-group>
 
                       <div *ngIf="question.questionType === QuestionType.MULTIPLECHOICE">
-                        <ng-container *ngFor="let answer of question.answerString; let i = index" class="flex-row">
+                        <ng-container *ngFor="let answer of question.answerString; let answerIndex = index" class="flex-row">
                           <mat-form-field>
-                            <input matInput placeholder="Antwortmöglichkeit {{ i + 1 }}" [(ngModel)]="answerString[i]" *ngIf="question.answerString" (blur)="saveAnswer(i, question)">
-                            <button matSuffix mat-icon-button color="warn" *ngIf="question.answerString && question.answerString.length > 2" (click)="question.answerString.splice(i, 1)">
+                            <input matInput placeholder="Antwortmöglichkeit {{ answerIndex + 1 }}" [(ngModel)]="answerString[answerIndex]" *ngIf="question.answerString" (blur)="saveAnswer(answerIndex, question)">
+                            <button matSuffix mat-icon-button color="warn" *ngIf="question.answerString && question.answerString.length > 2" (click)="deleteChoice(question,answerIndex)">
                               <mat-icon>delete</mat-icon>
                             </button>
                           </mat-form-field>
                         </ng-container>
                         <button mat-raised-button  color="primary" (click)="question.answerString.push('')" *ngIf="question.answerString">Antwort hinzufügen</button>
                       </div>
-
                     </mat-card-content>
                   </mat-card>
                 </ng-container>
