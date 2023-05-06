@@ -12,9 +12,7 @@ export class AuthService {
   lastInputTime: Date = new Date();
 
   constructor(private uiUserService: UiUserService) {
-    if(sessionStorage.getItem('authenticated')){
-      this.startSendingRequests();
-    }
+
   }
 
   getToken(){
@@ -40,26 +38,4 @@ export class AuthService {
       console.log("logged out")
     }, 30 * 60 * 1000); // 30 Minuten in Millisekunden
   }
-
-  startSendingRequests() {
-    const intervalTime = 13 * 60 * 1000; // 13 Minuten in Millisekunden
-    const refreshToken = sessionStorage.getItem('refreshToken');
-    const timeSinceLastInput = (new Date().getTime() - this.lastInputTime.getTime()) / 1000; // in Sekunden
-    if (refreshToken && timeSinceLastInput <= 30 * 60) { // nur starten, wenn nicht länger als 30 Minuten keine Eingabe
-      this.intervalHandler = interval(intervalTime).subscribe(() => {
-        this.uiUserService.refresh().subscribe(response => {
-          if (typeof response === 'object' && response !== null) {
-            const accessToken = response.access_token;
-            const refreshToken = response.refresh_token;
-            sessionStorage.setItem('accessToken', accessToken);
-            sessionStorage.setItem('refreshToken', refreshToken);
-          }
-        }, error => {
-          console.error('HTTP request error', error);
-        });
-        this.resetTimeout();
-      });
-    }
-  }
-
 }
