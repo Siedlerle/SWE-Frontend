@@ -9,37 +9,37 @@
     </div>
 
     <mat-tab-group class="tab-group"  dynamicHeight>
-      <mat-tab >
+      <mat-tab>
         <ng-template mat-tab-label class="mat-tab-label">
           <mat-icon class = "mat-tab-icon">event_note</mat-icon>
           <div class = "mat-tab-labelcontent">
             Eventkarte
           </div>
         </ng-template>
-          <div class="tab-content">
-            <h1>{{eventData.name}}</h1>
-            <h3>Beschreibung</h3>
-            <p>{{eventData.description}}</p>
-            <h3>Zeit</h3>
-            <ng-container *ngIf="eventData.startDate == eventData.endDate ; else elseBlock">
-              <p>
-                Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}} bis {{getFormattedTime(eventData.endTime)}}
-              </p>
-            </ng-container>
-            <ng-template #elseBlock>
-              <p>
-                Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}}
-              </p>
-              <p>
-                Endet am {{eventData.endDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.endTime)}}
-              </p>
-            </ng-template>
-            <h3>Veranstaltungsort</h3>
+        <div class="tab-content">
+          <h1>{{eventData.name}}</h1>
+          <h3>Beschreibung</h3>
+          <p>{{eventData.description}}</p>
+          <h3>Zeit</h3>
+          <ng-container *ngIf="eventData.startDate == eventData.endDate ; else elseBlock">
             <p>
-              {{eventData.location}}
+              Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}} bis {{getFormattedTime(eventData.endTime)}}
             </p>
-          </div>
-            <button mat-raised-button (click)="unregisterFromEvent()" class="unregister-button">Abmelden</button>
+          </ng-container>
+          <ng-template #elseBlock>
+            <p>
+              Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}}
+            </p>
+            <p>
+              Endet am {{eventData.endDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.endTime)}}
+            </p>
+          </ng-template>
+          <h3>Veranstaltungsort</h3>
+          <p>
+            {{eventData.location}}
+          </p>
+        </div>
+        <button mat-raised-button (click)="unregisterFromEvent()" class="unregister-button">Abmelden</button>
 
 
 

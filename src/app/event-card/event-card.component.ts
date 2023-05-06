@@ -143,41 +143,33 @@ export class EventCardComponent implements OnInit {
 
 
     this.fileControl.valueChanges.subscribe((file: any) => {
-      if (Array.isArray(file)) {
-        /*
-        files.forEach(function(item) {
-          this.service.addDocumentToEvent(this.eventId, item).subscribe(data => {
-            console.log(data); // handle the response
-          });
-        });
-        */
-      } else {
-        this.file = file;
-        const formData = new FormData();
-        if(this.file){
+      if (file != undefined || file != null) {
+        if (file.size > 52428800) {
+          this.snackBar.open("Datei-Größe maximal 50MB. Datei ist nicht hochgeladen worden.", 'Schließen', { duration: 5000 });
+          this.fileControl.reset();
+        } else {
+          this.file = file;
+          const formData = new FormData();
           formData.append('file', this.file, this.file.name);
-          if (this.file.size <= 52428800)//
-          {
-            const id = this.eventData.id;
-            if(id != null){
-              this.uiTutorService.addDocumentToEvent(id, formData).subscribe(response => {
-                //location.reload();
-                this.ngOnInit();
-              });
-            }
-          }
-          else {
-            console.log("Datei zu groß");
+          const id = this.eventData.id;
+          if(id != null){
+            this.uiTutorService.addDocumentToEvent(id, formData).subscribe(response => {
+              //location.reload();
+              this.ngOnInit();
+            });
           }
         }
       }
     });
 
     this.newEventImageControl.valueChanges.subscribe((file: any) => {
-      if (file.size > 1048576) {
-        this.snackBar.open("Image-Größe maximal 1MB", 'Close', { duration: 5000 });
-      } else {
-        this.newEventImage = file;
+      if (file != undefined || file != null) {
+        if (file.size > 1048576) {
+          this.snackBar.open("Image-Größe maximal 1MB. Bild ist nicht hochgeladen worden.", 'Schließen', { duration: 5000 });
+          this.newEventImageControl.reset();
+        } else {
+          this.newEventImage = file;
+        }
       }
     })
   }

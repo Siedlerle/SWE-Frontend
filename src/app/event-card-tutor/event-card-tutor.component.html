@@ -46,6 +46,9 @@
         <p *ngIf="attendees">
           {{attendees.length}}
         </p>
+        <div>
+          <button mat-raised-button class="unregister-button" (click)="unregisterFromEvent()">Abmelden</button>
+        </div>
       </mat-tab>
       <mat-tab >
         <ng-template mat-tab-label class="mat-tab-label">

@@ -19,6 +19,7 @@ import {Answer} from "../../DataTransferObjects/Answer";
 import {considerSettingUpAutocompletion} from "@angular/cli/src/utilities/completion";
 import {Chat} from "../../DataTransferObjects/Chat";
 import {Comment} from "../../DataTransferObjects/Comment";
+import {EventLeaveDialogComponent} from "../event-leave-dialog/event-leave-dialog.component";
 
 @Component({
   selector: 'app-event-card-tutor',
@@ -65,7 +66,7 @@ export class EventCardTutorComponent {
 
   answersMatchingToId: Answer[] = [];
 
-  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService) {
+  constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService, private snackBar: MatSnackBar, private dialog: MatDialog) {
     this.eventData = this.dataService.getCardData();
     this.eventStartDate = new Date(this.eventData.startDate);
     this.eventEndDate = new Date(this.eventData.endDate);
@@ -123,20 +124,14 @@ export class EventCardTutorComponent {
 
 
     this.fileControl.valueChanges.subscribe((file: any) => {
-      if (Array.isArray(file)) {
-        /*
-        files.forEach(function(item) {
-          this.service.addDocumentToEvent(this.eventId, item).subscribe(data => {
-            console.log(data); // handle the response
-          });
-        });
-        */
-      } else {
-        this.file = file;
-        const formData = new FormData();
-        formData.append('file', this.file, this.file.name);
-        if (this.file.size <= 52428800)//
-        {
+      if (file != undefined || file != null) {
+        if (file.size > 52428800) {
+          this.snackBar.open("Datei-Größe maximal 50MB. Datei ist nicht hochgeladen worden.", 'Schließen', { duration: 5000 });
+          this.fileControl.reset();
+        } else {
+          this.file = file;
+          const formData = new FormData();
+          formData.append('file', this.file, this.file.name);
           const id = this.eventData.id;
           if(id != null){
             this.uiTutorService.addDocumentToEvent(id, formData).subscribe(response => {
@@ -144,9 +139,6 @@ export class EventCardTutorComponent {
               this.ngOnInit();
             });
           }
-        }
-        else {
-          console.log("Datei zu groß");
         }
       }
     });
@@ -164,6 +156,20 @@ export class EventCardTutorComponent {
   eventLocation: string = "";
   eventStatus: string = "";
   imageSource: string = "";
+
+  unregisterFromEvent(){
+    const dialogRef = this.dialog.open(EventLeaveDialogComponent, {
+      width: '20vw',
+      height:'20vw',
+      data: {eventName: this.eventData.name, eventID: this.eventData.id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+      }
+    });
+  }
 
   applyFilter() {
     this.dataSource.filter = this.searchtext.trim().toLowerCase();

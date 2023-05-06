@@ -49,9 +49,6 @@ export class AddEventComponent implements OnInit {
     "image/*"
   ];
   file!: File;
-  formData: FormData;
-  eventForm: FormGroup;
-
 
   constructor(private breakpointObserver: BreakpointObserver, private uiOrganizerService: UiOrganizerService, private snackBar: MatSnackBar, private router: Router, private formBuilder: FormBuilder) {
     this.fileControl = new FormControl(this.file)
@@ -59,15 +56,15 @@ export class AddEventComponent implements OnInit {
 
 
   ngOnInit() {
-    this.eventForm = new FormGroup({
-      eventEndTime: new FormControl('', [Validators.required, Validators.min(Number(this.eventStartTime))])
-    })
 
     this.fileControl.valueChanges.subscribe((file: any) => {
-      if (file.size > 1048576) {
-        this.snackBar.open("Image-Größe maximal 1MB", 'Close', {duration: 5000});
-      } else {
-        this.file = file;
+      if (file != undefined || file != null) {
+        if (file.size > 1048576) {
+          this.snackBar.open("Image-Größe maximal 1MB. Bild ist nicht hochgeladen worden.", 'Schließen', {duration: 5000});
+          this.fileControl.reset();
+        } else {
+          this.file = file;
+        }
       }
     });
 

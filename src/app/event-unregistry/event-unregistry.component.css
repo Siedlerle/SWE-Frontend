@@ -75,10 +75,11 @@ img{
 .unregister-button{
   position: absolute;
   bottom: 0;
-  right: 0;
+  font-weight: bolder;
+  font-size: larger;
+  right: .5%;
   margin: 2%;
   display: block;
-  font-weight: bolder;
 }
 
 mat-tab-group{
@@ -87,7 +88,6 @@ mat-tab-group{
 
 .tab-content {
   height: 100%;
-
 }
 
 .umfragen{
