@@ -150,7 +150,7 @@
               </mat-radio-group>
             </div>
           </ng-container>
-          <div class="submit-survey-button">
+          <div *ngIf="questions.length > 0" class="submit-survey-button">
             <button mat-raised-button [disabled]="!areAllQuestionsAnswered()" (click)="submitSurvey()">Beantworten</button>
           </div>
         </div>

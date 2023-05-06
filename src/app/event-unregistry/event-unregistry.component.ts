@@ -196,7 +196,7 @@ export class EventUnregistryComponent implements OnInit {
     const emailAdress = sessionStorage.getItem('emailAdress');
     if(emailAdress != null){
       this.uiAttendeeService.submitSurvey(emailAdress, this.answers).subscribe(response=>{
-        this.closeRegistryCard();
+        this.ngOnInit();
       });
 
     }
