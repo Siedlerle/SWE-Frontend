@@ -189,7 +189,8 @@ export class ManagementComponent implements OnInit  {
     }
   }
 
-  getRoleOfUser(index: number) {
+  getRoleOfUser(user: User) {
+    let index = this.dataSource.data.findIndex(u => u === user);
     let role = this.orgaUserRoles[index]
     if (role === "ADMIN") {
       return "Administrator";

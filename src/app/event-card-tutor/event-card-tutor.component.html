@@ -259,7 +259,7 @@
           </button>
 
           <div class="search-bar">
-            <input class="search-control" type="text" placeholder="Suche"#searchbar>
+            <input class="search-control" type="text" placeholder="Suche" [(ngModel)]="searchtext" (input)="applyFilter()">
             <button mat-icon-button class="search-icon">
               <mat-icon>search</mat-icon>
             </button>

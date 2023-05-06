@@ -61,6 +61,7 @@ export class EventCardTutorComponent {
   allChats: Chat[] = [];
   allComments: Comment[][] = [];
   chatMessage: string;
+  searchtext = '';
 
   answersMatchingToId: Answer[] = [];
 
@@ -163,6 +164,10 @@ export class EventCardTutorComponent {
   eventLocation: string = "";
   eventStatus: string = "";
   imageSource: string = "";
+
+  applyFilter() {
+    this.dataSource.filter = this.searchtext.trim().toLowerCase();
+  }
   sendChatMessage(){
     const id = this.eventData.id;
 

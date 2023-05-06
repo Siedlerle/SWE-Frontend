@@ -73,6 +73,8 @@ export class EventCardComponent implements OnInit {
 
   attendeeRoleMap: {[key:number]:boolean} = {};
 
+  searchText = '';
+
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService, private uiUserService: UiUserService, private snackBar: MatSnackBar,private dialog: MatDialog) {
     this.eventData = Object.assign({},this.dataService.getCardData());
     this.eventStartDate = new Date(this.eventData.startDate);
@@ -179,6 +181,11 @@ export class EventCardComponent implements OnInit {
       }
     })
   }
+
+  applyFilter() {
+    this.dataSource.filter = this.searchText.trim().toLowerCase();
+  }
+
 
   sendChatMessage(){
     const id = this.eventData.id;

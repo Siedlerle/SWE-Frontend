@@ -234,7 +234,7 @@
 
 
             <div class="search-bar">
-              <input class="search-control mat-elevation-z3" type="text" placeholder="Suche"#searchbar>
+              <input class="search-control mat-elevation-z3" type="text" placeholder="Suche" [(ngModel)]="searchText" (input)="applyFilter()">
               <button mat-icon-button class="search-icon">
               <mat-icon>search</mat-icon>
               </button>
