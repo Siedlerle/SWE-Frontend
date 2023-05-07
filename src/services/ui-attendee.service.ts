@@ -15,7 +15,7 @@ export class UiAttendeeService {
 
   constructor(private http:HttpClient) { }
 
-  getDocumentsOfEvent(eventId: number): Observable<CustomDocument[]> {
+  getDocumentsOfEvent(eventId: number | undefined): Observable<CustomDocument[]> {
     return this.http.post<CustomDocument[]>(URLs.backend+URLs.getFiles+eventId, null);
   }
 
@@ -28,7 +28,7 @@ export class UiAttendeeService {
     return this.http.post(URLs.backend+URLs.downloadFile, null,{ responseType: 'blob', params: queryParams });
   }
 
-  getSurveyForEvent(eventId:number, emailAdress:string):Observable<Question[]>{
+  getSurveyForEvent(eventId: number | undefined, emailAdress: string):Observable<Question[]>{
     return this.http.post<Question[]>(URLs.backend+"/attendee/get-survey/"+eventId+"/"+emailAdress,null);
   }
 
@@ -36,7 +36,7 @@ export class UiAttendeeService {
     return this.http.post(URLs.backend+URLs.answerSurvey+emailAdress,answers);
   }
 
-  getChatForEvent(eventId: number):Observable<Chat[]>{
+  getChatForEvent(eventId: number | undefined):Observable<Chat[]>{
     return this.http.post<Chat[]>(URLs.backend+"/attendee/get-chat/"+eventId, null);
   }
 

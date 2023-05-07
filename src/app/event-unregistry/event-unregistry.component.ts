@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {DataService} from "../management/CardService";
 import {UiUserService} from "../../services/ui-user.service";
@@ -14,13 +14,14 @@ import {Comment} from "../../DataTransferObjects/Comment";
 import {EventLeaveDialogComponent} from "../event-leave-dialog/event-leave-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
+import {interval, Subscription, takeWhile} from "rxjs";
 
 @Component({
   selector: 'app-event-unregistry',
   templateUrl: './event-unregistry.component.html',
   styleUrls: ['./event-unregistry.component.css']
 })
-export class EventUnregistryComponent implements OnInit {
+export class EventUnregistryComponent implements OnInit, OnDestroy{
   @Output() onClose = new EventEmitter<void>();
 
   eventData: CustomEvent;
@@ -43,6 +44,8 @@ export class EventUnregistryComponent implements OnInit {
   allChats: Chat[] = [];
   allComments: Comment[][] = [];
 
+  documentSubscription!:Subscription;
+
   constructor(private dataService: DataService, private uiUserService:UiUserService, private uiAttendeeService:UiAttendeeService,private dialog: MatDialog )  {
     this.eventData = this.dataService.getCardData();
     this.getReadableStatus();
@@ -62,22 +65,22 @@ export class EventUnregistryComponent implements OnInit {
     let id = this.eventData.id;
     const emailAdress = sessionStorage.getItem('emailAdress');
     if (id != null) {
-      this.uiAttendeeService.getDocumentsOfEvent(id).subscribe(data => {
-        this.eventDocs = data;
-        this.fileDataSource.data = this.eventDocs;
-      });
+        this.uiAttendeeService.getDocumentsOfEvent(id).subscribe(data => {
+          this.eventDocs = data;
+          this.fileDataSource.data = this.eventDocs;
+        });
 
       if(emailAdress != null){
-        this.uiAttendeeService.getSurveyForEvent(id,emailAdress).subscribe(response => {
-          this.questions = response;
-          let a: Answer;
-          for(let q=0; q<this.questions.length; q++){
-            a={
-              question: this.questions.at(q)!,
+          this.uiAttendeeService.getSurveyForEvent(id,emailAdress).subscribe(response => {
+            this.questions = response;
+            let a: Answer;
+            for(let q=0; q<this.questions.length; q++){
+              a={
+                question: this.questions.at(q)!,
+              }
+              this.answers.push(a);
             }
-            this.answers.push(a);
-          }
-        });
+          });
       }
       this.uiAttendeeService.getChatForEvent(id).subscribe(response =>{
         this.allChats = response;
@@ -100,6 +103,8 @@ export class EventUnregistryComponent implements OnInit {
       this.allRegisteredEvents = response;
     });
     }
+  }
+  ngOnDestroy() {
   }
 
   sendComment(chatId: number, message: string){
