@@ -77,4 +77,16 @@ export class UiAdminService {
   getAllOrganizersOfOrganisation(orgaId: string):Observable<User[]> {
     return this.http.post<User[]>(URLs.backend+'/admin/orga/'+orgaId+'/organizers/get-all', null);
   }
+
+  getJoinRequestes(orgaId: string):Observable<User[]> {
+    return this.http.post<User[]>(URLs.backend+'/admin/orga/'+orgaId+'/get-requests', null);
+  }
+
+  acceptJoinRequest(orgaId: string, emailAddress: string) {
+    return this.http.post(URLs.backend+'/admin/orga/'+orgaId+'/user/'+emailAddress+'/accept', null);
+  }
+
+  declineJoinRequest(orgaId: string, emailAddress: string) {
+    return this.http.post(URLs.backend+'/admin/orga/'+orgaId+'/user/'+emailAddress+'/decline', null)
+  }
 }

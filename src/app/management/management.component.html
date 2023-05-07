@@ -86,6 +86,10 @@
             Organisation bearbeiten
             <mat-icon>edit</mat-icon>
           </button>
+          <button mat-raised-button *ngIf="isAdmin" (click) = "openManageJoinRequests()" class="group-management-button">
+            Beitrittsanfragen bearbeiten
+            <mat-icon>groups</mat-icon>
+          </button>
         </div>
         <div class="right-items">
           <div class="search-bar">
@@ -153,6 +157,7 @@
 <app-group-management *ngIf="showGroupManagement" (onClose)="closeGroupManagement()"></app-group-management>
 <app-add-user-to-organisation *ngIf="showAddUserToOrganisation" (onClose)="closeAddUserToOrganisation()"></app-add-user-to-organisation>
 <app-organisation-banner-upload *ngIf="showOrganisationsBannerUpload" (onClose)="closeOrganisationBannerUpload()"></app-organisation-banner-upload>
+<app-manage-join-requests *ngIf="showManageJoinRequests" (onClose)="closeManageJoinRequests()"></app-manage-join-requests>
 <!--
 <div class="basic-container">
   <mat-grid-list cols="2" rowHeight="6:1" gutterSize="15px" class="layoutGrid" >

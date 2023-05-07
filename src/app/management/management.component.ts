@@ -186,6 +186,15 @@ export class ManagementComponent implements OnInit,OnDestroy  {
     this.showOrganisationsBannerUpload = false;
   }
 
+  showManageJoinRequests = false;
+  openManageJoinRequests() {
+    this.showManageJoinRequests = true;
+  }
+  closeManageJoinRequests() {
+    this.showManageJoinRequests = false;
+  }
+
+
   inviteToOrganisation(){}
 
   onRightsSelectionChange(event: any, user: any) {

@@ -36,7 +36,6 @@ export class OrganisationCardComponent implements OnInit {
 
     if(emailAddress != null && this.orgaData.id !=null){
       this.uiUserService.requestJoin(this.orgaData.id,emailAddress).subscribe(response =>{
-        this.closeCard();
         location.reload();
       });
     }

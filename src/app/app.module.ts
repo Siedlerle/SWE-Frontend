@@ -68,6 +68,7 @@ import { EventLeaveDialogComponent } from './event-leave-dialog/event-leave-dial
 import { CancelEventConfirmDialogComponent } from './cancel-event-confirm-dialog/cancel-event-confirm-dialog.component';
 import { MatSidenavModule} from "@angular/material/sidenav";
 import { LayoutModule } from '@angular/cdk/layout';
+import { ManageJoinRequestsComponent } from './manage-join-requests/manage-join-requests.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -121,6 +122,7 @@ const routes: Routes = [
     OrganisationLeaveComponentComponent,
     EventLeaveDialogComponent,
     CancelEventConfirmDialogComponent,
+    ManageJoinRequestsComponent,
 
   ],
   imports: [

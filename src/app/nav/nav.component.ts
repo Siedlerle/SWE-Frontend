@@ -177,6 +177,7 @@ export class NavComponent implements OnInit{
 
 
   checkOrga(){
+    if (sessionStorage.getItem('orgaId') === '') return;
     const emailAdress = sessionStorage.getItem('emailAdress');
     if(emailAdress!=null) {
       this.uiUserService.getOrganisationForUser(emailAdress).subscribe(response => {
