@@ -33,9 +33,9 @@
             </button>
             <mat-menu #menu = "matMenu">
               <div class = "filterCheckbox" (click)="$event.stopPropagation();">
-               <p> <mat-checkbox color = "primary">Heute</mat-checkbox></p>
-                <p> <mat-checkbox [checked]="true" color = "primary" >Abgesagt</mat-checkbox></p>
-                <p>  <mat-checkbox [checked]="true"color = "primary">Vergangen</mat-checkbox> </p>
+                <mat-radio-group [(ngModel)]="filterForEvent">
+                  <mat-radio-button class="filter-radio-button" *ngFor="let filterForEvent of filtersForEvent" [value]="filterForEvent" (click)="updateList(filterForEvent)" color="primary">{{filterForEvent}}</mat-radio-button>
+                </mat-radio-group>
               </div>
             </mat-menu>
 
@@ -58,7 +58,7 @@
             <img mat-card-sm-image src="{{backendURL + event.image}}" onerror="this.src='../../assets/images/nature.jpg'" alt = "" class = "mat-card-image">
             <div class="card-content">
               <mat-card-header>{{event.name}}</mat-card-header>
-              <mat-card-content>{{event.description}}<br><br>Startdatum: {{event.startDate | date: 'dd.MM.yyyy'}}</mat-card-content>
+              <mat-card-content>{{event.description}}<br><br>Startdatum: {{event.startDate | date: 'dd.MM.yyyy'}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Status: {{getReadableStatus(event.status)}}</mat-card-content>
             </div>
           </mat-card>
         </mat-list-item>
