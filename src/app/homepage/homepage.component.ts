@@ -33,6 +33,8 @@ export class HomepageComponent implements OnInit {
   invitedEvents: CustomEvent[] = [];
   invitedOrganisations: Organisation[] = [];
 
+  primary = 'primary';
+
   hideOrgaInvite = true;
 
   ngOnInit() {
