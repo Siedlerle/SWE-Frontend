@@ -11,7 +11,13 @@
             <img mat-card-sm-image src="{{backendURL + event.image}}" onerror="this.src='../../assets/images/nature.jpg'" alt = "" class = "mat-card-image">
             <div class="card-content">
               <mat-card-header>{{event.name}}</mat-card-header >
-              <mat-card-content >{{event.description}}<br><br>Startdatum: {{event.startDate | date: 'dd.MM.yyyy'}}</mat-card-content>
+              <mat-card-content>
+                <div class = cardDescription>
+                  {{event.description}}
+                </div>
+                <br>
+                Startdatum: {{event.startDate | date: 'dd.MM.yyyy'}}
+              </mat-card-content>
             </div>
         </mat-card>
       </mat-grid-tile>
