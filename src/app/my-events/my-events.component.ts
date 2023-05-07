@@ -85,6 +85,8 @@ export class MyEventsComponent implements OnInit {
   showInvitationCard = false;
   showTutorCard = false;
   openCard(item: CustomEvent){
+    this.updateStatusOfEvents(this.executingEvents);
+
     const id = item.id;
     const emailAdress = sessionStorage.getItem('emailAdress');
     if(id != null && emailAdress != null){

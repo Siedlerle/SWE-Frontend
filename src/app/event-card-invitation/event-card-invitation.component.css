@@ -1,5 +1,5 @@
 .popup {
-  position: absolute;
+  position: fixed;
   top: 10%;
   left: 50%;
   right: 50%;
@@ -31,7 +31,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
 .close-Button{
@@ -52,6 +52,7 @@
 mat-icon{
   margin: auto;
 }
+
 
 img{
   width: 100%;
@@ -81,11 +82,20 @@ mat-tab{
 }
 .buttons{
   position: absolute;
-  right: 3%;
-  top: 90%;
+  bottom: 0;
+  right: 0;
+  margin-right: 2%;
+  margin-bottom: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-
+.submit-button {
+  font-weight: bolder;
+  font-size: larger;
+  flex-basis: 48%;
+}
 
 
 

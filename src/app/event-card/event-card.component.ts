@@ -101,6 +101,8 @@ export class EventCardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getReadableStatus();
+
     let id = this.eventData.id;
     if (id != null) {
       this.uiAttendeeService.getDocumentsOfEvent(id).subscribe(data => {
@@ -343,7 +345,7 @@ export class EventCardComponent implements OnInit {
     const emailAdress = user.emailAdress;
     if(id!= null)
     this.uiOrganizerService.changeTutorToAttendee(id, emailAdress).subscribe(response =>{
-      this.closeCard();
+      this.ngOnInit();
     });
   }
 

@@ -30,8 +30,8 @@
           {{eventData.location}}
         </p>
         <div class="buttons">
-          <button mat-raised-button (click)="acceptInvite()">Annehmen</button>
-          <button mat-raised-button (click)="declineInvite()">Ablehnen</button>
+          <button mat-raised-button class="submit-button" color="warn" (click)="declineInvite()" style="margin-right: 2%">Ablehnen</button>
+          <button mat-raised-button class="submit-button" color="primary" (click)="acceptInvite()">Annehmen</button>
         </div>
         </div>
   </div>
