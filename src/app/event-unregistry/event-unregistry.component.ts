@@ -1,4 +1,13 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {
+  AfterViewInit,
+  Component, ElementRef,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {DataService} from "../management/CardService";
 import {UiUserService} from "../../services/ui-user.service";
@@ -14,15 +23,18 @@ import {Comment} from "../../DataTransferObjects/Comment";
 import {EventLeaveDialogComponent} from "../event-leave-dialog/event-leave-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
-import {interval, Subscription, takeWhile} from "rxjs";
+import {Subscription} from "rxjs";
+import {MatExpansionPanel} from "@angular/material/expansion";
 
 @Component({
   selector: 'app-event-unregistry',
   templateUrl: './event-unregistry.component.html',
   styleUrls: ['./event-unregistry.component.css']
 })
-export class EventUnregistryComponent implements OnInit, OnDestroy{
+export class EventUnregistryComponent implements OnInit, OnDestroy, AfterViewInit{
   @Output() onClose = new EventEmitter<void>();
+  @ViewChildren('chatPanel') panel!: MatExpansionPanel;
+  @ViewChildren('input') input!: ElementRef;
 
   eventData: CustomEvent;
   allRegisteredEvents: CustomEvent[] = [];
@@ -45,6 +57,8 @@ export class EventUnregistryComponent implements OnInit, OnDestroy{
   allComments: Comment[][] = [];
 
   documentSubscription!:Subscription;
+  surveySubscription!:Subscription;
+  chatSubscription!:Subscription;
 
   constructor(private dataService: DataService, private uiUserService:UiUserService, private uiAttendeeService:UiAttendeeService,private dialog: MatDialog )  {
     this.eventData = this.dataService.getCardData();
@@ -61,7 +75,6 @@ export class EventUnregistryComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.getReadableStatus();
-
     let id = this.eventData.id;
     const emailAdress = sessionStorage.getItem('emailAdress');
     if (id != null) {
@@ -71,7 +84,7 @@ export class EventUnregistryComponent implements OnInit, OnDestroy{
         });
 
       if(emailAdress != null){
-          this.uiAttendeeService.getSurveyForEvent(id,emailAdress).subscribe(response => {
+         this.surveySubscription = this.uiAttendeeService.getSurveyForEvent(id,emailAdress).subscribe(response => {
             this.questions = response;
             let a: Answer;
             for(let q=0; q<this.questions.length; q++){
@@ -82,7 +95,7 @@ export class EventUnregistryComponent implements OnInit, OnDestroy{
             }
           });
       }
-      this.uiAttendeeService.getChatForEvent(id).subscribe(response =>{
+      this.chatSubscription = this.uiAttendeeService.getChatForEvent(id).subscribe(response =>{
         this.allChats = response;
         for(let i = 0; i < this.allChats.length; i++){
 
@@ -106,7 +119,37 @@ export class EventUnregistryComponent implements OnInit, OnDestroy{
   }
   ngOnDestroy() {
     this.documentSubscription.unsubscribe();
+    this.surveySubscription.unsubscribe();
+    this.chatSubscription.unsubscribe();
   }
+
+  ngAfterViewInit() {
+
+  }
+
+  onInputFocus(){
+    this.chatSubscription.unsubscribe();
+  }
+  onInputFocusLost(){
+    let id = this.eventData.id;
+
+    if(id!=null){
+      this.chatSubscription = this.uiAttendeeService.getChatForEvent(id).subscribe(response => {
+        this.allChats = response;
+        for (let i = 0; i < this.allChats.length; i++) {
+
+          let chatId: number = response[i].id!;
+
+
+          this.uiAttendeeService.getCommentsForChat(chatId!, 0).subscribe(data => {
+
+            this.allComments[chatId] = data;
+          })
+        }
+      });
+    }
+  }
+
 
   sendComment(chatId: number, message: string){
     const id = this.eventData.id;

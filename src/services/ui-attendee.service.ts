@@ -31,7 +31,9 @@ export class UiAttendeeService {
   }
 
   getSurveyForEvent(eventId: number | undefined, emailAdress: string):Observable<Question[]>{
-    return this.http.post<Question[]>(URLs.backend+"/attendee/get-survey/"+eventId+"/"+emailAdress,null);
+    return timer(0,5000).pipe(
+      switchMap(()=> this.http.post<Question[]>(URLs.backend+"/attendee/get-survey/"+eventId+"/"+emailAdress,null))
+    );
   }
 
   submitSurvey(emailAdress: string, answers:Answer[]){
@@ -39,7 +41,9 @@ export class UiAttendeeService {
   }
 
   getChatForEvent(eventId: number | undefined):Observable<Chat[]>{
-    return this.http.post<Chat[]>(URLs.backend+"/attendee/get-chat/"+eventId, null);
+    return timer(0,5000).pipe(
+      switchMap(()=> this.http.post<Chat[]>(URLs.backend+"/attendee/get-chat/"+eventId, null))
+    );
   }
 
   getCommentsForChat(chatId: number, userId: number):Observable<Comment[]>{
