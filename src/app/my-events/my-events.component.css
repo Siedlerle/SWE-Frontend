@@ -106,3 +106,13 @@ mat-grid-list {
   margin: 1%;
 
 }
+.mat-card-content {
+}
+.cardDescription {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-align: justify;
+  text-justify: inter-word;
+}
