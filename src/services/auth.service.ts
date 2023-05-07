@@ -35,7 +35,7 @@ export class AuthService {
       sessionStorage.setItem('authenticated', JSON.stringify(false));
       location.reload();
       this.uiUserService.logout().subscribe();
-      console.log("logged out")
+      //console.log("logged out")
     }, 30 * 60 * 1000); // 30 Minuten in Millisekunden
   }
 }

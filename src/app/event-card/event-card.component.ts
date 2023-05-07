@@ -347,7 +347,7 @@ export class EventCardComponent implements OnInit, OnDestroy {
   withDrawCancelEvent() {
     if (this.eventData.id != null) {
       let newStatus = EnumEventStatus.SCHEDULED.toString();
-      console.log(newStatus);
+      //console.log(newStatus);
       this.uiOrganizerService.changeStatusOfEvent(this.eventData.id, newStatus).subscribe(response => {
         this.eventData.status = EnumEventStatus.SCHEDULED;
         this.getReadableStatus();
@@ -449,7 +449,7 @@ export class EventCardComponent implements OnInit, OnDestroy {
   removeQuestion(question: Question): void {
     const index = this.questions.indexOf(question);
     if (index !== -1) {
-      console.log(index)
+      //console.log(index)
       this.questions.splice(index, 1);
       this.answerString = [];
     }

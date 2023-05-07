@@ -48,7 +48,7 @@ export class AppComponent implements OnInit{
           this.isPhoneviewed = true;
         }
         {
-          console.log('HandsetPortrait is on');
+          //console.log('HandsetPortrait is on');
         }
 
       });

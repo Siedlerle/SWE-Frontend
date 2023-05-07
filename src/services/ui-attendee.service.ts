@@ -22,7 +22,7 @@ export class UiAttendeeService {
   }
 
   downloadDocument(uri: string, fileName: string):Observable<any> {
-    console.log(uri)
+    //console.log(uri)
     let queryParams = new HttpParams();
     queryParams = queryParams.append("uri", uri);
     queryParams = queryParams.append("filename", fileName);

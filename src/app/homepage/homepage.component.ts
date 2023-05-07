@@ -26,7 +26,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
   }
 
   public onCardClick(evt: MouseEvent){
-    console.log(evt);
+    //console.log(evt);
   }
 
   registeredEvents: CustomEvent[] = [];

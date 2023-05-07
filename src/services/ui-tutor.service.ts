@@ -25,9 +25,9 @@ export class UiTutorService {
 
   addQuestion(eventId:number, question:Question[]){
     // @ts-ignore
-    console.log(question.at(0).questionText);
+    //console.log(question.at(0).questionText);
     // @ts-ignore
-    console.log(question.at(0).questionType);
+    //console.log(question.at(0).questionType);
     return this.http.post(URLs.backend+"/tutor/event/"+eventId+"/question/add", question);
   }
 

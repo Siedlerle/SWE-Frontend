@@ -1,5 +1,6 @@
 export const URLs = {
-  backend: 'http://localhost:8080',
+  //backend: 'http://localhost:8080',
+  backend: 'http://ftb-eventmaster.de:8080',
 
   //Authentifizierung
   register: '/user/auth/register',

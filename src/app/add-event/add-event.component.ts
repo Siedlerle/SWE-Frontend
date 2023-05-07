@@ -145,14 +145,14 @@ export class AddEventComponent implements OnInit {
     if (emailAddress != null && orgaId != null) {
       if (!this.wantEventSeries) {
         this.uiOrganizerService.addEvent(this.event, emailAddress, orgaId, this.file).subscribe(response => {
-            console.log(response);
+            //console.log(response);
             this.closePopup();
             location.reload();
           }
         );
       } else {
         this.uiOrganizerService.addEventSeries(this.event, this.eventSeries, emailAddress, orgaId, this.file).subscribe(response => {
-          console.log(response);
+          //console.log(response);
           this.closePopup();
           location.reload();
         });

@@ -71,7 +71,7 @@ export class EventCatalogComponent implements OnInit {
     if (!this.eventSearchText) {
       return this.availableEvents;
     }
-    console.log(this.eventSearchText)
+    //console.log(this.eventSearchText)
     return this.availableEvents.filter(event => event.name.toLowerCase().includes(this.eventSearchText.toLowerCase()));
   }
 
