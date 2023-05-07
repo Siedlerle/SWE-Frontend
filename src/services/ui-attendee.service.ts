@@ -31,9 +31,8 @@ export class UiAttendeeService {
   }
 
   getSurveyForEvent(eventId: number | undefined, emailAdress: string):Observable<Question[]>{
-    return timer(0,10000).pipe(
-      switchMap(()=> this.http.post<Question[]>(URLs.backend+"/attendee/get-survey/"+eventId+"/"+emailAdress,null))
-    );
+
+      return this.http.post<Question[]>(URLs.backend+"/attendee/get-survey/"+eventId+"/"+emailAdress,null);
   }
 
   submitSurvey(emailAdress: string, answers:Answer[]){
