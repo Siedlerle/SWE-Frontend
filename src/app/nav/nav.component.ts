@@ -171,6 +171,9 @@ export class NavComponent implements OnInit{
     location.reload();
   }
 
+
+
+
   /*
   checkOrga(){
     const emailAdress = sessionStorage.getItem('emailAdress');

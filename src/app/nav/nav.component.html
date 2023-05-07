@@ -11,30 +11,63 @@
 </div>
 
 
-<nav (click)="isDropdownOpenBanner = false" class="mat-elevation-z8">
+<nav (click)="isDropdownOpenBanner = false" class="navbar navbar-expand-lg navbar-light bg-light mat-elevation-z8">
+  <div class="container-fluid">
+  </div>
   <div class="nav-menu">
+
     <div class="left-items" (click)="isDropdownOpen = false">
-      <a routerLink="" class="nav-item" [class.active]="activeLink ==''">Start</a>
-      <a routerLink="/event-catalog" class="nav-item" [class.active]="activeLink =='/event-catalog'">Eventkatalog</a>
-      <a routerLink="/my-events" class="nav-item" [class.active]="activeLink =='/my-events'">Meine Events</a>
-      <a routerLink="/organisation-catalog" class="nav-item" [class.active]="activeLink =='/organisation-catalog'">Organisationskatalog</a>
-      <a *ngIf="canManage()" routerLink="/management" class="nav-item" [class.active]="activeLink =='/management'">Verwaltung</a>
-    </div>
-    <div class="right-items">
-      <div class="profile-dropdown" (click)="toggleDropdown()">
-        <a class="nav-item">{{firstName + " " + lastName}}</a>
-        <div class="dropdown-content" [ngClass]="{'show': isDropdownOpen}">
-          <ul (click)="isDropdownOpen = false">
-            <li (click)="openCard()">Profil ansehen</li>
-            <li routerLink="/organisation-catalog">Organisationen durchsuchen</li>
-            <li (click)="logOut()">Abmelden</li>
-          </ul>
-        </div>
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="responsiveButton">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <div class="responsiveDiv">
+        <a routerLink="" class="nav-item" [class.active]="activeLink ==''">Start</a>
+        <a routerLink="/event-catalog" class="nav-item" [class.active]="activeLink =='/event-catalog'">Eventkatalog</a>
+        <a routerLink="/my-events" class="nav-item" [class.active]="activeLink =='/my-events'">Meine Events</a>
+        <a routerLink="/organisation-catalog" class="nav-item" [class.active]="activeLink =='/organisation-catalog'">Organisationskatalog</a>
+        <a *ngIf="canManage()" routerLink="/management" class="nav-item" [class.active]="activeLink =='/management'">Verwaltung</a>
       </div>
 
     </div>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="" [class.active]="activeLink ==''">
+        <span>Start</span>
+      </button>
+      <button mat-menu-item routerLink="/event-catalog" [class.active]="activeLink=='/event-catalog'">
+        <span>Eventkatalog</span>
+      </button>
+      <button mat-menu-item routerLink="/my-events" [class.active]="activeLink=='/my-events'">
+        <span>Meine Events</span>
+      </button>
+      <button mat-menu-item routerLink="/organisation-catalog" [class.active]="activeLink=='/organisation-catalog'">
+        <span>Organisationskatalog</span>
+      </button>
+      <button mat-menu-item *ngIf="canManage()" routerLink="/management" [class.active]="activeLink =='/management'">
+        <span>Verwaltung</span>
+      </button>
+    </mat-menu>
+
+    <div class="right-items">
+      <button mat-button [matMenuTriggerFor]="profile" class="nav-item" style="color: white">
+        <span>{{firstName + " " + lastName}}</span>
+      </button>
+      <mat-menu #profile="matMenu">
+        <button mat-menu-item (click)="openCard()">
+          <span>Profil ansehen</span>
+        </button>
+        <button mat-menu-item routerLink="/organisation-catalog">
+          <span>Organisationen durchsuchen</span>
+        </button>
+        <button mat-menu-item (click)="logOut()">
+          <span>Abmelden</span>
+        </button>
+      </mat-menu>
+    </div>
   </div>
 </nav>
+
+
 
 <app-profile *ngIf="showCard" (onClose)="closeCard()"></app-profile>
 
