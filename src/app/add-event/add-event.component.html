@@ -108,14 +108,14 @@
                 <p>
                   <mat-form-field appearance="fill" *ngIf="wantEventSeries"  style="position: relative; width: 47.5%; float: left">
                     <mat-label>Anzahl der Events</mat-label>
-                    <input matInput placeholder="Anzahl" [(ngModel)]="eventSeries.amount" name="eventSeriesAmount" required>
+                    <input matInput placeholder="Anzahl" [(ngModel)]="eventSeries.amount" name="eventSeriesAmount" pattern="[0-9]*" required>
                     <mat-error *ngIf="!eventSeriesAmount">Anzahl wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
                 <p>
                   <mat-form-field appearance="fill" *ngIf="wantEventSeries" style="position: relative; width: 47.5%; float: left; padding-left: 5%">
                     <mat-label>Abstand zwischen den Events in Tagen</mat-label>
-                    <input matInput placeholder="Tage zwischen Events" [(ngModel)]="eventSeries.daysBetweenEvents" name="eventSeriesInterval" required>
+                    <input matInput placeholder="Tage zwischen Events" [(ngModel)]="eventSeries.daysBetweenEvents" pattern="[0-9]*" name="eventSeriesInterval" required>
                     <mat-error *ngIf="!eventSeriesInterval">Abstand wird benötigt</mat-error>
                   </mat-form-field>
                 </p>
