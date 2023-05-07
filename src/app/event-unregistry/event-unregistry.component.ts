@@ -65,7 +65,7 @@ export class EventUnregistryComponent implements OnInit, OnDestroy{
     let id = this.eventData.id;
     const emailAdress = sessionStorage.getItem('emailAdress');
     if (id != null) {
-        this.uiAttendeeService.getDocumentsOfEvent(id).subscribe(data => {
+        this.documentSubscription = this.uiAttendeeService.getDocumentsOfEvent(id).subscribe(data => {
           this.eventDocs = data;
           this.fileDataSource.data = this.eventDocs;
         });
@@ -105,6 +105,7 @@ export class EventUnregistryComponent implements OnInit, OnDestroy{
     }
   }
   ngOnDestroy() {
+    this.documentSubscription.unsubscribe();
   }
 
   sendComment(chatId: number, message: string){

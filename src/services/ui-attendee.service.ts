@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Observable, timer} from "rxjs";
+import {Observable, switchMap, timer} from "rxjs";
 import {CustomDocument} from "../DataTransferObjects/CustomDocument";
 import {URLs} from "../assets/SystemVariables/URLs";
 import {Question} from "../DataTransferObjects/Question";
@@ -16,7 +16,9 @@ export class UiAttendeeService {
   constructor(private http:HttpClient) { }
 
   getDocumentsOfEvent(eventId: number | undefined): Observable<CustomDocument[]> {
-    return this.http.post<CustomDocument[]>(URLs.backend+URLs.getFiles+eventId, null);
+    return timer(0,5000).pipe(
+      switchMap(()=> this.http.post<CustomDocument[]>(URLs.backend+URLs.getFiles+eventId, null))
+    );
   }
 
   downloadDocument(uri: string, fileName: string):Observable<any> {

@@ -11,7 +11,7 @@ import {EventCardComponent} from "../event-card/event-card.component";
   styleUrls: ['./cancel-event-confirm-dialog.component.css']
 })
 export class CancelEventConfirmDialogComponent {
-  feedback:string = "";
+  feedback = "";
   constructor(public dialogRef: MatDialogRef<CancelEventConfirmDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private uiOrganizerService:UiOrganizerService) {
   }
   onNoClick(): void {
@@ -21,6 +21,9 @@ export class CancelEventConfirmDialogComponent {
   //Wenn im Löschen Dialog Löschen gewählt wird, wird dieser Eintrag aus der Datenbank entfernt
   onYesClick(id: number): void {
       if (id != null) {
+        if(this.feedback == ""){
+          this.feedback = "Komplikation mit der Eventplanung";
+        }
         this.uiOrganizerService.cancelEvent(id, this.feedback).subscribe(response => {
           this.data.status = EnumEventStatus.CANCELLED;
           this.dialogRef.close(false);
