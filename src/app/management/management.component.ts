@@ -30,18 +30,24 @@ export class ManagementComponent implements OnInit  {
   dataSource = new MatTableDataSource<User>();
   displayedColumns: string[];
   attendees: User[];
-  managingEvents: CustomEvent[];
+  managingEvents: CustomEvent[] = [];
+  filteredManagingEvents: CustomEvent[] = [];
   orgaUsers: User[];
   orgaUserRoles: string[] = [];
   rightsList = ['Administrator', 'Organisator', 'Benutzer'];
   isAdmin: boolean;
 
+  filtersForEvent: string[] = ['Alle', 'Heutige', 'Vergangene', 'Abgesagte'];
+  filterForEvent: string;
+
+
+
+
   filterEvents() {
     if (!this.eventSearchText) {
-      return this.managingEvents;
+      return this.filteredManagingEvents;
     }
-    console.log(this.eventSearchText)
-    return this.managingEvents.filter(event => event.name.toLowerCase().includes(this.eventSearchText.toLowerCase()));
+    return this.filteredManagingEvents.filter(event => event.name.toLowerCase().includes(this.eventSearchText.toLowerCase()));
   }
 
   filterUsers() {
@@ -50,6 +56,7 @@ export class ManagementComponent implements OnInit  {
   }
 
   ngOnInit() {
+    this.filterForEvent = 'Alle';
     const emailAddress = sessionStorage.getItem('emailAdress');
     const orgaId = sessionStorage.getItem('orgaId');
     const orgaRole = sessionStorage.getItem('orgaRole')
@@ -57,12 +64,14 @@ export class ManagementComponent implements OnInit  {
       this.uiOrganizerService.getManagingEvents(emailAddress, orgaId).subscribe(response => {
         this.managingEvents = response;
         this.updateStatusOfEvents(this.managingEvents);
+        this.updateList('Alle');
       });
 
     } else if(emailAddress != null && orgaId != null && orgaId !=='' && orgaRole != null && orgaRole === 'ADMIN') {
       this.uiAdminService.getEventsofOrganisation(orgaId).subscribe(response =>{
         this.managingEvents = response;
         this.updateStatusOfEvents(this.managingEvents);
+        this.updateList('Alle');
       });
 
     }
@@ -176,6 +185,54 @@ export class ManagementComponent implements OnInit  {
     let newRole = event.target.value;
 
 
+  }
+
+  updateList(filter: string) {
+    if (this.filteredManagingEvents.length > 0) {
+      this.filteredManagingEvents.splice(0, this.filteredManagingEvents.length);
+    }
+    if (filter === 'Heutige') {
+      const today = new Date();
+      for (let i = 0; i < this.managingEvents.length; i++) {
+        let event = this.managingEvents[i];
+        const startDate = new Date(event.startDate);
+        if (startDate.setHours(0,0,0,0) === today.setHours(0,0,0,0)) {
+          this.filteredManagingEvents.push(event);
+        }
+      }
+    } else if (filter === 'Vergangene') {
+      for (let i = 0; i < this.managingEvents.length; i++) {
+        let event = this.managingEvents[i];
+        if (event.status === 'ACCOMPLISHED') {
+          this.filteredManagingEvents.push(event);
+        }
+      }
+    } else if (filter === 'Abgesagte') {
+      for (let i = 0; i < this.managingEvents.length; i++) {
+        let event = this.managingEvents[i];
+        if (event.status === 'CANCELLED') {
+          this.filteredManagingEvents.push(event);
+        }
+      }
+    } else if (filter === 'Alle') {
+      this.filteredManagingEvents = Object.assign([], this.managingEvents);
+    }
+  }
+
+  getReadableStatus(status: string | undefined) {
+    switch (status) {
+      case 'INPREPARATION':
+        return 'In Vorbereitung';
+      case 'SCHEDULED':
+        return 'Geplant';
+      case 'RUNNING':
+        return 'In Durchführung';
+      case 'ACCOMPLISHED':
+      return 'Vergangen';
+      case 'CANCELLED':
+      return 'abgesagt';
+    }
+    return '';
   }
 
   removeUser(user: User){

@@ -220,3 +220,8 @@ mat-card:active {
   color: #999;
 }
 
+.filter-radio-button {
+  display: block;
+  margin-right: 20px;
+}
+
