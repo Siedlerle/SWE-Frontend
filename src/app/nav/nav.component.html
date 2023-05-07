@@ -20,11 +20,11 @@
     <nav (click)="isDropdownOpenBanner = false" class="mat-elevation-z8">
       <div class="nav-menu" >
         <div class="left-items" (click)="isDropdownOpen = false">
-          <a routerLink="" class="nav-item" [class.active]="activeLink ==''"  >Start</a>
-          <a routerLink="/event-catalog" class="nav-item" [class.active]="activeLink =='/event-catalog'">Eventkatalog</a>
-          <a routerLink="/my-events" class="nav-item" [class.active]="activeLink =='/my-events'">Meine Events</a>
-          <a routerLink="/organisation-catalog" class="nav-item" [class.active]="activeLink =='/organisation-catalog'">Organisationskatalog</a>
-          <a *ngIf="canManage()" routerLink="/management" class="nav-item" [class.active]="activeLink =='/management'">Verwaltung</a>
+          <a routerLink="" class="nav-item" [class.active]="activeLink ==''" (click)="checkOrga()">Start</a>
+          <a routerLink="/event-catalog" class="nav-item" [class.active]="activeLink =='/event-catalog'" (click)="checkOrga()">Eventkatalog</a>
+          <a routerLink="/my-events" class="nav-item" [class.active]="activeLink =='/my-events'" (click)="checkOrga()">Meine Events</a>
+          <a routerLink="/organisation-catalog" class="nav-item" [class.active]="activeLink =='/organisation-catalog'" (click)="checkOrga()">Organisationskatalog</a>
+          <a *ngIf="canManage()" routerLink="/management" class="nav-item" [class.active]="activeLink =='/management'"  (click)="checkOrga()">Verwaltung</a>
         </div>
         <div class="right-items">
           <div class="profile-dropdown" (click)="toggleDropdown()">

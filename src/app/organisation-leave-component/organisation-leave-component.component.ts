@@ -24,12 +24,13 @@ export class OrganisationLeaveComponentComponent {
     if(emailAddress != null && id !=null){
       this.uiUserService.leaveOrganisation(id,emailAddress).subscribe(response => {
         this.dialogRef.close(true);
-          this.router.navigate(['']);
+          location.reload();
       },
  (error) => {
           console.error(error);
         }
       );
     }
+    this.router.navigate(['']);
   }
 }

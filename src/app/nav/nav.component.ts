@@ -22,10 +22,12 @@ export class NavComponent implements OnInit{
 
   activeLink: string;
   organisationsForUser!:Organisation[];
+  checkOrganisation!:Organisation[];
   user!: User;
   firstName: string | undefined = "";
   lastName: string | undefined = "";
 
+  hasOrga:number;
   constructor(private router: Router, private activeRoute: ActivatedRoute, private uiUserService : UiUserService) { }
   ngOnInit() {
     this.router.events.subscribe(event => {
@@ -167,5 +169,29 @@ export class NavComponent implements OnInit{
     sessionStorage.setItem('emailAdress','');
     sessionStorage.setItem('orgaRole','');
     location.reload();
+  }
+
+  checkOrga(){
+    const emailAdress = sessionStorage.getItem('emailAdress');
+    if(emailAdress!=null) {
+      this.uiUserService.getOrganisationForUser(emailAdress).subscribe(response => {
+        this.checkOrganisation = response;
+        this.checkOrganisation.forEach((organisation) => {
+          this.compareOrgaIds(organisation.id);
+        })
+      });
+    }
+  }
+
+  compareOrgaIds(orgaId: number | undefined){
+    const orgId = sessionStorage.getItem('orgaId');
+    let orgIdInt;
+    if(orgaId != null){
+      // @ts-ignore
+      orgIdInt = parseInt(sessionStorage.getItem('orgaId'));
+    }
+    if(orgaId === orgIdInt){
+      console.log(orgaId)
+    }
   }
 }

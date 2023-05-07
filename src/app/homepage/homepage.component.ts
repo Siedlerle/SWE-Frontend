@@ -60,7 +60,9 @@ export class HomepageComponent implements OnInit {
       //Alle registrierten Events
       this.uiUserService.getAllRegisteredEvents(emailAddress).subscribe(response => {
         this.registeredEvents = response;
+        console.log(response)
         this.updateStatusOfEvents(this.registeredEvents);
+        this.splitEventsByStatus(this.registeredEvents);
       });
 
       //Alle Event-Einladungen
