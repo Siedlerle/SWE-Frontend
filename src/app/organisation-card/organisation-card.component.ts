@@ -24,6 +24,11 @@ export class OrganisationCardComponent implements OnInit {
   backendURL: string = URLs.backend;
   imageSource: string = "";
   ngOnInit() {
+    if (this.orgaData.image === null || this.orgaData.image === "") {
+      this.imageSource = "../../assets/images/OrgaBanner.png";
+    } else {
+      this.imageSource = this.backendURL+this.orgaData.image;
+    }
   }
 
   registerInOrganisation() {
