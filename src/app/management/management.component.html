@@ -27,6 +27,21 @@
             Vorlagen verwalten
             <mat-icon>manage_search</mat-icon>
           </button>
+          <div >
+            <button mat-button [matMenuTriggerFor]="menu">
+              <mat-icon>filter_list</mat-icon>
+            </button>
+            <mat-menu #menu = "matMenu">
+              <div class = "filterCheckbox" (click)="$event.stopPropagation();">
+               <p> <mat-checkbox color = "primary">Heute</mat-checkbox></p>
+                <p> <mat-checkbox [checked]="true" color = "primary" >Abgesagt</mat-checkbox></p>
+                <p>  <mat-checkbox [checked]="true"color = "primary">Vergangen</mat-checkbox> </p>
+              </div>
+            </mat-menu>
+
+
+          </div>
+
         </div>
 
         <div class="search-bar">
