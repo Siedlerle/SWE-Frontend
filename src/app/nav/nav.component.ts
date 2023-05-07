@@ -143,8 +143,9 @@ export class NavComponent implements OnInit{
       this.canManage();
     }
 
-    this.router.navigate(['']);
-    location.reload();
+    this.router.navigate(['']).then(() => {
+      location.reload();
+    });
   }
 
   showCard = false;
@@ -174,7 +175,7 @@ export class NavComponent implements OnInit{
 
 
 
-  /*
+
   checkOrga(){
     const emailAdress = sessionStorage.getItem('emailAdress');
     if(emailAdress!=null) {
@@ -186,6 +187,7 @@ export class NavComponent implements OnInit{
         if(this.hasOrga !=0){
           console.log(this.hasOrga)
         }else{
+          console.log("orga nicht mehr teil")
           this.goBackToStart();
         }
       });
@@ -203,5 +205,5 @@ export class NavComponent implements OnInit{
     if(orgaId === orgIdInt){
       this.hasOrga++
     }
-  }*/
+  }
 }
