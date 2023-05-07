@@ -1,0 +1,413 @@
+<div class ="popup-background">
+  <div class="popup">
+        <button mat-fab (click)="closeCard()" class = "close-Button">
+          <mat-icon class ="close-Icon">close</mat-icon>
+        </button>
+
+    <div class="card-header">
+      <img mat-card-image src="{{backendURL + imageSource}}" onerror="this.src='../../assets/images/nature.jpg'" class="banner">
+      <div class="status">{{eventStatus}}</div>
+    </div>
+
+      <mat-tab-group class="tab-group" >
+        <mat-tab >
+          <ng-template mat-tab-label class="mat-tab-label">
+            <mat-icon class = "mat-tab-icon">event_note</mat-icon>
+            <div class = "mat-tab-labelcontent">
+              Eventkarte
+            </div>
+
+          </ng-template>
+          <h1>{{eventData.name}}</h1>
+          <h3>Beschreibung</h3>
+          <p>{{eventData.description}}</p>
+          <h3>Zeit</h3>
+          <ng-container *ngIf="eventData.startDate == eventData.endDate ; else elseBlock">
+            <p>
+            Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}} bis {{getFormattedTime(eventData.endTime)}}
+            </p>
+          </ng-container>
+          <ng-template #elseBlock>
+            <p>
+              Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}}
+            </p>
+            <p>
+              Endet am {{eventData.endDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.endTime)}}
+            </p>
+          </ng-template>
+
+          <h3>Veranstaltungsort</h3>
+          <p>
+            {{eventData.location}}
+          </p>
+          <h3>Teilnehmeranzahl</h3>
+          <p *ngIf="attendees">
+            {{attendees.length}}
+          </p>
+
+
+
+        </mat-tab>
+        <mat-tab >
+          <ng-template mat-tab-label class="mat-tab-label">
+            <mat-icon class = "mat-tab-icon">info</mat-icon>
+            Eventguide
+          </ng-template>
+          <mat-accordion class="headers-align" multi>
+              <mat-expansion-panel (opened)="onInputFocus()" (closed)="onInputFocusLost()">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <h3>
+                      Nachrichten an Teilnehmer
+                    </h3>
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <mat-icon>chat</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-card class="dashboard-card">
+                <mat-card-content>
+                  <div style="height: 200px; overflow-y: scroll;margin-bottom: 1%">
+                    <div>
+                      <mat-accordion *ngFor="let chat of allChats">
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            {{chat.message}}
+                          </mat-expansion-panel-header>
+                          <mat-list *ngFor="let comments of allComments[chat.id!]">
+                            {{comments.text}}
+                            <div style="text-align: right; float: right">{{comments.user!.firstname}} {{comments.user!.lastname}}</div>
+                          </mat-list>
+                        </mat-expansion-panel>
+                      </mat-accordion>
+                      </div>
+                    </div>
+                  <mat-form-field style="display: flex; width: 80%; justify-content: center; align-content: center">
+                    <input matInput placeholder="Senden Sie eine Nachricht" [(ngModel)]="chatMessage" (keyup.enter)="sendChatMessage()" >
+                    <button mat-icon-button matSuffix (click)="sendChatMessage()" >
+                      <mat-icon>send</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </mat-card-content>
+                </mat-card>
+              </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <h3>
+                    Datei hochladen
+                  </h3>
+                </mat-panel-title>
+                <mat-panel-description>
+                  <mat-icon>file_upload</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <!--mat-card zum Uploaden und Anzeigen von Dateien-->
+              <mat-card class="dashboard-card">
+                <mat-card-header style="position: relative; display: flex; width: 100%; margin: 10px">
+                  <div class="tableControlls"
+                       style="position:relative; justify-self: stretch; width: 100%; text-align: right">
+                    <mat-card-title style="float: left">Dateien</mat-card-title>
+                    <ngx-mat-file-input  [formControl]="fileControl" [multiple]="false" [accept]="accept" (change)="onFileSelected($event)" style="float: right; margin-right: 45px">
+                    </ngx-mat-file-input>
+                  </div>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class = "fileTable">
+                    <mat-table [dataSource]="fileDataSource">
+                      <ng-container matColumnDef="Filename">
+                        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                        <mat-cell *matCellDef="let file">{{file.name}}</mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="Filetype">
+                        <mat-header-cell *matHeaderCellDef>Typ der Datei</mat-header-cell>
+                        <mat-cell *matCellDef="let file">{{getFileExtension(file.name)}}</mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="Filesize">
+                        <mat-header-cell *matHeaderCellDef>Größe der Datei</mat-header-cell>
+                        <mat-cell *matCellDef="let file">{{bytesToMegabytes(file.size)}}</mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="actions">
+                        <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+                        <mat-cell *matCellDef="let file">
+                          <button mat-icon-button (click)="downloadFile(file)" >
+                            <mat-icon>download</mat-icon>
+                          </button>
+                          <button mat-icon-button (click)="deleteFile(file)">
+                            <mat-icon >delete</mat-icon>
+                          </button>
+                        </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedDocumentColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedDocumentColumns;"></mat-row>
+                    </mat-table>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </mat-expansion-panel>
+
+
+            <div class="umfrage-panel">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <h3>Umfragen erstellen</h3>
+                </mat-panel-title>
+                <mat-panel-description>
+                  <mat-icon>
+                    rate_review
+                  </mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <mat-card>
+                <ng-container *ngFor="let question of questions">
+                  <mat-card>
+                    <mat-card-content *ngIf="question" >
+                      <mat-form-field>
+                        <input matInput [(ngModel)]="question.questionText" placeholder="Stellen Sie ihre Frage hier" >
+                        <button matSuffix mat-icon-button  color="warn" (click)="removeQuestion(question)" aria-label="Entfernen">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                      </mat-form-field>
+                      <mat-radio-group [(ngModel)]="question.questionType">
+                        <mat-radio-button  [value]="QuestionType.TEXT">Textantwort</mat-radio-button>
+                        <mat-radio-button [value]="QuestionType.MULTIPLECHOICE">Multiple Choice</mat-radio-button>
+                      </mat-radio-group>
+
+                      <div *ngIf="question.questionType === QuestionType.MULTIPLECHOICE">
+                        <ng-container *ngFor="let answer of question.answerString; let answerIndex = index" class="flex-row">
+                          <mat-form-field>
+                            <input matInput placeholder="Antwortmöglichkeit {{ answerIndex + 1 }}" [(ngModel)]="answerString[answerIndex]" *ngIf="question.answerString" (blur)="saveAnswer(answerIndex, question)">
+                            <button matSuffix mat-icon-button color="warn" *ngIf="question.answerString && question.answerString.length > 2" (click)="deleteChoice(question,answerIndex)">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                          </mat-form-field>
+                        </ng-container>
+                        <button mat-raised-button  color="primary" (click)="question.answerString.push('')" *ngIf="question.answerString">Antwort hinzufügen</button>
+                      </div>
+                    </mat-card-content>
+                  </mat-card>
+                </ng-container>
+                <mat-card-actions>
+                  <button mat-raised-button (click)="addQuestion()" >Frage hinzufügen</button>
+                  <button mat-raised-button [disabled]="questions.length<1" (click)="submitQuestionaire()">Umfrage erstellen</button>
+                </mat-card-actions>
+              </mat-card>
+            </mat-expansion-panel>
+            </div>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <h3>Umfragen auswerten</h3>
+                </mat-panel-title>
+                <mat-panel-description>
+                  <mat-icon>
+                    show_chart
+                  </mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <mat-card>
+                <mat-list>
+                  <ng-container *ngFor="let question of questionsToEvaluate">
+                    <div class="questionItem">
+                      <mat-list-item>
+                        <mat-label>{{question.questionText}}</mat-label>
+                      </mat-list-item>
+                      <mat-list class="answer-items" *ngIf="question.questionType === QuestionType.MULTIPLECHOICE">
+                        <ng-container *ngFor="let answer of answersToEvaluate">
+                          <mat-list-item *ngIf="question.id === answer.question.id">
+                            {{answer.text}}: {{answer.amount}}
+                          </mat-list-item>
+                        </ng-container>
+                      </mat-list>
+                      <mat-list class="answer-items" *ngIf="question.questionType === QuestionType.TEXT">
+                        <ng-container *ngFor="let answer of answersToEvaluate">
+                          <mat-list-item *ngIf="question.id === answer.question.id">
+                            {{answer.text}}
+                          </mat-list-item>
+                        </ng-container>
+                      </mat-list>
+                    </div>
+                  </ng-container>
+                </mat-list>
+              </mat-card>
+            </mat-expansion-panel>
+
+            </mat-accordion>
+        </mat-tab>
+        <mat-tab  >
+          <ng-template mat-tab-label class="mat-tab-label">
+            <mat-icon class="mat-tab-icon">groups</mat-icon>
+            Teilnehmerverwaltung
+          </ng-template>
+
+          <div class="attende-management-toolbar">
+            <div class="left-items">
+              <button mat-raised-button (click) = "openAddUsertoEvent()" class = "addPerson">
+                Teilnehmer hinzufügen
+                <mat-icon>person_add</mat-icon>
+              </button>
+              <button mat-raised-button *ngIf="isAdmin" (click) = "openChangeOrganizerOfEvent()" class = "addPerson">
+                Organisator ändern
+                <mat-icon>person_change</mat-icon>
+              </button>
+            </div>
+
+
+            <div class="search-bar">
+              <input class="search-control mat-elevation-z3" type="text" placeholder="Suche" [(ngModel)]="searchText" (input)="applyFilter()">
+              <button mat-icon-button class="search-icon">
+              <mat-icon>search</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class = "attendeeTable">
+            <mat-table [dataSource]="dataSource" matSort class = "">
+              <ng-container matColumnDef="FirstName">
+                <mat-header-cell *matHeaderCellDef>Vorname</mat-header-cell>
+                <mat-cell *matCellDef="let user">{{user.firstname}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="LastName">
+                <mat-header-cell *matHeaderCellDef>Nachname</mat-header-cell>
+                <mat-cell *matCellDef="let user">{{user.lastname}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="eMail">
+                <mat-header-cell *matHeaderCellDef>E-Mail-Adresse</mat-header-cell>
+                <mat-cell *matCellDef="let user">{{user.emailAdress}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+                <mat-cell *matCellDef="let user">
+                  <button mat-icon-button matTooltip="Teilnehmer absagen" (click)="removeUser(user)" >
+                    <mat-icon>
+                      delete
+                    </mat-icon>
+                  </button>
+                  <button *ngIf="attendeeRoleMap[user.id]" mat-icon-button matTooltip="Als Tutor entfernen" (click)="removeTutor(user)" >
+                    <mat-icon>
+                      person_remove
+                    </mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+          </div>
+
+
+
+        </mat-tab>
+        <mat-tab  >
+          <ng-template mat-tab-label class="mat-tab-label">
+            <mat-icon class = "mat-tab-icon">edit-calender</mat-icon>
+            Eventverwaltung
+          </ng-template>
+          <div class = "editForm">
+            <form class="change-event-form" #form="ngForm"(ngSubmit)="onChangeEvent(form)">
+              <div class="form-div">
+                <p>
+                  <mat-form-field appearance="fill" style="position: relative; width: 100%">
+                    <mat-label>Name des Events</mat-label>
+                    <input matInput placeholder="Name des Events" [(ngModel)]="eventData.name" name="eventName" required>
+                    <mat-error *ngIf="!eventData.name">Name wird benötigt</mat-error>
+                  </mat-form-field>
+                </p>
+                <p>
+                  <mat-form-field appearance="fill" hintLabel="Max. 300 Zeichen" style="position: relative; width: 100%">
+                    <mat-label>Beschreibung des Events</mat-label>
+                    <input matInput placeholder="Beschreibung des Events" [(ngModel)]="eventData.description" name="eventDescription" maxlength="300" #input required>
+                    <mat-hint align="end">{{input.value.length || 0}}/300</mat-hint>
+                    <mat-error *ngIf="!eventData.description">Beschreibung wird benötigt</mat-error>
+                  </mat-form-field>
+                </p>
+                <p>
+                  <mat-form-field appearance="fill" style="position: relative; width: 100%">
+                    <mat-label>Art des Events</mat-label>
+                    <input matInput placeholder="Art des Events" [(ngModel)]="eventData.type" name="eventType" required>
+                    <mat-error *ngIf="!eventData.type">Art wird benötigt</mat-error>
+                  </mat-form-field>
+                </p>
+                <div>
+                  <p>
+                    <mat-form-field appearance="fill" style="position: relative; width: 47.5%; float: left">
+                      <mat-label>Startzeit</mat-label>
+                      <input matInput placeholder="12:30" [(ngModel)]="eventData.startTime" name="eventStartTime" inputmode="numeric" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]" type="time"   required>
+                      <mat-error *ngIf="!eventData.startTime">Startzeit wird benötigt</mat-error>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="fill" style="position: relative; width: 47.5%; float: left; padding-left: 5%">
+                      <mat-label>Endzeit</mat-label>
+                      <input matInput placeholder="13:30" [(ngModel)]="eventData.endTime" name="eventEndTime" inputmode="numeric" pattern="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"  type="time"  required>
+                      <mat-error *ngIf="!eventData.endTime">Endzeit wird benötigt</mat-error>
+                    </mat-form-field>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <mat-form-field appearance="fill" style="position: relative; width: 47.5%; float: left">
+                      <mat-label>Startdatum des Events (MM/DD/YY)</mat-label>
+                      <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="eventData.startDate" name="eventStartDate" required>
+                      <mat-datepicker-toggle matIconSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #startDatePicker></mat-datepicker>
+                      <mat-error *ngIf="!eventData.startDate">Datum wird benötigt</mat-error>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="fill" style="position: relative; width: 47.5%; float: left; padding-left: 5%">
+                      <mat-label>Enddatum des Events (MM/DD/YY)</mat-label>
+                      <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="eventData.endDate" name="eventEndDate" required>
+                      <mat-datepicker-toggle matIconSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #endDatePicker></mat-datepicker>
+                      <mat-error *ngIf="!eventData.endDate">Datum wird benötigt</mat-error>
+                    </mat-form-field>
+                  </p>
+                </div>
+                <p>
+                  <mat-form-field appearance="fill" style="position: relative; width: 100%">
+                    <mat-label>Ort</mat-label>
+                    <input matInput placeholder="Veranstaltungsort" [(ngModel)]="eventData.location" name="eventLocation" required>
+                    <mat-error *ngIf="!eventData.location">Veranstaltungsort wird benötigt</mat-error>
+                  </mat-form-field>
+                </p>
+                <div style="display:flex; justify-content: center">
+                  <p>
+                    <mat-form-field style="width: 240px">
+                      <ngx-mat-file-input [formControl]="newEventImageControl" [multiple]="false" [accept]="accept" [color]="color" style="position: relative; width: 100%">
+                        <mat-icon ngxMatFileInputIcon>upload</mat-icon>
+                      </ngx-mat-file-input>
+                    </mat-form-field>
+                  </p>
+                </div>
+                <div style="display:flex; justify-content: center">
+                  <p>
+                    <mat-slide-toggle color="primary" style="position: relative" [(ngModel)]="eventData.isPublic" name="eventIsPublic">Event in der Organisation öffentlich</mat-slide-toggle>
+                  </p>
+                </div>
+                <div class="manage-event-buttons-div">
+                  <button mat-raised-button *ngIf="!eventIsCancelled" type="button" color="warn" class="cancel-event-button" (click)="cancelEvent(eventData)">Event absagen</button>
+                  <div *ngIf="eventIsCancelled" >
+                    <button mat-raised-button type="button" color="warn" class="delete-event-button" (click)="deleteEvent(eventData)">Event löschen</button>
+                    <button mat-raised-button type="button" color="primary" class="plan-event-button" (click)="withDrawCancelEvent()">Absage zurücknehmen</button>
+                  </div>
+                  <div>
+                    <button mat-raised-button class="submit-button" type="submit" [disabled]="!eventData.name || !eventData.description || !eventStartDate || !eventEndDate || !eventData.location || !eventData.startTime || !eventData.endTime || !eventData.type" >Änderungen übernehmen</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
+  </div>
+</div>
+<app-add-user-to-event *ngIf="showAddUsertoEvent" (onCloseAddUser)="closeAddUsertoEvent()"></app-add-user-to-event>
+<app-change-organizer-of-event *ngIf="showChangeOrganizerOfEvent" (onCloseChangeOrganizerOfEvent)="closeChangeOrganizerOfEvent()"></app-change-organizer-of-event>

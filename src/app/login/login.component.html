@@ -1,0 +1,99 @@
+<div class="login-page">
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+  <mat-card class="mat-elevation-z12">
+    <mat-tab-group #tabGroup mat-stretch-tabs class="tabsgroup">
+      <mat-tab label="Sign In">
+        <mat-card-content>
+          <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)"action="">
+            <mat-form-field>
+              <input matInput placeholder="Email" required name="email" [(ngModel)]="email">
+              <mat-error *ngIf="!email">Email ist erforderlich</mat-error>
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Passwort"
+                type="password"
+                required
+                minlength="6"
+                name="password"
+                [(ngModel)]="password">
+              <mat-error *ngIf="!password">
+                Passwort ist erforderlich
+              </mat-error>
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="login-button" type="submit" [disabled]="!email|| !password">
+              Sign In
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-tab>
+      <mat-tab label="Sign Up">
+        <mat-card-content>
+          <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" action="">
+            <mat-form-field>
+              <input matInput placeholder="Vorname" required name="firstName" [(ngModel)]="registerFirstName">
+              <mat-error *ngIf="!registerFirstName">Vorname ist erforderlich</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Nachname" required name="lastName" [(ngModel)]="registerLastName">
+              <mat-error *ngIf="!registerLastName">Nachname ist erforderlich</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Email" required name="email" pattern=".*@.*" [(ngModel)]="registerEmail"
+                     required>
+              <mat-error *ngIf="!registerEmail">Email ist erforderlich</mat-error>
+              <mat-error *ngIf="!checkIfAtSymbolExists(registerEmail)">
+                Please enter a valid email address!
+              </mat-error>
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+            <form [formGroup]="myForm">
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Passwort"
+                  type="password"
+                  required
+                  minlength="6"
+                  name="registerPassword"
+                  [(ngModel)]="registerPassword"
+                  formControlName="field1">
+                <mat-error *ngIf="!registerPassword">
+                  Passwort ist erforderlich
+                </mat-error>
+                <mat-icon matSuffix>lock</mat-icon>
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Passwort wiederholen"
+                  type="password"
+                  required
+                  minlength="6"
+                  name="confirmRegisterPassword"
+                  [(ngModel)]="confirmRegisterPassword"
+                  formControlName="field2">
+                <mat-error *ngIf="!confirmRegisterPassword">
+                  Passwort wiederholen!
+                </mat-error>
+                <mat-error *ngIf="myForm.controls['field2'].hasError('notMatching')">
+                  Passwörter stimmen nicht überein!
+                </mat-error>
+                <mat-icon matSuffix>lock</mat-icon>
+              </mat-form-field>
+            </form>
+            <button mat-raised-button color="primary" class="login-button" type="submit"
+                    [disabled]="!registerFirstName || !registerLastName || !registerEmail || !registerPassword || !confirmRegisterPassword">
+              Sign Up
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>

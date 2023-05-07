@@ -1,50 +1,91 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Pipe, PipeTransform } from '@angular/core';
-import {listData, listEventData} from './event-list';
 import {MatPaginator} from "@angular/material/paginator";
+import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
+import {UiUserService} from "../../services/ui-user.service";
+import {DataService} from "../management/CardService";
+import {URLs} from "../../assets/SystemVariables/URLs";
+import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
 
 @Component({
   selector: 'app-event-catalog',
   templateUrl: './event-catalog.component.html',
   styleUrls: ['./event-catalog.component.css']
 })
-export class EventCatalogComponent {
-  public onCardClick(evt: MouseEvent) {
-    console.log(evt);
-  }
+export class EventCatalogComponent implements OnInit {
 
-  eventList = listEventData;
+  availableEvents: CustomEvent[];
   @ViewChild('searchbar') searchbar: ElementRef;
-  searchText = '';
+  eventSearchText = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  backendURL: string = "";
   toggleSearch: boolean = false;
 
-  constructor() {
-
+  constructor(private dataService: DataService,private uiUserService: UiUserService) {
+    this.backendURL = URLs.backend;
   }
 
-  openSearch() {
-    this.toggleSearch = true;
-    this.searchbar.nativeElement.focus();
+  ngOnInit() {
+    const emailAddress = sessionStorage.getItem('emailAdress');
+    const orgaId = sessionStorage.getItem('orgaId');
+    if (emailAddress != null && orgaId != null && orgaId!=='') {
+      this.uiUserService.getAllVisibleNoRegisteredEventsInOrganisation(emailAddress, orgaId).subscribe(response => {
+        this.availableEvents = response;
+        this.updateStatusOfEvents(this.availableEvents);
+      });
+    }else if(emailAddress != null && orgaId != null && orgaId===''){
+      this.uiUserService.getAllEvents(emailAddress).subscribe(response =>{
+        this.availableEvents = response;
+        this.updateStatusOfEvents(this.availableEvents);
+      });
+    }
   }
 
-  searchClose() {
-    this.searchText = '';
-    this.toggleSearch = false;
-  }
-}
+  updateStatusOfEvents(events: CustomEvent[]) {
+    const now = new Date();
+    events.forEach(event => {
+      const startTime = this.getDate(event.startDate, event.startTime);
+      const endTime = this.getDate(event.endDate, event.endTime);
 
-
-@Pipe({
-  name: 'filter'
-})
-export class FilterPipe implements PipeTransform {
-  transform(items: any[], searchText: string): any[] {
-    if(!items) return [];
-    if(!searchText) return items;
-    searchText = searchText.toLowerCase();
-    return items.filter( it => {
-      return it.president.toLowerCase().includes(searchText) || it.party.toLowerCase().includes(searchText) || it.took_office.toLowerCase().includes(searchText);
+      if (event.status != EnumEventStatus.CANCELLED) {
+        if (startTime > now) {
+          event.status = EnumEventStatus.SCHEDULED;
+        } else if (startTime < now && endTime > now) {
+          event.status = EnumEventStatus.RUNNING;
+        } else if (endTime < now) {
+          event.status = EnumEventStatus.ACCOMPLISHED;
+        }
+      }
     });
   }
+
+  getDate(date: Date, time: string): Date {
+    const [hours, minutes] = time.split(':').map(Number);
+    const newDate = new Date(date);
+    newDate.setHours(hours, minutes, 0);
+    return newDate;
+  }
+
+  filterEvents() {
+    if (!this.eventSearchText) {
+      return this.availableEvents;
+    }
+    //console.log(this.eventSearchText)
+    return this.availableEvents.filter(event => event.name.toLowerCase().includes(this.eventSearchText.toLowerCase()));
+  }
+
+  showInvitationCard = false;
+  openCard(item: CustomEvent){
+
+    this.updateStatusOfEvents(this.availableEvents);
+
+
+    this.showInvitationCard = true;
+    this.dataService.setCardData(item);
+  }
+  closeCard(){
+    this.showInvitationCard = false;
+  }
 }
+

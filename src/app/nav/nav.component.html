@@ -1,43 +1,73 @@
-<!doctype html>
-<html>
-  <header>
+<div class="banner-dropdown" (click)="isDropdownOpen = false">
+  <img src="{{imageSource}}" alt="Banner" class="banner-image" (click)="toggleDropdownBanner($event)">
+  <div class="dropdown-content-Banner" [ngClass]="{'show': isDropdownOpenBanner}" [style.top.px]="dropDownTop"
+       [style.left.px]="dropDownLeft">
+    <ul (click)="isDropdownOpenBanner = false">
+      <li *ngFor="let item of organisationsForUser" (click)="onOrganisationClick(item)">{{ item.name }}</li>
+      <li routerLink="/organisation-catalog">Organisationen durchsuchen</li>
+      <li (click)="goBackToStart()">Wechsle zur Standardansicht</li>
+    </ul>
+  </div>
+</div>
 
-  </header>
-  <body>
-  <div class="banner-dropdown">
-    <img src="../../assets/images/Banner.png" alt="Banner" class="banner-image" (click)="toggleDropdownBanner($event)">
-    <div class="dropdown-content-Banner" [ngClass]="{'show': isDropdownOpenBanner}" [style.top.px]="dropDownTop" [style.left.px]="dropDownLeft">
-      <a routerLink="/logout">Organisations 1</a>
-      <a routerLink="/settings">Organisation 2</a>
-      <a routerLink="/organisation-catalog">Organisationen durchsuchen</a>
+
+<nav (click)="isDropdownOpenBanner = false" class="navbar navbar-expand-lg navbar-light bg-light mat-elevation-z8">
+  <div class="container-fluid">
+  </div>
+  <div class="nav-menu">
+
+    <div class="left-items" (click)="isDropdownOpen = false">
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="responsiveButton">
+        <mat-icon>view_headline</mat-icon>
+      </button>
+      <div class="responsiveDiv">
+        <a routerLink="" class="nav-item" [class.active]="activeLink ==''" (click)="checkOrga()">Start</a>
+        <a routerLink="/event-catalog" class="nav-item" [class.active]="activeLink =='/event-catalog'" (click)="checkOrga()">Eventkatalog</a>
+        <a routerLink="/my-events" class="nav-item" [class.active]="activeLink =='/my-events'" (click)="checkOrga()">Meine Events</a>
+        <a routerLink="/organisation-catalog" class="nav-item" [class.active]="activeLink =='/organisation-catalog'" (click)="checkOrga()">Organisationskatalog</a>
+        <a *ngIf="canManage()" routerLink="/management" class="nav-item" [class.active]="activeLink =='/management'" (click)="checkOrga()">Verwaltung</a>
+      </div>
+
+    </div>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="" [class.active]="activeLink ==''">
+        <span>Start</span>
+      </button>
+      <button mat-menu-item routerLink="/event-catalog" [class.active]="activeLink=='/event-catalog'">
+        <span>Eventkatalog</span>
+      </button>
+      <button mat-menu-item routerLink="/my-events" [class.active]="activeLink=='/my-events'">
+        <span>Meine Events</span>
+      </button>
+      <button mat-menu-item routerLink="/organisation-catalog" [class.active]="activeLink=='/organisation-catalog'">
+        <span>Organisationskatalog</span>
+      </button>
+      <button mat-menu-item *ngIf="canManage()" routerLink="/management" [class.active]="activeLink =='/management'">
+        <span>Verwaltung</span>
+      </button>
+    </mat-menu>
+
+    <div class="right-items">
+      <button mat-button [matMenuTriggerFor]="profile" class="nav-item" style="color: white">
+        <span>{{firstName + " " + lastName}}</span>
+      </button>
+      <mat-menu #profile="matMenu">
+        <button mat-menu-item (click)="openCard()">
+          <span>Profil ansehen</span>
+        </button>
+        <button mat-menu-item routerLink="/organisation-catalog">
+          <span>Organisationen durchsuchen</span>
+        </button>
+        <button mat-menu-item (click)="logOut()">
+          <span>Abmelden</span>
+        </button>
+      </mat-menu>
     </div>
   </div>
+</nav>
 
 
 
-    <nav>
-      <div class="nav-menu">
-        <div class="left-items">
-          <a routerLink="/homepage" class="nav-item">Start</a>
-          <a routerLink="/event-catalog" class="nav-item">Eventkatalog</a>
-          <a routerLink="/my-events" class="nav-item">Meine Events</a>
-          <a routerLink="/management" class="nav-item">Verwaltung</a>
-        </div>
-        <div class="right-items">
-
-
-          <div class="profile-dropdown" (click)="toggleDropdown()">
-            <a routerLink="/profile" class="nav-item">Profil</a>
-            <div class="dropdown-content" [ngClass]="{'show': isDropdownOpen}">
-              <a routerLink="/logout">Logout</a>
-              <a routerLink="/settings">Einstellungen</a>
-              <a routerLink="/help">Hilfe</a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </nav>
-  </body>
-</html>
+<app-profile *ngIf="showCard" (onClose)="closeCard()"></app-profile>
 

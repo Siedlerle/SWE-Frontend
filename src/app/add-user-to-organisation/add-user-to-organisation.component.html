@@ -1,0 +1,19 @@
+<div class ="popup-background">
+  <div class="popup">
+    <div class="heading">
+      <button mat-fab (click)="closeAddUser()" class = "close-Button">
+        <mat-icon class ="close-Icon">close</mat-icon>
+      </button>
+      <h2>Zu Organisation einladen</h2>
+    </div>
+    <div class="content">
+      <mat-form-field>
+        <mat-label>E-Mail des Benutzers</mat-label>
+        <input [(ngModel)]="emailAddress" matInput placeholder="max_mustermann@email.de" name="email">
+      </mat-form-field>
+      <button mat-raised-button="addEventButton" class="add-Group-Button" (click)="inviteUserToOrga()">Einladen</button>
+    </div>
+
+  </div>
+
+</div>

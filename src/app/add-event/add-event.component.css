@@ -1,26 +1,55 @@
 .popup {
   position: fixed;
-  top: 50%;
   left: 50%;
-  down: 50%;
   right: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-55%);
   z-index: 9999;
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  padding: 20px ;
-  width: 40%;
-  height: 80%;
+  width: 50%;
+  height: 87%;
+  border-radius: 10px;
+  margin: 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popup-background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+.dashboard-card {
+  width: 95%;
+  height: 89%;
+  border-radius: 1%;
+  margin: 1%;
+  bottom: 1%;
+  position: fixed;
+  align-self: center;
+  overflow: auto
+}
+.heading {
+  height: 10%;
+  position: fixed;
+  top: 1%;
+  left: 1%;
+  z-index: 999;
 }
 .close-Button{
   width: 30px;
   height: 30px;
   display: block;
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 1%;
+  right: 1%;
   background-color: firebrick;
   color: white;
+  z-index: 999;
 }
 .close-Icon{
   display: flex;
@@ -32,7 +61,9 @@
 .submit-button{
   font-weight: bolder;
   font-size: larger;
-  position: center;
+  float: right;
+  bottom: 3%;
+
 
 }
 mat-icon{
@@ -57,7 +88,14 @@ mat-grid-tile{
 mat-form-field{
   align-content: center;
 }
--form-div{
-
+.form-div{
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
+
+.form-div p {
+  margin-bottom: 5px;
+}
+
 

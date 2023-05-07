@@ -1,0 +1,46 @@
+<div class ="popup-background">
+  <div class="popup">
+    <button mat-fab (click)="closeRegistryCard()" class = "close-Button">
+      <mat-icon class ="close-Icon">close</mat-icon>
+    </button>
+    <div class="card-header">
+      <img mat-card-image src="{{backendURL + imageSource}}" onerror="this.src='../../assets/images/nature.jpg'" class="banner">
+      <div class="status">{{eventStatus}}</div>
+    </div>
+
+
+    <div>
+      <h1>{{eventData.name}}</h1>
+      <h3>Beschreibung</h3>
+      <p>{{eventData.description}}</p>
+      <ng-container *ngIf="eventData.eventSeries">
+        <h3>Anmerkung</h3>
+        <p>Dies ist eine Event-Serie mit {{eventData.eventSeries.amount}} Terminen.</p>
+        <p>Diese finden in einem Abstand von {{eventData.eventSeries.daysBetweenEvents}} statt.</p>
+      </ng-container>
+      <h3>Zeit</h3>
+      <ng-container *ngIf="eventData.startDate == eventData.endDate ; else elseBlock">
+        <p>
+          Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}} bis {{getFormattedTime(eventData.endTime)}}
+        </p>
+      </ng-container>
+      <ng-template #elseBlock>
+        <p>
+          Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}}
+        </p>
+        <p>
+          Endet am {{eventData.endDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.endTime)}}
+        </p>
+      </ng-template>
+
+      <h3>Veranstaltungsort</h3>
+      <p>
+        {{eventData.location}}
+      </p>
+      <p>
+        <button mat-raised-button class="submit-button" (click)="registerForEvent()">Registrieren</button>
+      </p>
+
+    </div>
+  </div>
+</div>

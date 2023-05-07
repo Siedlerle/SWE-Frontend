@@ -1,16 +1,7 @@
-mat-toolbar{
-  background-color: white;
-  height: 30px;
-}
-.search-icon{
-  color: #333333;
-}
-.filter-icon{
-  color: #555555;
-}
+
 .basic-container {
   padding: 10px;
-  height: 100%;
+  padding: 1%;
 }
 .clickable{
   cursor: pointer;
@@ -20,6 +11,9 @@ mat-card{
 }
 mat-card-header {
   font-size: larger;
+  font-size: 24px;
+  font-weight: bolder;
+  padding-bottom: 1%;
 }
 .mat-card-image {
   width: 30%;
@@ -28,8 +22,8 @@ mat-card-header {
 
 }
 .card-content{
-  padding: 20px;
   width: 70%;
+  height: 100%;
 }
 
 .card {
@@ -41,16 +35,20 @@ mat-card-header {
   border-radius: 0;
 }
 
+.card:not([class*=mat-elevation-z]) {
+  box-shadow: 0 2px 1px -1px rgba(0,0,0,1),
+  0 1px 1px 0 rgba(0,0,0,1),
+  0 1px 3px 0 rgba(0,0,0,1);
+}
+
 mat-card-content {
   font-size: 16px;
 }
 mat-list-item {
-  margin-bottom: 10px;
 }
 
 mat-card:hover {
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  transform: translateY(-5px);
   background-color: gray;
 }
 
@@ -70,18 +68,51 @@ mat-card:active {
 }
 
 mat-grid-list {
-  margin-top: 50px;
   overflow-y: auto;
   max-height: 90%;
   width: 100%;
 }
 
 .layoutGrid{
-  margin: 15px;
   overflow-y: auto;
   max-height: 90%;
   width: 100%;
 }
-mat-grid-tile:nth-child(n){
-  height: 35%;
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-control {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+
+}
+
+.search-icon {
+  position: relative;
+  color: #999;
+  right: 11%;
+}
+
+.my-events-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1%;
+
+}
+.mat-card-content {
+}
+.cardDescription {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-align: justify;
+  text-justify: inter-word;
 }

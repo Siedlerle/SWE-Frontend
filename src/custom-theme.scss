@@ -33,3 +33,23 @@ $SWE-Frontend-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($SWE-Frontend-theme);
 
+.mat-mdc-snack-bar-container {
+  &.snackbar {
+    --mdc-snackbar-container-color: mat.$white-6-opacity;
+    --mat-mdc-snack-bar-button-color: #000;
+    --mdc-snackbar-supporting-text-color: #000;
+    border: 5px solid green;
+
+  }
+}
+
+.errorSnackbar {
+  max-width: max-content !important;
+  --mdc-snackbar-supporting-text-color: #fff;
+  --mdc-snackbar-container-margin: 2%;
+
+  .mat-simple-snackbar-action {
+    color: white;
+  }
+}
+

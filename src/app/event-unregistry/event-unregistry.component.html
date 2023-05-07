@@ -1,0 +1,158 @@
+<div class ="popup-background">
+  <div class="popup">
+    <button mat-fab (click)="closeRegistryCard()" class = "close-Button">
+      <mat-icon class ="close-Icon">close</mat-icon>
+    </button>
+    <div class="card-header">
+      <img mat-card-image src="{{backendURL + imageSource}}" onerror="this.src='../../assets/images/nature.jpg'" class="banner">
+      <div class="status">{{eventStatus}}</div>
+    </div>
+
+    <mat-tab-group class="tab-group"  dynamicHeight>
+      <mat-tab>
+        <ng-template mat-tab-label class="mat-tab-label">
+          <mat-icon class = "mat-tab-icon">event_note</mat-icon>
+          <div class = "mat-tab-labelcontent">
+            Eventkarte
+          </div>
+        </ng-template>
+        <div class="tab-content">
+          <h1>{{eventData.name}}</h1>
+          <h3>Beschreibung</h3>
+          <p>{{eventData.description}}</p>
+          <h3>Zeit</h3>
+          <ng-container *ngIf="eventData.startDate == eventData.endDate ; else elseBlock">
+            <p>
+              Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}} bis {{getFormattedTime(eventData.endTime)}}
+            </p>
+          </ng-container>
+          <ng-template #elseBlock>
+            <p>
+              Beginnt am {{eventData.startDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.startTime)}}
+            </p>
+            <p>
+              Endet am {{eventData.endDate | date: 'dd.MM.yyyy'}} um {{getFormattedTime(eventData.endTime)}}
+            </p>
+          </ng-template>
+          <h3>Veranstaltungsort</h3>
+          <p>
+            {{eventData.location}}
+          </p>
+        </div>
+        <button mat-raised-button (click)="unregisterFromEvent()" class="unregister-button">Abmelden</button>
+
+
+
+
+      </mat-tab>
+
+      <mat-tab >
+        <ng-template mat-tab-label class="mat-tab-label">
+          <mat-icon class = "mat-tab-icon">chat</mat-icon>
+          Chat
+        </ng-template>
+        <mat-card class="dashboard-card">
+          <mat-card-content>
+            <div style="height: 300px; overflow-y: scroll;margin-bottom: 1%">
+              <mat-accordion *ngFor="let chat of allChats">
+                <mat-expansion-panel (opened)="onInputFocus()" (closed)="onInputFocusLost()">
+                  <mat-expansion-panel-header>
+                    {{chat.message}}
+                  </mat-expansion-panel-header>
+
+                  <mat-list *ngFor="let comment of allComments[chat.id!]">
+                    {{comment.text}}
+                    <div style="text-align: right; float: right">{{comment.user!.firstname}} {{comment.user!.lastname}}</div>
+                  </mat-list>
+
+                  <mat-form-field style="display: flex; height: 100%; width: 80%; justify-content: center; align-content: center">
+                    <input matInput placeholder="Kommentieren Sie hier" [(ngModel)]="commentMessage" (keyup.enter)="sendComment(chat.id!, commentMessage)"  (focus)="onInputFocus()" (blur)="onInputFocusLost()">
+                    <button mat-icon-button matSuffix (click)="sendComment(chat.id!, commentMessage)"  >
+                      <mat-icon>send</mat-icon>
+                    </button>
+                  </mat-form-field>
+
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
+
+      <mat-tab >
+        <ng-template mat-tab-label class="mat-tab-label">
+          <mat-icon class = "mat-tab-icon">file_open</mat-icon>
+          Dateien
+        </ng-template>
+        <mat-card class="dashboard-card">
+          <mat-card-header style="position: relative; display: flex; width: 100%; margin: 10px">
+            <div class="tableControlls"
+                 style="position:relative; justify-self: stretch; width: 100%; text-align: right">
+              <mat-card-title style="float: left">Dateien</mat-card-title>
+            </div>
+          </mat-card-header>
+          <mat-card-content>
+            <div class = "fileTable">
+              <mat-table [dataSource]="fileDataSource">
+                <ng-container matColumnDef="Filename">
+                  <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                  <mat-cell *matCellDef="let file">{{file.name}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Filetype">
+                  <mat-header-cell *matHeaderCellDef>Typ der Datei</mat-header-cell>
+                  <mat-cell *matCellDef="let file">{{getFileExtension(file.name)}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Filesize">
+                  <mat-header-cell *matHeaderCellDef>Größe der Datei</mat-header-cell>
+                  <mat-cell *matCellDef="let file">{{bytesToMegabytes(file.size)}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                  <mat-header-cell *matHeaderCellDef>Aktionen</mat-header-cell>
+                  <mat-cell *matCellDef="let file">
+                    <button mat-icon-button (click)="downloadFile(file)" >
+                      <mat-icon>download</mat-icon>
+                    </button>
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedDocumentColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedDocumentColumns;"></mat-row>
+              </mat-table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
+
+      <mat-tab >
+        <ng-template mat-tab-label class="mat-tab-label">
+          <mat-icon class = "mat-tab-icon">rate_review</mat-icon>
+          Umfragen
+        </ng-template>
+        <div class="umfragen">
+          <ng-container *ngFor="let question of questions; let indexOfElement = index">
+            <div *ngIf="mapStringToEnum(question.questionType.toString()) === QuestionType.TEXT" class="text-question">
+              <h4>{{ question.questionText }}</h4>
+              <mat-form-field class="answer-Question">
+                <mat-label>Beantworten Sie die Frage hier</mat-label>
+                <input matInput type="text" [(ngModel)]="answers[indexOfElement].text">
+              </mat-form-field>
+            </div>
+            <div *ngIf="mapStringToEnum(question.questionType.toString()) === QuestionType.MULTIPLECHOICE" class="mult-question">
+              <h4>{{ question.questionText }}</h4>
+              <mat-radio-group [(ngModel)]="answers[indexOfElement].text">
+                <mat-radio-button *ngFor="let choice of question.answerString" [value]="choice">
+                  <div class="radio-label">{{ choice }}</div>
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </ng-container>
+          <div *ngIf="questions.length > 0" class="submit-survey-button">
+            <button mat-raised-button [disabled]="!areAllQuestionsAnswered()" (click)="submitSurvey()">Beantworten</button>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

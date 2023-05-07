@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Benutzer löschen:</h1>
+<mat-dialog-content class="popup-dialog">
+  Wollen sie den Benutzer <br><br>
+  <strong>{{ data.firstname + " " +data.lastname}}</strong><br><br>
+  wirklich löschen?
+</mat-dialog-content>
+<mat-dialog-actions class="popup-dialog">
+  <button mat-button (click)="onNoClick()">Abbrechen</button>
+  <button mat-button color="warn" (click)="onYesClick()">Löschen</button>
+</mat-dialog-actions>

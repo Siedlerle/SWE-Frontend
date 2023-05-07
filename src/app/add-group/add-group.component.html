@@ -1,0 +1,17 @@
+<div class ="popup-background">
+  <div class="popup">
+    <button mat-fab (click)="closeAddGroup()" class = "close-Button">
+      <mat-icon class ="close-Icon">close</mat-icon>
+    </button>
+    <h2>Gruppe erstellen</h2>
+    <div class="content">
+      <mat-form-field>
+        <mat-label>Name der Gruppe</mat-label>
+        <input matInput placeholder="Name der Gruppe" name="gruppenName" [(ngModel)]="group.name">
+      </mat-form-field>
+      <button mat-raised-button="addEventButton" class="add-Group-Button" (click)="createGroup()" [disabled]="!group.name">Erstellen</button>
+    </div>
+
+  </div>
+
+</div>

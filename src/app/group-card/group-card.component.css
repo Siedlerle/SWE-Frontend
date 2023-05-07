@@ -1,0 +1,80 @@
+.popup {
+  position: fixed;
+  left: 50%;
+  right: 50%;
+  transform: translateX(-55%);
+  z-index: 9999;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  width: 50%;
+  height: 90%;
+  border-radius: 10px;
+  margin: 3%;
+  padding: 1%;
+
+}
+.popup-background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+.close-Button{
+  width: 30px;
+  height: 30px;
+  display: block;
+  position: absolute;
+  top: 1%;
+  right: 1%;
+  background-color: firebrick;
+  color: white;
+  z-index: 999;
+}
+
+.close-Icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-control {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  right: 2.5%;
+  color: #999;
+}
+.group-user-management-toolbar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
+}
+mat-icon {
+  margin: auto;
+}
+.changeName{
+  border-bottom: 1px;
+  margin: 1%;
+}
+
+.save-button {
+  margin-left: 1%;
+}

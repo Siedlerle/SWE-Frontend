@@ -1,0 +1,76 @@
+.popup {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  padding: 20px ;
+  width: auto;
+  height: auto;
+  z-index: 1000;
+  top: 40%;
+  left: 50%;
+  border-radius: 10px;
+}
+
+.popup-background{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.close-Button{
+  width: 30px;
+  height: 30px;
+  display: block;
+  position: absolute;
+  top: 1.25%;
+  right: 0.5%;
+  background-color: firebrick;
+  color: white;
+}
+.close-Icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+mat-icon{
+  margin: auto;
+}
+.submit-button{
+  font-weight: bolder;
+  font-size: larger;
+  float: right;
+
+}
+.upload {
+  margin-bottom: 5%;
+}
+
+mat-form-field {
+  width: 70%;
+}
+
+.content {
+  align-items: center;
+}
+
+
+input {
+  width: 70%;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.add-Group-Button {
+  width: 30%;
+  margin-left: 10px;
+  margin-bottom: 10%;
+  border: none;
+
+}

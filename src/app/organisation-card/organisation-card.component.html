@@ -1,0 +1,18 @@
+<div class ="popup-background">
+  <div class="popup">
+    <button mat-fab (click)="closeCard()" class = "close-Button">
+      <mat-icon class ="close-Icon">close</mat-icon>
+    </button>
+
+    <img mat-card-image src="{{imageSource}}" onerror="this.src='../../assets/images/OrgaBanner.png'" class="banner">
+
+    <h1>{{orgaData.name}}</h1>
+    <h2 style="text-indent: 20px">Standort: {{orgaData.location}}</h2>
+
+    <div class = "action-Buttons">
+      <button mat-raised-button (click)="registerInOrganisation()" class="action-Button">
+        Beitritt anfragen
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Organisation verlassen:</h1>
+<mat-dialog-content class="popup-dialog">
+  Wollen sie die Organisation <br><br>
+  <strong>{{ data.orgaName}}</strong><br><br>
+  wirklich verlassen?
+</mat-dialog-content>
+<mat-dialog-actions class="popup-dialog">
+  <button mat-button (click)="onNoClick()">Abbrechen</button>
+  <button mat-button color="warn" (click)="onYesClick(data.orgaId)">Verlassen</button>
+</mat-dialog-actions>

@@ -1,3 +1,54 @@
 app-nav {
   margin: 0;
 }
+
+app-login{
+  height: 100%;
+}
+
+footer {
+  transform:translatey(0);
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  overflow-x: hidden;
+  background-color: #f8f9fa;
+  color: #6c757d;
+  padding: 5px 0;
+  position: fixed;
+
+
+
+}
+
+footer div.container {
+  text-align: center;
+  margin: 0 auto;
+}
+
+footer p {
+  margin: 0;
+  font-size: 14px;
+}
+
+footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+footer ul li:last-child {
+  margin-right: 0;
+}
+
+footer ul li a {
+  color: #6c757d;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+footer ul li a:hover {
+  color: #343a40;
+  text-decoration: underline;
+}
+
+
