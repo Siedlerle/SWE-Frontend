@@ -27,7 +27,7 @@ export class NavComponent implements OnInit{
   firstName: string | undefined = "";
   lastName: string | undefined = "";
 
-  hasOrga:number;
+  hasOrga = 0;
   constructor(private router: Router, private activeRoute: ActivatedRoute, private uiUserService : UiUserService) { }
   ngOnInit() {
     this.router.events.subscribe(event => {
@@ -171,6 +171,7 @@ export class NavComponent implements OnInit{
     location.reload();
   }
 
+  /*
   checkOrga(){
     const emailAdress = sessionStorage.getItem('emailAdress');
     if(emailAdress!=null) {
@@ -179,8 +180,14 @@ export class NavComponent implements OnInit{
         this.checkOrganisation.forEach((organisation) => {
           this.compareOrgaIds(organisation.id);
         })
+        if(this.hasOrga !=0){
+          console.log(this.hasOrga)
+        }else{
+          this.goBackToStart();
+        }
       });
     }
+    this.hasOrga = 0;
   }
 
   compareOrgaIds(orgaId: number | undefined){
@@ -191,7 +198,7 @@ export class NavComponent implements OnInit{
       orgIdInt = parseInt(sessionStorage.getItem('orgaId'));
     }
     if(orgaId === orgIdInt){
-      console.log(orgaId)
+      this.hasOrga++
     }
-  }
+  }*/
 }
