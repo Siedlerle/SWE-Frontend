@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {DataService} from "../management/CardService";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {User} from "../../DataTransferObjects/User";
@@ -30,7 +30,7 @@ import {Subscription} from "rxjs";
   templateUrl: './event-card.component.html',
   styleUrls: ['./event-card.component.css']
 })
-export class EventCardComponent implements OnInit {
+export class EventCardComponent implements OnInit, OnDestroy {
   @Output() onClose = new EventEmitter<void>();
 
   eventIsCancelled: boolean;
@@ -193,6 +193,14 @@ export class EventCardComponent implements OnInit {
     })
   }
 
+  ngOnDestroy() {
+    this.documentSubscription.unsubscribe();
+    this.attendeeSubscription.unsubscribe();
+    this.questionSubscription.unsubscribe();
+    this.answerSubscription.unsubscribe();
+    this.chatSubscription.unsubscribe();
+  }
+
   onInputFocus(){
     this.chatSubscription.unsubscribe();
   }
@@ -215,6 +223,8 @@ export class EventCardComponent implements OnInit {
       });
     }
   }
+
+
 
   applyFilter() {
     this.dataSource.filter = this.searchText.trim().toLowerCase();
