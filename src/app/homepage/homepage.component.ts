@@ -86,9 +86,11 @@ export class HomepageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    if(this.orgaEventInviteSubscription){
+      this.orgaEventInviteSubscription.unsubscribe();
+    }
     this.orgaInviteSubscription.unsubscribe();
     this.allEventInviteSubscription.unsubscribe();
-    this.orgaEventInviteSubscription.unsubscribe();
   }
 
   showEventInvite = false;
