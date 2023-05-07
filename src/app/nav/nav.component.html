@@ -1,48 +1,40 @@
-<!doctype html>
-<html>
-  <header>
-
-  </header>
-  <body>
-  <div class="banner-dropdown" (click)="isDropdownOpen = false">
-    <img src="{{imageSource}}" alt="Banner" class="banner-image" (click)="toggleDropdownBanner($event)">
-    <div class="dropdown-content-Banner"[ngClass]="{'show': isDropdownOpenBanner}"  [style.top.px]="dropDownTop" [style.left.px]="dropDownLeft">
-      <ul (click)="isDropdownOpenBanner = false">
-        <li *ngFor="let item of organisationsForUser" (click)="onOrganisationClick(item)">{{ item.name }}</li>
-        <li routerLink="/organisation-catalog">Organisationen durchsuchen</li>
-        <li (click)="goBackToStart()">Wechsle zur Standardansicht</li>
-      </ul>
-    </div>
+<div class="banner-dropdown" (click)="isDropdownOpen = false">
+  <img src="{{imageSource}}" alt="Banner" class="banner-image" (click)="toggleDropdownBanner($event)">
+  <div class="dropdown-content-Banner" [ngClass]="{'show': isDropdownOpenBanner}" [style.top.px]="dropDownTop"
+       [style.left.px]="dropDownLeft">
+    <ul (click)="isDropdownOpenBanner = false">
+      <li *ngFor="let item of organisationsForUser" (click)="onOrganisationClick(item)">{{ item.name }}</li>
+      <li routerLink="/organisation-catalog">Organisationen durchsuchen</li>
+      <li (click)="goBackToStart()">Wechsle zur Standardansicht</li>
+    </ul>
   </div>
+</div>
 
 
-
-    <nav (click)="isDropdownOpenBanner = false" class="mat-elevation-z8">
-      <div class="nav-menu" >
-        <div class="left-items" (click)="isDropdownOpen = false">
-          <a routerLink="" class="nav-item" [class.active]="activeLink ==''" >Start</a>
-          <a routerLink="/event-catalog" class="nav-item" [class.active]="activeLink =='/event-catalog'" >Eventkatalog</a>
-          <a routerLink="/my-events" class="nav-item" [class.active]="activeLink =='/my-events'" >Meine Events</a>
-          <a routerLink="/organisation-catalog" class="nav-item" [class.active]="activeLink =='/organisation-catalog'" >Organisationskatalog</a>
-          <a *ngIf="canManage()" routerLink="/management" class="nav-item" [class.active]="activeLink =='/management'" >Verwaltung</a>
-        </div>
-        <div class="right-items">
-          <div class="profile-dropdown" (click)="toggleDropdown()">
-            <a class="nav-item">{{firstName + " " + lastName}}</a>
-            <div class="dropdown-content" [ngClass]="{'show': isDropdownOpen}">
-              <ul (click)="isDropdownOpen = false">
-                <li (click)="openCard()">Profil ansehen</li>
-                <li routerLink="/organisation-catalog">Organisationen durchsuchen</li>
-                <li (click) = "logOut()">Abmelden</li>
-              </ul>
-            </div>
-          </div>
-
+<nav (click)="isDropdownOpenBanner = false" class="mat-elevation-z8">
+  <div class="nav-menu">
+    <div class="left-items" (click)="isDropdownOpen = false">
+      <a routerLink="" class="nav-item" [class.active]="activeLink ==''">Start</a>
+      <a routerLink="/event-catalog" class="nav-item" [class.active]="activeLink =='/event-catalog'">Eventkatalog</a>
+      <a routerLink="/my-events" class="nav-item" [class.active]="activeLink =='/my-events'">Meine Events</a>
+      <a routerLink="/organisation-catalog" class="nav-item" [class.active]="activeLink =='/organisation-catalog'">Organisationskatalog</a>
+      <a *ngIf="canManage()" routerLink="/management" class="nav-item" [class.active]="activeLink =='/management'">Verwaltung</a>
+    </div>
+    <div class="right-items">
+      <div class="profile-dropdown" (click)="toggleDropdown()">
+        <a class="nav-item">{{firstName + " " + lastName}}</a>
+        <div class="dropdown-content" [ngClass]="{'show': isDropdownOpen}">
+          <ul (click)="isDropdownOpen = false">
+            <li (click)="openCard()">Profil ansehen</li>
+            <li routerLink="/organisation-catalog">Organisationen durchsuchen</li>
+            <li (click)="logOut()">Abmelden</li>
+          </ul>
         </div>
       </div>
-    </nav>
 
-    <app-profile *ngIf = "showCard" (onClose) ="closeCard()"></app-profile>
-  </body>
-</html>
+    </div>
+  </div>
+</nav>
+
+<app-profile *ngIf="showCard" (onClose)="closeCard()"></app-profile>
 
