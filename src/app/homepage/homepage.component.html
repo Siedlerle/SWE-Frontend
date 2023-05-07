@@ -7,8 +7,8 @@
           <h1>Meine Events</h1>
         </mat-grid-tile-header>
 
-        <mat-list>
-          <mat-list-item *ngFor="let event of activeRegisteredEvents" (click)="openEventUnregistry(event)">
+        <mat-list class="eventList">
+          <mat-list-item *ngFor="let event of activeRegisteredEvents" (click)="openEventUnregistry(event)" class="eventListItem">
             <mat-card class="card">
               <img mat-card-sm-image src="{{backendURL + event.image}}"  onerror="this.src='../../assets/images/nature.jpg'"  alt = "" class = "mat-card-image">
               <div class="card-content">
@@ -30,8 +30,8 @@
         <mat-grid-tile-header class="mat-grid-tile-header-left mat-elevation-z3"></mat-grid-tile-header>
         <mat-tab-group class="invitation-tabs" dynamicHeight>
           <mat-tab label="Event-Einladungen" class="mat-tab-label">
-              <mat-list>
-                <mat-list-item *ngFor="let event of invitedEvents" (click)="onCardClick($event)">
+              <mat-list class="invitationList">
+                <mat-list-item *ngFor="let event of invitedEvents" (click)="onCardClick($event)" class="invitationListItem">
                   <mat-card class="card" (click)="openEventInvite(event)">
                     <img mat-card-sm-image src="{{backendURL + event.image}}"  onerror="this.src='../../assets/images/nature.jpg'"  alt = "" class = "mat-card-image">
                     <div class="card-content">
@@ -44,9 +44,9 @@
           </mat-tab>
           <ng-container *ngIf="hideOrgaInvite">
             <mat-tab label="Organisations-Einladungen" class="mat-tab-label">
-              <mat-list>
-                <mat-list-item *ngFor="let organisation of invitedOrganisations">
-                  <mat-card class="card" (click)="openOrganisationInvite(organisation)">
+              <mat-list class="invitationList">
+                <mat-list-item *ngFor="let organisation of invitedOrganisations" class="invitationList">
+                  <mat-card class="card" (click)="openOrganisationInvite(organisation)" class="invitationListItem">
                     <img mat-card-sm-image src="{{backendURL + organisation.image}}" onerror="this.src='../../assets/images/OrgaBanner.png'" alt = "" class = "mat-card-image">
                     <div class="card-content">
                       <mat-card-header>{{organisation.name}}</mat-card-header>
