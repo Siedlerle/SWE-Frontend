@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {UiUserService} from "../../services/ui-user.service";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {Organisation} from "../../DataTransferObjects/Organisation";
@@ -7,6 +7,7 @@ import {OrganisationCardService} from "../organisation-card/OrganisationCardServ
 import {URLs} from "../../assets/SystemVariables/URLs";
 import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
 import {EnumEventRole} from "../../DataTransferObjects/EnumEventRole";
+import {Subscription} from "rxjs";
 
 //import { listData } from './event-list';
 
@@ -18,7 +19,7 @@ import {EnumEventRole} from "../../DataTransferObjects/EnumEventRole";
 
 
 
-export class HomepageComponent implements OnInit {
+export class HomepageComponent implements OnInit, OnDestroy {
   backendURL: string = "";
   constructor(private uiUserService : UiUserService, private dataService: DataService, private orgaDataService: OrganisationCardService) {
     this.backendURL = URLs.backend;
@@ -37,6 +38,11 @@ export class HomepageComponent implements OnInit {
 
   hideOrgaInvite = true;
 
+  orgaEventInviteSubscription!: Subscription;
+
+  allEventInviteSubscription!: Subscription;
+  orgaInviteSubscription!: Subscription;
+
   ngOnInit() {
     const emailAddress = sessionStorage.getItem('emailAdress');
     const orgaId = sessionStorage.getItem('orgaId');
@@ -53,7 +59,7 @@ export class HomepageComponent implements OnInit {
       });
 
       //Alle Events in denen man in einer Orga eingeladen ist
-      this.uiUserService.getAllEventInvitationsForUserInOrga(orgaId, emailAddress).subscribe(response => {
+      this.orgaEventInviteSubscription = this.uiUserService.getAllEventInvitationsForUserInOrga(orgaId, emailAddress).subscribe(response => {
         this.invitedEvents = response;
         this.updateStatusOfEvents(this.invitedEvents);
       });
@@ -67,17 +73,24 @@ export class HomepageComponent implements OnInit {
       });
 
       //Alle Event-Einladungen
-      this.uiUserService.getAllEventInvitations(emailAddress).subscribe(response => {
+      this.allEventInviteSubscription = this.uiUserService.getAllEventInvitations(emailAddress).subscribe(response => {
         this.invitedEvents = response;
         this.updateStatusOfEvents(this.invitedEvents);
       });
 
       //Alle Organisationseinladungen
-      this.uiUserService.getOrganisationInvitations(emailAddress).subscribe(response => {
+      this.orgaInviteSubscription = this.uiUserService.getOrganisationInvitations(emailAddress).subscribe(response => {
         this.invitedOrganisations = response;
       })
     }
   }
+
+  ngOnDestroy() {
+    this.orgaInviteSubscription.unsubscribe();
+    this.allEventInviteSubscription.unsubscribe();
+    this.orgaEventInviteSubscription.unsubscribe();
+  }
+
   showEventInvite = false;
   openEventInvite(item: CustomEvent){
     this.showEventInvite = true;
