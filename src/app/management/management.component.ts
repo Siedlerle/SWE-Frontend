@@ -40,7 +40,7 @@ export class ManagementComponent implements OnInit,OnDestroy  {
 
   userInOrgaSubscription!:Subscription;
 
-  filtersForEvent: string[] = ['Alle', 'Heutige', 'Vergangene', 'Abgesagte'];
+  filtersForEvent: string[] = ['Alle', 'Heutige', 'Geplante', 'Laufende', 'Vergangene', 'Abgesagte'];
   filterForEvent: string;
 
 
@@ -223,6 +223,20 @@ export class ManagementComponent implements OnInit,OnDestroy  {
       }
     } else if (filter === 'Alle') {
       this.filteredManagingEvents = Object.assign([], this.managingEvents);
+    } else if (filter === 'Geplante') {
+      for (let i = 0; i < this.managingEvents.length; i++) {
+        let event = this.managingEvents[i];
+        if (event.status === 'SCHEDULED') {
+          this.filteredManagingEvents.push(event);
+        }
+      }
+    } else if (filter === 'Laufende') {
+      for (let i = 0; i < this.managingEvents.length; i++) {
+        let event = this.managingEvents[i];
+        if (event.status === 'RUNNING') {
+          this.filteredManagingEvents.push(event);
+        }
+      }
     }
   }
 
