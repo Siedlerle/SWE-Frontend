@@ -1,25 +1,45 @@
-.layoutGridTile{
+.layoutGridTile {
   background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-
 }
+
 .layoutGrid{
-  margin: 15px;
+  margin: 1%;
 }
+@media only screen and (min-width: 1200px) {
+  .layoutGridResponsive {
+    display: none;
+  }
+  .mat-grid-tile-header-left:nth-child(n) {
+    height: 8%;
+    background-color: gray;
+  }
 
-.mat-grid-tile-header-left:nth-child(n) {
-  height: 8%;
-  background-color: gray;
+  .mat-grid-tile-header-right:nth-child(n) {
+    height: 4%;
+    background-color: gray;
+  }
+
+  .eventList {
+    height: 87%;
+  }
 }
+@media only screen and (max-width: 1200px){
+  .layoutGrid {
+    display: none;
+  }
+  .mat-grid-tile-header-left:nth-child(n), .mat-grid-tile-header-right:nth-child(n){
+    height: 6%;
+    background-color: gray;
+  }
 
-.mat-grid-tile-header-right:nth-child(n) {
-  height: 4%;
-  background-color: gray;
+  .eventList {
+    height: 95%;
+  }
 }
-
 
 ::ng-deep.mat-mdc-tab .mdc-tab__text-label,
 ::ng-deep.mat-mdc-tab-link .mdc-tab__text-label,
@@ -63,8 +83,6 @@ mat-calendar {
 
 .eventList {
   margin-top: 4%;
-  /*overflow-y: auto;*/
-  height: 85%;
   width: 100%;
   overflow-y: auto;
 }
@@ -125,10 +143,6 @@ mat-card-header {
 
 mat-card-content {
   font-size: 16px;
-}
-
-.eventDateInCard {
-
 }
 
 mat-list-item {

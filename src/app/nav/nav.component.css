@@ -110,8 +110,7 @@ li:hover {
     padding: 10px;
   }
   .responsiveButton {
-    visibility: hidden;
-    width: 0;
+    display: none;
   }
 
   .left-items {
@@ -127,9 +126,7 @@ li:hover {
 
 @media only screen and (max-width: 1200px) {
   .responsiveDiv {
-    visibility: hidden;
-    width: 0;
-    height: 0;
+    display: none;
   }
 
   .nav-menu {
