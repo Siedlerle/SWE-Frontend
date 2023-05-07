@@ -334,7 +334,7 @@ export class EventCardComponent implements OnInit {
         this.eventIsCancelled = false;
         break;
       case EnumEventStatus.CANCELLED:
-        this.eventStatus = 'abgesagt';
+        this.eventStatus = 'Abgesagt';
         this.eventIsCancelled = true;
         break;
     }

@@ -227,7 +227,7 @@ export class EventUnregistryComponent implements OnInit, OnDestroy, AfterViewIni
         this.eventStatus = 'Vergangen';
         break;
       case EnumEventStatus.CANCELLED:
-        this.eventStatus = 'abgesagt';
+        this.eventStatus = 'Abgesagt';
         break;
     }
   }

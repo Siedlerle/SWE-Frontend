@@ -230,7 +230,7 @@ export class ManagementComponent implements OnInit  {
       case 'ACCOMPLISHED':
       return 'Vergangen';
       case 'CANCELLED':
-      return 'abgesagt';
+      return 'Abgesagt';
     }
     return '';
   }
