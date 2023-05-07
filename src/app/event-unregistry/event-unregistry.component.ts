@@ -11,7 +11,6 @@ import {QuestionType} from "../../DataTransferObjects/QuestionType";
 import {Answer} from "../../DataTransferObjects/Answer";
 import {Chat} from "../../DataTransferObjects/Chat";
 import {Comment} from "../../DataTransferObjects/Comment";
-import {EventDeleteDialogComponent} from "../event-delete-dialog/event-delete-dialog.component";
 import {EventLeaveDialogComponent} from "../event-leave-dialog/event-leave-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
@@ -25,6 +24,7 @@ export class EventUnregistryComponent implements OnInit {
   @Output() onClose = new EventEmitter<void>();
 
   eventData: CustomEvent;
+  allRegisteredEvents: CustomEvent[] = [];
   eventStartDate: Date = new Date();
   eventEndDate: Date = new Date();
 
@@ -92,6 +92,13 @@ export class EventUnregistryComponent implements OnInit {
           })
         }
       })
+    }
+
+    const emailAddress = sessionStorage.getItem('emailAdress');
+    if(emailAddress != null){
+    this.uiUserService.getAllRegisteredEvents(emailAddress).subscribe(response => {
+      this.allRegisteredEvents = response;
+    });
     }
   }
 

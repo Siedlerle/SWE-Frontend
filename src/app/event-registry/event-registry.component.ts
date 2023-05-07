@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
-import {User} from "../../DataTransferObjects/User";
 import {DataService} from "../management/CardService";
 import {UiUserService} from "../../services/ui-user.service";
 import {URLs} from "../../assets/SystemVariables/URLs";
@@ -18,6 +17,7 @@ export class EventRegistryComponent {
   eventData: CustomEvent;
   eventStartDate: Date = new Date();
   eventEndDate: Date = new Date();
+  eventSeriesDates: string[] = [];
 
   imageSource: string = "";
   backendURL: string = "";
@@ -33,6 +33,10 @@ export class EventRegistryComponent {
       this.imageSource = this.eventData.image;
     }
     this.backendURL = URLs.backend;
+  }
+
+  ngOnInit() {
+    this.calculateAllDates();
   }
 
   closeRegistryCard() {
@@ -71,6 +75,20 @@ export class EventRegistryComponent {
       case EnumEventStatus.CANCELLED:
         this.eventStatus = 'abgesagt';
         break;
+    }
+  }
+
+  calculateAllDates(){
+    let amount = this.eventData.eventSeries?.amount;
+    let dayInBetween = this.eventData.eventSeries?.daysBetweenEvents;
+
+    if(amount && dayInBetween) {
+      for (let i = 0; i < amount; i++) {
+        const date = new Date(this.eventStartDate.getTime());
+        date.setDate(date.getDate() + (i * dayInBetween));
+        const formattedDate = date.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        this.eventSeriesDates.push(formattedDate);
+      }
     }
   }
 }
