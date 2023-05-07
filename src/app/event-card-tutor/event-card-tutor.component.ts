@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
 import {MatTableDataSource} from "@angular/material/table";
 import {User} from "../../DataTransferObjects/User";
@@ -16,17 +16,17 @@ import {ThemePalette} from "@angular/material/core";
 import {Question} from "../../DataTransferObjects/Question";
 import {QuestionType} from "../../DataTransferObjects/QuestionType";
 import {Answer} from "../../DataTransferObjects/Answer";
-import {considerSettingUpAutocompletion} from "@angular/cli/src/utilities/completion";
 import {Chat} from "../../DataTransferObjects/Chat";
 import {Comment} from "../../DataTransferObjects/Comment";
 import {EventLeaveDialogComponent} from "../event-leave-dialog/event-leave-dialog.component";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-event-card-tutor',
   templateUrl: './event-card-tutor.component.html',
   styleUrls: ['./event-card-tutor.component.css']
 })
-export class EventCardTutorComponent {
+export class EventCardTutorComponent implements OnInit, OnDestroy{
   @Output() onClose = new EventEmitter<void>();
   closeCard() {
     this.onClose.emit();
@@ -66,6 +66,13 @@ export class EventCardTutorComponent {
 
   answersMatchingToId: Answer[] = [];
 
+
+  documentSubscription!:Subscription;
+  attendeeSubscription!:Subscription;
+  questionSubscription!:Subscription;
+  answerSubscription!: Subscription;
+  chatSubscription!:Subscription;
+
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService, private snackBar: MatSnackBar, private dialog: MatDialog) {
     this.eventData = this.dataService.getCardData();
     this.eventStartDate = new Date(this.eventData.startDate);
@@ -86,11 +93,11 @@ export class EventCardTutorComponent {
 
     let id = this.eventData.id;
     if (id != null) {
-      this.uiAttendeeService.getDocumentsOfEvent(id).subscribe(data => {
+      this.documentSubscription = this.uiAttendeeService.getDocumentsOfEvent(id).subscribe(data => {
         this.eventDocs = data;
         this.fileDataSource.data = this.eventDocs;
       });
-      this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
+      this.attendeeSubscription = this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
         this.attendees = response;
         this.dataSource.data = this.attendees;
           for(let i=0; i<this.attendees.length;i++){
@@ -104,14 +111,14 @@ export class EventCardTutorComponent {
             });
           }
       });
-      this.uiTutorService.getAllQuestionsForEvent(id).subscribe(response =>{
+      this.questionSubscription = this.uiTutorService.getAllQuestionsForEvent(id).subscribe(response =>{
         this.questionsToEvaluate = response;
       });
-      this.uiTutorService.getAllAnswersForQuestion(id).subscribe(response =>{
+      this.answerSubscription = this.uiTutorService.getAllAnswersForQuestion(id).subscribe(response =>{
         this.answersToEvaluate = response;
       });
 
-      this.uiAttendeeService.getChatForEvent(id).subscribe(response =>{
+      this.chatSubscription = this.uiAttendeeService.getChatForEvent(id).subscribe(response =>{
         this.allChats = response;
         for(let i = 0; i < this.allChats.length; i++){
 
@@ -145,6 +152,35 @@ export class EventCardTutorComponent {
       }
     });
 
+  }
+  onInputFocus(){
+    this.chatSubscription.unsubscribe();
+  }
+  onInputFocusLost(){
+    let id = this.eventData.id;
+
+    if(id!=null){
+      this.chatSubscription = this.uiAttendeeService.getChatForEvent(id).subscribe(response => {
+        this.allChats = response;
+        for (let i = 0; i < this.allChats.length; i++) {
+
+          let chatId: number = response[i].id!;
+
+
+          this.uiAttendeeService.getCommentsForChat(chatId!, 0).subscribe(data => {
+
+            this.allComments[chatId] = data;
+          })
+        }
+      });
+    }
+  }
+  ngOnDestroy() {
+    this.documentSubscription.unsubscribe();
+    this.attendeeSubscription.unsubscribe();
+    this.answerSubscription.unsubscribe();
+    this.questionSubscription.unsubscribe();
+    this.chatSubscription.unsubscribe();
   }
 
   isEditing = false;

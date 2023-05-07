@@ -31,7 +31,7 @@ import {MatExpansionPanel} from "@angular/material/expansion";
   templateUrl: './event-unregistry.component.html',
   styleUrls: ['./event-unregistry.component.css']
 })
-export class EventUnregistryComponent implements OnInit, OnDestroy, AfterViewInit{
+export class EventUnregistryComponent implements OnInit, OnDestroy{
   @Output() onClose = new EventEmitter<void>();
   @ViewChildren('chatPanel') panel!: MatExpansionPanel;
   @ViewChildren('input') input!: ElementRef;
@@ -123,9 +123,6 @@ export class EventUnregistryComponent implements OnInit, OnDestroy, AfterViewIni
     this.chatSubscription.unsubscribe();
   }
 
-  ngAfterViewInit() {
-
-  }
 
   onInputFocus(){
     this.chatSubscription.unsubscribe();

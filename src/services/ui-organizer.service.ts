@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, switchMap, timer} from "rxjs";
 import {URLs} from "../assets/SystemVariables/URLs";
 import {CustomEvent} from "../DataTransferObjects/CustomEvent";
 import {EventSeries} from "../DataTransferObjects/EventSeries";
@@ -10,6 +10,7 @@ import {Form} from "@angular/forms";
 import {CurrencyPipe} from "@angular/common";
 import {Group} from "../DataTransferObjects/Group";
 import {Preset} from "../DataTransferObjects/Preset";
+import {Answer} from "../DataTransferObjects/Answer";
 
 @Injectable({
   providedIn: 'root'
@@ -92,11 +93,15 @@ export class UiOrganizerService {
   }
 
   getAttendeesForEvent(eventId: number):Observable<User[]> {
-    return this.http.post<User[]>(URLs.backend+'/tutor/event/'+eventId+'/attendees/get-all',null);
+    return timer(0,10000).pipe(
+      switchMap(()=> this.http.post<User[]>(URLs.backend+'/tutor/event/'+eventId+'/attendees/get-all',null))
+    );
   }
 
   getAllUsersInOrganisation(orgaId: string):Observable<User[]>{
-    return this.http.post<User[]>(URLs.backend+'/organizer/organisation/'+orgaId+'/user/get-all',null);
+    return timer(0,120000).pipe(
+      switchMap(()=> this.http.post<User[]>(URLs.backend+'/organizer/organisation/'+orgaId+'/user/get-all',null))
+    );
   }
   inviteUserToEvent(eventId: number, emailAddress: string){
     return this.http.post(URLs.backend+'/organizer/event/'+eventId+'/user/'+emailAddress+'/invite', null);

@@ -54,7 +54,7 @@
             Eventguide
           </ng-template>
           <mat-accordion class="headers-align" multi>
-              <mat-expansion-panel>
+              <mat-expansion-panel (opened)="onInputFocus()" (closed)="onInputFocusLost()">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <h3>

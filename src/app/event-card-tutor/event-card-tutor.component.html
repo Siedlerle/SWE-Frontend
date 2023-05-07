@@ -54,7 +54,7 @@
           Eventguide
         </ng-template>
         <mat-accordion class="headers-align" multi>
-          <mat-expansion-panel>
+          <mat-expansion-panel (opened)="onInputFocus()" (closed)="onInputFocusLost()">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <h3>
@@ -162,7 +162,7 @@
                 </mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-card>
+            <mat-card class="create-survey">
               <ng-container *ngFor="let question of questions">
                 <mat-card>
                   <mat-card-content *ngIf="question">

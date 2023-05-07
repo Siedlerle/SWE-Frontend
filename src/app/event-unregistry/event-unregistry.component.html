@@ -53,22 +53,20 @@
         </ng-template>
         <mat-card class="dashboard-card">
           <mat-card-content>
-            <div  #chatContainer style="height: 300px; overflow-y: scroll;margin-bottom: 1%">
+            <div style="height: 300px; overflow-y: scroll;margin-bottom: 1%">
               <mat-accordion *ngFor="let chat of allChats">
-                <mat-expansion-panel >
+                <mat-expansion-panel (opened)="onInputFocus()" (closed)="onInputFocusLost()">
                   <mat-expansion-panel-header>
                     {{chat.message}}
                   </mat-expansion-panel-header>
-
 
                   <mat-list *ngFor="let comment of allComments[chat.id!]">
                     {{comment.text}}
                     <div style="text-align: right; float: right">{{comment.user!.firstname}} {{comment.user!.lastname}}</div>
                   </mat-list>
 
-
                   <mat-form-field style="display: flex; height: 100%; width: 80%; justify-content: center; align-content: center">
-                    <input #input matInput placeholder="Kommentieren Sie hier" [(ngModel)]="commentMessage" (keyup.enter)="sendComment(chat.id!, commentMessage)"  (focus)="onInputFocus()" (blur)="onInputFocusLost()">
+                    <input matInput placeholder="Kommentieren Sie hier" [(ngModel)]="commentMessage" (keyup.enter)="sendComment(chat.id!, commentMessage)"  (focus)="onInputFocus()" (blur)="onInputFocusLost()">
                     <button mat-icon-button matSuffix (click)="sendComment(chat.id!, commentMessage)"  >
                       <mat-icon>send</mat-icon>
                     </button>

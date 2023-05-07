@@ -16,7 +16,7 @@ export class UiAttendeeService {
   constructor(private http:HttpClient) { }
 
   getDocumentsOfEvent(eventId: number | undefined): Observable<CustomDocument[]> {
-    return timer(0,5000).pipe(
+    return timer(0,10000).pipe(
       switchMap(()=> this.http.post<CustomDocument[]>(URLs.backend+URLs.getFiles+eventId, null))
     );
   }
@@ -31,7 +31,7 @@ export class UiAttendeeService {
   }
 
   getSurveyForEvent(eventId: number | undefined, emailAdress: string):Observable<Question[]>{
-    return timer(0,5000).pipe(
+    return timer(0,10000).pipe(
       switchMap(()=> this.http.post<Question[]>(URLs.backend+"/attendee/get-survey/"+eventId+"/"+emailAdress,null))
     );
   }
@@ -41,7 +41,7 @@ export class UiAttendeeService {
   }
 
   getChatForEvent(eventId: number | undefined):Observable<Chat[]>{
-    return timer(0,5000).pipe(
+    return timer(0,10000).pipe(
       switchMap(()=> this.http.post<Chat[]>(URLs.backend+"/attendee/get-chat/"+eventId, null))
     );
   }

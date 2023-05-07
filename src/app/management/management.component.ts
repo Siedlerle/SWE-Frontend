@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {DataService} from "./CardService";
 import {CustomEvent} from "../../DataTransferObjects/CustomEvent";
@@ -12,13 +12,14 @@ import {MatSelectChange} from "@angular/material/select";
 import {UiUserService} from "../../services/ui-user.service";
 import {Router} from "@angular/router";
 import {EnumEventStatus} from "../../DataTransferObjects/EnumEventStatus";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-management',
   templateUrl: './management.component.html',
   styleUrls: ['./management.component.css']
 })
-export class ManagementComponent implements OnInit  {
+export class ManagementComponent implements OnInit,OnDestroy  {
   backendURL: string = "";
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiAdminService: UiAdminService, private uiUserService: UiUserService, private router: Router) {
     this.backendURL = URLs.backend;
@@ -35,6 +36,8 @@ export class ManagementComponent implements OnInit  {
   orgaUserRoles: string[] = [];
   rightsList = ['Administrator', 'Organisator', 'Benutzer'];
   isAdmin: boolean;
+
+  userInOrgaSubscription!:Subscription;
 
   filterEvents() {
     if (!this.eventSearchText) {
@@ -67,7 +70,7 @@ export class ManagementComponent implements OnInit  {
 
     }
     if(orgaId != null && orgaId !== ''){
-      this.uiOrganizerService.getAllUsersInOrganisation(orgaId).subscribe(response =>{
+      this.userInOrgaSubscription = this.uiOrganizerService.getAllUsersInOrganisation(orgaId).subscribe(response =>{
         this.orgaUsers = response;
         this.dataSource.data = this.orgaUsers;
         for (let i = 0; i < this.orgaUsers.length; i++) {
@@ -84,6 +87,10 @@ export class ManagementComponent implements OnInit  {
       this.displayedColumns = ['FirstName','LastName','eMail'];
       this.isAdmin = false;
     }
+  }
+
+  ngOnDestroy() {
+    this.userInOrgaSubscription.unsubscribe();
   }
 
   updateStatusOfEvents(events: CustomEvent[]) {

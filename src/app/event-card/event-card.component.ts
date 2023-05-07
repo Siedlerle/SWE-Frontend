@@ -23,6 +23,7 @@ import {ThemePalette} from "@angular/material/core";
 import {CancelEventConfirmDialogComponent} from "../cancel-event-confirm-dialog/cancel-event-confirm-dialog.component";
 import {Event} from "@angular/router";
 import {Answer} from "../../DataTransferObjects/Answer";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-event-card',
@@ -79,6 +80,12 @@ export class EventCardComponent implements OnInit {
 
   searchText = '';
 
+  documentSubscription!:Subscription;
+  attendeeSubscription!:Subscription;
+  questionSubscription!:Subscription;
+  answerSubscription!: Subscription;
+  chatSubscription!:Subscription;
+
   constructor(private dataService: DataService, private uiOrganizerService: UiOrganizerService, private uiTutorService:UiTutorService, private uiAttendeeService:UiAttendeeService, private uiUserService: UiUserService, private snackBar: MatSnackBar,private dialog: MatDialog) {
     this.eventData = Object.assign({},this.dataService.getCardData());
     this.eventStartDate = new Date(this.eventData.startDate);
@@ -105,11 +112,11 @@ export class EventCardComponent implements OnInit {
 
     let id = this.eventData.id;
     if (id != null) {
-      this.uiAttendeeService.getDocumentsOfEvent(id).subscribe(data => {
+      this.documentSubscription = this.uiAttendeeService.getDocumentsOfEvent(id).subscribe(data => {
         this.eventDocs = data;
         this.fileDataSource.data = this.eventDocs;
       });
-      this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
+      this.attendeeSubscription = this.uiOrganizerService.getAttendeesForEvent(id).subscribe(response => {
         this.attendees = response;
         this.dataSource.data = this.attendees;
         if(this.attendees){
@@ -130,14 +137,14 @@ export class EventCardComponent implements OnInit {
         }
       });
 
-      this.uiTutorService.getAllQuestionsForEvent(id).subscribe(response =>{
+      this.questionSubscription = this.uiTutorService.getAllQuestionsForEvent(id).subscribe(response =>{
         this.questionsToEvaluate = response;
       });
-      this.uiTutorService.getAllAnswersForQuestion(id).subscribe(response =>{
+      this.answerSubscription = this.uiTutorService.getAllAnswersForQuestion(id).subscribe(response =>{
         this.answersToEvaluate = response;
       });
 
-      this.uiAttendeeService.getChatForEvent(id).subscribe(response =>{
+      this.chatSubscription = this.uiAttendeeService.getChatForEvent(id).subscribe(response =>{
           this.allChats = response;
           for(let i = 0; i < this.allChats.length; i++){
 
@@ -184,6 +191,29 @@ export class EventCardComponent implements OnInit {
         }
       }
     })
+  }
+
+  onInputFocus(){
+    this.chatSubscription.unsubscribe();
+  }
+  onInputFocusLost(){
+    let id = this.eventData.id;
+
+    if(id!=null){
+      this.chatSubscription = this.uiAttendeeService.getChatForEvent(id).subscribe(response => {
+        this.allChats = response;
+        for (let i = 0; i < this.allChats.length; i++) {
+
+          let chatId: number = response[i].id!;
+
+
+          this.uiAttendeeService.getCommentsForChat(chatId!, 0).subscribe(data => {
+
+            this.allComments[chatId] = data;
+          })
+        }
+      });
+    }
   }
 
   applyFilter() {
