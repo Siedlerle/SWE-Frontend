@@ -15,18 +15,7 @@ import {URLs} from "../../assets/SystemVariables/URLs";
 export class OrganisationCatalogComponent implements OnInit{
 
   constructor(private uiUserService:UiUserService, private organisationCardService:OrganisationCardService) {
-    this.uiUserService.getAllOrganisations().subscribe(response => {
-      this.allOrganisations = response;
-    });
-    const emailAddress = sessionStorage.getItem('emailAdress');
-    if(emailAddress != null){
-      this.uiUserService.getOrganisationForUser(emailAddress).subscribe(response =>{
-        this.usersOrganisations = response;
-        this.allOrganisations = this.allOrganisations.filter((org) => {
-          return this.usersOrganisations.findIndex((myOrg) => myOrg.id === org.id) === -1;
-        })
-      });
-    }
+
   }
 
   @ViewChild('searchbar') searchbar: ElementRef;
@@ -40,7 +29,18 @@ export class OrganisationCatalogComponent implements OnInit{
   usersOrganisations!:Organisation[]
 
   ngOnInit(): void {
-
+    this.uiUserService.getAllOrganisations().subscribe(response => {
+      this.allOrganisations = response;
+    });
+    const emailAddress = sessionStorage.getItem('emailAdress');
+    if(emailAddress != null){
+      this.uiUserService.getOrganisationForUser(emailAddress).subscribe(response =>{
+        this.usersOrganisations = response;
+        this.allOrganisations = this.allOrganisations.filter((org) => {
+          return this.usersOrganisations.findIndex((myOrg) => myOrg.id === org.id) === -1;
+        })
+      });
+    }
   }
 
 
