@@ -138,13 +138,7 @@ export class UiUserService {
     }
 
     unregisterFromEvent(eventId: number, emailAddress: string, feedback: string){
-
-      let body = {};
-      if (feedback) {
-        body = { message: feedback };
-      }
-
-      return this.http.post(URLs.backend+'/user/event/'+eventId+'/unregister/'+emailAddress, body);
+      return this.http.post(URLs.backend+'/user/event/'+eventId+'/unregister/'+emailAddress, feedback);
     }
 
     getRoleInEvent(eventId: number, emailAddress: string):Observable<EventRole>{

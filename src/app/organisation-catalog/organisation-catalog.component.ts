@@ -29,18 +29,19 @@ export class OrganisationCatalogComponent implements OnInit{
   usersOrganisations!:Organisation[]
 
   ngOnInit(): void {
+    const emailAddress = sessionStorage.getItem('emailAdress');
     this.uiUserService.getAllOrganisations().subscribe(response => {
       this.allOrganisations = response;
+      if(emailAddress != null){
+        this.uiUserService.getOrganisationForUser(emailAddress).subscribe(response =>{
+          this.usersOrganisations = response;
+          this.allOrganisations = this.allOrganisations.filter((org) => {
+            return this.usersOrganisations.findIndex((myOrg) => myOrg.id === org.id) === -1;
+          })
+        });
+      }
     });
-    const emailAddress = sessionStorage.getItem('emailAdress');
-    if(emailAddress != null){
-      this.uiUserService.getOrganisationForUser(emailAddress).subscribe(response =>{
-        this.usersOrganisations = response;
-        this.allOrganisations = this.allOrganisations.filter((org) => {
-          return this.usersOrganisations.findIndex((myOrg) => myOrg.id === org.id) === -1;
-        })
-      });
-    }
+
   }
 
 
